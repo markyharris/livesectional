@@ -5,10 +5,10 @@
 </head>
 <body>
      <p class="lead">
-        Version v4 of LiveSectional adds many new features for builders to take advantage of. Visit livesectional.com for build and software installation instructions.
+        Version v4 of LiveSectional adds many new features for builders to take advantage of. Visit <a class="text-danger" href="http://livesectional.com" target="_blank">livesectional.com</a> for build and software installation instructions.
         <ul>
           <li>Updated to run under <a class="text-danger" href="https://docs.python.org/3/howto/pyporting.html" target="_blank">Python 3.7</a>
-          <li>Added the ability to display <a class="text-danger" href="https://www.aviationweather.gov/static/help/taf-decode.php" target="_blank">TAF (Terminal Aerodrome Forecasts)</a>.
+          <li>Added the ability to display <a class="text-danger" href="https://www.aviationweather.gov/<a class="text-danger" href="https://docs.python.org/3/howto/pyporting.html" target="_blank">Python 3.7</a>static/help/taf-decode.php" target="_blank">TAF (Terminal Aerodrome Forecasts)</a>.
           <li>Added the ability to display <a class="text-danger" href="https://www.weather.gov/mdl/mos_home" target="_blank">MOS (Model Output Statistics)</a>. Only available for the United States and its Territories.
           <li>Added the ability to decode METARs from weather stations not located on airports, such as KMYP - 	Monarch Pass, CO. (Thank you Nick C.)
           <li>Heat Map was added to display what airports have been landed at, and how often. Home airport can be designated.
