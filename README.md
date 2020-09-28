@@ -27,7 +27,7 @@
           <li>Config Profiles available to load to help start the configuration process.
           <li>Many new Transitional Wipes were added for when the FAA weather is being updated.
           <li>Ability to setup wifi remotely through the use of Android or IPhone app thanks to  <a class="text-danger" href="http://berrylan.org" target="_blank">Berrylan.org</a>.
-          <li>A System Information page was added to help with diagnosis if necessary.
+          <li>A System Information page was added to help with diagnosis if necessary. 
           <li>A Phone App was added to allow the casual user to control the data displayed on the map if a Rotary Switch was not installed. (Thank you Lance B.)
           <li>To help the casual user to access the App, a 'Create QR Code' feature was added to Utilities to display next to the map.
           <li>Added the ability to set the RPI's Time Zone without needing to enter the command line.
