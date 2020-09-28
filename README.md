@@ -1,11 +1,11 @@
-# livesectional.com
+# LiveSectional.com
 
 <head>
     <link rel="stylesheet" href='/static/style-v4.css' />
 </head>
 <body>
      <p class="lead">
-        Version v4 of LiveSectional adds many new features for builders to take advantage of. Take a look;
+        Version v4 of LiveSectional adds many new features for builders to take advantage of. Visit livesectional.com for build and software installation instructions.
         <ul>
           <li>Updated to run under <a class="text-danger" href="https://docs.python.org/3/howto/pyporting.html" target="_blank">Python 3.7</a>
           <li>Added the ability to display <a class="text-danger" href="https://www.aviationweather.gov/static/help/taf-decode.php" target="_blank">TAF (Terminal Aerodrome Forecasts)</a>.
