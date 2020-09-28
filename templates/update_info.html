@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<p>
+<p>
+<div class="container-fluid">
+  <div class="card border-primary mb-3">
+  <section class="py-5">
+    <div class="container">
+      <h2 class="display-4">Update History</h2>
+
+{% for line in content %}
+   {{ line }}
+  <br>
+{% endfor %}
+    </div>
+  </div>
+</div>
+
+<p>
+<p>
+<p>
+{% endblock %}

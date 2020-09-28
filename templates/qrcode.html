@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <link rel="shortcut icon" href="static/tab.ico">
+  </head>
+    <body>
+    <style type="text/css" media="print">
+      @page {
+        size: auto;   /* auto is the initial value */
+        margin: 0;  /* this affects the margin in the printer settings */
+      }
+    </style>                    
+    <center>
+      &nbsp<p>
+      <h2>LiveSectional Remote Control App</h2> 
+          Scan QR Code To Control Map<p>
+          <img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data={{ qraddress }}&amp;qzone=1&amp;margin=0&amp;size=300x300&amp;ecc=L" alt="qr code"/><p>
+          {{  qraddress }}<p>
+<!--    <div><form>
+       <input type="button" value="Print" onClick="window.print()">
+    </form></div>-->
+    </center>
+  </body>
+</html>

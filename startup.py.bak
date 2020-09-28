@@ -1,0 +1,42 @@
+#startup.py v4 - by Mark Harris with contribution from Stuart. Thank you for your help.
+#Used to start 2 scripts, one to run the metar leds and one to update an LCD display or OLED displays
+#Taken from https://raspberrypi.stackexchange.com/questions/39108/how-do-i-start-two-different-python-scripts-with-rc-local
+
+import time
+import threading
+import os
+import config
+import sys
+
+displayused = config.displayused        #0 = no, 1 = yes. If no, then only the metar.py script will be run. Otherwise both scripts will be threaded.
+autorun = config.autorun                #0 = no, 1 = yes. If yes, live sectional will run on boot up. No, must run from cmd line.
+title1 = "metar-v4.py"                  #define the filename for the metar.py file
+prog1 = "sudo python /NeoSectional/metar-v4.py"
+title2 = "metar-display-v4.py"          #define the filename for the display.py file
+prog2 = "sudo python /NeoSectional/metar-display-v4.py"
+title3 = "check-display.py"             #define the filename for the check-display.py file
+prog3 = "sudo python /NeoSectional/check-display.py"
+
+def startprgm(i):
+    print ("Running thread %d" % i)
+    if (i == 0):                        #Run first program prog1
+        time.sleep(1)
+        print(title1)                   #display filename being run
+        os.system(prog1)                #execute filename
+    if (i == 1) and (displayused):      #Run second program prog2 if display is  being used.
+        print(title2)                   #display filename being run
+        time.sleep(1)
+        os.system(prog2)                #execute filename
+    if (i == 2) and (displayused):      #Run second program prog3 if display is  being used (watchdog for displays).
+        print(title3)                   #display filename being run
+        time.sleep(1)
+        os.system(prog3)                #execute filename
+
+    pass
+
+if len(sys.argv) > 1 or autorun == 1:
+#       print (sys.argv[1] + " from cmd line") #debug
+    for i in range(3):
+        t = threading.Thread(target=startprgm, args=(i,))
+        t.start()
+

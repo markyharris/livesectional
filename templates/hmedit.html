@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!--Heat Map File Data-->
+<table>
+    <tr>
+        <td width="33%" class="submitbuttons" style="font-size:small">
+	      Enter value from <b>0 to 100</b>. Key: 0 = Never Landed, 100 = Home Airport and values between <b>1 and 99</b> are a relative number 
+              of how often an airport has been landed at. So 10 = a few landings and 90 would be a lot of landings.        
+	</td>
+    
+        <td width="33%" class="submitbuttons">
+         <center>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      {{ message }}
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+         </center>
+        </td>
+   
+
+        <td width='33%' class="submitbuttons">
+          <form action="importhm" method="POST" enctype="multipart/form-data">
+           <b>Import Heat Map</b>
+           <input type="file" class="button1" name="file">
+           <input type="submit" class="button1" value="Submit">
+          </form>
+        </td>
+    </tr>
+</table>
+
+<form action="hmpost" id="hmpost" method="post">
+<table>
+    <tr>
+        <th style="text-align:center">LED Pin #</th>
+        <th style="text-align:center">Airport ID</th>
+        <th style="text-align:center">Landings</th>
+	<th></th>
+        <th>Select Value from 0 to 100</th>
+	<th></th>
+    </tr>
+
+{% for info in hmdata %}
+  {% set list = info.split(' ') %}
+  {% set ap = list[0] %}
+  {% set hm = list[1] %}
+
+  {% if ap in apinfo_dict  %}
+     {% set apinfo = apinfo_dict[ap] %}
+  {% else %}
+     {% set apinfo = '' %}
+  {% endif %}
+
+    <tr id="{{ loop.index - 1 }}">
+        <td width="10%" style="text-align:center">
+	   <b>{{ loop.index - 1 }}</b>
+	</td>
+
+        <td width="10%" style="text-align:center">
+	  <div title='{{ apinfo|join(", ") }}'>
+           <b>{{ ap }}</b></br>
+	<a style='font-size:x-small'>{{ apinfo|join(", ") }}</a>
+	  </div>
+        </td>
+
+        <td width="10%" style="text-align:center">
+		<input type="number" min="0" max="100" id="hm{{loop.index-1}}" size="5" name="{{loop.index-1}}/ap{{loop.index-1}}/msg{{loop.index-1}}" value = "{{ hm }}" oninput="rangeInput{{loop.index-1}}.value=hm{{loop.index-1}}.value" />
+        </td>
+
+        <td style="text-align:right" width="3%">
+ 	  <b>0%</b>
+	</td>
+	<td width="64%">  	    
+	  <div>
+	   <input class="slider" id="rangeInput{{loop.index-1}}" type="range" min="0" max="100" oninput="hm{{loop.index-1}}.value=rangeInput{{loop.index-1}}.value" value={{ hm }} />
+	  </div>
+        <td style="text-align:left" width="3%">
+          <b>100%</b>
+	</td>
+    </tr>
+
+{% endfor %}
+</table>
+
+{% endblock %}

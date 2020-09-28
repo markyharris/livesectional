@@ -1,0 +1,1434 @@
+{% extends "base.html" %}
+{% block content %}
+
+<table>
+  <tr>
+    <td width='33%' class="submitbuttons">
+      <div style="font-size:medium">
+        <b>Click category to expand. "Save Config File" from menu.</b>
+      </div>
+    </td>
+
+    <td width='33%' class="submitbuttons"><center>
+    <div class="flashes">
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class=flashes>
+    {% for message in messages %}
+      </div>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+    </center>
+    </div>
+    </td>
+
+    <td width='33%' class="submitbuttons">
+      <form action="importconf" method="POST" enctype="multipart/form-data">
+        <b>Import Config</b>
+        <input type="file" class="button1" name="file">
+        <input type="submit" class="button1" value="Submit">
+      </form>
+    </td>
+  </tr>
+</table>
+<p></p>
+
+<form action="post" id="post" method="POST">
+<!--Start of Misc Settings-->
+    <button type="button" class="collapsible">Basic Settings</button> 
+    <div class="content">
+    <table>
+    <tr>
+        <th width="20%">Setting
+        <th width="15%">Value
+        <th>Setting Description
+    </tr>
+    <tr>
+        <td><b>Auto Run on Boot</b><br>
+        <td>
+            <input type="radio" name="autorun" id="autorunyes" value="1" {{'checked="checked"' if settings.autorun=="1" else "" }}/> 
+            <label for="autorunyes">Yes</label>
+            <input type="radio" name="autorun" id="autorunno" value="0" {{'checked="checked"' if settings.autorun=="0" else "" }}/>
+            <label for="autorunno">No</label>
+        <td>Set this to Yes to have Live Sectional Map run on boot/reboot. Set to No to boot to command line.
+    </tr>
+
+    <tr>
+        <td><b>LED Count = </b>
+        <td><input type="number" name="LED_COUNT" min="0" max="500" value = {{ settings.LED_COUNT }}>
+        <td>Enter the total number of LEDs in the string to build the map. This is not the number of airports to display. (Allowable range = 0 to 500)
+    </tr>
+    
+    <tr>
+        <td><b>Use a Map Legend</b><br>
+        <td>
+            <input type="radio" name="legend" id="legendyes" value="1" {{'checked="checked"' if settings.legend=="1" else "" }}/>
+            <label for="legendyes">Yes</label>
+            <input type="radio" name="legend" id="legendno" value="0" {{'checked="checked"' if settings.legend=="0" else "" }}/>   
+            <label for="legendno">No</label>
+            <td>If the map will be using a Legend, then select Yes. Legend can be customized as desired.
+    </tr>
+
+    <tr>
+        <td><b>Set Wind Speed = </b>
+        <td><input type="number" name="max_wind_speed" min="0" max="100" value = {{ settings.max_wind_speed }}>
+        <td>Enter the wind speed at which to start blinking airports if speed is at or above. (Allowable range = 0 to 100).
+    </tr>
+
+    <tr>
+        <td><b>Update FAA Weather = </b>
+        <td><input type="number" name="update_interval" min="1" max="60" value = {{ settings.update_interval }}>
+        <td>Number of MINUTES between FAA updates - 15 minutes is a good compromise. (Allowable range = 1 to 60)
+    </tr>
+
+    <tr>
+        <td><b>Age of Metar = </b>
+        <td><input type="number" name="metar_age" min="0.5" max="6" step=".5" value = {{ settings.metar_age }}>
+        <td>In HOURS, of the Metar data retrieved from the FAA - 2 to 3 hours is good. (Allowable range = .5 to 6)
+    </tr>
+
+    <tr>
+        <td><b>Default Data to Display</b><br>
+<!--        <td>
+            <input type="radio" name="metar_taf_mos" id="mettafmoshmmet" value="1" {{'checked="checked"' if settings.metar_taf_mos=="1" else "" }}/>
+            <label for="mettafmoshmmet">METAR</label>
+            <input type="radio" name="metar_taf_mos" id="mettafmoshmtaf" value="0" {{'checked="checked"' if settings.metar_taf_mos=="0" else "" }}/>
+            <label for="mettafmoshmtaf">TAF</label>
+             <input type="radio" name="metar_taf_mos" id="mettafmoshmmos" value="2" {{'checked="checked"' if settings.metar_taf_mos=="2" else "" }}/>
+            <label for="mettafmoshmmos">MOS</label>
+            <input type="radio" name="metar_taf_mos" id="mettafmoshmhm" value="3" {{'checked="checked"' if settings.metar_taf_mos=="3" else "" }}/>
+            <label for="mettafmoshmhm">Heat Map</label>
+            <td><label for="data_sw0"><b>Choose Default Data to Display:</b></label>-->
+
+         <td><select name="data_sw0" id="data_sw0">
+                <option value="1"{{" selected" if settings.data_sw0=="1" else "" }}>METAR</option>
+                <option value="0"{{" selected" if settings.data_sw0=="0" else "" }}>TAF</option>
+                <option value="2"{{" selected" if settings.data_sw0=="2" else "" }}>MOS</option>
+                <option value="3"{{" selected" if settings.data_sw0=="3" else "" }}>Heat Map</option>
+             </select>
+         <td>Select the DEFAULT information to display: METARs, TAFs, MOS (US only) or Heat Map.
+             THIS SETTING IS ALSO USED FOR ROTARY SWITCH POSITION 0 IN ROTARY SWITCH SETTINGS BELOW.                
+    </tr>
+
+    <tr>
+        <td><b>Default Data Hours Ahead to Display:</b>
+        <td><input type="number" name="time_sw0" min="1" max="24" value = {{ settings.time_sw0 }}>
+        <td>Hours ahead in relation to current time of the TAF/MOS data to display. Range is 1 to 24. 
+            Ignored if METAR or Heat Map is chosen.
+            THIS SETTING IS ALSO USED FOR ROTARY SWITCH POSITION 0 IN ROTARY SWITCH SETTINGS BELOW.
+    </tr>
+
+    <tr>
+        <td><b>Use On/Off Timer</b><br>
+        <td>
+            <input type="radio" name="usetimer" id="usetimeryes" value="1" {{'checked="checked"' if settings.usetimer=="1" else "" }}/>
+            <label for="usetimeryes">Yes</label>
+            <input type="radio" name="usetimer" id="usetimerno" value="0" {{'checked="checked"' if settings.usetimer=="0" else "" }}/>
+            <label for="usetimerno">No</label>
+            <td>Timer is available to turn off the map at night if desired. Enter 'Time Off' and 'Time On' values in settings below. 
+                Verify RPI's time is set correctly for your timezone. RPI time is listed in the header.
+    </tr>
+
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspTime Off</b>
+        <td><input type="text" name="offhour" maxlength="2" size="2" value = {{ settings.offhour }}> :
+            <input type="text" name="offminutes" maxlength="2" size="2" value = {{ settings.offminutes }}>
+        <td>Enter the desired time to turn map off in 24 hour format. i.e. '9 pm' would be entered '21:00'.
+    </tr>
+
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspTime On</b>
+        <td><input type="text" name="onhour" maxlength="2" size="2" value = {{ settings.onhour }}> :
+            <input type="text" name="onminutes" maxlength="2" size="2" value = {{ settings.onminutes }}>
+        <td>Enter the desired time to turn map on in 24 hour format. i.e. '8:30 am' would be entered '8:30'.
+    </tr>
+
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspSleep Interrupt Time</b>
+        <td><input type="number" name="tempsleepon" min="0" max="120" value = {{ settings.tempsleepon }}>
+        <td>Length of time in minutes to temporarily turn on map during sleep mode when button is pushed. (Allowable range = 0 to 120 minutes).
+    </tr>
+
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspDisplay 'Sleeping' Message</b><br>
+        <td>
+            <input type="radio" name="sleepmsg" id="sleepmsgyes" value="1" {{'checked="checked"' if settings.sleepmsg=="1" else "" }}/>
+            <label for="sleepmsgyes">Yes</label>
+            <input type="radio" name="sleepmsg" id="sleepmsgno" value="0" {{'checked="checked"' if settings.sleepmsg=="0" else "" }}/>
+            <label for="sleepmsgno">No</label>
+            <td>Display 'Sleeping' message on LCD/OLED display when map is in sleep mode.
+                
+    </tr>
+
+    <tr>
+        <td><b>Display Used</b><br>
+        <td>
+            <input type="radio" name="displayused" id="displayusedyes" value="1" {{'checked="checked"' if settings.displayused=="1" else "" }}/> 
+            <label for="displayusedyes">Yes</label>
+            <input type="radio" name="displayused" id="displayusedno" value="0" {{'checked="checked"' if settings.displayused=="0" else "" }}/>   
+            <label for="displayusedno">No</label>
+        <td>If an LCD or OLED display will be used, select Yes.
+    </tr>
+
+    <tr>
+        <td><b>OLED Displays Used</b><br>
+        <td>
+            <input type="radio" name="oledused" id="oledusedyes" value="1" {{'checked="checked"' if settings.oledused=="1" else "" }}/>
+            <label for="oledusedyes">Yes</label>
+            <input type="radio" name="oledused" id="oledusedno" value="0" {{'checked="checked"' if settings.oledused=="0" else "" }}/>   
+            <label for="oledusedno">No</label>
+        <td>If an OLED display will be used, select Yes. This is used to shutoff the OLED display on reboot/Power off.
+    </tr>
+
+    <tr>
+        <td><b>LCD Display Used</b><br>
+        <td>
+            <input type="radio" name="lcddisplay" id="lcddisplayyes" value="1" {{'checked="checked"' if settings.lcddisplay=="1" else "" }}/>
+            <label for="lcddisplayyes">Yes</label>
+            <input type="radio" name="lcddisplay" id="lcddisplayno" value="0" {{'checked="checked"' if settings.lcddisplay=="0" else "" }}/>  
+            <label for="lcddisplayno">No</label>
+        <td>If an LCD display will be used, select Yes. This is used to shutoff the LCD display on reboot/Power off.
+    </tr>
+
+    <tr>
+        <td><b>Number of OLED Displays =</b>
+        <td><input type="number" name="numofdisplays" min="0" max="8" value = {{ settings.numofdisplays }}>
+        <td>Enter the number of OLEDs to be used. If 'Display Used' above is 'No', this is ignored. (Allowable range = 0 to 8)
+    </tr>
+
+    <tr>
+        <td><b>Logging Level</b><br>
+        <td>
+            <input type="radio" name="loglevel" id="loglevel_debug" value="0" {{'checked="checked"' if settings.loglevel=="0" else "" }}/>
+            <label for="loglevel_debug">Debug</label>
+            <input type="radio" name="loglevel" id="loglevel_info" value="1" {{'checked="checked"' if settings.loglevel=="1" else "" }}/>
+            <label for="loglevel_info">Info</label>
+             <input type="radio" name="loglevel" id="loglevel_warning" value="2" {{'checked="checked"' if settings.loglevel=="2" else "" }}/>
+            <label for="loglevel_warning">Warn</label>
+            <input type="radio" name="loglevel" id="loglevel_error" value="3" {{'checked="checked"' if settings.loglevel=="3" else "" }}/>
+            <label for="loglevel_error">Error</label>
+            <td>Choose the level of detail to save to the logfile. Typically, <b>Info</b> is sufficient. <b>Debug</b> will net more info logged. 
+                <b>Warning</b> will net much fewer messages and <b>Error</b> will only log caught errors.
+                
+    </tr>
+    </table>
+    </div>
+    <p></p>
+
+<!--Start of LED Map Settings-->
+    <button type="button" class="collapsible">Sectional Map Settings</button> 
+    <div class="content">
+    <table>
+    <tr>
+        <th width="20%">Setting
+        <th width="15%">Value
+        <th>Setting Description
+    </tr>
+    
+    <tr>
+        <td><b>Blink LED's for High Winds</b><br>
+        <td>
+            <input type="radio" name="hiwindblink" id="hiwindblinkyes" value="1" {{'checked="checked"' if settings.hiwindblink=="1" else "" }}/>
+            <label for="hiwindblinkyes">Yes</label>
+            <input type="radio" name="hiwindblink" id="hiwindblinkno" value="0" {{'checked="checked"' if settings.hiwindblink=="0" else "" }}/>  
+            <label for="hiwindblinkno">No</label>
+        <td>If Yes, Blink the LED off for Airports reporting winds higher than specified in 'Set Wind Speed' above.
+    </tr>
+
+    <tr>
+        <td><b>Flash LED's for Lightning</b><br>
+        <td>
+            <input type="radio" name="lghtnflash" id="lghtnflashyes" value="1" {{'checked="checked"' if settings.lghtnflash=="1" else "" }}/>
+            <label for="lghtnflashyes">Yes</label>
+            <input type="radio" name="lghtnflash" id="lghtnflashno" value="0" {{'checked="checked"' if settings.lghtnflash=="0" else "" }}/>   
+            <label for="lghtnflashno">No</label>
+        <td>Flash the LED for an airport reporting severe weather like TSRA (Thunderstorms).
+    </tr>
+
+    <tr>
+        <td><b>Show Weather Reported as Rain</b><br>
+        <td>
+            <input type="radio" name="rainshow" id="rainshowyes" value="1" {{'checked="checked"' if settings.rainshow=="1" else "" }}/> 
+            <label for="rainshowyes">Yes</label>
+            <input type="radio" name="rainshow" id="rainshowno" value="0" {{'checked="checked"' if settings.rainshow=="0" else "" }}/>  
+            <label for="rainshowno">No</label>
+        <td>Change airport's LED colors to denote RAIN reported. i.e. VFR and RAIN would show GREEN then pulse BLUE.
+    </tr>
+
+    <tr>
+        <td><b>Show Weather Reported as Freezing Rain</b><br>
+        <td>
+            <input type="radio" name="frrainshow" id="frrainshowyes" value="1" {{'checked="checked"' if settings.frrainshow=="1" else "" }}/> 
+            <label for="frrainshowyes">Yes</label>
+            <input type="radio" name="frrainshow" id="frrainshowno" value="0" {{'checked="checked"' if settings.frrainshow=="0" else "" }}/>   
+            <label for="frrainshowno">No</label>
+        <td>Change airport's LED colors to denote FREEZING RAIN reported. i.e. VFR and FREEZING RAIN would show GREEN then pulse Purple.
+    </tr>
+
+    <tr>
+        <td><b>Show Weather Reported as Snow</b><br>
+        <td>
+            <input type="radio" name="snowshow" id="snowshowyes" value="1" {{'checked="checked"' if settings.snowshow=="1" else "" }}/> 
+            <label for="snowshowyes">Yes</label>
+            <input type="radio" name="snowshow" id="snowshowno" value="0" {{'checked="checked"' if settings.snowshow=="0" else "" }}/>   
+            <label for="snowshowno">No</label>
+        <td>Change airport's LED colors to denote SNOW reported. i.e. VFR and SNOW would show GREEN then pulse White.
+    </tr>
+
+    <tr>
+        <td><b>Show Weather Reported as Dust, Sand, or Ash</b><br>
+        <td>
+            <input type="radio" name="dustsandashshow" id="dustsandashshowyes" value="1" {{'checked="checked"' if settings.dustsandashshow=="1" else "" }}/> 
+            <label for="dustsandashshowyes">Yes</label>
+            <input type="radio" name="dustsandashshow" id="dustsandashshowno" value="0" {{'checked="checked"' if settings.dustsandashshow=="0" else "" }}/>   
+            <label for="dustsandashshowno">No</label>
+        <td>Change airport's LED colors to denote DUST, SAND or ASH reported. i.e. VFR and DUST would show GREEN then pulse Brown.
+    </tr>
+
+    <tr>
+        <td><b>Show Weather Reported as Fog or Haze</b><br>
+        <td>
+            <input type="radio" name="fogshow" id="fogshowyes" value="1" {{'checked="checked"' if settings.fogshow=="1" else "" }}/>
+            <label for="fogshowyes">Yes</label>
+            <input type="radio" name="fogshow" id="fogshowno" value="0" {{'checked="checked"' if settings.fogshow=="0" else "" }}/>   
+            <label for="fogshowno">No</label>
+        <td>Change airport's LED colors to denote FOG or haze reported. i.e. VFR and FOG would show GREEN then pulse Silver/Grey.
+    </tr>
+
+    <tr>
+        <td><b>Turn On Home Airport Feature<b><br>
+        <td>
+            <input type="radio" name="homeport" id="homeportyes" value="1" {{'checked="checked"' if settings.homeport=="1" else "" }}/> 
+            <label for="homeportyes">Yes</label>
+            <input type="radio" name="homeport" id="homeportno" value="0" {{'checked="checked"' if settings.homeport=="0" else "" }}/>   
+            <label for="homeportno">No</label>
+        <td>The home airport can use a marker color on every other pass, or display the LED brighter than the others.
+    </tr>
+
+    <tr>
+        <td><b>Home Airport Pin = </b>
+        <td><input type="number" name="homeport_pin" min="0" max="500" value = {{ settings.homeport_pin }}>
+        <td>Pin number of the home airport if 'Turn On Home Airport Feature' is 'Yes'. Otherwise this is ignored.
+    </tr>
+
+    <tr>
+        <td><b>Home Airport Type of Color Change</b><br>
+        <td>
+            <input type="radio" name="homeport_display" id="homeport_displaync" value="2" {{'checked="checked"' if settings.homeport_display=="2" else "" }}/> 
+            <label for="homeport_displaync">No Change</label>
+            <input type="radio" name="homeport_display" id="homeport_displayvar" value="1" {{'checked="checked"' if settings.homeport_display=="1" else "" }}/>   
+            <label for="homeport_displayvar">Variable Colors</label>
+            <input type="radio" name="homeport_display" id="homeport_displaysd" value="0" {{'checked="checked"' if settings.homeport_display=="0" else "" }}/>   
+            <label for="homeport_displaysd">Solid Color</label>
+        <td>No Change won't change color of home airport. Variable Colors will cycle through grey to white.
+            Solid Color will denote home airport using a single color specified below.
+    </tr>
+
+   <tr>
+        <td><b>Homeport Dimming = </b>
+        <td><input type="number" name="dim_value" min="0" max="255" value = {{ settings.dim_value }}>
+        <td>Level of brightness to dim all other airports if home airport is being used. Play with brightness values below for best effect. Range =  0 to 100 percent, 
+            where '0' would be no dimming and '100' would be completely dimmed.
+    </tr>
+
+    <tr>
+        <td><b>RGB or GRB LEDs Used</b><br>
+        <td>
+            <input type="radio" name="rgb_grb" id="rgb_grbrgb" value="1" {{'checked="checked"' if settings.rgb_grb=="1" else "" }}/>
+            <label for="rgb_grbrgb">RGB</label>
+            <input type="radio" name="rgb_grb" id="rgb_grbgrb" value="0" {{'checked="checked"' if settings.rgb_grb=="0" else "" }}/>   
+            <label for="rgb_grbgrb">GRB</label>
+        <td>Depending on LED model used colors may need to be in RGB (i.e. WS2812 strip) order or GRB (i.e. WS2811 strand). 
+            <b>NOTE: If LED Colors seem wrong (typically Red), switch this setting and retry.</b>
+    </tr>
+
+    <tr>
+        <td colspan="2"><b>Pin #'s to Reverse RGB/GRB Above</b></br>
+        <input type="text" style="float:center" name="rev_rgb_grb" size=25 value = "{{ settings.rev_rgb_grb }}">
+        <td colspan="1">Used if both RGB and GRB string models are used to build map. Leave blank if not needed. 
+                        <b>Must be in this format; ['1', '2', '3', '4', '5', '6', '7', '8']</b>
+    </tr>
+
+    <tr>
+        <td><b>Low Brightness = </b>
+        <td><input type="number" name="dimmed_value" min="0" max="255" value = {{ settings.dimmed_value }}>
+        <td>This sets the value of LED brightness when IC238 Ambient Light Sensor detects low ambient light. (Range 0 to 255)
+    </tr>
+
+    <tr>
+        <td><b>High Brightness = </b>
+        <td><input type="number" name="bright_value" min="0" max="255" value = {{ settings.bright_value }}>
+        <td>This sets the value of LED brightness when light sensor detects high ambient light. This value is also used if IC238 Ambient Light Sensor is NOT used. (Range 0 to 255)
+    </tr>
+
+<!--    <tr>
+        <td><b>Iterations of Refresh Transition = </b>
+        <td><input type="number" name="iterations" min="1" max="25" value = {{ settings.iterations }}>
+        <td>Number of times that a transitional wipe will run to signal updating FAA Weather. Choose type of transition below. Can disable transition below as well. (Range 1 to 25)
+    </tr>-->
+    </table>
+    </div>
+    <p></p>
+
+
+<!--Start of LED Colors Settings-->
+    <button type="button" class="collapsible">LED Colors Settings</button> 
+    <div class="content">
+    <table>
+    <tr>
+        <th width="20%">Setting
+        <th width="10%">Value
+        <th>Setting Description
+    </tr>
+
+    <tr>
+        <td><b>VFR Flight Category = </b>
+        <td><input type="color" style="float:left" name="color_vfr" id={{ settings.color_vfr }} size=10 value = {{ color_vfr_hex }}>
+        <td>VFR is designated by GREEN (0,255,0).
+    </tr>
+
+    <tr>
+        <td><b>MVFR Flight Category = </b>
+        <td><input type="color" style="float:left" name="color_mvfr" id={{ settings.color_mvfr }} size=10 value = {{ color_mvfr_hex }}>
+        <td>MVFR is designated by BLUE (0,0,255).
+    </tr>
+
+    <tr>
+        <td><b>IFR Flight Category = </b>
+        <td><input type="color" style="float:left" onload="hex2rgb(this)" name="color_ifr" id={{ settings.color_ifr }} size=10 value = {{ color_ifr_hex }}>
+        <td>IFR is designated by RED (255,0,0).
+    </tr>
+
+    <tr>
+        <td><b>LIFR Flight Category = </b>
+        <td><input type="color" style="float:left" name="color_lifr" id={{ settings.color_lifr }} size=10 value = {{ color_lifr_hex }}>
+        <td>LIFR is designated by Magenta (255,0,255).
+    </tr>
+
+    <tr>
+        <td><b>No Weather Reported = </b>
+        <td><input type="color" style="float:left" name="color_nowx" id={{ settings.color_nowx }} size=10 value = {{ color_nowx_hex }}>
+        <td>No Weather (nowx) is typically designated by GRAY (80,80,80) or BLACK (0,0,0).
+    </tr>
+
+    <tr>
+        <td><b>Black/Off = </b>
+        <td><input type="color" style="float:left" name="color_black" size=10 id={{ settings.color_black }} value = {{ color_black_hex }}>
+        <td>Black/Off is designated by BLACK (0,0,0).
+    </tr>
+
+    <tr>
+        <td><b>Lightning = </b>
+        <td><input type="color" style="float:left" name="color_lghtn" size=10 id={{ settings.color_lghtn }} value = {{ color_lghtn_hex }}>
+        <td>Lightning is typically designated by YELLOW (255,255,0).
+    </tr>
+    
+    <tr>
+        <td><b>Snow1 Reported = </b>
+        <td><input type="color" style="float:left" name="color_snow1" size=10 id={{ settings.color_snow1 }} value = {{ color_snow1_hex }}>
+        <td>Snow1 Reported is typically designated by WHITE (255,255,255). 
+    </tr>
+
+    <tr>
+        <td><b>Snow2 Reported = </b>
+        <td><input type="color" style="float:left" name="color_snow2" size=10 id={{ settings.color_snow2 }} value = {{ color_snow2_hex }}>
+        <td>Snow2 Reported is typically designated by SILVER (100,100,100). 2 different whites create blinking effect.
+    </tr>
+
+    <tr>
+        <td><b>Rain1 Reported = </b>
+        <td><input type="color" style="float:left" name="color_rain1" size=10 id={{ settings.color_rain1 }} value = {{ color_rain1_hex }}>
+        <td>Rain1 Reported is typically designated by DARK BLUE (4,0,54). 
+    </tr>
+
+    <tr>
+        <td><b>Rain2 Reported = </b>
+        <td><input type="color" style="float:left" name="color_rain2" size=10 id={{ settings.color_rain2 }} value = {{ color_rain2_hex }}>
+        <td>Rain2 Reported is typically designated by BLUE (0,0,255). 2 different blues create blinking effect.
+    </tr>
+
+    <tr>
+        <td><b>Freezing Rain1 Reported = </b>
+        <td><input type="color" style="float:left" name="color_frrain1" size=10 id={{ settings.color_frrain1 }} value = {{ color_frrain1_hex }}>
+        <td>Freezing Rain1 Reported is typically designated by LIGHT PURPLE (199,156,219). 
+    </tr>
+
+    <tr>
+        <td><b>Freezing Rain2 Reported = </b>
+        <td><input type="color" style="float:left" name="color_frrain2" size=10 id={{ settings.color_frrain2 }} value = {{ color_frrain2_hex }}>
+        <td>Freezing Rain2 Reported is typically designated by PURPLE (152,0,199). 2 different purples create blinking effect.
+    </tr>
+
+    <tr>
+        <td><b>Dust, Sand, Ash1 Reported = </b>
+        <td><input type="color" style="float:left" name="color_dustsandash1" size=10 id={{ settings.color_dustsandash1 }} value = {{ color_dustsandash1_hex }}>
+        <td>Dust, Sand or Ash1 Reported is typically designated by BROWN (200,150,125). 
+    </tr>
+
+    <tr>
+        <td><b>Dust, Sand, Ash2 Reported = </b>
+        <td><input type="color" style="float:left" name="color_dustsandash2" size=10 id={{ settings.color_dustsandash2 }} value = {{ color_dustsandash2_hex }}>
+        <td>Dust, Sand or Ash2 Reported is typically designated by DARK BROWN (100,50,0). 2 different browns create blinking effect.
+    </tr>
+
+    <tr>
+        <td><b>Fog1 Reported = </b>
+        <td><input type="color" style="float:left" name="color_fog1" size=10 id={{ settings.color_fog1 }} value = {{ color_fog1_hex }}>
+        <td>Fog1 Reported is typically designated by SILVER (80,80,80). 
+    </tr>
+
+    <tr>
+        <td><b>Fog2 Reported = </b>
+        <td><input type="color" style="float:left" name="color_fog2" size=10 id={{ settings.color_fog2 }} value = {{ color_fog2_hex }}>
+        <td>Fog2 Reported is typically designated by SILVER (80,80,80). Same colors create solid effect, but can have a blinking effect if desired.
+    </tr>
+
+    <tr>
+        <td><b>Home Airport Marker Color = </b>
+        <td><input type="color" style="float:left" name="color_homeport" size=10 id={{ settings.color_homeport }} value = {{ color_homeport_hex }}>
+        <td>Home Airport Marker Color can be any color that stands out from the rest to denote the home airport.
+    </tr>
+
+    <tr>
+        <td colspan="3"><!--<b>Home Airport Changing Colors (See Help) = </b>-->
+        <input type="hidden" style="float:center" name="homeport_colors" size=40 value = "{{ settings.homeport_colors }}">
+
+    </tr>
+
+    </table>
+    </div>
+    <p></p>
+
+
+<!--Start of LED Map Settings-->
+    <button type="button" class="collapsible">Legend Settings</button> 
+    <div class="content">
+    <table>
+
+    <tr bgcolor="#ffffff">
+        <td colspan=3>NOTE: The setting 'Legend' in basic settings must be set to Yes for any legend LED's to be enabled.
+        And will enable the 5 basic legend LED's, VFR, MVFR, IFR, LIFR, and No Weather. Other legend items can be chosen here.
+    </tr>
+
+    <tr>
+        <th width="20%">Setting
+        <th width="15%">Value
+        <th>Setting Description
+    </tr>
+
+    <tr>
+        <td><b>Add High Winds to Legend</b><br>
+        <td>
+            <input type="radio" name="legend_hiwinds" id="legend_hiwindsyes" value="1" {{'checked="checked"' if settings.legend_hiwinds=="1" else "" }}/> 
+            <label for="legend_hiwindsyes">Yes</label>
+            <input type="radio" name="legend_hiwinds" id="legend_hiwindsno" value="0" {{'checked="checked"' if settings.legend_hiwinds=="0" else "" }}/>   
+            <label for="legend_hiwindsno">No</label>
+        <td>With this enabled, High Winds legend will be displayed. It will be added to the Flight Categories Legend.
+    </tr>
+
+    <tr>
+        <td><b>Add Lightning to Legend</b><br>
+        <td>
+            <input type="radio" name="legend_lghtn" id="legend_lghtnyes" value="1" {{'checked="checked"' if settings.legend_lghtn=="1" else "" }}/> 
+            <label for="legend_lghtnyes">Yes</label>
+            <input type="radio" name="legend_lghtn" id="legend_lghtnno" value="0" {{'checked="checked"' if settings.legend_lghtn=="0" else "" }}/>   
+            <label for="legend_lghtnno">No</label>
+        <td>With this enabled, Lightning legend will be displayed. It will be added to the Flight Categories Legend.
+    </tr>
+
+    <tr>
+        <td><b>Add Snow to Legend</b><br>
+        <td>
+            <input type="radio" name="legend_snow" id="legend_snowyes" value="1" {{'checked="checked"' if settings.legend_snow=="1" else "" }}/> 
+            <label for="legend_snowyes">Yes</label>
+            <input type="radio" name="legend_snow" id="legend_snowno" value="0" {{'checked="checked"' if settings.legend_snow=="0" else "" }}/>   
+            <label for="legend_snowno">No</label>
+        <td>With this enabled, Snow legend will be displayed. It will be added to the Flight Categories Legend.
+    </tr>
+
+    <tr>
+        <td><b>Add Rain to Legend</b><br>
+        <td>
+            <input type="radio" name="legend_rain" id="legend_rainyes" value="1" {{'checked="checked"' if settings.legend_rain=="1" else "" }}/> 
+            <label for="legend_rainyes">Yes</label>
+            <input type="radio" name="legend_rain" id="legend_rainno" value="0" {{'checked="checked"' if settings.legend_rain=="0" else "" }}/>   
+            <label for="legend_rainno">No</label>
+        <td>With this enabled, Rain legend will be displayed. It will be added to the Flight Categories Legend.
+    </tr>
+
+    <tr>
+        <td><b>Add Freezing Rain to Legend</b><br>
+        <td>
+            <input type="radio" name="legend_frrain" id="legend_frrainyes" value="1" {{'checked="checked"' if settings.legend_frrain=="1" else "" }}/> 
+            <label for="legend_frrainyes">Yes</label>
+            <input type="radio" name="legend_frrain" id="legend_frrainno" value="0" {{'checked="checked"' if settings.legend_frrain=="0" else "" }}/>   
+            <label for="legend_frrainno">No</label>
+        <td>With this enabled, Freezing Rain legend will be displayed. It will be added to the Flight Categories Legend.
+    </tr>
+
+    <tr>
+        <td><b>Add Dust, Sand or Ash to Legend</b><br>
+        <td>
+            <input type="radio" name="legend_dustsandash" id="legend_dustsandashyes" value="1" {{'checked="checked"' if settings.legend_dustsandash=="1" else "" }}/> 
+            <label for="legend_dustsandashyes">Yes</label>
+            <input type="radio" name="legend_dustsandash" id="legend_dustsandashno" value="0" {{'checked="checked"' if settings.legend_dustsandash=="0" else "" }}/>   
+            <label for="legend_dustsandashno">No</label>
+        <td>With this enabled, Dust, Sand or Ash legend will be displayed. It will be added to the Flight Categories Legend.
+    </tr>
+
+    <tr>
+        <td><b>Add Fog or Haze to Legend</b><br>
+        <td>
+            <input type="radio" name="legend_fog" id="legend_fogyes" value="1" {{'checked="checked"' if settings.legend_fog=="1" else "" }}/> 
+            <label for="legend_fogyes">Yes</label>
+            <input type="radio" name="legend_fog" id="legend_fogno" value="0" {{'checked="checked"' if settings.legend_fog=="0" else "" }}/>   
+            <label for="legend_fogno">No</label>
+        <td>With this enabled, Fog or Haze legend will be displayed. It will be added to the Flight Categories Legend.
+    </tr>
+
+
+    <tr bgcolor="#ffffff">
+        <td colspan=3>NOTE: Be sure that the 'airports' file has 'LGND' at these LED positions otherwise the legend will not display properly.
+    </tr>
+
+    <tr>
+        <td><b>Pin '#' for VFR Legend LED = </b>
+        <td><input type="number" name="leg_pin_vfr" min="0" max="500" value = {{ settings.leg_pin_vfr }}>
+        <td>Set LED pin number for VFR Legend LED.
+    </tr>
+
+    <tr>
+        <td><b>Pin '#' for MVFR Legend LED = </b>
+        <td><input type="number" name="leg_pin_mvfr" min="0" max="500" value = {{ settings.leg_pin_mvfr }}>
+        <td>Set LED pin number for MVFR Legend LED.
+    </tr>
+
+    <tr>
+        <td><b>Pin '#' for IFR Legend LED = </b>
+        <td><input type="number" name="leg_pin_ifr" min="0" max="500" value = {{ settings.leg_pin_ifr }}>
+        <td>Set LED pin number for IFR Legend LED.
+    </tr>
+
+    <tr>
+        <td><b>Pin '#' for LIFR Legend LED = </b>
+        <td><input type="number" name="leg_pin_lifr" min="0" max="500" value = {{ settings.leg_pin_lifr }}>
+        <td>Set LED pin number for LIFR Legend LED.
+    </tr>
+
+    <tr>
+        <td><b>Pin '#' for No Weather (nowx) Legend LED = </b>
+        <td><input type="number" name="leg_pin_nowx" min="0" max="500" value = {{ settings.leg_pin_nowx }}>
+        <td>Set LED pin number for No Weather Legend LED.
+    </tr>
+
+    <tr>
+        <td><b>Pin '#' for Hi Winds Legend LED = </b>
+        <td><input type="number" name="leg_pin_hiwinds" min="0" max="500" value = {{ settings.leg_pin_hiwinds }}>
+        <td>Set LED pin number for High Winds Legend LED.
+    </tr>
+
+    <tr>
+        <td><b>Pin '#' for Lightning Legend LED = </b>
+        <td><input type="number" name="leg_pin_lghtn" min="0" max="500" value = {{ settings.leg_pin_lghtn }}>
+        <td>Set LED pin number for Thunderstorms Legend LED.
+    </tr>
+
+    <tr>
+        <td><b>Pin '#' for Snow Legend LED = </b>
+        <td><input type="number" name="leg_pin_snow" min="0" max="500" value = {{ settings.leg_pin_snow }}>
+        <td>Set LED pin number for Snow Legend LED.
+    </tr>
+
+    <tr>
+        <td><b>Pin '#' for Rain Legend LED = </b><td>
+        <input type="number" name="leg_pin_rain" min="0" max="500" value = {{ settings.leg_pin_rain }}>
+        <td>Set LED pin number for Rain Legend LED.
+    </tr>
+
+    <tr>
+        <td><b>Pin '#' for Freezing Rain Legend LED = </b>
+        <td><input type="number" name="leg_pin_frrain" min="0" max="500" value = {{ settings.leg_pin_frrain }}>
+        <td>Set LED pin number for Freezing Rain Legend LED.
+    </tr>
+
+    <tr>
+        <td><b>Pin '#' for Dust, Sand or Ash Legend LED = </b>
+        <td><input type="number" name="leg_pin_dustsandash" min="0" max="500" value = {{ settings.leg_pin_dustsandash }}>
+        <td>Set LED pin number for Dust, Sand Ash Legend LED.
+    </tr>
+
+    <tr>
+        <td><b>Pin '#' for Fog Legend LED = </b>
+        <td><input type="number" name="leg_pin_fog" min="0" max="500" value = {{ settings.leg_pin_fog }}>
+        <td>Set LED pin number for Fog Legend LED.
+    </tr>
+    
+    </table>
+    </div>
+    <p></p>
+
+
+<!--Start of Display Settings-->
+    <button type="button" class="collapsible">LCD and OLED Display Settings</button> 
+    <div class="content">
+    <table>
+    <tr>
+        <th width="20%">Setting
+        <th width="15%">Value
+        <th>Setting Description
+    </tr>
+
+    <tr>
+        <td><b>Number of Airports to Display = </b>
+        <td><input type="number" name="num2display" min="0" max="500" value = {{ settings.num2display }}>
+        <td>Number of highest-wind airports to display. Can be as high as airports listed in airports file. 5 to 10 is good.
+    </tr>
+
+
+    <tr>
+        <td><b>Display an Exclusive Group of Airports</b><br>
+        <td>
+            <input type="radio" name="exclusive_flag" id="exclusive_flagyes" value="1" {{'checked="checked"' if settings.exclusive_flag=="1" else "" }}/>
+            <label for="exclusive_flagyes">Yes</label>
+            <input type="radio" name="exclusive_flag" id="exclusive_flagno" value="0" {{'checked="checked"' if settings.exclusive_flag=="0" else "" }}/>
+            <label for="exclusive_flagno">No</label>
+        <td>If Yes, only airports which are listed in the next setting will be displayed. Good to highlight your local airports. 
+    </tr>
+
+    <tr>
+        <td colspan="2"><b>List of Exclusive Airports to Display</b></br>
+        <input type="text" style="float:center" name="exclusive_list" size=45 value = "{{ settings.exclusive_list }}">
+        <td colspan="1">Subset list of airports to display on the OLED's. These airports must be in the airports file. Leave blank if not needed.  
+                        Setting above must be set to 'Yes'. <b>Note: Must be in this format; ['KFLG', 'KBOS', 'KLAS', 'KDEN']</b>
+    </tr>
+
+
+    <tr>
+        <td><b>Display Only Above kts</b><br>
+        <td>
+            <input type="radio" name="abovekts" id="abovektsyes" value="1" {{'checked="checked"' if settings.abovekts=="1" else "" }}/> 
+            <label for="abovektsyes">Yes</label>
+            <input type="radio" name="abovekts" id="abovektsno" value="0" {{'checked="checked"' if settings.abovekts=="0" else "" }}/>   
+            <label for="abovektsno">No</label>
+        <td>If Yes, only airports whose winds are above value stored in 'Set Wind Speed' (above in 'Basic Settings') will be displayed.
+    </tr>
+
+    <tr>
+        <td><b>LCD Display Pause = </b>
+        <td><input type="number" name="lcdpause" min="0" max="3" step=".1" value = {{ settings.lcdpause }}>
+        <td>Pause between character movements in scroll for LCD only. Used if 'LCD Display Used' = Yes, in 'Basic Settings' above. (0.3 to 1.0 normal).
+    </tr>
+
+    <tr>
+        <td><b>Rotate OLED Display 180 Degrees</b><br>
+        <td>
+            <input type="radio" name="rotyesno" id="rotyesnoyes" value="1" {{'checked="checked"' if settings.rotyesno=="1" else "" }}/>
+            <label for="rotyesnoyes">Yes</label>
+            <input type="radio" name="rotyesno" id="rotyesnono" value="0" {{'checked="checked"' if settings.rotyesno=="0" else "" }}/>
+            <label for="rotyesnono">No</label>
+        <td>Set this to 'Yes' if you had to mount the OLED's Upside down so the text shows properly oriented. Normally leave set to 'No'.
+    </tr>
+
+    <tr>
+        <td><b>Reverse OLED's Position Order</b><br>
+        <td>
+            <input type="radio" name="oledposorder" id="oledposorderyes" value="1" {{'checked="checked"' if settings.oledposorder=="1" else "" }}/>
+            <label for="oledposorderyes">Yes</label>
+            <input type="radio" name="oledposorder" id="oledposorderno" value="0" {{'checked="checked"' if settings.oledposorder=="0" else "" }}/>
+            <label for="oledposorderno">No</label>
+        <td>Set this to 'Yes' if the OLED's were wired backwards. Normal positions would be position 0 thru 7 (left to right). Backwards would be 
+            position 7 thru 0 (left to right). Normally this will be set to 'No'.
+    </tr>
+    
+    <tr>
+        <td><b>OLED Display Pause = </b>
+        <td><input type="number" name="oledpause" min="0" max="5" step=".1" value = {{ settings.oledpause }}>
+        <td>Pause between character movements in scroll for OLED only. Used if 'OLED Displays Used' = Yes, in 'Basic Settings' above. (1.0 to 2.0 normal).
+    </tr>
+
+    <tr>
+        <td><b>OLED Font Size = </b>
+        <td><input type="number" name="fontsize" min="0" max="50" value = {{ settings.fontsize }}>
+        <td>Size of font for OLED display. 24 works well with current font used.
+    </tr>
+
+    <tr>
+        <td><b>OLED Pixel Offset = </b>
+        <td><input type="number" name="offset" min="0" max="10" value = {{ settings.offset }}>
+        <td>Pixel offset for OLED text display vertically. Leave at 3 for current font used.
+    </tr>
+
+
+    <tr>
+        <td><b>OLED Display Wind Direction as Numbers or Arrow</b><br>
+        <td>
+            <input type="radio" name="wind_numorarrow" id="wind_num" value="1" {{'checked="checked"' if settings.wind_numorarrow=="1" else "" }}/>
+            <label for="wind_num">Numbers</label>
+            <input type="radio" name="wind_numorarrow" id="wind_arrow" value="0" {{'checked="checked"' if settings.wind_numorarrow=="0" else "" }}/>
+            <label for="wind_arrow">Arrow</label>
+        <td>Choose how to display wind direction and speed. Either using numbers or with an arrow pointing in the appropriate direction. 
+            If Numbers is chosen, Gusts speeds will also be displayed if provided for airport.
+   </tr>
+
+
+    <tr>
+        <td><b>OLED Bold Highest Speed Airport</b><br>
+        <td>
+            <input type="radio" name="boldhiap" id="boldhiapyes" value="1" {{'checked="checked"' if settings.boldhiap=="1" else "" }}/> 
+            <label for="boldhiapyes">Yes</label>
+            <input type="radio" name="boldhiap" id="boldhiapno" value="0" {{'checked="checked"' if settings.boldhiap=="0" else "" }}/>   
+            <label for="boldhiapno">No</label>
+        <td>If Yes, Bold the text for the airport that has the highest windspeed.
+    </tr>
+
+    <tr>
+        <td><b>OLED Add Blank Screen</b><br>
+        <td>
+            <input type="radio" name="blankscr" id="blankscryes" value="1" {{'checked="checked"' if settings.blankscr=="1" else "" }}/> 
+            <label for="blankscryes">Yes</label>
+            <input type="radio" name="blankscr" id="blankscrno" value="0" {{'checked="checked"' if settings.blankscr=="0" else "" }}/>   
+            <label for="blankscrno">No</label>
+        <td>If Yes, Add a blank screen between the group of airports to display.
+    </tr>
+
+    <tr>
+        <td><b>OLED Display Border</b><br>
+        <td>
+            <input type="radio" name="border" id="borderyes" value="1" {{'checked="checked"' if settings.border=="1" else "" }}/> 
+            <label for="borderyes">Yes</label>
+            <input type="radio" name="border" id="borderno" value="0" {{'checked="checked"' if settings.border=="0" else "" }}/>   
+            <label for="borderno">No</label>
+        <td>If Yes, draw a border around the text on the display. 
+    </tr>
+
+    <tr>
+        <td><b>OLED Level Of Dimming</b><br>
+        <td>
+            <input type="radio" name="dimswitch" id="dimswitchfb" value="0" {{'checked="checked"' if settings.dimswitch=="0" else "" }}/> 
+            <label for="dimswitchfb">Full Bright</label>
+            <input type="radio" name="dimswitch" id="dimswitchmb" value="2" {{'checked="checked"' if settings.dimswitch=="2" else "" }}/>   
+            <label for="dimswitchmb">Medium Bright</label>
+            <input type="radio" name="dimswitch" id="dimswitchlb" value="1" {{'checked="checked"' if settings.dimswitch=="1" else "" }}/>   
+            <label for="dimswitchlb">Low Bright</label>
+        <td>Sets brightness of OLED displays if IC238 Ambient Light Sensor is NOT used. 
+    </tr>
+
+    <tr>
+        <td><b>OLED Minimum Brightness = </b>
+        <td><input type="number" name="dimmin" min="0" max="255" value = {{ settings.dimmin }}>
+        <td>Set value 0-255 for the minimum brightness (0=darker display, but not off). When Light Sensor IS used.
+    </tr>
+
+    <tr>
+        <td><b>OLED Maximum Brightness = </b>
+        <td><input type="number" name="dimmax" min="0" max="255" value = {{ settings.dimmax }}>
+        <td>Set value 0-255 for the maximum brightness (bright display). When Light Sensor IS used.
+    </tr>
+
+    <tr>
+        <td><b>OLED Invert Display</b><br>
+        <td>
+            <input type="radio" name="invert" id="invertnd" value="0" {{'checked="checked"' if settings.invert=="0" else "" }}/> 
+            <label for="invertnd">Normal Display</label>
+            <input type="radio" name="invert" id="invertid" value="1" {{'checked="checked"' if settings.invert=="1" else "" }}/>   
+            <label for="invertid">Inverted Display</label>
+        <td>Supercedes Toggle Invert Display. Normal Display is white text on black background. 
+    </tr>
+
+    <tr>
+        <td><b>OLED Toggle Inverted Display</b><br>
+        <td>
+            <input type="radio" name="toginv" id="toginvyes" value="1" {{'checked="checked"' if settings.toginv=="1" else "" }}/>
+            <label for="toginvyes">Yes</label>
+            <input type="radio" name="toginv" id="toginvno" value="0" {{'checked="checked"' if settings.toginv=="0" else "" }}/>  
+            <label for="toginvno">No</label>
+        <td>If Yes, Toggle Inverted display between groups of airports. Provides a different look if desired. 
+    </tr>
+
+    <tr>
+        <td><b>OLED Scroll Display Direction</b><br>
+        <td>
+            <input type="radio" name="scrolldis" id="scrolldissr" value="1" {{'checked="checked"' if settings.scrolldis=="1" else "" }}/>
+            <label for="scrolldissr">Scroll Right</label>
+            <input type="radio" name="scrolldis" id="scrolldissl" value="0" {{'checked="checked"' if settings.scrolldis=="0" else "" }}/>   
+            <label for="scrolldissl">Scroll Left</label>
+        <td>Used on multiple OLEDs display only. 
+    </tr>
+
+    <tr>
+        <td><b>OLED Display Welcome Message</b><br>
+        <td>
+            <input type="radio" name="usewelcome" id="usewelcomeyes" value="1" {{'checked="checked"' if settings.usewelcome=="1" else "" }}/> 
+            <label for="usewelcomeyes">Yes</label>
+            <input type="radio" name="usewelcome" id="usewelcomeno" value="0" {{'checked="checked"' if settings.usewelcome=="0" else "" }}/>   
+            <label for="usewelcomeno">No</label>
+        <td>If Yes, display a welcome message. Used on OLED display only. 
+    </tr>
+
+    <tr>
+        <td colspan="2"><b>OLED Welcome Message</b></br>
+        <input type="text" name="welcome" size="25" value = "{{ settings.welcome }}">
+        <td>Must be in quotes. You can include a '\n' if you want a line break on the OLED. i.e. "Live\nSectional" will display on two lines.
+    </tr>
+
+    <tr>
+        <td><b>OLED Display Local/Zulu Time</b><br>
+        <td>
+            <input type="radio" name="displaytime" id="displaytimeyes" value="1" {{'checked="checked"' if settings.displaytime=="1" else "" }}/> 
+            <label for="displaytimeyes">Yes</label>
+            <input type="radio" name="displaytime" id="displaytimeno" value="0" {{'checked="checked"' if settings.displaytime=="0" else "" }}/>   
+            <label for="displaytimeno">No</label>
+        <td>If Yes, Display the local and Zulu Time between high-winds display. 
+    </tr>
+    
+    <tr>
+        <td><b>Display IP Address</b><br>
+        <td>
+            <input type="radio" name="displayIP" id="displayIPyes" value="1" {{'checked="checked"' if settings.displayIP=="1" else "" }}/>
+            <label for="displayIPyes">Yes</label>
+            <input type="radio" name="displayIP" id="displayIPno" value="0" {{'checked="checked"' if settings.displayIP=="0" else "" }}/>
+            <label for="displayIPno">No</label>
+        <td>If Yes, Display the Raspberry Pi's IP address along with the welcome message on the LCD/OLED display.
+    </tr>
+
+    </table>
+    </div>
+    <p></p>
+
+<!--Start of Rotary Switch Settings-->
+    <button type="button" class="collapsible">Rotary Switch Settings</button>
+    <div class="content">
+    <table>
+    <tr>
+      <td colspan="3"><b>Use This Section if Rotary Switch is Installed.</b> Assign which data should be displayed for each Rotary Switch's position. For TAF/MOS, also select the hour 
+                      in relation to current time. Range is 1 to 24 hours in the future. Hours is ignored if METAR or Heat Map is assigned. 
+		      Note: MOS data is only available for the US and its territories.
+      </td> 
+    </tr>
+
+    <tr>
+        <th width="20%">Setting
+        <th width="15%">Value
+        <th>Setting Description
+    </tr>
+
+    <tr><td colspan=3 style="color:grey;"><b>Rotary Switch Position 0</b></td></tr>
+    <tr>
+	<td style="color:grey;"><label for="data_sw0"><b>&nbsp&nbsp&nbsp&nbsp&nbspChoose Data to Display:</b></label>
+	<td><select name="data_sw0" id="data_sw0" disabled>
+  		<!--<option>None</option>-->
+  		<option value="1"{{" selected" if settings.data_sw0=="1" else "" }}>METAR</option>
+  		<option value="0"{{" selected" if settings.data_sw0=="0" else "" }}>TAF</option>
+  		<option value="2"{{" selected" if settings.data_sw0=="2" else "" }}>MOS</option>
+  		<option value="3"{{" selected" if settings.data_sw0=="3" else "" }}>Heat Map</option>
+	</select>
+	<td>SET THIS IN BASIC SETTINGS ABOVE. <!--Assign the data to display to position 0 of the rotary switch. 
+            i.e. METAR will display when switch is in position 0.-->
+    </tr>
+    <tr>
+        <td style="color:grey;"><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
+        <td><input type="number" name="time_sw0" min="1" max="24" value = {{ settings.time_sw0 }} disabled>
+        <td>SET THIS IN BASIC SETTINGS ABOVE. <!--Hours ahead in relation to current time of the TAF/MOS data to display 
+            on Rotary Switch Position 0. Range is 1 to 24. Ignored if METAR or Heat Map is chosen.-->
+    </tr>
+
+    <tr><td colspan=3><b>Rotary Switch Position 1</b></td></tr>
+    <tr>
+        <td><label for="data_sw1"><b>&nbsp&nbsp&nbsp&nbsp&nbspChoose Data to Display:</b></label>
+        <td><select name="data_sw1" id="data_sw1">
+                <option>None</option>
+                <option value="1"{{" selected" if settings.data_sw1=="1" else "" }}>METAR</option>
+                <option value="0"{{" selected" if settings.data_sw1=="0" else "" }}>TAF</option>
+                <option value="2"{{" selected" if settings.data_sw1=="2" else "" }}>MOS</option>
+                <option value="3"{{" selected" if settings.data_sw1=="3" else "" }}>Heat Map</option>
+        </select>
+        <td>Assign the data to display to position 1 of the rotary switch. i.e. METAR will display when switch is in position 1.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
+        <td><input type="number" name="time_sw1" min="1" max="24" value = {{ settings.time_sw1 }}>
+        <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 1. Range is 1 to 24.
+            Ignored if METAR or Heat Map is chosen.
+    </tr>
+
+    <tr><td colspan=3><b>Rotary Switch Position 2</b></td></tr>
+    <tr>
+        <td><label for="data_sw2"><b>&nbsp&nbsp&nbsp&nbsp&nbspChoose Data to Display:</b></label>
+        <td><select name="data_sw2" id="data_sw2">
+                <option>None</option>
+                <option value="1"{{" selected" if settings.data_sw2=="1" else "" }}>METAR</option>
+                <option value="0"{{" selected" if settings.data_sw2=="0" else "" }}>TAF</option>
+                <option value="2"{{" selected" if settings.data_sw2=="2" else "" }}>MOS</option>
+                <option value="3"{{" selected" if settings.data_sw2=="3" else "" }}>Heat Map</option>
+        </select>
+        <td>Assign the data to display to position 2 of the rotary switch. i.e. METAR will display when switch is in position 2.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
+        <td><input type="number" name="time_sw2" min="1" max="24" value = {{ settings.time_sw2 }}>
+        <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 2. Range is 1 to 24.
+            Ignored if METAR or Heat Map is chosen.
+    </tr>
+
+    <tr><td colspan=3><b>Rotary Switch Position 3</b></td></tr>
+    <tr>
+        <td><label for="data_sw3"><b>&nbsp&nbsp&nbsp&nbsp&nbspChoose Data to Display:</b></label>
+        <td><select name="data_sw3" id="data_sw3">
+                <option>None</option>
+                <option value="1"{{" selected" if settings.data_sw3=="1" else "" }}>METAR</option>
+                <option value="0"{{" selected" if settings.data_sw3=="0" else "" }}>TAF</option>
+                <option value="2"{{" selected" if settings.data_sw3=="2" else "" }}>MOS</option>
+                <option value="3"{{" selected" if settings.data_sw3=="3" else "" }}>Heat Map</option>
+        </select>
+        <td>Assign the data to display to position 3 of the rotary switch. i.e. METAR will display when switch is in position 3.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
+        <td><input type="number" name="time_sw3" min="1" max="24" value = {{ settings.time_sw3 }}>
+        <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 3. Range is 1 to 24.
+            Ignored if METAR or Heat Map is chosen.
+    </tr>
+
+    <tr><td colspan=3><b>Rotary Switch Position 4</b></td></tr>
+    <tr>
+        <td><label for="data_sw4"><b>&nbsp&nbsp&nbsp&nbsp&nbspChoose Data to Display:</b></label>
+        <td><select name="data_sw4" id="data_sw4">
+                <option>None</option>
+                <option value="1"{{" selected" if settings.data_sw4=="1" else "" }}>METAR</option>
+                <option value="0"{{" selected" if settings.data_sw4=="0" else "" }}>TAF</option>
+                <option value="2"{{" selected" if settings.data_sw4=="2" else "" }}>MOS</option>
+                <option value="3"{{" selected" if settings.data_sw4=="3" else "" }}>Heat Map</option>
+        </select>
+        <td>Assign the data to display to position 4 of the rotary switch. i.e. METAR will display when switch is in position 4.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
+        <td><input type="number" name="time_sw4" min="1" max="24" value = {{ settings.time_sw4 }}>
+        <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 4. Range is 1 to 24.
+            Ignored if METAR or Heat Map is chosen.
+    </tr>
+
+    <tr><td colspan=3><b>Rotary Switch Position 5</b></td></tr>
+    <tr>
+        <td><label for="data_sw5"><b>&nbsp&nbsp&nbsp&nbsp&nbspChoose Data to Display:</b></label>
+        <td><select name="data_sw5" id="data_sw5">
+                <option>None</option>
+                <option value="1"{{" selected" if settings.data_sw5=="1" else "" }}>METAR</option>
+                <option value="0"{{" selected" if settings.data_sw5=="0" else "" }}>TAF</option>
+                <option value="2"{{" selected" if settings.data_sw5=="2" else "" }}>MOS</option>
+                <option value="3"{{" selected" if settings.data_sw5=="3" else "" }}>Heat Map</option>
+        </select>
+        <td>Assign the data to display to position 5 of the rotary switch. i.e. METAR will display when switch is in position 5.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
+        <td><input type="number" name="time_sw5" min="1" max="24" value = {{ settings.time_sw5 }}>
+        <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 5. Range is 1 to 24.
+            Ignored if METAR or Heat Map is chosen.
+    </tr>
+
+    <tr><td colspan=3><b>Rotary Switch Position 6</b></td></tr>
+    <tr>
+        <td><label for="data_sw6"><b>&nbsp&nbsp&nbsp&nbsp&nbspChoose Data to Display:</b></label>
+        <td><select name="data_sw6" id="data_sw6">
+                <option>None</option>
+                <option value="1"{{" selected" if settings.data_sw6=="1" else "" }}>METAR</option>
+                <option value="0"{{" selected" if settings.data_sw6=="0" else "" }}>TAF</option>
+                <option value="2"{{" selected" if settings.data_sw6=="2" else "" }}>MOS</option>
+                <option value="3"{{" selected" if settings.data_sw6=="3" else "" }}>Heat Map</option>
+        </select>
+        <td>Assign the data to display to position 6 of the rotary switch. i.e. METAR will display when switch is in position 6.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
+        <td><input type="number" name="time_sw6" min="1" max="24" value = {{ settings.time_sw6 }}>
+        <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 6. Range is 1 to 24.
+            Ignored if METAR or Heat Map is chosen.
+    </tr>
+
+    <tr><td colspan=3><b>Rotary Switch Position 7</b></td></tr>
+    <tr>
+        <td><label for="data_sw7"><b>&nbsp&nbsp&nbsp&nbsp&nbspChoose Data to Display:</b></label>
+        <td><select name="data_sw7" id="data_sw7">
+                <option>None</option>
+                <option value="1"{{" selected" if settings.data_sw7=="1" else "" }}>METAR</option>
+                <option value="0"{{" selected" if settings.data_sw7=="0" else "" }}>TAF</option>
+                <option value="2"{{" selected" if settings.data_sw7=="2" else "" }}>MOS</option>
+                <option value="3"{{" selected" if settings.data_sw7=="3" else "" }}>Heat Map</option>
+        </select>
+        <td>Assign the data to display to position 7 of the rotary switch. i.e. METAR will display when switch is in position 7.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
+        <td><input type="number" name="time_sw7" min="1" max="24" value = {{ settings.time_sw7 }}>
+        <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 7. Range is 1 to 24.
+            Ignored if METAR or Heat Map is chosen.
+    </tr>
+
+    <tr><td colspan=3><b>Rotary Switch Position 8</b></td></tr>
+    <tr>
+        <td><label for="data_sw8"><b>&nbsp&nbsp&nbsp&nbsp&nbspChoose Data to Display:</b></label>
+        <td><select name="data_sw8" id="data_sw8">
+                <option>None</option>
+                <option value="1"{{" selected" if settings.data_sw8=="1" else "" }}>METAR</option>
+                <option value="0"{{" selected" if settings.data_sw8=="0" else "" }}>TAF</option>
+                <option value="2"{{" selected" if settings.data_sw8=="2" else "" }}>MOS</option>
+                <option value="3"{{" selected" if settings.data_sw8=="3" else "" }}>Heat Map</option>
+        </select>
+        <td>Assign the data to display to position 8 of the rotary switch. i.e. METAR will display when switch is in position 8.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
+        <td><input type="number" name="time_sw8" min="1" max="24" value = {{ settings.time_sw8 }}>
+        <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 8. Range is 1 to 24.
+            Ignored if METAR or Heat Map is chosen.
+    </tr>
+
+    <tr><td colspan=3><b>Rotary Switch Position 9</b></td></tr>
+    <tr>
+        <td><label for="data_sw9"><b>&nbsp&nbsp&nbsp&nbsp&nbspChoose Data to Display:</b></label>
+        <td><select name="data_sw9" id="data_sw9">
+                <option>None</option>
+                <option value="1"{{" selected" if settings.data_sw9=="1" else "" }}>METAR</option>
+                <option value="0"{{" selected" if settings.data_sw9=="0" else "" }}>TAF</option>
+                <option value="2"{{" selected" if settings.data_sw9=="2" else "" }}>MOS</option>
+                <option value="3"{{" selected" if settings.data_sw9=="3" else "" }}>Heat Map</option>
+        </select>
+        <td>Assign the data to display to position 9 of the rotary switch. i.e. METAR will display when switch is in position 9.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
+        <td><input type="number" name="time_sw9" min="1" max="24" value = {{ settings.time_sw9 }}>
+        <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 9. Range is 1 to 24.
+            Ignored if METAR or Heat Map is chosen.
+    </tr>
+
+    <tr><td colspan=3><b>Rotary Switch Position 10</b></td></tr>
+    <tr>
+        <td><label for="data_sw10"><b>&nbsp&nbsp&nbsp&nbsp&nbspChoose Data to Display:</b></label>
+        <td><select name="data_sw10" id="data_sw10">
+                <option>None</option>
+                <option value="1"{{" selected" if settings.data_sw10=="1" else "" }}>METAR</option>
+                <option value="0"{{" selected" if settings.data_sw10=="0" else "" }}>TAF</option>
+                <option value="2"{{" selected" if settings.data_sw10=="2" else "" }}>MOS</option>
+                <option value="3"{{" selected" if settings.data_sw10=="3" else "" }}>Heat Map</option>
+        </select>
+        <td>Assign the data to display to position 10 of the rotary switch. i.e. METAR will display when switch is in position 10.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
+        <td><input type="number" name="time_sw10" min="1" max="24" value = {{ settings.time_sw10 }}>
+        <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 10. Range is 1 to 24.
+            Ignored if METAR or Heat Map is chosen.
+    </tr>
+
+    <tr><td colspan=3><b>Rotary Switch Position 11</b></td></tr>
+    <tr>
+        <td><label for="data_sw11"><b>&nbsp&nbsp&nbsp&nbsp&nbspChoose Data to Display:</b></label>
+        <td><select name="data_sw11" id="data_sw11">
+                <option>None</option>
+                <option value="1"{{" selected" if settings.data_sw11=="1" else "" }}>METAR</option>
+                <option value="0"{{" selected" if settings.data_sw11=="0" else "" }}>TAF</option>
+                <option value="2"{{" selected" if settings.data_sw11=="2" else "" }}>MOS</option>
+                <option value="3"{{" selected" if settings.data_sw11=="3" else "" }}>Heat Map</option>
+        </select>
+        <td>Assign the data to display to position 11 of the rotary switch. i.e. METAR will display when switch is in position 11.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
+        <td><input type="number" name="time_sw11" min="1" max="24" value = {{ settings.time_sw11 }}>
+        <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 11. Range is 1 to 24.
+            Ignored if METAR or Heat Map is chosen.
+    </tr>
+
+    </table>
+    </div>
+
+    <p></p>
+
+<!--Start of TAF/MOS/Heat Map Settings-->
+    <button type="button" class="collapsible">MOS/Heat Map Settings</button>
+    <div class="content">
+    <table>
+
+    <tr>
+        <th width="20%">Setting
+        <th width="15%">Value
+        <th>Setting Description
+    </tr>
+
+    <tr>
+        <td style="display:none"><b>TAF/MOS Hour to Display</b>
+        <td style="display:none"><input type="number" name="hour_to_display" min="1" max="24" value = {{ settings.hour_to_display }}>
+        <td style="display:none">Time in Hours of the TAF/MOS data to display. Range is 1 to 24. Used when rotary switch is NOT installed.
+    </tr>
+
+    <tr>
+        <td><b>Probability to Display MOS Data</b>
+        <td><input type="number" name="prob" min="1" max="100" value = {{ settings.prob }}>
+        <td>For MOS Data (US Only). Probability in % that a particular reported weather will occur at the airport. MOS data uses a different
+            model which requires the builder to set a probability level in which to display the weather on the map. i.e. 50 would 
+	    equal a 50% chance. 75 would be a 75% chance.
+    </tr>
+
+    <tr>
+        <td><b>Display Binary or Gradient Colors</b><br>
+        <td>
+            <input type="radio" name="bin_grad" id="bin_gradbin" value="0" {{'checked="checked"' if settings.bin_grad=="0" else "" }}/>
+            <label for="bin_gradbin">Binary</label>
+            <input type="radio" name="bin_grad" id="bin_gradgrad" value="1" {{'checked="checked"' if settings.bin_grad=="1" else "" }}/>
+            <label for="bin_gradgrad">Gradient</label>
+        <td>For Heat Map. Displays which airports have been landed at. The LEDs can display all the visited airports in Red (Binary) or 
+            depending the number of landings, can display a gradient of color from Cool Blue for few visits, to Hot Red for lots of visits.
+    </tr>
+
+    <tr>
+        <td><b>Use Green to denote Home Airport</b><br>
+        <td>
+            <input type="radio" name="use_homeap" id="use_homeapyes" value="1" {{'checked="checked"' if settings.use_homeap=="1" else "" }}/>
+            <label for="use_homeapyes">Yes</label>
+            <input type="radio" name="use_homeap" id="use_homeapno" value="0" {{'checked="checked"' if settings.use_homeap=="0" else "" }}/>
+            <label for="use_homeapno">No</label>
+        <td>For Heat Map. Using Green to denote home airport will make the home airport stand out from the rest of the airports visited.            
+    </tr>
+
+    <tr>
+        <td><b>Fade the Home Airport In/Out</b><br>
+        <td>
+            <input type="radio" name="fade_yesno" id="fade_yesnoyes" value="1" {{'checked="checked"' if settings.fade_yesno=="1" else "" }}/>
+            <label for="fade_yesnoyes">Yes</label>
+            <input type="radio" name="fade_yesno" id="fade_yesnono" value="0" {{'checked="checked"' if settings.fade_yesno=="0" else "" }}/>
+            <label for="fade_yesnono">No</label>
+        <td>For Heat Map. This setting will fade the Green of the home airport in and out to make it stand out further from the rest of the airports.
+    </tr>
+
+    <tr>
+        <td><b>Fade In/Out Delay Time</b>
+        <td><input type="number" name="fade_delay" min="0" max="3" step=".001" value = {{ settings.fade_delay }}>
+        <td>For Heat Map. Delay time to change how slowly the home airport LED fades in and out. .01 - .05 is typical. Range is 0 - 3 with a step value of .001
+    </tr>
+
+    </table>
+    </div>
+<p></p>
+
+<!--Start of Transitional Wipes Settings-->
+    <button type="button" class="collapsible">Transitional Wipes Settings</button>
+    <div class="content">
+    <table>
+
+    <tr>
+        <td colspan="3">When the map updates the FAA weather, a transitional wipe can be used to fill the time and let people know the update is occuring. 
+                        Various wipes are available, some utilize the airport's Lat/Lon to create effects. The spacing and volume of airports on a map 
+                        will dictate how these wipes will look. So play with them to find the one(s) that work best for the map.
+        </td>
+    </tr>
+
+    <tr>
+        <th width="20%">Setting
+        <th width="15%">Value
+        <th>Setting Description
+    </tr>
+
+
+    <tr>
+        <td><b>Use Transitional Wipes During FAA Data Updates</b><br>
+        <td>
+            <input type="radio" name="usewipes" id="usewipes_yes" value="1" {{'checked="checked"' if settings.usewipes=="1" else "" }}/>
+            <label for="usewipes_yes">Yes</label>
+            <input type="radio" name="usewipes" id="usewipes_no" value="0" {{'checked="checked"' if settings.usewipes=="0" else "" }}/>
+            <label for="usewipes_no">No</label>
+        <td>'Yes' will allow builder to pick from any (or all) the transitions listed to be displayed everytime the FAA data is
+            being updated. 'No' will disable all transitions.
+    </tr>
+
+
+    <tr>
+        <td><b>Use Random Colors</b><br>
+        <td>
+            <input type="radio" name="rand" id="rand_yes" value="1" {{'checked="checked"' if settings.rand=="1" else "" }}/>
+            <label for="rand_yes">Yes</label>
+            <input type="radio" name="rand" id="rand_no" value="0" {{'checked="checked"' if settings.rand=="0" else "" }}/>
+            <label for="rand_no">No</label>
+        <td>Let the system randomly generate the colors used during the transition, 'Yes' or 'No".
+    </tr>
+
+
+    <tr>
+        <td><b>Time Delay</b>
+        <td><input type="number" name="wait" min="0" max=".5" step=".001" value = {{ settings.wait }}>
+        <td>Use to adjust the speed of the transition. Range is 0 - .5 with a step value of .001
+    </tr>
+
+
+    <tr>
+        <td><b>Rainbow Transition</b>
+        <td><input type="number" name="num_rainbow" min="0" max="10" value = {{ settings.num_rainbow }}>
+        <td>Enter number of iterations for Rainbow Transition. 0 = disabled. Range is 0 - 10.
+    </tr>
+
+
+    <tr>
+        <td><b>Fade In/Out Transition</b>
+        <td><input type="number" name="num_fade" min="0" max="10" value = {{ settings.num_fade }}>
+        <td>Enter number of iterations for Fade In/Out Transition. 0 = disabled. Range is 0 - 10.                        
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspFade In Color</b>
+        <td><input type="color" style="float:center" name="fade_color1" id={{ settings.fade_color1 }} size=10 value = {{ fade_color1_hex }}>
+        <td>This color will be when the LED is the brightest.
+    </tr>
+<!--    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspFade Out Color</b>
+        <td><input type="color" style="float:center" name="fade_color2" id={{ settings.fade_color2 }} size=10 value = {{ fade_color2_hex }}>
+        <td>This color will be when LED is at the dimmest.
+    </tr>
+-->
+
+    <tr>
+        <td><b>All On/Off Transition</b>
+        <td><input type="number" name="num_allsame" min="0" max="10" value = {{ settings.num_allsame }}>
+        <td>Enter number of iterations for All On/Off Transition. 0 = disabled. Range is 0 - 10.                        
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspOn Color</b>
+        <td><input type="color" style="float:center" name="allsame_color1" id={{ settings.allsame_color1 }} size=10 value = {{ allsame_color1_hex }}>
+        <td>Color of LED's when all on.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspOff Color</b>
+        <td><input type="color" style="float:center" name="allsame_color2" id={{ settings.allsame_color2 }} size=10 value = {{ allsame_color2_hex }}>
+        <td>Color of LED's when all off.
+    </tr>
+
+
+    <tr>
+        <td><b>Shuffle Transition</b>
+        <td><input type="number" name="num_shuffle" min="0" max="10" value = {{ settings.num_shuffle }}>
+        <td>Enter number of iterations for Shuffle Transition. 0 = disabled. Range is 0 - 10.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspShuffle On Color</b>
+        <td><input type="color" style="float:center" name="shuffle_color1" id={{ settings.shuffle_color1 }} size=10 value = {{ shuffle_color1_hex }}>
+        <td>This color will be when the LED is the brightest.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspShuffle Off Color</b>
+        <td><input type="color" style="float:center" name="shuffle_color2" id={{ settings.shuffle_color2 }} size=10 value = {{ shuffle_color2_hex }}>
+        <td>This color will be when LED is at the dimmest.
+    </tr>
+
+    
+    <tr>
+        <td><b>Radar Transition</b>
+        <td><input type="number" name="num_radar" min="0" max="10" value = {{ settings.num_radar }}>
+        <td>Enter number of iterations for Radar Transition. 0 = disabled. Range is 0 - 10.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspRadar Background Color</b>
+        <td><input type="color" style="float:center" name="radar_color1" id={{ settings.radar_color1 }} size=10 value = {{ radar_color1_hex }}>
+        <td>This color will represent the Radar's background.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspRadar Sweep Arm Color</b>
+        <td><input type="color" style="float:center" name="radar_color2" id={{ settings.radar_color2 }} size=10 value = {{ radar_color2_hex }}>
+        <td>This color will represent the Radar's Sweep Arm. Use a high contrast color compared to the background.
+    </tr>
+
+    <tr>
+        <td><b>Circle Transition</b>
+        <td><input type="number" name="num_circle" min="0" max="10" value = {{ settings.num_circle }}>
+        <td>Enter number of iterations for Circle Transition. 0 = disabled. Range is 0 - 10.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspCircle Inside Color</b>
+        <td><input type="color" style="float:center" name="circle_color1" id={{ settings.circle_color1 }} size=10 value = {{ circle_color1_hex }}>
+        <td>This color will be used to fill in the circle as it expands.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspCircle Outside Color</b>
+        <td><input type="color" style="float:center" name="circle_color2" id={{ settings.circle_color2 }} size=10 value = {{ circle_color2_hex }}>
+        <td>This color will be used to fill outside of the circle.
+    </tr>
+
+
+    <tr>
+        <td><b>Square Transition</b>
+        <td><input type="number" name="num_square" min="0" max="10" value = {{ settings.num_square }}>
+        <td>Enter number of iterations for Square Transition. 0 = disabled. Range is 0 - 10.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspSquare Inside Color</b>
+        <td><input type="color" style="float:center" name="square_color1" id={{ settings.square_color1 }} size=10 value = {{ square_color1_hex }}>
+        <td>This color will be used to fill in the square as its expanding.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspSquare Outside Color</b>
+        <td><input type="color" style="float:center" name="square_color2" id={{ settings.square_color2 }} size=10 value = {{ square_color2_hex }}>
+        <td>This color will be used to fill the outside of the square.
+    </tr>
+
+
+    <tr>
+        <td><b>Up/Down Side to Side Transition</b>
+        <td><input type="number" name="num_updn" min="0" max="10" value = {{ settings.num_updn }}>
+        <td>Enter number of iterations for Up/Down Side to Side Transition. 0 = disabled. Range is 0 - 10.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspSweep Line Color</b>
+        <td><input type="color" style="float:center" name="updn_color1" id={{ settings.updn_color1 }} size=10 value = {{ updn_color1_hex }}>
+        <td>The sweep line travels up and down, then side to side. This color will represent this line.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspBackground Color</b>
+        <td><input type="color" style="float:center" name="updn_color2" id={{ settings.updn_color2 }} size=10 value = {{ updn_color2_hex }}>
+        <td>The background color. Should be high contrast to the sweep line color.
+    </tr>
+
+
+    <tr>
+        <td><b>Morse Code Transition</b>
+        <td><input type="number" name="num_morse" min="0" max="10" value = {{ settings.num_morse }}>
+        <td>Enter number of iterations for Morse Code Transition. 0 = disabled. Range is 0 - 10.
+    </tr>
+    <tr>
+        <td colspan="2"><b>Message to Display as Morse Code</b></br>
+        <input type="text" style="float:center" name="morse_msg" size="25" value = "{{ settings.morse_msg }}">
+        <td colspan="1">Enter message to display via Morse Code. Keep it short. Available characters are; ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,.?/-(). Be sure to use quotes, i.e. "LiveSectional"
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspMorse Code On Color</b>
+        <td><input type="color" style="float:center" name="morse_color1" id={{ settings.morse_color1 }} size=10 value = {{ morse_color1_hex }}>
+        <td>Morse Code color when LED is on.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspMorse Code Off Color</b>
+        <td><input type="color" style="float:center" name="morse_color2" id={{ settings.morse_color2 }} size=10 value = {{ morse_color2_hex }}>
+        <td>Morse Code color when LED is off. Use high contrast colors.
+    </tr>
+
+
+    <tr>
+        <td><b>Chase the Rabbit Transition</b>
+        <td><input type="number" name="num_rabbit" min="0" max="10" value = {{ settings.num_rabbit }}>
+        <td>Enter number of iterations for Chase the Rabbit Transition. 0 = disabled. Range is 0 - 10.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspChaser Color</b>
+        <td><input type="color" style="float:center" name="rabbit_color1" id={{ settings.rabbit_color1 }} size=10 value = {{ rabbit_color1_hex }}>
+        <td>This color will follow the Rabbit. If set to black, only the Rabbit will run the map.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspRabbit Color</b>
+        <td><input type="color" style="float:center" name="rabbit_color2" id={{ settings.rabbit_color2 }} size=10 value = {{ rabbit_color2_hex }}>
+        <td>The color of the Rabbit. A single LED running away from the chasers. Should be high contrast to Chasers for best effect.
+    </tr>
+
+
+    </table>
+    </div>
+<p></p>
+
+{% endblock %}

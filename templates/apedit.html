@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="sticky">    
+<table>
+  <tr>
+    <td class="submitbuttons">
+      <form action="ledonoff" name="ledonoff" id="ledonoff" method="POST">
+      Enter LED to Control <input onchange="document.form[0].submit()" type="number" name="lednum" size="5" min="0" max="{{ airports|length }}" value="{{num}}">
+    </td>
+
+    <td class="submitbuttons">
+      <input type="submit" class="button1" name="buton" id="buton" value="LED On">
+      <input type="submit" class="button1" name="butoff" id="butoff" value="LED Off">
+    </td>
+
+    <td class="submitbuttons">
+      <input type="submit" class="button1" name="butup" value="Next">
+      <input type="submit" class="button1" name="butdown" value="Previous">
+    </td>
+
+    <td class="submitbuttons">
+      <input type="submit" class="button1" name="butall" value="All On">
+      <input type="submit" class="button1" name="butnone" value="All Off">
+      </form>
+    </td>
+
+    <td class="submitbuttons"><a href="https://www.rocketroute.com/airports" target="aplookup">
+      <input type="button" class="button" id="lookupap" value="Lookup Airports"></a>
+      <a href="./apedit"> <input type="button" class="button" value="Restore Airports" id="restoreaps"></a> 
+    </td>
+  </tr>
+</table>
+</div>
+<p>
+
+<table>
+  <tr>
+    <td width='33%' class="submitbuttons">
+      <form action="numap" method="POST">
+        <b>Number of LEDs </b>
+          <input type="text" name="numofap" size="4" value = "{{ airports|length }}">
+          <input type="submit" class="button1" value="Update Number">
+      </form>
+    </td>
+
+    <td width='33%' class="submitbuttons"><center>
+    <div class="flashes">
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class=flashes>
+    {% for message in messages %}
+      </div>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+    </center>
+    </div>
+    </td>
+
+    <td width='33%' class="submitbuttons">
+      <form action="importap" method="POST" enctype="multipart/form-data">
+        <b>Import Airports</b>
+        <input type="file" class="button1" name="file">
+        <input type="submit" class="button1" value="Submit">
+      </form>
+    </td>
+  </tr> 
+</table>
+
+<form action="appost" id="appost" method="post">
+<!--Airports File Data-->
+<table style="width=100%">
+    <tr bgcolor="#ffffff">
+        <td colspan=3 style="font-size:small">
+    <b>Note:</b> Enter the appropriate 4 character airport identifier. If identifier is only 3 characters, precede it with proper country code, 
+    i.e. 'K' for US. If the LED position will not be used, enter <font color="red">'NULL'</font>. Enter <font color="red">'LGND'</font> for LED's used as a legend. <b><font color="red">'Enter' will save airport change. 'Tab' will not. Save each airport change if using LED on/off</color></b></p>
+        
+    </tr>
+    <tr>
+        <th style="text-align:center">LED Pin #
+        <th style="text-align:center">Airport ID
+        <th>Description
+    </tr>
+
+{% for ap in airports %}
+	{% if ap in apinfo_dict  %}
+		{% set apinfo = apinfo_dict[ap] %}
+	{% else %}
+		{% set apinfo = '' %}
+        {% endif %}
+    <tr id="{{ loop.index - 1 }}">
+        <td width="10%" style="text-align:center"><b>{{ loop.index - 1 }}</b></td>
+        <td width="10%" style="text-align:center">
+		<input title="{{ apinfo|join(", ") }}" onkeydown="upperCaseF(this)" type="text" minlength="4" maxlength="4" onfocus="fillinledonoff(this)"
+		id="ap{{loop.index-1}}" name="{{loop.index-1}}/ap{{loop.index-1}}/msg{{loop.index-1}}" size="5" onchange="myFunction(this)" value = "{{ap}}">
+<!--onfocus="this.value=''"-->       	
+        </td>
+        <td width="80%" id="msg{{loop.index-1}}">
+	    {% if ap == 'LGND' %}
+              LED in position {{ loop.index -1 }} will be used to display a <b>Legend</b> Item.
+            {% elif ap == 'NULL' %}
+              LED in position {{ loop.index -1 }} will be <b>Off</b>.
+            {% else %}
+              <a href=https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId={{ ap}} target="_blank"><b>{{ apinfo|join(", ") }}</b> - Click to See Airport Information</a>
+            {% endif %}
+    </td>
+    </tr>
+{% endfor %}
+
+</table>
+{% endblock %}

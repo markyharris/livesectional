@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<head>
+    <link rel="shortcut icon" href="static/tab.ico">
+    <html lang="en" xml:lang="en" xmlns= "http://www.w3.org/1999/xhtml">
+    <meta http-equiv="Content-Language" content="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+    {% if update_available == 2 %}
+    <script>
+    $(document).ready(function(){
+        $("#myModal").modal('show');
+    });
+    </script>
+    {% endif %}
+
+    <link rel="stylesheet" href='/static/style-v4.css' />
+
+    <title>{{ title }}</title>
+</head>
+
+<!--Determine which menu items to disable based on page loaded-->
+{% if title.startswith('Live') %}
+    {% set enable = 0 %}
+{% elif title.startswith('Heat') %}
+    {% set enable = 1 %}
+{% elif title.startswith('Airp') %}
+    {% set enable = 2 %}
+{% elif title.startswith('Sett') %}
+    {% set enable = 3 %}
+{% elif title.startswith('Time') %}
+    {% set enable = 4 %}
+{% else %}
+    {% set enable = 5 %}
+{% endif %}
+
+{% if enable != 2  %}
+  <body>
+{% else %}
+  <body onload="scrollto()">
+{% endif %}
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
+   <a class="navbar-brand" href="/index">
+      <img src="/static/LS-32x32.png" width="32" height="32" class="d-inline-block align-top" alt="">
+      {{ title }}
+      </a>
+
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#myNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+   <div class="collapse navbar-collapse" id="myNavbar">
+    <ul class="navbar-nav mr-auto">
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Settings</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/confedit">Editor <i class='far fa-edit'></i></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/index">Load Profile <i class='fas fa-home'></i></a>
+          <a class="dropdown-item {% if enable != 3 %} {{ 'disabled' }} {% endif %}" href="/restoreconf">Restore Settings from File <i class='far fa-window-restore'></i></a>
+          <a class="dropdown-item {% if enable != 3 %} {{ 'disabled' }} {% endif %}" href="javascript:{}" onclick="document.getElementById('post').submit(); return false;">Save Config File <i class='far fa-save'></i></a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Airports</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/apedit">Editor <i class='far fa-edit'></i></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="https://www.rocketroute.com/airports" target="aplookup">Lookup Airports <i class='fas fa-external-link-alt'></i></a>
+          <a class="dropdown-item {% if enable != 2 %} {{ 'disabled' }} {% endif %}" href="/apedit">Restore Airports from File<i class='far fa-window-restore'></i></a>
+          <a class="dropdown-item {% if enable != 2 %} {{ 'disabled' }} {% endif %}" href="javascript:{}" onclick="document.getElementById('appost').submit(); return false;">Save Airport File <i class='far fa-save'></i></a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Heat Map</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="/hmedit">Editor <i class='far fa-edit'></i></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item {% if enable != 1 %} {{ 'disabled' }} {% endif %}" href="javascript:{}" onclick="document.getElementById('hmpost').submit(); return false;">Save Heat Map File  <i class='far fa-save'></i></a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Map Functions</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="javascript:{}" onclick="document.getElementById('startup1').submit(); return false;">Turn On Map <i class='far fa-sun'></i></a>
+          <a class="dropdown-item" href="javascript:{}" onclick="document.getElementById('shutdown1').submit(); return false;">Turn Off Map <i class='fas fa-sun'></i></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="javascript:{}" onclick="document.getElementById('reboot1').submit(); return false;">Reboot RPI <i class='fas fa-laptop'></i></a>
+          <a class="dropdown-item" href="javascript:{}" onclick="document.getElementById('shutoffnow1').submit(); return false;">Shutdown RPI <i class='fas fa-power-off'></i></a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Map Utilities</a>
+        <div class="dropdown-menu">
+
+          {% if update_available == 1 %}
+          <a class="dropdown-item" href="/update"><b>Click to Update to v{{ update_vers }}</b> <i class='far fa-check-square'></i></a>
+          {% endif %}
+
+          <a class="dropdown-item" href="/index">Homepage <i class='fas fa-home'></i></a>
+          <a class="dropdown-item" href="/tzset">Set RPI Timezone <i class='far fa-clock'></i></a>
+          <a class="dropdown-item" href="/expandfs">Expand RPI File System <i class='fas fa-expand-alt'></i></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="javascript:{}" onclick="document.getElementById('download_cf').submit(); return false;">Download Config File <i class='fas fa-download'></i></a>
+          <a class="dropdown-item" href="javascript:{}" onclick="document.getElementById('download_ap').submit(); return false;">Download Airports File <i class='fas fa-download'></i></a>
+          <a class="dropdown-item" href="javascript:{}" onclick="document.getElementById('download_hm').submit(); return false;">Download Heat Map File <i class='fas fa-download'></i></a>
+          <a class="dropdown-item" href="javascript:{}" onclick="document.getElementById('download_log').submit(); return false;">Download Logfile <i class='fas fa-download'></i></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/testled">Run LED Test Script <i class='fas fa-cogs'></i></a>
+          <a class="dropdown-item" href="/testoled">Run OLED Test Script <i class='fas fa-cogs'></i></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/lsremote" target="qrcode">Web Remote App <i class='fab fa-app-store'></i></a>
+          <a class="dropdown-item" href="/qrcode" target="qrcode">Create QR Code for Web Remote <i class='fas fa-qrcode'></i></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/yield" target="lssysinfo">System Information <i class='fas fa-code'></i></a>
+          <a class="dropdown-item" href="/update_info" target="update_info">Update History <i class='fa fa-history'></i></a>
+          <a class="dropdown-item" href="https://www.livesectional.com/community/ls-schematics/" target="_blank">View Schematics <i class='fas fa-external-link-alt'></i></a>
+          <a class="dropdown-item" href="http://www.livesectional.com/community/main-forum/" target="_blank">Help <i class='fas fa-external-link-alt'></i></a>
+        </div>
+      </li>
+
+<!--      <li class="nav-item">
+          <a class="nav-link" href="http://www.livesectional.com/community/main-forum/" target="_blank">Help</a>
+      </li>
+-->
+    </ul>
+
+<a class="navbar-brand" href="/lsremote" target="_blank">
+      <img src="/static/lsremotefav.png" width="32" height="32" class="d-inline-block align-top" alt="">
+      Web Remote
+      </a>
+
+
+      <span class="navbar-text" title='{{ current_timezone }}' style="font-size:x-small">
+        {{ ipadd }}<br>
+        {{ timestr }}
+      </span>
+  </div>
+</nav>
+
+
+{% if enable != 0 %}
+<div>
+<h1>&nbsp</h1>
+        {% if ipaddresses|length > 1 %}
+                <form>
+                <select name="option_ip" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
+                {% for ip in ipaddresses %}
+                        {% set ipinfo = ip.split(' ') %}
+                        <option value="http://{{ ipinfo[0] }}:5000/lsremote" {{"selected" if ipinfo[0] == ipadd else "" }}>{{ ip }}</option>
+                {% endfor %}
+                </select>
+                </form>
+        {% endif %}
+</div>
+{% endif %}
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+ <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+   <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLongTitle">Software Update Available</h5>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+   </div>
+   <div class="modal-body">
+    Version {{ update_vers }} is available for installation. Click on 'Map Utilities' to update.
+   </div>
+   <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+
+<!--This ends the Header/Navbar and starts the main page-->
+        {% block content %}{% endblock %}
+
+<!--This ends main page and starts the footer-->
+{% if enable != 0 %}<div class="stickydn">{% else %}<div>{% endif %}
+<table>
+    <tr>
+        <td class="submitbuttons"><input type="submit" class="button" value="Save Settings"><!-- style="display: none;>-->
+        </td>
+        </form>
+
+        <form action="apedit" method="POST">
+        <td class="submitbuttons"> <input type="submit" class="button" value="Edit Airports">
+        </td>
+        </form>
+
+        <form action="reboot1" id="reboot1" method="POST">
+        <td class="submitbuttons"><input type="submit" class="button" value="Reboot Map">
+        </td>
+        </form>
+
+        <form action="shutoffnow1" id="shutoffnow1" method="POST">
+        <td class="submitbuttons"><input type="submit" class="button" value="Shutdown RPI">
+        </td>
+        </form>
+
+        <form action="shutdown1" id="shutdown1" method="POST">
+        <td class="submitbuttons"> <input type="submit" class="button" value="Shutoff Map">
+        </td>
+        </form>
+
+        <form action="startup1" id="startup1" method="POST">
+        <td class="submitbuttons"> <input type="submit" class="button" value="Startup Map">
+        </td>
+        </form>
+
+    </tr>
+    <tr>
+
+        <td class="submitbuttons"><a href="http://www.livesectional.com/community/main-forum/" target="_blank">
+        <input type="button" class="button" value="Help"></a>
+        </td>
+
+        <form action="download_cf" id="download_cf" method="POST">
+        <td class="submitbuttons"><input type="submit" class="button" value="DL config.py">
+        </td>
+        </form>
+
+        <form action="download_ap" id="download_ap" method="POST">
+        <td class="submitbuttons"><input type="submit" class="button" value="DL Airports">
+        </td>
+        </form>
+
+        <form action="download_hm" id="download_hm" method="POST">
+        <td class="submitbuttons"><input type="submit" class="button" value="DL HM file">
+        </td>
+        </form>
+
+        <form action="download_log" id="download_log" method="POST">
+        <td class="submitbuttons"><input type="submit" class="button" value="DL Logfile">
+        </td>
+        </form>
+
+        <td>
+         <a></a>
+        </td>
+    </tr>
+
+    <tr>
+     <td colspan="6">
+      <center>
+       <span style="font-size:12px">
+        Copyright 2020, 2021 - Bill Bryson III,  Mark Harris - <a href="http://www.livesectional.com" target="_blank">www.livesectional.com</a>
+       </span>
+      </center>
+     </td>
+    </tr>
+</table>
+
+</div>
+
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+    }
+  });
+}
+</script>
+
+<script>
+const $dropdown = $(".dropdown");
+const $dropdownToggle = $(".dropdown-toggle");
+const $dropdownMenu = $(".dropdown-menu");
+const showClass = "show";
+
+$(window).on("load resize", function() {
+  if (this.matchMedia("(min-width: 768px)").matches) {
+    $dropdown.hover(
+      function() {
+        const $this = $(this);
+        $this.addClass(showClass);
+        $this.find($dropdownToggle).attr("aria-expanded", "true");
+        $this.find($dropdownMenu).addClass(showClass);
+      },
+      function() {
+        const $this = $(this);
+        $this.removeClass(showClass);
+        $this.find($dropdownToggle).attr("aria-expanded", "false");
+        $this.find($dropdownMenu).removeClass(showClass);
+      }
+    );
+  } else {
+    $dropdown.off("mouseenter mouseleave");
+  }
+});
+</script>
+
+<script>
+function myFunction(selectObject) {
+    var myString = selectObject.name;
+	myArray = myString.split("/");
+        num = myArray[0]
+	name =  myArray[1];
+	field =  myArray[2];
+    var x = selectObject.value;
+
+    if (x.length != 4) {
+        window.alert("You Must Enter 4 Char Airport ID, NULL or LGND");
+        document.getElementById(name).focus();
+        return;
+    }
+    
+    if (x == 'NULL') {
+        document.getElementById(field).innerHTML = "LED will be turned off, set to: " + x;
+    } else if (x == 'LGND') {
+        document.getElementById(field).innerHTML = "LED will be used as a Legend, set to; " + x;
+    } else {
+        document.getElementById(field).innerHTML = "<a href=https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId="+x+" target="+"_blank"+">You entered: "+x+". Click for more info.</a>";
+    }
+
+    document.getElementsByName("lednum")[0].value = num;
+//    document.forms["ledonoff"].submit();//
+}
+</script>
+
+<script>
+function upperCaseF(a){
+    setTimeout(function(){
+        a.value = a.value.toUpperCase();
+    }, 1);
+}
+</script>
+
+<script>
+function scrollto() {
+  var elmnt = document.getElementById("{{ num-5 }}");
+  elmnt.scrollIntoView();
+}
+</script>
+
+<script>
+function fillinledonoff(selectObject) {
+    var myString = selectObject.name;
+        myArray = myString.split("/");
+        num = myArray[0];
+    document.getElementsByName("lednum")[0].value = num;
+}
+</script>
+
+</body>
+</html>
+

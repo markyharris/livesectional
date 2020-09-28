@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+<p>
+<p>
+<div class="container-fluid">
+  <div class="card border-primary mb-3">
+  <section class="py-5">
+    <div class="container">
+      <h2 class="display-4">Time Zone Information</h2>
+
+
+{% set list = current_timezone.split(' ') %}
+
+<table>
+  <form action="tzset" id="tzset" method="POST">
+  <tr>
+    <td>
+      <p style="color: red;"><b>Current Time and Timezone Information</b></p>
+      {% for line in currtzinfolist %}
+        <b>{{ line }}</b><br>
+      {% endfor %}<br>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="33%">
+      <div>
+      <label for="tzoption"><b>Choose Your Timezone:</b></label>
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="margin: auto;">
+      <select name="tzselected" id="tzselected">
+      {% for o in tzoptionlist %}
+      <option value="{{ o }}" {{"selected" if o == list[18] else "" }}>{{ o }}</option>
+      {% endfor %}
+      </select>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="margin: auto;">
+      <input class="button1" type="submit" value="Select">
+    </td>
+  </tr>
+
+
+  <tr>
+    <td style="margin: auto;">
+      <div class="flashes">
+      {% with messages = get_flashed_messages() %}
+       {% if messages %}
+       <div class=flashes>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+       {% endif %}
+     {% endwith %}
+     </div>
+    </td>
+  </tr>
+
+</table>
+
+</div>
+</div>
+</div>
+
+{% endblock %}

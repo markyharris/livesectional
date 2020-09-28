@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<head>    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_96c8429954cb4f17bb1cfe02eea65776 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 80.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"/>
+</head>
+<body>    
+    
+            <div class="folium-map" id="map_96c8429954cb4f17bb1cfe02eea65776" ></div>
+        
+</body>
+<script>    
+    
+            var map_96c8429954cb4f17bb1cfe02eea65776 = L.map(
+                "map_96c8429954cb4f17bb1cfe02eea65776",
+                {
+                    center: [35.1738, -111.6541],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 6,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_96c8429954cb4f17bb1cfe02eea65776);
+
+            
+
+        
+    
+            var tile_layer_bbf88158d6f94a91822651891aaea91b = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_96c8429954cb4f17bb1cfe02eea65776);
+        
+    
+                var lat_lng_popup_132d0448e768424ca14c4277303dab25 = L.popup();
+                function latLngPop(e) {
+                    lat_lng_popup_132d0448e768424ca14c4277303dab25
+                        .setLatLng(e.latlng)
+                        .setContent("Latitude: " + e.latlng.lat.toFixed(4) +
+                                    "<br>Longitude: " + e.latlng.lng.toFixed(4))
+                        .openOn(map_96c8429954cb4f17bb1cfe02eea65776);
+                    }
+                map_96c8429954cb4f17bb1cfe02eea65776.on('click', latLngPop);
+            
+    
+                function newMarker(e){
+                    var new_mark = L.marker().setLatLng(e.latlng).addTo(map_96c8429954cb4f17bb1cfe02eea65776);
+                    new_mark.dragging.enable();
+                    new_mark.on('dblclick', function(e){ map_96c8429954cb4f17bb1cfe02eea65776.removeLayer(e.target)})
+                    var lat = e.latlng.lat.toFixed(4),
+                       lng = e.latlng.lng.toFixed(4);
+                    new_mark.bindPopup("Marker");
+                    };
+                map_96c8429954cb4f17bb1cfe02eea65776.on('click', newMarker);
+            
+    
+            L.Control.geocoder(
+                {"collapsed": false, "defaultMarkGeocode": true, "position": "topright"}
+            ).on('markgeocode', function(e) {
+                map_96c8429954cb4f17bb1cfe02eea65776.setView(e.geocode.center, 11);
+            }).addTo(map_96c8429954cb4f17bb1cfe02eea65776);
+
+        
+    
+            var tile_layer_effe0bdc2e3c470b9ceaebc2321df2fa = L.tileLayer(
+                "http://wms.chartbundle.com/tms/1.0.0/sec/{z}/{x}/{y}.png?origin=nw",
+                {"attribution": "chartbundle.com", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_96c8429954cb4f17bb1cfe02eea65776);
+        
+    
+            var tile_layer_75b152b5cd5245a681a581608254926b = L.tileLayer(
+                "https://stamen-tiles-{s}.a.ssl.fastly.net/terrain/{z}/{x}/{y}.jpg",
+                {"attribution": "Map tiles by \u003ca href=\"http://stamen.com\"\u003eStamen Design\u003c/a\u003e, under \u003ca href=\"http://creativecommons.org/licenses/by/3.0\"\u003eCC BY 3.0\u003c/a\u003e. Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://creativecommons.org/licenses/by-sa/3.0\"\u003eCC BY SA\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_96c8429954cb4f17bb1cfe02eea65776);
+        
+    
+            var tile_layer_5c60f5858e5b4fa4835cd43eb17f0054 = L.tileLayer(
+                "https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"http://cartodb.com/attributions\"\u003eCartoDB\u003c/a\u003e, CartoDB \u003ca href =\"http://cartodb.com/attributions\"\u003eattributions\u003c/a\u003e", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_96c8429954cb4f17bb1cfe02eea65776);
+        
+    
+            var layer_control_d1538593c43a41eaa4bd1387f393dd91 = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_bbf88158d6f94a91822651891aaea91b,
+                    "ChartBundle Sectional" : tile_layer_effe0bdc2e3c470b9ceaebc2321df2fa,
+                    "Stamen Terrain" : tile_layer_75b152b5cd5245a681a581608254926b,
+                    "CartoDB Positron" : tile_layer_5c60f5858e5b4fa4835cd43eb17f0054,
+                },
+                overlays :  {
+                },
+            };
+            L.control.layers(
+                layer_control_d1538593c43a41eaa4bd1387f393dd91.base_layers,
+                layer_control_d1538593c43a41eaa4bd1387f393dd91.overlays,
+                {"autoZIndex": true, "collapsed": true, "position": "topright"}
+            ).addTo(map_96c8429954cb4f17bb1cfe02eea65776);
+            tile_layer_effe0bdc2e3c470b9ceaebc2321df2fa.remove();
+            tile_layer_75b152b5cd5245a681a581608254926b.remove();
+            tile_layer_5c60f5858e5b4fa4835cd43eb17f0054.remove();
+        
+</script>
