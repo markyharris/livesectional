@@ -304,13 +304,12 @@ logger.info('Watching ' + LOCAL_CONFIG_FILE_PATH + ' For Change')
 
 #Timer calculations
 now = datetime.now()                    #Get current time and compare to timer setting
-timeoff = now.replace(hour=offhour, minute=offminutes, second=0, microsecond=0) #When to turn map off
-timeon = now.replace(hour=onhour, minute=onminutes, second=0, microsecond=0)    #When to turn map back on
-diff = timeon - timeoff
 lights_out = time_(offhour, offminutes, 0)
+timeoff = lights_out
 lights_on = time_(onhour, onminutes, 0)
+end_time = lights_on
 delay_time = 10                         #Number of seconds to delay before retrying to connect to the internet.
-temp_time_flag = 0                      #Set flag for next round if sleep timer is interrupted by button push.
+temp_lights_on = 0                      #Set flag for next round if sleep timer is interrupted by button push.
 
 #MOS Data Settings
 mos_filepath = '/NeoSectional/GFSMAV'      #location of the downloaded local MOS file.
@@ -319,7 +318,7 @@ obv_wx = {'N': 'None', 'HZ': 'HZ','BR': 'RA','FG': 'FG','BL': 'HZ'} #Decode from
 typ_wx = {'S': 'SN','Z': 'FZRA','R': 'RA'}      #Decode from MOS to TAF/METAR
 mos_dict = collections.OrderedDict()    #Outer Dictionary, keyed by airport ID
 hour_dict = collections.OrderedDict()   #Middle Dictionary, keyed by hour of forcast. Will contain a list of data for categories.
-ap_flag = 0                             #Used to determine that an airport from our airports file is currently being read.
+zap_flag = 0                             #Used to determine that an airport from our airports file is currently being read.
 
 #Used by Heat Map. Do not change - assumed by routines below.
 low_visits = (0, 0, 255)                #Start with Blue - Do Not Change
@@ -1241,32 +1240,29 @@ while (outerloop):
 
         #Timer routine, used to turn off LED's at night if desired. Use 24 hour time in settings.
         if usetimer: #check to see if the user wants to use a timer.
-            if diff.days < 0: #this checks to see if the timeoff is before midnight and timeon is after (typical) and adjust.
-                diff = timedelta(days=0, seconds=diff.seconds, microseconds=diff.microseconds)
+             
+             if time_in_range(timeoff, end_time, datetime.now().time()):
 
-            end_time = timeoff + diff
-            if temp_time_flag == 1: #reset end_time if we are in temporarily on during sleep mode
-                end_time = temp_end_time
-                temp_time_flag = 0 #reset flag for next round
-
-#            if timeoff <= datetime.now() <= end_time:
-             if time_in_range(lights_out, lights_on, datetime.now().time()):
+                # If temporary lights-on period from refresh button has expired, restore the original light schedule
+                if temp_lights_on == 1:
+                    end_time = lights_on
+                    timeoff = lights_out
+                    temp_lights_on = 0
+                
                 sys.stdout.write ("\n\033[1;34;40m Sleeping-  ") #Escape codes to render Blue text on screen
                 sys.stdout.flush ()
                 turnoff(strip)
                 logger.info("Map Going to Sleep")
 
-#                while timeoff <= datetime.now() <= end_time:
-                while time_in_range(lights_out, lights_on, datetime.now().time()):
-                    temp_timeoff = timeoff #store original timeoff time and restore later.
+                while time_in_range(timeoff, end_time, datetime.now().time()):
                     sys.stdout.write ("z")
                     sys.stdout.flush ()
                     time.sleep(1)
                     if GPIO.input(22) == False: #Pushbutton for Refresh. check to see if we should turn on temporarily during sleep mode
-                        temp_end_time = end_time
-                        end_time = datetime.now()
-                        timeoff = datetime.now() + timedelta(minutes=tempsleepon) #Set timeoff to now + 5 minutes
-                        temp_time_flag = 1 #Set this to 1 if button is pressed
+                        # Set to turn lights on two seconds ago to make sure we hit the loop next time through
+                        end_time = (datetime.now()-timedelta(seconds=2)).time()
+                        timeoff = (datetime.now()+timedelta(minutes=tempsleepon)).time()
+                        temp_lights_on = 1 #Set this to 1 if button is pressed
                         logger.info("Sleep interrupted by button push")
 
                     #Routine to restart this script if config.py is changed while this script is running.
