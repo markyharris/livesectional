@@ -513,8 +513,10 @@ def assign_color(visits):
 ##########################
 toggle = 0                      #used for homeport display
 outerloop = 1                   #Set to TRUE for infinite outerloop
+display_num = 0
 while (outerloop):
-
+    display_num = display_num + 1
+    
     #Time calculations, dependent on 'hour_to_display' offset. this determines how far in the future the TAF data should be.
     #This time is recalculated everytime the FAA data gets updated
     zulu = datetime.utcnow() + timedelta(hours=hour_to_display)     #Get current time plus Offset
@@ -1127,13 +1129,12 @@ while (outerloop):
         #grab the airport category, wind speed and various weather from the results given from FAA.
         for metar in root.iter('METAR'):
             stationId = metar.find('station_id').text
-            logger.debug(stationId) #debug
 
         # Routine to create flight category via cloud cover and/or visability when flight category is not reported.
         # Routine written and contributed to project by Nick Cirincione. Thank you for your contribution.
             if metar.find('flight_category') is None or metar.find('flight_category') == 'NONE': #if category is blank, then see if there's a sky condition or vis that would dictate flight category
                 flightcategory = "VFR" #intialize flight category
-                logger.info(stationId + " Not Reporting Flight Category.")
+                logger.info(stationId + " Not Reporting Flight Category through the API.")
 
                 #There can be multiple layers of clouds in each METAR, but they are always listed lowest AGL first.
                 #Check the lowest (first) layer and see if it's overcast, broken, or obscured. If it is, then compare to cloud base height to set flight category.
@@ -1182,9 +1183,10 @@ while (outerloop):
                         elif 3.0 <= visibility_statute_mi <= 5.0 and flightcategory != "IFR":  #if Flight Category was already set to IFR by clouds, it can't be reduced to MVFR
                             flightcategory = "MVFR"
 
-                logger.debug(stationId + " flight category is " + flightcategory)
+                logger.debug(stationId + " flight category is script-determined as " + flightcategory)
 
             else:
+                logger.debug(stationId + ' is reporting '+metar.find('flight_category').text + ' through the API')
                 flightcategory = metar.find('flight_category').text  #pull flight category if it exists and save all the algoritm above
             #End of added routine to create flight category via cloud cover and/or visability when flight category is not reported.
 
@@ -1220,7 +1222,9 @@ while (outerloop):
 
     #Setup timed loop for updating FAA Weather that will run based on the value of 'update_interval' which is a user setting
     timeout_start = time.time() #Start the timer. When timer hits user-defined value, go back to outer loop to update FAA Weather.
+    loopcount=0
     while time.time() < timeout_start + (update_interval * 60): #take 'update_interval' which is in minutes and turn into seconds
+        loopcount = loopcount + 1
 
            #Routine to restart this script if config.py is changed while this script is running.
         for f, mtime in WATCHED_FILES_MTIMES:
@@ -1377,10 +1381,11 @@ while (outerloop):
 
         toggle = not(toggle) #Used to determine if the homeport color should be displayed if "homeport = 1"
 
-
+        print("\nWX Display # "+str(display_num)+" Cycle Loop # "+str(loopcount)+": ",end="")
         #Start main loop. This loop will create all the necessary colors to display the weather one time.
         for cycle_num in cycles: #cycle through the strip 6 times, setting the color then displaying to create various effects.
-            print(("\n Cycle Num = " + str(cycle_num))) #debug
+            print(" "+str(cycle_num),end='')
+            sys.stdout.flush()
 
             i = 0 #Inner Loop. Increments through each LED in the strip setting the appropriate color to each individual LED.
             for airportcode in airports:
@@ -1577,6 +1582,9 @@ while (outerloop):
                 strip.setPixelColor(i, xcolor) #set color to display on a specific LED for the current cycle_num cycle.
                 i = i + 1 #set next LED pin in strip
 
+            print("/LED.",end='')
+            sys.stdout.flush()
             strip.show() #Display strip with newly assigned colors for the current cycle_num cycle.
+            print(".",end='')
             wait_time = cycle_wait[cycle_num] #cycle_wait time is a user defined value
             time.sleep(wait_time) #pause between cycles. pauses are setup in user definitions.
