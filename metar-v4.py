@@ -318,7 +318,7 @@ obv_wx = {'N': 'None', 'HZ': 'HZ','BR': 'RA','FG': 'FG','BL': 'HZ'} #Decode from
 typ_wx = {'S': 'SN','Z': 'FZRA','R': 'RA'}      #Decode from MOS to TAF/METAR
 mos_dict = collections.OrderedDict()    #Outer Dictionary, keyed by airport ID
 hour_dict = collections.OrderedDict()   #Middle Dictionary, keyed by hour of forcast. Will contain a list of data for categories.
-ap_flag = 0                             #Used to determine that an airport from our airports file is currently being read.
+zap_flag = 0                             #Used to determine that an airport from our airports file is currently being read.
 
 #Used by Heat Map. Do not change - assumed by routines below.
 low_visits = (0, 0, 255)                #Start with Blue - Do Not Change
