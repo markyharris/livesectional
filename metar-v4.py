@@ -76,7 +76,6 @@ import xml.etree.ElementTree as ET
 import time
 from datetime import datetime
 from datetime import timedelta
-from datetime import time as time_
 from rpi_ws281x import * #works with python 3.7. sudo pip3 install rpi_ws281x
 import sys
 import os
@@ -307,8 +306,6 @@ now = datetime.now()                    #Get current time and compare to timer s
 timeoff = now.replace(hour=offhour, minute=offminutes, second=0, microsecond=0) #When to turn map off
 timeon = now.replace(hour=onhour, minute=onminutes, second=0, microsecond=0)    #When to turn map back on
 diff = timeon - timeoff
-lights_out = time_(offhour, offminutes, 0)
-lights_on = time_(onhour, onminutes, 0)
 delay_time = 10                         #Number of seconds to delay before retrying to connect to the internet.
 temp_time_flag = 0                      #Set flag for next round if sleep timer is interrupted by button push.
 
@@ -390,13 +387,6 @@ def comp_time(taf_time):
     diff_minutes = int(diff.seconds/60)
     diff_hours = int(diff_minutes/60)
     return diff.seconds, diff_minutes, diff_hours, diff.days
-
-# See if a time falls within a range
-def time_in_range(start, end, x):
-    if start <= end:
-        return start <= x <= end
-    else:
-        return start <= x or x <= end
 
 #Used by MOS decode routine. This routine builds mos_dict nested with hours_dict
 def set_data():
@@ -1253,15 +1243,13 @@ while (outerloop):
                 end_time = temp_end_time
                 temp_time_flag = 0 #reset flag for next round
 
-#            if timeoff <= datetime.now() <= end_time:
-             if time_in_range(lights_out, lights_on, datetime.now().time()):
+            if timeoff <= datetime.now() <= end_time:
                 sys.stdout.write ("\n\033[1;34;40m Sleeping-  ") #Escape codes to render Blue text on screen
                 sys.stdout.flush ()
                 turnoff(strip)
                 logger.info("Map Going to Sleep")
 
-#                while timeoff <= datetime.now() <= end_time:
-                while time_in_range(lights_out, lights_on, datetime.now().time()):
+                while timeoff <= datetime.now() <= end_time:
                     temp_timeoff = timeoff #store original timeoff time and restore later.
                     sys.stdout.write ("z")
                     sys.stdout.flush ()
