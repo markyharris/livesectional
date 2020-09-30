@@ -1,25 +1,26 @@
 #!/usr/bin/python3
 #metar-v4.py - by Mark Harris. Capable of displaying METAR data, TAF or MOS data. Using a rotary switch to select 1 of 12 positions
-#     Updated to run under Python 3.7
-#     Added Sleep Timer routine to turn-off map at night if desired.
-#     Added the ability to display TAF or MOS data along with METAR's
-#     Note: MOS data is only available for United States, Puerto Rico, and the U.S. Virgin Islands.
-#     The timeframe of the TAF, MOS data to display can be selected via the rotary switch. A switch with up to 12 positions can be used.
-#     If no Rotary Switch is used, this script's config will set default data to display.
-#     Added routine by by Nick Cirincione to decode flight category if flight category is not provided by the FAA.
-#     Fixed bug that wouldn't allow the last airport to be 'NULL' without causing all LED's to show white.
-#     Added auto restart when config.py is changed, so settings will be automatically re-loaded.
-#     Added internet availability check and retry if necessary. This should help when power is disrupted and board reboots before router does.
-#     Added Logging capabilities which is stored in /NeoSectional/logfile.log with 3 backup files for older logfile data.
-#     Added ability to specify specific LED pins to reverse the normal rgb_grb setting. For mixing models of LED strings.
-#     Added a Heat Map of what airports the user has landed at. Not available through Rotary switch. Only Web interface.
-#     Added new wipes, some based on lat/lon of airports
-#     Fixed bug where wipes would execute twice on map startup.
-#     Added admin.py for behinds the scenes variables to be stored. i.e. use_mos=1 to determine if bash files should or should not download MOS data.
-#     Added ability to detect a Rotary Switch is NOT installed and react accordingly.
-#     Added logging of Current RPI IP address whenever FAA weather update is retrieved
-#     Fixed bug where TAF XML reports OVC without a cloud level agl. It uses vert_vis_ft as a backup.
-#     Fixed bug when debug mode is changed to 'Debug'.
+#    Updated to run under Python 3.7
+#    Added Sleep Timer routine to turn-off map at night if desired.
+#    Added the ability to display TAF or MOS data along with METAR's
+#    Note: MOS data is only available for United States, Puerto Rico, and the U.S. Virgin Islands.
+#    The timeframe of the TAF, MOS data to display can be selected via the rotary switch. A switch with up to 12 positions can be used.
+#    If no Rotary Switch is used, this script's config will set default data to display.
+#    Added routine by by Nick Cirincione to decode flight category if flight category is not provided by the FAA.
+#    Fixed bug that wouldn't allow the last airport to be 'NULL' without causing all LED's to show white.
+#    Added auto restart when config.py is changed, so settings will be automatically re-loaded.
+#    Added internet availability check and retry if necessary. This should help when power is disrupted and board reboots before router does.
+#    Added Logging capabilities which is stored in /NeoSectional/logfile.log with 3 backup files for older logfile data.
+#    Added ability to specify specific LED pins to reverse the normal rgb_grb setting. For mixing models of LED strings.
+#    Added a Heat Map of what airports the user has landed at. Not available through Rotary switch. Only Web interface.
+#    Added new wipes, some based on lat/lon of airports
+#    Fixed bug where wipes would execute twice on map startup.
+#    Added admin.py for behinds the scenes variables to be stored. i.e. use_mos=1 to determine if bash files should or should not download MOS data.
+#    Added ability to detect a Rotary Switch is NOT installed and react accordingly.
+#    Added logging of Current RPI IP address whenever FAA weather update is retrieved
+#    Fixed bug where TAF XML reports OVC without a cloud level agl. It uses vert_vis_ft as a backup.
+#    Fixed bug when debug mode is changed to 'Debug'.
+#    Switch Version control over to Github at https://github.com/markyharris/livesectional
 
 #This version retains the features included in metar-v3.py, including hi-wind blinking and lightning when thunderstorms are reported.
 #However, this version adds representations for snow, rain, freezing rain, dust sand ash, and fog when reported in the metar.
