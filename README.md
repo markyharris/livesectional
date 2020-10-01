@@ -109,7 +109,7 @@
     </p>
   <hr>
     <p class="lead">
-        The software was written to provide a miriad of build combinations. Below is a short list of combinations.
+        The software was written to provide a myriad of build combinations. Below is a short list of combinations.
         <ul>
 	  <li>Basic LED Map
 	     <ul>
