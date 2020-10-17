@@ -1,856 +1,843 @@
-[D 200927 14:39:27 check-display:70] metar-display-v4.py Running!
-[D 200927 14:39:37 check-display:62] metar-v4.py Running!
-[D 200927 14:39:37 check-display:70] metar-display-v4.py Running!
-[D 200927 14:39:47 check-display:62] metar-v4.py Running!
-[D 200927 14:39:47 check-display:70] metar-display-v4.py Running!
-[D 200927 14:39:57 check-display:62] metar-v4.py Running!
-[D 200927 14:39:57 check-display:70] metar-display-v4.py Running!
-[D 200927 14:40:07 check-display:62] metar-v4.py Running!
-[D 200927 14:40:07 check-display:70] metar-display-v4.py Running!
-[D 200927 14:40:17 check-display:62] metar-v4.py Running!
-[D 200927 14:40:18 check-display:70] metar-display-v4.py Running!
-[D 200927 14:40:28 check-display:62] metar-v4.py Running!
-[D 200927 14:40:28 check-display:70] metar-display-v4.py Running!
-[D 200927 14:40:38 check-display:62] metar-v4.py Running!
-[D 200927 14:40:38 check-display:70] metar-display-v4.py Running!
-[D 200927 14:40:48 check-display:62] metar-v4.py Running!
-[D 200927 14:40:48 check-display:70] metar-display-v4.py Running!
-[D 200927 14:40:58 check-display:62] metar-v4.py Running!
-[D 200927 14:40:58 check-display:70] metar-display-v4.py Running!
-[D 200927 14:41:08 check-display:62] metar-v4.py Running!
-[D 200927 14:41:08 check-display:70] metar-display-v4.py Running!
-[D 200927 14:41:18 check-display:62] metar-v4.py Running!
-[D 200927 14:41:18 check-display:70] metar-display-v4.py Running!
-[D 200927 14:41:28 check-display:62] metar-v4.py Running!
-[D 200927 14:41:28 check-display:70] metar-display-v4.py Running!
-[D 200927 14:41:38 check-display:62] metar-v4.py Running!
-[D 200927 14:41:38 check-display:70] metar-display-v4.py Running!
-[D 200927 14:41:48 check-display:62] metar-v4.py Running!
-[D 200927 14:41:48 check-display:70] metar-display-v4.py Running!
-[D 200927 14:41:59 check-display:62] metar-v4.py Running!
-[D 200927 14:41:59 check-display:70] metar-display-v4.py Running!
-[D 200927 14:42:09 check-display:62] metar-v4.py Running!
-[D 200927 14:42:09 check-display:70] metar-display-v4.py Running!
-[D 200927 14:42:19 check-display:62] metar-v4.py Running!
-[D 200927 14:42:19 check-display:70] metar-display-v4.py Running!
-[D 200927 14:42:29 check-display:62] metar-v4.py Running!
-[D 200927 14:42:29 check-display:70] metar-display-v4.py Running!
-[D 200927 14:42:39 check-display:62] metar-v4.py Running!
-[D 200927 14:42:39 check-display:70] metar-display-v4.py Running!
-[D 200927 14:42:49 check-display:62] metar-v4.py Running!
-[D 200927 14:42:49 check-display:70] metar-display-v4.py Running!
-[D 200927 14:42:59 check-display:62] metar-v4.py Running!
-[D 200927 14:42:59 check-display:70] metar-display-v4.py Running!
-[D 200927 14:43:09 check-display:62] metar-v4.py Running!
-[D 200927 14:43:09 check-display:70] metar-display-v4.py Running!
-[D 200927 14:43:19 check-display:62] metar-v4.py Running!
-[D 200927 14:43:19 check-display:70] metar-display-v4.py Running!
-[D 200927 14:43:29 check-display:62] metar-v4.py Running!
-[D 200927 14:43:29 check-display:70] metar-display-v4.py Running!
-[D 200927 14:43:40 check-display:62] metar-v4.py Running!
-[D 200927 14:43:40 check-display:70] metar-display-v4.py Running!
-[D 200927 14:43:50 check-display:62] metar-v4.py Running!
-[D 200927 14:43:50 check-display:70] metar-display-v4.py Running!
-[D 200927 14:44:00 check-display:62] metar-v4.py Running!
-[D 200927 14:44:00 check-display:70] metar-display-v4.py Running!
-[D 200927 14:44:10 check-display:62] metar-v4.py Running!
-[D 200927 14:44:10 check-display:70] metar-display-v4.py Running!
-[D 200927 14:44:20 check-display:62] metar-v4.py Running!
-[D 200927 14:44:20 check-display:70] metar-display-v4.py Running!
-[D 200927 14:44:30 check-display:62] metar-v4.py Running!
-[D 200927 14:44:30 check-display:70] metar-display-v4.py Running!
-[D 200927 14:44:40 check-display:62] metar-v4.py Running!
-[D 200927 14:44:40 check-display:70] metar-display-v4.py Running!
-[D 200927 14:44:50 check-display:62] metar-v4.py Running!
-[D 200927 14:44:50 check-display:70] metar-display-v4.py Running!
-[D 200927 14:45:00 check-display:62] metar-v4.py Running!
-[D 200927 14:45:00 check-display:70] metar-display-v4.py Running!
-[D 200927 14:45:11 check-display:62] metar-v4.py Running!
-[D 200927 14:45:11 check-display:70] metar-display-v4.py Running!
-[D 200927 14:45:21 check-display:62] metar-v4.py Running!
-[D 200927 14:45:21 check-display:70] metar-display-v4.py Running!
-[D 200927 14:45:31 check-display:62] metar-v4.py Running!
-[D 200927 14:45:31 check-display:70] metar-display-v4.py Running!
-[D 200927 14:45:41 check-display:62] metar-v4.py Running!
-[D 200927 14:45:41 check-display:70] metar-display-v4.py Running!
-[D 200927 14:45:51 check-display:62] metar-v4.py Running!
-[D 200927 14:45:51 check-display:70] metar-display-v4.py Running!
-[D 200927 14:46:01 check-display:62] metar-v4.py Running!
-[D 200927 14:46:01 check-display:70] metar-display-v4.py Running!
-[D 200927 14:46:11 check-display:62] metar-v4.py Running!
-[D 200927 14:46:11 check-display:70] metar-display-v4.py Running!
-[D 200927 14:46:21 check-display:62] metar-v4.py Running!
-[D 200927 14:46:21 check-display:70] metar-display-v4.py Running!
-[D 200927 14:46:31 check-display:62] metar-v4.py Running!
-[D 200927 14:46:31 check-display:70] metar-display-v4.py Running!
-[D 200927 14:46:41 check-display:62] metar-v4.py Running!
-[D 200927 14:46:42 check-display:70] metar-display-v4.py Running!
-[D 200927 14:46:52 check-display:62] metar-v4.py Running!
-[D 200927 14:46:52 check-display:70] metar-display-v4.py Running!
-[D 200927 14:47:02 check-display:62] metar-v4.py Running!
-[D 200927 14:47:02 check-display:70] metar-display-v4.py Running!
-[D 200927 14:47:12 check-display:62] metar-v4.py Running!
-[D 200927 14:47:12 check-display:70] metar-display-v4.py Running!
-[D 200927 14:47:22 check-display:62] metar-v4.py Running!
-[D 200927 14:47:22 check-display:70] metar-display-v4.py Running!
-[D 200927 14:47:32 check-display:62] metar-v4.py Running!
-[D 200927 14:47:32 check-display:70] metar-display-v4.py Running!
-[D 200927 14:47:42 check-display:62] metar-v4.py Running!
-[D 200927 14:47:42 check-display:70] metar-display-v4.py Running!
-[D 200927 14:47:52 check-display:62] metar-v4.py Running!
-[D 200927 14:47:52 check-display:70] metar-display-v4.py Running!
-[D 200927 14:48:03 check-display:62] metar-v4.py Running!
-[D 200927 14:48:03 check-display:70] metar-display-v4.py Running!
-[D 200927 14:48:13 check-display:62] metar-v4.py Running!
-[D 200927 14:48:13 check-display:70] metar-display-v4.py Running!
-[D 200927 14:48:23 check-display:62] metar-v4.py Running!
-[D 200927 14:48:23 check-display:70] metar-display-v4.py Running!
-[D 200927 14:48:33 check-display:62] metar-v4.py Running!
-[D 200927 14:48:33 check-display:70] metar-display-v4.py Running!
-[D 200927 14:48:43 check-display:62] metar-v4.py Running!
-[D 200927 14:48:43 check-display:70] metar-display-v4.py Running!
-[D 200927 14:48:53 check-display:62] metar-v4.py Running!
-[D 200927 14:48:53 check-display:70] metar-display-v4.py Running!
-[D 200927 14:49:03 check-display:62] metar-v4.py Running!
-[D 200927 14:49:03 check-display:70] metar-display-v4.py Running!
-[D 200927 14:49:13 check-display:62] metar-v4.py Running!
-[D 200927 14:49:13 check-display:70] metar-display-v4.py Running!
-[D 200927 14:49:23 check-display:62] metar-v4.py Running!
-[D 200927 14:49:23 check-display:70] metar-display-v4.py Running!
-[D 200927 14:49:34 check-display:62] metar-v4.py Running!
-[D 200927 14:49:34 check-display:70] metar-display-v4.py Running!
-[D 200927 14:49:44 check-display:62] metar-v4.py Running!
-[D 200927 14:49:44 check-display:70] metar-display-v4.py Running!
-[D 200927 14:49:54 check-display:62] metar-v4.py Running!
-[D 200927 14:49:54 check-display:70] metar-display-v4.py Running!
-[D 200927 14:50:04 check-display:62] metar-v4.py Running!
-[D 200927 14:50:04 check-display:70] metar-display-v4.py Running!
-[D 200927 14:50:14 check-display:62] metar-v4.py Running!
-[D 200927 14:50:14 check-display:70] metar-display-v4.py Running!
-[D 200927 14:50:24 check-display:62] metar-v4.py Running!
-[D 200927 14:50:24 check-display:70] metar-display-v4.py Running!
-[D 200927 14:50:34 check-display:62] metar-v4.py Running!
-[D 200927 14:50:34 check-display:70] metar-display-v4.py Running!
-[D 200927 14:50:44 check-display:62] metar-v4.py Running!
-[D 200927 14:50:44 check-display:70] metar-display-v4.py Running!
-[D 200927 14:50:54 check-display:62] metar-v4.py Running!
-[D 200927 14:50:54 check-display:70] metar-display-v4.py Running!
-[D 200927 14:51:04 check-display:62] metar-v4.py Running!
-[D 200927 14:51:04 check-display:70] metar-display-v4.py Running!
-[D 200927 14:51:14 check-display:62] metar-v4.py Running!
-[D 200927 14:51:15 check-display:70] metar-display-v4.py Running!
-[D 200927 14:51:25 check-display:62] metar-v4.py Running!
-[D 200927 14:51:25 check-display:70] metar-display-v4.py Running!
-[D 200927 14:51:35 check-display:62] metar-v4.py Running!
-[D 200927 14:51:35 check-display:70] metar-display-v4.py Running!
-[D 200927 14:51:45 check-display:62] metar-v4.py Running!
-[D 200927 14:51:45 check-display:70] metar-display-v4.py Running!
-[D 200927 14:51:55 check-display:62] metar-v4.py Running!
-[D 200927 14:51:55 check-display:70] metar-display-v4.py Running!
-[D 200927 14:52:05 check-display:62] metar-v4.py Running!
-[D 200927 14:52:05 check-display:70] metar-display-v4.py Running!
-[I 200927 14:52:15 wipes-v4:38] 
+[I 201016 15:42:57 webapp:293] Opening Homepage
+[I 201016 15:54:02 wipes-v4:38] 
     
     Startup of wipes-v4.py Script, Version v4.342
-[I 200927 14:52:15 wipes-v4:39] Log Level Set To: 20
-[D 200927 14:52:15 check-display:62] metar-v4.py Running!
-[D 200927 14:52:15 check-display:70] metar-display-v4.py Running!
-[I 200927 14:52:16 wipes-v4:696] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
-[I 200927 14:52:16 wipes-v4:697] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
-[I 200927 14:52:17 wipes-v4:791] Executing Rainbow Wipe
-[D 200927 14:52:25 check-display:62] metar-v4.py Running!
-[D 200927 14:52:25 check-display:70] metar-display-v4.py Running!
-[I 200927 14:52:27 wipes-v4:796] Turning Off all LEDs
-[I 200927 14:52:27 metar-v4:532] Calling wipes script
-[I 200927 14:52:27 metar-v4:544] Airports File Loaded
-[I 200927 14:52:27 metar-v4:550] METAR Data Loading
-[I 200927 14:52:27 metar-v4:578] RPI IP Address = 192.168.86.33
-[I 200927 14:52:28 metar-v4:582] Internet Available
-[I 200927 14:52:28 metar-v4:583] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
-[I 200927 14:52:28 metar-v4:1125] Starting METAR Data Display
-[I 200927 14:52:28 metar-v4:1136] K46U Not Reporting Flight Category.
-[I 200927 14:52:28 metar-v4:1219] Decoded METAR Data for Display
-[D 200927 14:52:35 check-display:62] metar-v4.py Running!
-[D 200927 14:52:36 check-display:70] metar-display-v4.py Running!
-[D 200927 14:52:46 check-display:62] metar-v4.py Running!
-[D 200927 14:52:46 check-display:70] metar-display-v4.py Running!
-[D 200927 14:52:56 check-display:62] metar-v4.py Running!
-[D 200927 14:52:56 check-display:70] metar-display-v4.py Running!
-[D 200927 14:53:06 check-display:62] metar-v4.py Running!
-[D 200927 14:53:06 check-display:70] metar-display-v4.py Running!
-[D 200927 14:53:16 check-display:62] metar-v4.py Running!
-[D 200927 14:53:16 check-display:70] metar-display-v4.py Running!
-[D 200927 14:53:26 check-display:62] metar-v4.py Running!
-[D 200927 14:53:26 check-display:70] metar-display-v4.py Running!
-[D 200927 14:53:36 check-display:62] metar-v4.py Running!
-[D 200927 14:53:36 check-display:70] metar-display-v4.py Running!
-[D 200927 14:53:46 check-display:62] metar-v4.py Running!
-[D 200927 14:53:46 check-display:70] metar-display-v4.py Running!
-[D 200927 14:53:56 check-display:62] metar-v4.py Running!
-[D 200927 14:53:57 check-display:70] metar-display-v4.py Running!
-[D 200927 14:54:07 check-display:62] metar-v4.py Running!
-[D 200927 14:54:07 check-display:70] metar-display-v4.py Running!
-[D 200927 14:54:17 check-display:62] metar-v4.py Running!
-[D 200927 14:54:17 check-display:70] metar-display-v4.py Running!
-[D 200927 14:54:27 check-display:62] metar-v4.py Running!
-[D 200927 14:54:27 check-display:70] metar-display-v4.py Running!
-[D 200927 14:54:37 check-display:62] metar-v4.py Running!
-[D 200927 14:54:37 check-display:70] metar-display-v4.py Running!
-[D 200927 14:54:47 check-display:62] metar-v4.py Running!
-[D 200927 14:54:47 check-display:70] metar-display-v4.py Running!
-[D 200927 14:54:57 check-display:62] metar-v4.py Running!
-[D 200927 14:54:57 check-display:70] metar-display-v4.py Running!
-[D 200927 14:55:07 check-display:62] metar-v4.py Running!
-[D 200927 14:55:07 check-display:70] metar-display-v4.py Running!
-[D 200927 14:55:17 check-display:62] metar-v4.py Running!
-[D 200927 14:55:17 check-display:70] metar-display-v4.py Running!
-[D 200927 14:55:27 check-display:62] metar-v4.py Running!
-[D 200927 14:55:27 check-display:70] metar-display-v4.py Running!
-[D 200927 14:55:37 check-display:62] metar-v4.py Running!
-[D 200927 14:55:38 check-display:70] metar-display-v4.py Running!
-[D 200927 14:55:48 check-display:62] metar-v4.py Running!
-[D 200927 14:55:48 check-display:70] metar-display-v4.py Running!
-[D 200927 14:55:58 check-display:62] metar-v4.py Running!
-[D 200927 14:55:58 check-display:70] metar-display-v4.py Running!
-[D 200927 14:56:08 check-display:62] metar-v4.py Running!
-[D 200927 14:56:08 check-display:70] metar-display-v4.py Running!
-[D 200927 14:56:18 check-display:62] metar-v4.py Running!
-[D 200927 14:56:18 check-display:70] metar-display-v4.py Running!
-[D 200927 14:56:28 check-display:62] metar-v4.py Running!
-[D 200927 14:56:28 check-display:70] metar-display-v4.py Running!
-[D 200927 14:56:38 check-display:62] metar-v4.py Running!
-[D 200927 14:56:38 check-display:70] metar-display-v4.py Running!
-[D 200927 14:56:48 check-display:62] metar-v4.py Running!
-[D 200927 14:56:48 check-display:70] metar-display-v4.py Running!
-[D 200927 14:56:58 check-display:62] metar-v4.py Running!
-[D 200927 14:56:58 check-display:70] metar-display-v4.py Running!
-[D 200927 14:57:08 check-display:62] metar-v4.py Running!
-[D 200927 14:57:08 check-display:70] metar-display-v4.py Running!
-[D 200927 14:57:19 check-display:62] metar-v4.py Running!
-[D 200927 14:57:19 check-display:70] metar-display-v4.py Running!
-[D 200927 14:57:29 check-display:62] metar-v4.py Running!
-[D 200927 14:57:29 check-display:70] metar-display-v4.py Running!
-[D 200927 14:57:39 check-display:62] metar-v4.py Running!
-[D 200927 14:57:39 check-display:70] metar-display-v4.py Running!
-[D 200927 14:57:49 check-display:62] metar-v4.py Running!
-[D 200927 14:57:49 check-display:70] metar-display-v4.py Running!
-[D 200927 14:57:59 check-display:62] metar-v4.py Running!
-[D 200927 14:57:59 check-display:70] metar-display-v4.py Running!
-[D 200927 14:58:09 check-display:62] metar-v4.py Running!
-[D 200927 14:58:09 check-display:70] metar-display-v4.py Running!
-[D 200927 14:58:19 check-display:62] metar-v4.py Running!
-[D 200927 14:58:19 check-display:70] metar-display-v4.py Running!
-[D 200927 14:58:29 check-display:62] metar-v4.py Running!
-[D 200927 14:58:29 check-display:70] metar-display-v4.py Running!
-[D 200927 14:58:39 check-display:62] metar-v4.py Running!
-[D 200927 14:58:39 check-display:70] metar-display-v4.py Running!
-[D 200927 14:58:50 check-display:62] metar-v4.py Running!
-[D 200927 14:58:50 check-display:70] metar-display-v4.py Running!
-[D 200927 14:59:00 check-display:62] metar-v4.py Running!
-[D 200927 14:59:00 check-display:70] metar-display-v4.py Running!
-[D 200927 14:59:10 check-display:62] metar-v4.py Running!
-[D 200927 14:59:10 check-display:70] metar-display-v4.py Running!
-[D 200927 14:59:20 check-display:62] metar-v4.py Running!
-[D 200927 14:59:20 check-display:70] metar-display-v4.py Running!
-[D 200927 14:59:30 check-display:62] metar-v4.py Running!
-[D 200927 14:59:30 check-display:70] metar-display-v4.py Running!
-[D 200927 14:59:40 check-display:62] metar-v4.py Running!
-[D 200927 14:59:40 check-display:70] metar-display-v4.py Running!
-[D 200927 14:59:50 check-display:62] metar-v4.py Running!
-[D 200927 14:59:50 check-display:70] metar-display-v4.py Running!
-[D 200927 15:00:00 check-display:62] metar-v4.py Running!
-[D 200927 15:00:00 check-display:70] metar-display-v4.py Running!
-[D 200927 15:00:11 check-display:62] metar-v4.py Running!
-[D 200927 15:00:11 check-display:70] metar-display-v4.py Running!
-[D 200927 15:00:21 check-display:62] metar-v4.py Running!
-[D 200927 15:00:21 check-display:70] metar-display-v4.py Running!
-[D 200927 15:00:31 check-display:62] metar-v4.py Running!
-[D 200927 15:00:31 check-display:70] metar-display-v4.py Running!
-[D 200927 15:00:41 check-display:62] metar-v4.py Running!
-[D 200927 15:00:41 check-display:70] metar-display-v4.py Running!
-[D 200927 15:00:51 check-display:62] metar-v4.py Running!
-[D 200927 15:00:51 check-display:70] metar-display-v4.py Running!
-[D 200927 15:01:01 check-display:62] metar-v4.py Running!
-[D 200927 15:01:01 check-display:70] metar-display-v4.py Running!
-[D 200927 15:01:11 check-display:62] metar-v4.py Running!
-[D 200927 15:01:11 check-display:70] metar-display-v4.py Running!
-[D 200927 15:01:21 check-display:62] metar-v4.py Running!
-[D 200927 15:01:21 check-display:70] metar-display-v4.py Running!
-[D 200927 15:01:31 check-display:62] metar-v4.py Running!
-[D 200927 15:01:31 check-display:70] metar-display-v4.py Running!
-[D 200927 15:01:41 check-display:62] metar-v4.py Running!
-[D 200927 15:01:42 check-display:70] metar-display-v4.py Running!
-[D 200927 15:01:52 check-display:62] metar-v4.py Running!
-[D 200927 15:01:52 check-display:70] metar-display-v4.py Running!
-[D 200927 15:02:02 check-display:62] metar-v4.py Running!
-[D 200927 15:02:02 check-display:70] metar-display-v4.py Running!
-[D 200927 15:02:12 check-display:62] metar-v4.py Running!
-[D 200927 15:02:12 check-display:70] metar-display-v4.py Running!
-[D 200927 15:02:22 check-display:62] metar-v4.py Running!
-[D 200927 15:02:22 check-display:70] metar-display-v4.py Running!
-[D 200927 15:02:32 check-display:62] metar-v4.py Running!
-[D 200927 15:02:32 check-display:70] metar-display-v4.py Running!
-[D 200927 15:02:42 check-display:62] metar-v4.py Running!
-[D 200927 15:02:42 check-display:70] metar-display-v4.py Running!
-[D 200927 15:02:52 check-display:62] metar-v4.py Running!
-[D 200927 15:02:52 check-display:70] metar-display-v4.py Running!
-[D 200927 15:03:02 check-display:62] metar-v4.py Running!
-[D 200927 15:03:02 check-display:70] metar-display-v4.py Running!
-[D 200927 15:03:12 check-display:62] metar-v4.py Running!
-[D 200927 15:03:12 check-display:70] metar-display-v4.py Running!
-[D 200927 15:03:22 check-display:62] metar-v4.py Running!
-[D 200927 15:03:23 check-display:70] metar-display-v4.py Running!
-[D 200927 15:03:33 check-display:62] metar-v4.py Running!
-[D 200927 15:03:33 check-display:70] metar-display-v4.py Running!
-[D 200927 15:03:43 check-display:62] metar-v4.py Running!
-[D 200927 15:03:43 check-display:70] metar-display-v4.py Running!
-[D 200927 15:03:53 check-display:62] metar-v4.py Running!
-[D 200927 15:03:53 check-display:70] metar-display-v4.py Running!
-[D 200927 15:04:03 check-display:62] metar-v4.py Running!
-[D 200927 15:04:03 check-display:70] metar-display-v4.py Running!
-[D 200927 15:04:13 check-display:62] metar-v4.py Running!
-[D 200927 15:04:13 check-display:70] metar-display-v4.py Running!
-[D 200927 15:04:23 check-display:62] metar-v4.py Running!
-[D 200927 15:04:23 check-display:70] metar-display-v4.py Running!
-[D 200927 15:04:33 check-display:62] metar-v4.py Running!
-[D 200927 15:04:33 check-display:70] metar-display-v4.py Running!
-[D 200927 15:04:43 check-display:62] metar-v4.py Running!
-[D 200927 15:04:43 check-display:70] metar-display-v4.py Running!
-[D 200927 15:04:54 check-display:62] metar-v4.py Running!
-[D 200927 15:04:54 check-display:70] metar-display-v4.py Running!
-[D 200927 15:05:04 check-display:62] metar-v4.py Running!
-[D 200927 15:05:04 check-display:70] metar-display-v4.py Running!
-[D 200927 15:05:14 check-display:62] metar-v4.py Running!
-[D 200927 15:05:14 check-display:70] metar-display-v4.py Running!
-[D 200927 15:05:24 check-display:62] metar-v4.py Running!
-[D 200927 15:05:24 check-display:70] metar-display-v4.py Running!
-[D 200927 15:05:34 check-display:62] metar-v4.py Running!
-[D 200927 15:05:34 check-display:70] metar-display-v4.py Running!
-[D 200927 15:05:44 check-display:62] metar-v4.py Running!
-[D 200927 15:05:44 check-display:70] metar-display-v4.py Running!
-[D 200927 15:05:54 check-display:62] metar-v4.py Running!
-[D 200927 15:05:54 check-display:70] metar-display-v4.py Running!
-[D 200927 15:06:04 check-display:62] metar-v4.py Running!
-[D 200927 15:06:04 check-display:70] metar-display-v4.py Running!
-[D 200927 15:06:15 check-display:62] metar-v4.py Running!
-[D 200927 15:06:15 check-display:70] metar-display-v4.py Running!
-[D 200927 15:06:25 check-display:62] metar-v4.py Running!
-[D 200927 15:06:25 check-display:70] metar-display-v4.py Running!
-[D 200927 15:06:35 check-display:62] metar-v4.py Running!
-[D 200927 15:06:35 check-display:70] metar-display-v4.py Running!
-[D 200927 15:06:45 check-display:62] metar-v4.py Running!
-[D 200927 15:06:45 check-display:70] metar-display-v4.py Running!
-[D 200927 15:06:55 check-display:62] metar-v4.py Running!
-[D 200927 15:06:55 check-display:70] metar-display-v4.py Running!
-[D 200927 15:07:05 check-display:62] metar-v4.py Running!
-[D 200927 15:07:05 check-display:70] metar-display-v4.py Running!
-[D 200927 15:07:15 check-display:62] metar-v4.py Running!
-[D 200927 15:07:15 check-display:70] metar-display-v4.py Running!
-[D 200927 15:07:25 check-display:62] metar-v4.py Running!
-[D 200927 15:07:25 check-display:70] metar-display-v4.py Running!
-[I 200927 15:07:29 wipes-v4:38] 
+[I 201016 15:54:02 wipes-v4:39] Log Level Set To: 20
+[I 201016 15:54:03 wipes-v4:696] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
+[I 201016 15:54:03 wipes-v4:697] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
+[I 201016 15:54:04 wipes-v4:791] Executing Rainbow Wipe
+[I 201016 15:54:14 wipes-v4:796] Turning Off all LEDs
+[I 201016 15:54:14 metar-v4:544] Calling wipes script
+[I 201016 15:54:14 metar-v4:556] Airports File Loaded
+[I 201016 15:54:14 metar-v4:562] METAR Data Loading
+[I 201016 15:54:14 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 15:54:14 metar-v4:594] Internet Available
+[I 201016 15:54:14 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 15:54:15 metar-v4:1137] Starting METAR Data Display
+[I 201016 15:54:15 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 16:09:16 wipes-v4:38] 
     
     Startup of wipes-v4.py Script, Version v4.342
-[I 200927 15:07:29 wipes-v4:39] Log Level Set To: 20
-[I 200927 15:07:30 wipes-v4:696] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
-[I 200927 15:07:30 wipes-v4:697] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
-[I 200927 15:07:31 wipes-v4:791] Executing Rainbow Wipe
-[D 200927 15:07:35 check-display:62] metar-v4.py Running!
-[D 200927 15:07:35 check-display:70] metar-display-v4.py Running!
-[I 200927 15:07:42 wipes-v4:796] Turning Off all LEDs
-[I 200927 15:07:42 metar-v4:532] Calling wipes script
-[I 200927 15:07:42 metar-v4:544] Airports File Loaded
-[I 200927 15:07:42 metar-v4:550] METAR Data Loading
-[I 200927 15:07:42 metar-v4:578] RPI IP Address = 192.168.86.33
-[I 200927 15:07:42 metar-v4:582] Internet Available
-[I 200927 15:07:42 metar-v4:583] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
-[I 200927 15:07:42 metar-v4:1125] Starting METAR Data Display
-[I 200927 15:07:42 metar-v4:1136] KCLE Not Reporting Flight Category.
-[I 200927 15:07:42 metar-v4:1136] K46U Not Reporting Flight Category.
-[I 200927 15:07:42 metar-v4:1219] Decoded METAR Data for Display
-[D 200927 15:07:45 check-display:62] metar-v4.py Running!
-[D 200927 15:07:46 check-display:70] metar-display-v4.py Running!
-[D 200927 15:07:56 check-display:62] metar-v4.py Running!
-[D 200927 15:07:56 check-display:70] metar-display-v4.py Running!
-[D 200927 15:08:06 check-display:62] metar-v4.py Running!
-[D 200927 15:08:06 check-display:70] metar-display-v4.py Running!
-[D 200927 15:08:16 check-display:62] metar-v4.py Running!
-[D 200927 15:08:16 check-display:70] metar-display-v4.py Running!
-[D 200927 15:08:26 check-display:62] metar-v4.py Running!
-[D 200927 15:08:26 check-display:70] metar-display-v4.py Running!
-[D 200927 15:08:36 check-display:62] metar-v4.py Running!
-[D 200927 15:08:36 check-display:70] metar-display-v4.py Running!
-[D 200927 15:08:46 check-display:62] metar-v4.py Running!
-[D 200927 15:08:46 check-display:70] metar-display-v4.py Running!
-[D 200927 15:08:56 check-display:62] metar-v4.py Running!
-[D 200927 15:08:56 check-display:70] metar-display-v4.py Running!
-[D 200927 15:09:06 check-display:62] metar-v4.py Running!
-[D 200927 15:09:06 check-display:70] metar-display-v4.py Running!
-[D 200927 15:09:16 check-display:62] metar-v4.py Running!
-[D 200927 15:09:16 check-display:70] metar-display-v4.py Running!
-[D 200927 15:09:27 check-display:62] metar-v4.py Running!
-[D 200927 15:09:27 check-display:70] metar-display-v4.py Running!
-[D 200927 15:09:37 check-display:62] metar-v4.py Running!
-[D 200927 15:09:37 check-display:70] metar-display-v4.py Running!
-[D 200927 15:09:47 check-display:62] metar-v4.py Running!
-[D 200927 15:09:47 check-display:70] metar-display-v4.py Running!
-[D 200927 15:09:57 check-display:62] metar-v4.py Running!
-[D 200927 15:09:57 check-display:70] metar-display-v4.py Running!
-[D 200927 15:10:07 check-display:62] metar-v4.py Running!
-[D 200927 15:10:07 check-display:70] metar-display-v4.py Running!
-[D 200927 15:10:17 check-display:62] metar-v4.py Running!
-[D 200927 15:10:17 check-display:70] metar-display-v4.py Running!
-[D 200927 15:10:27 check-display:62] metar-v4.py Running!
-[D 200927 15:10:27 check-display:70] metar-display-v4.py Running!
-[D 200927 15:10:37 check-display:62] metar-v4.py Running!
-[D 200927 15:10:37 check-display:70] metar-display-v4.py Running!
-[D 200927 15:10:47 check-display:62] metar-v4.py Running!
-[D 200927 15:10:47 check-display:70] metar-display-v4.py Running!
-[D 200927 15:10:58 check-display:62] metar-v4.py Running!
-[D 200927 15:10:58 check-display:70] metar-display-v4.py Running!
-[D 200927 15:11:08 check-display:62] metar-v4.py Running!
-[D 200927 15:11:08 check-display:70] metar-display-v4.py Running!
-[D 200927 15:11:18 check-display:62] metar-v4.py Running!
-[D 200927 15:11:18 check-display:70] metar-display-v4.py Running!
-[D 200927 15:11:28 check-display:62] metar-v4.py Running!
-[D 200927 15:11:28 check-display:70] metar-display-v4.py Running!
-[D 200927 15:11:38 check-display:62] metar-v4.py Running!
-[D 200927 15:11:38 check-display:70] metar-display-v4.py Running!
-[D 200927 15:11:48 check-display:62] metar-v4.py Running!
-[D 200927 15:11:48 check-display:70] metar-display-v4.py Running!
-[D 200927 15:11:58 check-display:62] metar-v4.py Running!
-[D 200927 15:11:58 check-display:70] metar-display-v4.py Running!
-[D 200927 15:12:08 check-display:62] metar-v4.py Running!
-[D 200927 15:12:08 check-display:70] metar-display-v4.py Running!
-[D 200927 15:12:18 check-display:62] metar-v4.py Running!
-[D 200927 15:12:18 check-display:70] metar-display-v4.py Running!
-[D 200927 15:12:28 check-display:62] metar-v4.py Running!
-[D 200927 15:12:28 check-display:70] metar-display-v4.py Running!
-[D 200927 15:12:39 check-display:62] metar-v4.py Running!
-[D 200927 15:12:39 check-display:70] metar-display-v4.py Running!
-[D 200927 15:12:49 check-display:62] metar-v4.py Running!
-[D 200927 15:12:49 check-display:70] metar-display-v4.py Running!
-[D 200927 15:12:59 check-display:62] metar-v4.py Running!
-[D 200927 15:12:59 check-display:70] metar-display-v4.py Running!
-[D 200927 15:13:09 check-display:62] metar-v4.py Running!
-[D 200927 15:13:09 check-display:70] metar-display-v4.py Running!
-[D 200927 15:13:19 check-display:62] metar-v4.py Running!
-[D 200927 15:13:19 check-display:70] metar-display-v4.py Running!
-[D 200927 15:13:29 check-display:62] metar-v4.py Running!
-[D 200927 15:13:29 check-display:70] metar-display-v4.py Running!
-[D 200927 15:13:39 check-display:62] metar-v4.py Running!
-[D 200927 15:13:39 check-display:70] metar-display-v4.py Running!
-[D 200927 15:13:49 check-display:62] metar-v4.py Running!
-[D 200927 15:13:49 check-display:70] metar-display-v4.py Running!
-[D 200927 15:13:59 check-display:62] metar-v4.py Running!
-[D 200927 15:14:00 check-display:70] metar-display-v4.py Running!
-[D 200927 15:14:10 check-display:62] metar-v4.py Running!
-[D 200927 15:14:10 check-display:70] metar-display-v4.py Running!
-[D 200927 15:14:20 check-display:62] metar-v4.py Running!
-[D 200927 15:14:20 check-display:70] metar-display-v4.py Running!
-[D 200927 15:14:30 check-display:62] metar-v4.py Running!
-[D 200927 15:14:30 check-display:70] metar-display-v4.py Running!
-[D 200927 15:14:40 check-display:62] metar-v4.py Running!
-[D 200927 15:14:40 check-display:70] metar-display-v4.py Running!
-[D 200927 15:14:50 check-display:62] metar-v4.py Running!
-[D 200927 15:14:50 check-display:70] metar-display-v4.py Running!
-[D 200927 15:15:00 check-display:62] metar-v4.py Running!
-[D 200927 15:15:00 check-display:70] metar-display-v4.py Running!
-[D 200927 15:15:10 check-display:62] metar-v4.py Running!
-[D 200927 15:15:10 check-display:70] metar-display-v4.py Running!
-[D 200927 15:15:20 check-display:62] metar-v4.py Running!
-[D 200927 15:15:20 check-display:70] metar-display-v4.py Running!
-[D 200927 15:15:31 check-display:62] metar-v4.py Running!
-[D 200927 15:15:31 check-display:70] metar-display-v4.py Running!
-[D 200927 15:15:41 check-display:62] metar-v4.py Running!
-[D 200927 15:15:41 check-display:70] metar-display-v4.py Running!
-[D 200927 15:15:51 check-display:62] metar-v4.py Running!
-[D 200927 15:15:51 check-display:70] metar-display-v4.py Running!
-[D 200927 15:16:01 check-display:62] metar-v4.py Running!
-[D 200927 15:16:01 check-display:70] metar-display-v4.py Running!
-[D 200927 15:16:11 check-display:62] metar-v4.py Running!
-[D 200927 15:16:11 check-display:70] metar-display-v4.py Running!
-[D 200927 15:16:21 check-display:62] metar-v4.py Running!
-[D 200927 15:16:21 check-display:70] metar-display-v4.py Running!
-[D 200927 15:16:31 check-display:62] metar-v4.py Running!
-[D 200927 15:16:31 check-display:70] metar-display-v4.py Running!
-[D 200927 15:16:41 check-display:62] metar-v4.py Running!
-[D 200927 15:16:41 check-display:70] metar-display-v4.py Running!
-[D 200927 15:16:51 check-display:62] metar-v4.py Running!
-[D 200927 15:16:52 check-display:70] metar-display-v4.py Running!
-[D 200927 15:17:02 check-display:62] metar-v4.py Running!
-[D 200927 15:17:02 check-display:70] metar-display-v4.py Running!
-[D 200927 15:17:12 check-display:62] metar-v4.py Running!
-[D 200927 15:17:12 check-display:70] metar-display-v4.py Running!
-[D 200927 15:17:22 check-display:62] metar-v4.py Running!
-[D 200927 15:17:22 check-display:70] metar-display-v4.py Running!
-[D 200927 15:17:32 check-display:62] metar-v4.py Running!
-[D 200927 15:17:32 check-display:70] metar-display-v4.py Running!
-[D 200927 15:17:42 check-display:62] metar-v4.py Running!
-[D 200927 15:17:42 check-display:70] metar-display-v4.py Running!
-[D 200927 15:17:52 check-display:62] metar-v4.py Running!
-[D 200927 15:17:52 check-display:70] metar-display-v4.py Running!
-[D 200927 15:18:02 check-display:62] metar-v4.py Running!
-[D 200927 15:18:02 check-display:70] metar-display-v4.py Running!
-[D 200927 15:18:12 check-display:62] metar-v4.py Running!
-[D 200927 15:18:12 check-display:70] metar-display-v4.py Running!
-[D 200927 15:18:22 check-display:62] metar-v4.py Running!
-[D 200927 15:18:22 check-display:70] metar-display-v4.py Running!
-[D 200927 15:18:33 check-display:62] metar-v4.py Running!
-[D 200927 15:18:33 check-display:70] metar-display-v4.py Running!
-[D 200927 15:18:43 check-display:62] metar-v4.py Running!
-[D 200927 15:18:43 check-display:70] metar-display-v4.py Running!
-[D 200927 15:18:53 check-display:62] metar-v4.py Running!
-[D 200927 15:18:53 check-display:70] metar-display-v4.py Running!
-[D 200927 15:19:03 check-display:62] metar-v4.py Running!
-[D 200927 15:19:03 check-display:70] metar-display-v4.py Running!
-[D 200927 15:19:13 check-display:62] metar-v4.py Running!
-[D 200927 15:19:13 check-display:70] metar-display-v4.py Running!
-[D 200927 15:19:23 check-display:62] metar-v4.py Running!
-[D 200927 15:19:23 check-display:70] metar-display-v4.py Running!
-[D 200927 15:19:33 check-display:62] metar-v4.py Running!
-[D 200927 15:19:33 check-display:70] metar-display-v4.py Running!
-[D 200927 15:19:43 check-display:62] metar-v4.py Running!
-[D 200927 15:19:43 check-display:70] metar-display-v4.py Running!
-[D 200927 15:19:53 check-display:62] metar-v4.py Running!
-[D 200927 15:19:53 check-display:70] metar-display-v4.py Running!
-[D 200927 15:20:04 check-display:62] metar-v4.py Running!
-[D 200927 15:20:04 check-display:70] metar-display-v4.py Running!
-[D 200927 15:20:14 check-display:62] metar-v4.py Running!
-[D 200927 15:20:14 check-display:70] metar-display-v4.py Running!
-[D 200927 15:20:24 check-display:62] metar-v4.py Running!
-[D 200927 15:20:24 check-display:70] metar-display-v4.py Running!
-[D 200927 15:20:34 check-display:62] metar-v4.py Running!
-[D 200927 15:20:34 check-display:70] metar-display-v4.py Running!
-[D 200927 15:20:44 check-display:62] metar-v4.py Running!
-[D 200927 15:20:44 check-display:70] metar-display-v4.py Running!
-[D 200927 15:20:54 check-display:62] metar-v4.py Running!
-[D 200927 15:20:54 check-display:70] metar-display-v4.py Running!
-[D 200927 15:21:04 check-display:62] metar-v4.py Running!
-[D 200927 15:21:04 check-display:70] metar-display-v4.py Running!
-[D 200927 15:21:14 check-display:62] metar-v4.py Running!
-[D 200927 15:21:14 check-display:70] metar-display-v4.py Running!
-[D 200927 15:21:24 check-display:62] metar-v4.py Running!
-[D 200927 15:21:24 check-display:70] metar-display-v4.py Running!
-[D 200927 15:21:34 check-display:62] metar-v4.py Running!
-[D 200927 15:21:34 check-display:70] metar-display-v4.py Running!
-[D 200927 15:21:45 check-display:62] metar-v4.py Running!
-[D 200927 15:21:45 check-display:70] metar-display-v4.py Running!
-[D 200927 15:21:55 check-display:62] metar-v4.py Running!
-[D 200927 15:21:55 check-display:70] metar-display-v4.py Running!
-[D 200927 15:22:05 check-display:62] metar-v4.py Running!
-[D 200927 15:22:05 check-display:70] metar-display-v4.py Running!
-[D 200927 15:22:15 check-display:62] metar-v4.py Running!
-[D 200927 15:22:15 check-display:70] metar-display-v4.py Running!
-[D 200927 15:22:25 check-display:62] metar-v4.py Running!
-[D 200927 15:22:25 check-display:70] metar-display-v4.py Running!
-[D 200927 15:22:35 check-display:62] metar-v4.py Running!
-[D 200927 15:22:35 check-display:70] metar-display-v4.py Running!
-[I 200927 15:22:43 wipes-v4:38] 
+[I 201016 16:09:16 wipes-v4:39] Log Level Set To: 20
+[I 201016 16:09:16 wipes-v4:696] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
+[I 201016 16:09:16 wipes-v4:697] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
+[I 201016 16:09:17 wipes-v4:791] Executing Rainbow Wipe
+[I 201016 16:09:28 wipes-v4:796] Turning Off all LEDs
+[I 201016 16:09:28 metar-v4:544] Calling wipes script
+[I 201016 16:09:28 metar-v4:556] Airports File Loaded
+[I 201016 16:09:28 metar-v4:562] METAR Data Loading
+[I 201016 16:09:28 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 16:09:28 metar-v4:594] Internet Available
+[I 201016 16:09:28 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 16:09:29 metar-v4:1137] Starting METAR Data Display
+[I 201016 16:09:29 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 16:24:31 wipes-v4:38] 
     
     Startup of wipes-v4.py Script, Version v4.342
-[I 200927 15:22:43 wipes-v4:39] Log Level Set To: 20
-[I 200927 15:22:44 wipes-v4:696] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
-[I 200927 15:22:44 wipes-v4:697] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
-[I 200927 15:22:45 wipes-v4:791] Executing Rainbow Wipe
-[D 200927 15:22:45 check-display:62] metar-v4.py Running!
-[D 200927 15:22:45 check-display:70] metar-display-v4.py Running!
-[I 200927 15:22:55 wipes-v4:796] Turning Off all LEDs
-[I 200927 15:22:55 metar-v4:532] Calling wipes script
-[I 200927 15:22:55 metar-v4:544] Airports File Loaded
-[I 200927 15:22:55 metar-v4:550] METAR Data Loading
-[I 200927 15:22:55 metar-v4:578] RPI IP Address = 192.168.86.33
-[D 200927 15:22:55 check-display:62] metar-v4.py Running!
-[D 200927 15:22:55 check-display:70] metar-display-v4.py Running!
-[I 200927 15:22:56 metar-v4:582] Internet Available
-[I 200927 15:22:56 metar-v4:583] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
-[I 200927 15:22:56 metar-v4:1125] Starting METAR Data Display
-[I 200927 15:22:56 metar-v4:1136] KCLE Not Reporting Flight Category.
-[I 200927 15:22:56 metar-v4:1136] K46U Not Reporting Flight Category.
-[I 200927 15:22:56 metar-v4:1219] Decoded METAR Data for Display
-[D 200927 15:23:06 check-display:62] metar-v4.py Running!
-[D 200927 15:23:06 check-display:70] metar-display-v4.py Running!
-[D 200927 15:23:16 check-display:62] metar-v4.py Running!
-[D 200927 15:23:16 check-display:70] metar-display-v4.py Running!
-[D 200927 15:23:26 check-display:62] metar-v4.py Running!
-[D 200927 15:23:26 check-display:70] metar-display-v4.py Running!
-[D 200927 15:23:36 check-display:62] metar-v4.py Running!
-[D 200927 15:23:36 check-display:70] metar-display-v4.py Running!
-[D 200927 15:23:46 check-display:62] metar-v4.py Running!
-[D 200927 15:23:46 check-display:70] metar-display-v4.py Running!
-[D 200927 15:23:56 check-display:62] metar-v4.py Running!
-[D 200927 15:23:56 check-display:70] metar-display-v4.py Running!
-[D 200927 15:24:06 check-display:62] metar-v4.py Running!
-[D 200927 15:24:06 check-display:70] metar-display-v4.py Running!
-[D 200927 15:24:16 check-display:62] metar-v4.py Running!
-[D 200927 15:24:16 check-display:70] metar-display-v4.py Running!
-[D 200927 15:24:26 check-display:62] metar-v4.py Running!
-[D 200927 15:24:26 check-display:70] metar-display-v4.py Running!
-[D 200927 15:24:36 check-display:62] metar-v4.py Running!
-[D 200927 15:24:37 check-display:70] metar-display-v4.py Running!
-[D 200927 15:24:47 check-display:62] metar-v4.py Running!
-[D 200927 15:24:47 check-display:70] metar-display-v4.py Running!
-[D 200927 15:24:57 check-display:62] metar-v4.py Running!
-[D 200927 15:24:57 check-display:70] metar-display-v4.py Running!
-[D 200927 15:25:07 check-display:62] metar-v4.py Running!
-[D 200927 15:25:07 check-display:70] metar-display-v4.py Running!
-[D 200927 15:25:17 check-display:62] metar-v4.py Running!
-[D 200927 15:25:17 check-display:70] metar-display-v4.py Running!
-[D 200927 15:25:27 check-display:62] metar-v4.py Running!
-[D 200927 15:25:27 check-display:70] metar-display-v4.py Running!
-[D 200927 15:25:37 check-display:62] metar-v4.py Running!
-[D 200927 15:25:37 check-display:70] metar-display-v4.py Running!
-[D 200927 15:25:47 check-display:62] metar-v4.py Running!
-[D 200927 15:25:47 check-display:70] metar-display-v4.py Running!
-[D 200927 15:25:57 check-display:62] metar-v4.py Running!
-[D 200927 15:25:57 check-display:70] metar-display-v4.py Running!
-[D 200927 15:26:07 check-display:62] metar-v4.py Running!
-[D 200927 15:26:08 check-display:70] metar-display-v4.py Running!
-[D 200927 15:26:18 check-display:62] metar-v4.py Running!
-[D 200927 15:26:18 check-display:70] metar-display-v4.py Running!
-[D 200927 15:26:28 check-display:62] metar-v4.py Running!
-[D 200927 15:26:28 check-display:70] metar-display-v4.py Running!
-[D 200927 15:26:38 check-display:62] metar-v4.py Running!
-[D 200927 15:26:38 check-display:70] metar-display-v4.py Running!
-[D 200927 15:26:48 check-display:62] metar-v4.py Running!
-[D 200927 15:26:48 check-display:70] metar-display-v4.py Running!
-[D 200927 15:26:58 check-display:62] metar-v4.py Running!
-[D 200927 15:26:58 check-display:70] metar-display-v4.py Running!
-[D 200927 15:27:08 check-display:62] metar-v4.py Running!
-[D 200927 15:27:08 check-display:70] metar-display-v4.py Running!
-[D 200927 15:27:18 check-display:62] metar-v4.py Running!
-[D 200927 15:27:18 check-display:70] metar-display-v4.py Running!
-[D 200927 15:27:28 check-display:62] metar-v4.py Running!
-[D 200927 15:27:28 check-display:70] metar-display-v4.py Running!
-[D 200927 15:27:38 check-display:62] metar-v4.py Running!
-[D 200927 15:27:39 check-display:70] metar-display-v4.py Running!
-[D 200927 15:27:49 check-display:62] metar-v4.py Running!
-[D 200927 15:27:49 check-display:70] metar-display-v4.py Running!
-[D 200927 15:27:59 check-display:62] metar-v4.py Running!
-[D 200927 15:27:59 check-display:70] metar-display-v4.py Running!
-[D 200927 15:28:09 check-display:62] metar-v4.py Running!
-[D 200927 15:28:09 check-display:70] metar-display-v4.py Running!
-[D 200927 15:28:19 check-display:62] metar-v4.py Running!
-[D 200927 15:28:19 check-display:70] metar-display-v4.py Running!
-[D 200927 15:28:29 check-display:62] metar-v4.py Running!
-[D 200927 15:28:29 check-display:70] metar-display-v4.py Running!
-[D 200927 15:28:39 check-display:62] metar-v4.py Running!
-[D 200927 15:28:39 check-display:70] metar-display-v4.py Running!
-[D 200927 15:28:49 check-display:62] metar-v4.py Running!
-[D 200927 15:28:49 check-display:70] metar-display-v4.py Running!
-[D 200927 15:28:59 check-display:62] metar-v4.py Running!
-[D 200927 15:28:59 check-display:70] metar-display-v4.py Running!
-[D 200927 15:29:10 check-display:62] metar-v4.py Running!
-[D 200927 15:29:10 check-display:70] metar-display-v4.py Running!
-[D 200927 15:29:20 check-display:62] metar-v4.py Running!
-[D 200927 15:29:20 check-display:70] metar-display-v4.py Running!
-[D 200927 15:29:30 check-display:62] metar-v4.py Running!
-[D 200927 15:29:30 check-display:70] metar-display-v4.py Running!
-[D 200927 15:29:40 check-display:62] metar-v4.py Running!
-[D 200927 15:29:40 check-display:70] metar-display-v4.py Running!
-[D 200927 15:29:50 check-display:62] metar-v4.py Running!
-[D 200927 15:29:50 check-display:70] metar-display-v4.py Running!
-[D 200927 15:30:00 check-display:62] metar-v4.py Running!
-[D 200927 15:30:00 check-display:70] metar-display-v4.py Running!
-[D 200927 15:30:10 check-display:62] metar-v4.py Running!
-[D 200927 15:30:10 check-display:70] metar-display-v4.py Running!
-[D 200927 15:30:20 check-display:62] metar-v4.py Running!
-[D 200927 15:30:20 check-display:70] metar-display-v4.py Running!
-[D 200927 15:30:30 check-display:62] metar-v4.py Running!
-[D 200927 15:30:30 check-display:70] metar-display-v4.py Running!
-[D 200927 15:30:41 check-display:62] metar-v4.py Running!
-[D 200927 15:30:41 check-display:70] metar-display-v4.py Running!
-[D 200927 15:30:51 check-display:62] metar-v4.py Running!
-[D 200927 15:30:51 check-display:70] metar-display-v4.py Running!
-[D 200927 15:31:01 check-display:62] metar-v4.py Running!
-[D 200927 15:31:01 check-display:70] metar-display-v4.py Running!
-[D 200927 15:31:11 check-display:62] metar-v4.py Running!
-[D 200927 15:31:11 check-display:70] metar-display-v4.py Running!
-[D 200927 15:31:21 check-display:62] metar-v4.py Running!
-[D 200927 15:31:21 check-display:70] metar-display-v4.py Running!
-[D 200927 15:31:31 check-display:62] metar-v4.py Running!
-[D 200927 15:31:31 check-display:70] metar-display-v4.py Running!
-[D 200927 15:31:41 check-display:62] metar-v4.py Running!
-[D 200927 15:31:41 check-display:70] metar-display-v4.py Running!
-[D 200927 15:31:51 check-display:62] metar-v4.py Running!
-[D 200927 15:31:51 check-display:70] metar-display-v4.py Running!
-[D 200927 15:32:01 check-display:62] metar-v4.py Running!
-[D 200927 15:32:01 check-display:70] metar-display-v4.py Running!
-[D 200927 15:32:11 check-display:62] metar-v4.py Running!
-[D 200927 15:32:12 check-display:70] metar-display-v4.py Running!
-[D 200927 15:32:22 check-display:62] metar-v4.py Running!
-[D 200927 15:32:22 check-display:70] metar-display-v4.py Running!
-[D 200927 15:32:32 check-display:62] metar-v4.py Running!
-[D 200927 15:32:32 check-display:70] metar-display-v4.py Running!
-[D 200927 15:32:42 check-display:62] metar-v4.py Running!
-[D 200927 15:32:42 check-display:70] metar-display-v4.py Running!
-[D 200927 15:32:52 check-display:62] metar-v4.py Running!
-[D 200927 15:32:52 check-display:70] metar-display-v4.py Running!
-[D 200927 15:33:02 check-display:62] metar-v4.py Running!
-[D 200927 15:33:02 check-display:70] metar-display-v4.py Running!
-[D 200927 15:33:12 check-display:62] metar-v4.py Running!
-[D 200927 15:33:12 check-display:70] metar-display-v4.py Running!
-[D 200927 15:33:22 check-display:62] metar-v4.py Running!
-[D 200927 15:33:22 check-display:70] metar-display-v4.py Running!
-[D 200927 15:33:32 check-display:62] metar-v4.py Running!
-[D 200927 15:33:32 check-display:70] metar-display-v4.py Running!
-[D 200927 15:33:42 check-display:62] metar-v4.py Running!
-[D 200927 15:33:43 check-display:70] metar-display-v4.py Running!
-[D 200927 15:33:53 check-display:62] metar-v4.py Running!
-[D 200927 15:33:53 check-display:70] metar-display-v4.py Running!
-[D 200927 15:34:03 check-display:62] metar-v4.py Running!
-[D 200927 15:34:03 check-display:70] metar-display-v4.py Running!
-[D 200927 15:34:13 check-display:62] metar-v4.py Running!
-[D 200927 15:34:13 check-display:70] metar-display-v4.py Running!
-[D 200927 15:34:23 check-display:62] metar-v4.py Running!
-[D 200927 15:34:23 check-display:70] metar-display-v4.py Running!
-[D 200927 15:34:33 check-display:62] metar-v4.py Running!
-[D 200927 15:34:33 check-display:70] metar-display-v4.py Running!
-[D 200927 15:34:43 check-display:62] metar-v4.py Running!
-[D 200927 15:34:43 check-display:70] metar-display-v4.py Running!
-[D 200927 15:34:53 check-display:62] metar-v4.py Running!
-[D 200927 15:34:53 check-display:70] metar-display-v4.py Running!
-[D 200927 15:35:03 check-display:62] metar-v4.py Running!
-[D 200927 15:35:04 check-display:70] metar-display-v4.py Running!
-[D 200927 15:35:14 check-display:62] metar-v4.py Running!
-[D 200927 15:35:14 check-display:70] metar-display-v4.py Running!
-[D 200927 15:35:24 check-display:62] metar-v4.py Running!
-[D 200927 15:35:24 check-display:70] metar-display-v4.py Running!
-[D 200927 15:35:34 check-display:62] metar-v4.py Running!
-[D 200927 15:35:34 check-display:70] metar-display-v4.py Running!
-[D 200927 15:35:44 check-display:62] metar-v4.py Running!
-[D 200927 15:35:44 check-display:70] metar-display-v4.py Running!
-[D 200927 15:35:54 check-display:62] metar-v4.py Running!
-[D 200927 15:35:54 check-display:70] metar-display-v4.py Running!
-[D 200927 15:36:04 check-display:62] metar-v4.py Running!
-[D 200927 15:36:04 check-display:70] metar-display-v4.py Running!
-[D 200927 15:36:14 check-display:62] metar-v4.py Running!
-[D 200927 15:36:14 check-display:70] metar-display-v4.py Running!
-[D 200927 15:36:24 check-display:62] metar-v4.py Running!
-[D 200927 15:36:24 check-display:70] metar-display-v4.py Running!
-[D 200927 15:36:34 check-display:62] metar-v4.py Running!
-[D 200927 15:36:34 check-display:70] metar-display-v4.py Running!
-[D 200927 15:36:44 check-display:62] metar-v4.py Running!
-[D 200927 15:36:45 check-display:70] metar-display-v4.py Running!
-[D 200927 15:36:55 check-display:62] metar-v4.py Running!
-[D 200927 15:36:55 check-display:70] metar-display-v4.py Running!
-[D 200927 15:37:05 check-display:62] metar-v4.py Running!
-[D 200927 15:37:05 check-display:70] metar-display-v4.py Running!
-[D 200927 15:37:15 check-display:62] metar-v4.py Running!
-[D 200927 15:37:15 check-display:70] metar-display-v4.py Running!
-[D 200927 15:37:25 check-display:62] metar-v4.py Running!
-[D 200927 15:37:25 check-display:70] metar-display-v4.py Running!
-[D 200927 15:37:35 check-display:62] metar-v4.py Running!
-[D 200927 15:37:35 check-display:70] metar-display-v4.py Running!
-[D 200927 15:37:45 check-display:62] metar-v4.py Running!
-[D 200927 15:37:45 check-display:70] metar-display-v4.py Running!
-[D 200927 15:37:55 check-display:62] metar-v4.py Running!
-[D 200927 15:37:55 check-display:70] metar-display-v4.py Running!
-[I 200927 15:37:57 wipes-v4:38] 
+[I 201016 16:24:31 wipes-v4:39] Log Level Set To: 20
+[I 201016 16:24:31 wipes-v4:696] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
+[I 201016 16:24:31 wipes-v4:697] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
+[I 201016 16:24:32 wipes-v4:791] Executing Rainbow Wipe
+[I 201016 16:24:43 wipes-v4:796] Turning Off all LEDs
+[I 201016 16:24:43 metar-v4:544] Calling wipes script
+[I 201016 16:24:43 metar-v4:556] Airports File Loaded
+[I 201016 16:24:43 metar-v4:562] METAR Data Loading
+[I 201016 16:24:43 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 16:24:43 metar-v4:594] Internet Available
+[I 201016 16:24:43 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 16:24:43 metar-v4:1137] Starting METAR Data Display
+[I 201016 16:24:43 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 16:29:58 webapp:293] Opening Homepage
+[I 201016 16:32:23 webapp:293] Opening Homepage
+[I 201016 16:39:44 wipes-v4:38] 
     
     Startup of wipes-v4.py Script, Version v4.342
-[I 200927 15:37:57 wipes-v4:39] Log Level Set To: 20
-[I 200927 15:37:57 wipes-v4:696] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
-[I 200927 15:37:57 wipes-v4:697] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
-[I 200927 15:37:58 wipes-v4:791] Executing Rainbow Wipe
-[D 200927 15:38:05 check-display:62] metar-v4.py Running!
-[D 200927 15:38:05 check-display:70] metar-display-v4.py Running!
-[I 200927 15:38:09 wipes-v4:796] Turning Off all LEDs
-[I 200927 15:38:09 metar-v4:532] Calling wipes script
-[I 200927 15:38:09 metar-v4:544] Airports File Loaded
-[I 200927 15:38:09 metar-v4:550] METAR Data Loading
-[I 200927 15:38:09 metar-v4:578] RPI IP Address = 192.168.86.33
-[I 200927 15:38:09 metar-v4:582] Internet Available
-[I 200927 15:38:09 metar-v4:583] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
-[I 200927 15:38:09 metar-v4:1125] Starting METAR Data Display
-[I 200927 15:38:09 metar-v4:1136] K46U Not Reporting Flight Category.
-[I 200927 15:38:09 metar-v4:1136] KCLE Not Reporting Flight Category.
-[I 200927 15:38:09 metar-v4:1219] Decoded METAR Data for Display
-[D 200927 15:38:15 check-display:62] metar-v4.py Running!
-[D 200927 15:38:15 check-display:70] metar-display-v4.py Running!
-[D 200927 15:38:26 check-display:62] metar-v4.py Running!
-[D 200927 15:38:26 check-display:70] metar-display-v4.py Running!
-[D 200927 15:38:36 check-display:62] metar-v4.py Running!
-[D 200927 15:38:36 check-display:70] metar-display-v4.py Running!
-[D 200927 15:38:46 check-display:62] metar-v4.py Running!
-[D 200927 15:38:46 check-display:70] metar-display-v4.py Running!
-[D 200927 15:38:56 check-display:62] metar-v4.py Running!
-[D 200927 15:38:56 check-display:70] metar-display-v4.py Running!
-[D 200927 15:39:06 check-display:62] metar-v4.py Running!
-[D 200927 15:39:06 check-display:70] metar-display-v4.py Running!
-[D 200927 15:39:16 check-display:62] metar-v4.py Running!
-[D 200927 15:39:16 check-display:70] metar-display-v4.py Running!
-[D 200927 15:39:26 check-display:62] metar-v4.py Running!
-[D 200927 15:39:26 check-display:70] metar-display-v4.py Running!
-[D 200927 15:39:36 check-display:62] metar-v4.py Running!
-[D 200927 15:39:36 check-display:70] metar-display-v4.py Running!
-[D 200927 15:39:46 check-display:62] metar-v4.py Running!
-[D 200927 15:39:46 check-display:70] metar-display-v4.py Running!
-[D 200927 15:39:57 check-display:62] metar-v4.py Running!
-[D 200927 15:39:57 check-display:70] metar-display-v4.py Running!
-[D 200927 15:40:07 check-display:62] metar-v4.py Running!
-[D 200927 15:40:07 check-display:70] metar-display-v4.py Running!
-[D 200927 15:40:17 check-display:62] metar-v4.py Running!
-[D 200927 15:40:17 check-display:70] metar-display-v4.py Running!
-[D 200927 15:40:27 check-display:62] metar-v4.py Running!
-[D 200927 15:40:27 check-display:70] metar-display-v4.py Running!
-[D 200927 15:40:37 check-display:62] metar-v4.py Running!
-[D 200927 15:40:37 check-display:70] metar-display-v4.py Running!
-[D 200927 15:40:47 check-display:62] metar-v4.py Running!
-[D 200927 15:40:47 check-display:70] metar-display-v4.py Running!
-[D 200927 15:40:57 check-display:62] metar-v4.py Running!
-[D 200927 15:40:57 check-display:70] metar-display-v4.py Running!
-[D 200927 15:41:07 check-display:62] metar-v4.py Running!
-[D 200927 15:41:07 check-display:70] metar-display-v4.py Running!
-[D 200927 15:41:17 check-display:62] metar-v4.py Running!
-[D 200927 15:41:17 check-display:70] metar-display-v4.py Running!
-[D 200927 15:41:27 check-display:62] metar-v4.py Running!
-[D 200927 15:41:28 check-display:70] metar-display-v4.py Running!
-[D 200927 15:41:38 check-display:62] metar-v4.py Running!
-[D 200927 15:41:38 check-display:70] metar-display-v4.py Running!
-[D 200927 15:41:48 check-display:62] metar-v4.py Running!
-[D 200927 15:41:48 check-display:70] metar-display-v4.py Running!
-[D 200927 15:41:58 check-display:62] metar-v4.py Running!
-[D 200927 15:41:58 check-display:70] metar-display-v4.py Running!
-[D 200927 15:42:08 check-display:62] metar-v4.py Running!
-[D 200927 15:42:08 check-display:70] metar-display-v4.py Running!
-[D 200927 15:42:18 check-display:62] metar-v4.py Running!
-[D 200927 15:42:18 check-display:70] metar-display-v4.py Running!
-[D 200927 15:42:28 check-display:62] metar-v4.py Running!
-[D 200927 15:42:28 check-display:70] metar-display-v4.py Running!
-[D 200927 15:42:38 check-display:62] metar-v4.py Running!
-[D 200927 15:42:38 check-display:70] metar-display-v4.py Running!
-[D 200927 15:42:48 check-display:62] metar-v4.py Running!
-[D 200927 15:42:48 check-display:70] metar-display-v4.py Running!
-[D 200927 15:42:58 check-display:62] metar-v4.py Running!
-[D 200927 15:42:58 check-display:70] metar-display-v4.py Running!
-[D 200927 15:43:08 check-display:62] metar-v4.py Running!
-[D 200927 15:43:09 check-display:70] metar-display-v4.py Running!
-[D 200927 15:43:19 check-display:62] metar-v4.py Running!
-[D 200927 15:43:19 check-display:70] metar-display-v4.py Running!
-[D 200927 15:43:29 check-display:62] metar-v4.py Running!
-[D 200927 15:43:29 check-display:70] metar-display-v4.py Running!
-[D 200927 15:43:39 check-display:62] metar-v4.py Running!
-[D 200927 15:43:39 check-display:70] metar-display-v4.py Running!
-[D 200927 15:43:49 check-display:62] metar-v4.py Running!
-[D 200927 15:43:49 check-display:70] metar-display-v4.py Running!
-[D 200927 15:43:59 check-display:62] metar-v4.py Running!
-[D 200927 15:43:59 check-display:70] metar-display-v4.py Running!
-[D 200927 15:44:09 check-display:62] metar-v4.py Running!
-[D 200927 15:44:09 check-display:70] metar-display-v4.py Running!
-[D 200927 15:44:19 check-display:62] metar-v4.py Running!
-[D 200927 15:44:19 check-display:70] metar-display-v4.py Running!
-[D 200927 15:44:29 check-display:62] metar-v4.py Running!
-[D 200927 15:44:29 check-display:70] metar-display-v4.py Running!
-[D 200927 15:44:39 check-display:62] metar-v4.py Running!
-[D 200927 15:44:39 check-display:70] metar-display-v4.py Running!
-[D 200927 15:44:50 check-display:62] metar-v4.py Running!
-[D 200927 15:44:50 check-display:70] metar-display-v4.py Running!
-[D 200927 15:45:00 check-display:62] metar-v4.py Running!
-[D 200927 15:45:00 check-display:70] metar-display-v4.py Running!
-[D 200927 15:45:10 check-display:62] metar-v4.py Running!
-[D 200927 15:45:10 check-display:70] metar-display-v4.py Running!
-[D 200927 15:45:20 check-display:62] metar-v4.py Running!
-[D 200927 15:45:20 check-display:70] metar-display-v4.py Running!
-[D 200927 15:45:30 check-display:62] metar-v4.py Running!
-[D 200927 15:45:30 check-display:70] metar-display-v4.py Running!
+[I 201016 16:39:44 wipes-v4:39] Log Level Set To: 20
+[I 201016 16:39:45 wipes-v4:696] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
+[I 201016 16:39:45 wipes-v4:697] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
+[I 201016 16:39:46 wipes-v4:791] Executing Rainbow Wipe
+[I 201016 16:39:56 wipes-v4:796] Turning Off all LEDs
+[I 201016 16:39:56 metar-v4:544] Calling wipes script
+[I 201016 16:39:56 metar-v4:556] Airports File Loaded
+[I 201016 16:39:56 metar-v4:562] METAR Data Loading
+[I 201016 16:39:56 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 16:39:57 metar-v4:594] Internet Available
+[I 201016 16:39:57 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 16:39:57 metar-v4:1137] Starting METAR Data Display
+[I 201016 16:39:57 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 16:54:59 wipes-v4:38] 
+    
+    Startup of wipes-v4.py Script, Version v4.342
+[I 201016 16:54:59 wipes-v4:39] Log Level Set To: 20
+[I 201016 16:54:59 wipes-v4:696] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
+[I 201016 16:54:59 wipes-v4:697] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
+[I 201016 16:55:00 wipes-v4:791] Executing Rainbow Wipe
+[I 201016 16:55:11 wipes-v4:796] Turning Off all LEDs
+[I 201016 16:55:11 metar-v4:544] Calling wipes script
+[I 201016 16:55:11 metar-v4:556] Airports File Loaded
+[I 201016 16:55:11 metar-v4:562] METAR Data Loading
+[I 201016 16:55:11 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 16:55:12 metar-v4:594] Internet Available
+[I 201016 16:55:12 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 16:55:12 metar-v4:1137] Starting METAR Data Display
+[I 201016 16:55:12 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 17:10:12 wipes-v4:38] 
+    
+    Startup of wipes-v4.py Script, Version v4.342
+[I 201016 17:10:12 wipes-v4:39] Log Level Set To: 20
+[I 201016 17:10:13 wipes-v4:696] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
+[I 201016 17:10:13 wipes-v4:697] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
+[I 201016 17:10:14 wipes-v4:791] Executing Rainbow Wipe
+[I 201016 17:10:25 wipes-v4:796] Turning Off all LEDs
+[I 201016 17:10:25 metar-v4:544] Calling wipes script
+[I 201016 17:10:25 metar-v4:556] Airports File Loaded
+[I 201016 17:10:25 metar-v4:562] METAR Data Loading
+[I 201016 17:10:25 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 17:10:25 metar-v4:594] Internet Available
+[I 201016 17:10:25 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:10:25 metar-v4:1137] Starting METAR Data Display
+[I 201016 17:10:25 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 17:21:35 webapp:56] 
+    
+    Startup of metar-v4.py Script, Version v4.342
+[I 201016 17:21:35 webapp:57] Log Level Set To: 20
+[I 201016 17:21:35 webapp:118] Settings and Flask Have Been Setup
+[I 201016 17:21:35 webapp:1341] Internet Available
+[I 201016 17:21:35 webapp:1350] Startup - Current RPI IP Address = 192.168.86.33
+[I 201016 17:21:36 webapp:1305] Downloaded /NeoSectional/version.py from neoupdate
+[I 201016 17:21:36 webapp:1321] Latest Version = 4.330 - Current Version = v4.342
+[I 201016 17:21:36 webapp:1288] Deleted version.py
+[I 201016 17:21:36 webapp:1324] Checked for Software Update
+[I 201016 17:21:36 webapp:1363] No Updates Available
+[I 201016 17:21:36 webapp:1368] Python Version = 3.7.3 (default, Apr  3 2019, 05:39:12) 
+    [GCC 8.2.0]
+[I 201016 17:21:37 webapp:1249] Internet Available
+[I 201016 17:21:37 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=NULL,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:21:37 webapp:1391] IP Address = 192.168.86.33
+[I 201016 17:21:37 webapp:1392] Starting Flask Session
+[I 201016 17:21:38 webapp:293] Opening Homepage
+[I 201016 17:21:43 webapp:460] Opening apedit.html
+[I 201016 17:21:54 webapp:529] Saving Airport File
+[I 201016 17:21:55 webapp:1249] Internet Available
+[I 201016 17:21:55 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=KSAT,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:21:55 webapp:460] Opening apedit.html
+[I 201016 17:22:13 webapp:529] Saving Airport File
+[I 201016 17:22:14 webapp:1249] Internet Available
+[I 201016 17:22:14 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=EGLL,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:25:01 webapp:56] 
+    
+    Startup of metar-v4.py Script, Version v4.342
+[I 201016 17:25:01 webapp:57] Log Level Set To: 20
+[I 201016 17:25:01 webapp:118] Settings and Flask Have Been Setup
+[I 201016 17:25:01 webapp:1341] Internet Available
+[I 201016 17:25:01 webapp:1350] Startup - Current RPI IP Address = 192.168.86.33
+[I 201016 17:25:02 webapp:1305] Downloaded /NeoSectional/version.py from neoupdate
+[I 201016 17:25:02 webapp:1321] Latest Version = 4.330 - Current Version = v4.342
+[I 201016 17:25:02 webapp:1288] Deleted version.py
+[I 201016 17:25:02 webapp:1324] Checked for Software Update
+[I 201016 17:25:02 webapp:1363] No Updates Available
+[I 201016 17:25:02 webapp:1368] Python Version = 3.7.3 (default, Apr  3 2019, 05:39:12) 
+    [GCC 8.2.0]
+[I 201016 17:25:02 webapp:1249] Internet Available
+[I 201016 17:25:02 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=EGLL,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:25:02 webapp:1391] IP Address = 192.168.86.33
+[I 201016 17:25:02 webapp:1392] Starting Flask Session
+[I 201016 17:25:04 webapp:529] Saving Airport File
+[I 201016 17:25:04 webapp:1249] Internet Available
+[I 201016 17:25:04 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=EGLL,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:25:05 webapp:460] Opening apedit.html
+[I 201016 17:25:27 wipes-v4:38] 
+    
+    Startup of wipes-v4.py Script, Version v4.342
+[I 201016 17:25:27 wipes-v4:39] Log Level Set To: 20
+[I 201016 17:25:27 wipes-v4:696] maxlat = 51.48 minlat = 0.0 maxlon = 0.0 minlon = -124.25
+[I 201016 17:25:27 wipes-v4:697] sizelat = 51.48 sizelon = 124.25 centerlat 25.74 centerlon = -62.12
+[I 201016 17:25:28 wipes-v4:791] Executing Rainbow Wipe
+[I 201016 17:25:38 wipes-v4:796] Turning Off all LEDs
+[I 201016 17:25:38 metar-v4:544] Calling wipes script
+[I 201016 17:25:38 metar-v4:556] Airports File Loaded
+[I 201016 17:25:38 metar-v4:562] METAR Data Loading
+[I 201016 17:25:38 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 17:25:39 metar-v4:594] Internet Available
+[I 201016 17:25:39 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=EGLL,KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:25:39 metar-v4:1137] Starting METAR Data Display
+[I 201016 17:25:39 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 17:29:35 webapp:56] 
+    
+    Startup of metar-v4.py Script, Version v4.342
+[I 201016 17:29:35 webapp:57] Log Level Set To: 20
+[I 201016 17:29:35 webapp:118] Settings and Flask Have Been Setup
+[I 201016 17:29:35 webapp:1342] Internet Available
+[I 201016 17:29:35 webapp:1351] Startup - Current RPI IP Address = 192.168.86.33
+[I 201016 17:29:36 webapp:1306] Downloaded /NeoSectional/version.py from neoupdate
+[I 201016 17:29:36 webapp:1322] Latest Version = 4.330 - Current Version = v4.342
+[I 201016 17:29:36 webapp:1289] Deleted version.py
+[I 201016 17:29:36 webapp:1325] Checked for Software Update
+[I 201016 17:29:36 webapp:1364] No Updates Available
+[I 201016 17:29:36 webapp:1369] Python Version = 3.7.3 (default, Apr  3 2019, 05:39:12) 
+    [GCC 8.2.0]
+[I 201016 17:29:36 webapp:1249] Internet Available
+[I 201016 17:29:36 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=EGLL,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:35:00 shutoff:32] 
+    
+    Startup of shutoff.py Script, Version v4.342
+[I 201016 17:35:00 shutoff:33] Log Level Set To: 20
+[I 201016 17:35:00 shutoff:68] Shutoff Settings Loaded
+[I 201016 17:35:00 shutoff:106] LED's Have Been Turned Off
+[I 201016 17:35:01 shutoff:111] OLED Display Has Been Turned Off
+[I 201016 17:35:01 shutoff:118] shutoff.py Completed
+[I 201016 17:35:50 startup:22] 
+    
+    Startup of startup.py Script, Version v4.342
+[I 201016 17:35:50 startup:23] Log Level Set To: 20
+[I 201016 17:35:56 webapp:56] 
+    
+    Startup of metar-v4.py Script, Version v4.342
+[I 201016 17:35:56 webapp:57] Log Level Set To: 20
+[I 201016 17:35:56 webapp:118] Settings and Flask Have Been Setup
+[I 201016 17:35:56 webapp:1343] Internet Available
+[I 201016 17:35:56 webapp:1352] Startup - Current RPI IP Address = 192.168.86.33
+[I 201016 17:35:57 webapp:1307] Downloaded /NeoSectional/version.py from neoupdate
+[I 201016 17:35:57 webapp:1323] Latest Version = 4.330 - Current Version = v4.342
+[I 201016 17:35:57 webapp:1290] Deleted version.py
+[I 201016 17:35:57 webapp:1326] Checked for Software Update
+[I 201016 17:35:57 webapp:1365] No Updates Available
+[I 201016 17:35:57 webapp:1370] Python Version = 3.7.3 (default, Apr  3 2019, 05:39:12) 
+    [GCC 8.2.0]
+[I 201016 17:35:58 webapp:1249] Internet Available
+[I 201016 17:35:58 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=EGLL,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:37:14 webapp:56] 
+    
+    Startup of metar-v4.py Script, Version v4.342
+[I 201016 17:37:14 webapp:57] Log Level Set To: 20
+[I 201016 17:37:14 webapp:118] Settings and Flask Have Been Setup
+[I 201016 17:37:14 webapp:1343] Internet Available
+[I 201016 17:37:14 webapp:1352] Startup - Current RPI IP Address = 192.168.86.33
+[I 201016 17:37:14 webapp:1307] Downloaded /NeoSectional/version.py from neoupdate
+[I 201016 17:37:14 webapp:1323] Latest Version = 4.330 - Current Version = v4.342
+[I 201016 17:37:14 webapp:1290] Deleted version.py
+[I 201016 17:37:14 webapp:1326] Checked for Software Update
+[I 201016 17:37:14 webapp:1365] No Updates Available
+[I 201016 17:37:14 webapp:1370] Python Version = 3.7.3 (default, Apr  3 2019, 05:39:12) 
+    [GCC 8.2.0]
+[I 201016 17:37:15 webapp:1249] Internet Available
+[I 201016 17:37:15 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=EGLL,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:38:32 webapp:56] 
+    
+    Startup of metar-v4.py Script, Version v4.342
+[I 201016 17:38:32 webapp:57] Log Level Set To: 20
+[I 201016 17:38:32 webapp:118] Settings and Flask Have Been Setup
+[I 201016 17:38:32 webapp:1343] Internet Available
+[I 201016 17:38:32 webapp:1352] Startup - Current RPI IP Address = 192.168.86.33
+[I 201016 17:38:32 webapp:1307] Downloaded /NeoSectional/version.py from neoupdate
+[I 201016 17:38:32 webapp:1323] Latest Version = 4.330 - Current Version = v4.342
+[I 201016 17:38:32 webapp:1290] Deleted version.py
+[I 201016 17:38:32 webapp:1326] Checked for Software Update
+[I 201016 17:38:32 webapp:1365] No Updates Available
+[I 201016 17:38:32 webapp:1370] Python Version = 3.7.3 (default, Apr  3 2019, 05:39:12) 
+    [GCC 8.2.0]
+[I 201016 17:38:33 webapp:1249] Internet Available
+[I 201016 17:38:33 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=EGLL,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:38:33 webapp:1393] IP Address = 192.168.86.33
+[I 201016 17:38:33 webapp:1394] Starting Flask Session
+[I 201016 17:38:37 webapp:56] 
+    
+    Startup of metar-v4.py Script, Version v4.342
+[I 201016 17:38:37 webapp:57] Log Level Set To: 20
+[I 201016 17:38:37 webapp:118] Settings and Flask Have Been Setup
+[I 201016 17:38:37 webapp:1343] Internet Available
+[I 201016 17:38:37 webapp:1352] Startup - Current RPI IP Address = 192.168.86.33
+[I 201016 17:38:37 webapp:1307] Downloaded /NeoSectional/version.py from neoupdate
+[I 201016 17:38:37 webapp:1323] Latest Version = 4.330 - Current Version = v4.342
+[I 201016 17:38:37 webapp:1290] Deleted version.py
+[I 201016 17:38:37 webapp:1326] Checked for Software Update
+[I 201016 17:38:37 webapp:1365] No Updates Available
+[I 201016 17:38:37 webapp:1370] Python Version = 3.7.3 (default, Apr  3 2019, 05:39:12) 
+    [GCC 8.2.0]
+[I 201016 17:38:38 webapp:1249] Internet Available
+[I 201016 17:38:38 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=EGLL,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:38:38 webapp:1393] IP Address = 192.168.86.33
+[I 201016 17:38:38 webapp:1394] Starting Flask Session
+[I 201016 17:38:45 webapp:293] Opening Homepage
+[I 201016 17:38:49 webapp:460] Opening apedit.html
+[I 201016 17:39:11 webapp:529] Saving Airport File
+[I 201016 17:39:12 webapp:1249] Internet Available
+[I 201016 17:39:12 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=LFPG,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:39:12 webapp:460] Opening apedit.html
+[I 201016 17:39:32 webapp:529] Saving Airport File
+[I 201016 17:39:32 webapp:1249] Internet Available
+[I 201016 17:39:32 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=LSZH,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:39:32 webapp:460] Opening apedit.html
+[I 201016 17:40:14 webapp:529] Saving Airport File
+[I 201016 17:40:14 webapp:1249] Internet Available
+[I 201016 17:40:14 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=NULL,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:40:14 webapp:460] Opening apedit.html
+[I 201016 17:40:32 shutoff:32] 
+    
+    Startup of shutoff.py Script, Version v4.342
+[I 201016 17:40:32 shutoff:33] Log Level Set To: 20
+[I 201016 17:40:32 shutoff:68] Shutoff Settings Loaded
+[I 201016 17:40:32 shutoff:106] LED's Have Been Turned Off
+[I 201016 17:40:33 shutoff:111] OLED Display Has Been Turned Off
+[I 201016 17:40:33 shutoff:118] shutoff.py Completed
+[I 201016 17:41:21 startup:22] 
+    
+    Startup of startup.py Script, Version v4.342
+[I 201016 17:41:21 startup:23] Log Level Set To: 20
+[I 201016 17:41:28 webapp:56] 
+    
+    Startup of metar-v4.py Script, Version v4.342
+[I 201016 17:41:28 webapp:57] Log Level Set To: 20
+[I 201016 17:41:28 webapp:118] Settings and Flask Have Been Setup
+[I 201016 17:41:28 webapp:1343] Internet Available
+[I 201016 17:41:28 webapp:1352] Startup - Current RPI IP Address = 192.168.86.33
+[I 201016 17:41:29 webapp:1307] Downloaded /NeoSectional/version.py from neoupdate
+[I 201016 17:41:29 webapp:1323] Latest Version = 4.330 - Current Version = v4.342
+[I 201016 17:41:29 webapp:1290] Deleted version.py
+[I 201016 17:41:29 webapp:1326] Checked for Software Update
+[I 201016 17:41:29 webapp:1365] No Updates Available
+[I 201016 17:41:29 webapp:1370] Python Version = 3.7.3 (default, Apr  3 2019, 05:39:12) 
+    [GCC 8.2.0]
+[I 201016 17:41:29 webapp:1249] Internet Available
+[I 201016 17:41:29 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=NULL,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:41:29 webapp:1393] IP Address = 192.168.86.33
+[I 201016 17:41:29 webapp:1394] Starting Flask Session
+[I 201016 17:41:33 webapp:56] 
+    
+    Startup of metar-v4.py Script, Version v4.342
+[I 201016 17:41:33 webapp:57] Log Level Set To: 20
+[I 201016 17:41:33 webapp:118] Settings and Flask Have Been Setup
+[I 201016 17:41:33 webapp:1343] Internet Available
+[I 201016 17:41:33 webapp:1352] Startup - Current RPI IP Address = 192.168.86.33
+[I 201016 17:41:34 webapp:1307] Downloaded /NeoSectional/version.py from neoupdate
+[I 201016 17:41:34 webapp:1323] Latest Version = 4.330 - Current Version = v4.342
+[I 201016 17:41:34 webapp:1290] Deleted version.py
+[I 201016 17:41:34 webapp:1326] Checked for Software Update
+[I 201016 17:41:34 webapp:1365] No Updates Available
+[I 201016 17:41:34 webapp:1370] Python Version = 3.7.3 (default, Apr  3 2019, 05:39:12) 
+    [GCC 8.2.0]
+[I 201016 17:41:34 webapp:1249] Internet Available
+[I 201016 17:41:34 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=NULL,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:41:34 webapp:1393] IP Address = 192.168.86.33
+[I 201016 17:41:34 webapp:1394] Starting Flask Session
+[I 201016 17:41:34 webapp:529] Saving Airport File
+[I 201016 17:41:35 webapp:1249] Internet Available
+[I 201016 17:41:35 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=KFLG,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:41:35 webapp:460] Opening apedit.html
+[I 201016 17:41:41 webapp:529] Saving Airport File
+[I 201016 17:41:41 webapp:1249] Internet Available
+[I 201016 17:41:41 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=NULL,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:41:41 webapp:460] Opening apedit.html
+[I 201016 17:41:46 webapp:529] Saving Airport File
+[I 201016 17:41:46 webapp:1249] Internet Available
+[I 201016 17:41:46 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=LSZH,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:41:46 webapp:460] Opening apedit.html
+[I 201016 17:41:51 webapp:529] Saving Airport File
+[I 201016 17:41:52 webapp:1249] Internet Available
+[I 201016 17:41:52 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=NULL,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:41:52 webapp:460] Opening apedit.html
+[I 201016 17:59:14 webapp:529] Saving Airport File
+[I 201016 17:59:14 webapp:1249] Internet Available
+[I 201016 17:59:14 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=MMPE,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:59:15 webapp:460] Opening apedit.html
+[I 201016 17:59:26 webapp:529] Saving Airport File
+[I 201016 17:59:26 webapp:1249] Internet Available
+[I 201016 17:59:26 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=NULL,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 17:59:26 webapp:460] Opening apedit.html
+[I 201016 18:34:57 webapp:56] 
+    
+    Startup of metar-v4.py Script, Version v4.343
+[I 201016 18:34:57 webapp:57] Log Level Set To: 20
+[I 201016 18:34:57 webapp:118] Settings and Flask Have Been Setup
+[I 201016 18:34:57 webapp:1343] Internet Available
+[I 201016 18:34:57 webapp:1352] Startup - Current RPI IP Address = 192.168.86.33
+[I 201016 18:34:58 webapp:1307] Downloaded /NeoSectional/version.py from neoupdate
+[I 201016 18:34:58 webapp:1323] Latest Version = 4.330 - Current Version = v4.343
+[I 201016 18:34:58 webapp:1290] Deleted version.py
+[I 201016 18:34:58 webapp:1326] Checked for Software Update
+[I 201016 18:34:58 webapp:1365] No Updates Available
+[I 201016 18:34:58 webapp:1370] Python Version = 3.7.3 (default, Apr  3 2019, 05:39:12) 
+    [GCC 8.2.0]
+[I 201016 18:34:59 webapp:1249] Internet Available
+[I 201016 18:34:59 webapp:1250] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=NULL,KSAT,KHOU,KOLS,LGND,KCRP,KBRO,LGND,LGND,LGND,LGND,LGND,LGND,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,NULL,KPBI,KMCO,KEYW,NULL,NULL,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,NULL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,NULL,KAST,KTMK,KOTH,NULL,NULL,NULL,NULL,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 18:34:59 webapp:1393] IP Address = 192.168.86.33
+[I 201016 18:34:59 webapp:1394] Starting Flask Session
+[I 201016 19:23:27 webapp:293] Opening Homepage
+[I 201016 19:23:31 webapp:460] Opening apedit.html
+[I 201016 19:23:40 webapp:1080] Shutoff Map from http://192.168.86.33:5000/apedit
+[I 201016 19:23:41 shutoff:32] 
+    
+    Startup of shutoff.py Script, Version v4.343
+[I 201016 19:23:41 shutoff:33] Log Level Set To: 20
+[I 201016 19:23:41 shutoff:68] Shutoff Settings Loaded
+[I 201016 19:23:41 shutoff:106] LED's Have Been Turned Off
+[I 201016 19:23:42 webapp:460] Opening apedit.html
+[I 201016 19:23:43 shutoff:111] OLED Display Has Been Turned Off
+[I 201016 19:23:43 shutoff:118] shutoff.py Completed
+[I 201016 19:23:50 webapp:1066] Startup Map from http://192.168.86.33:5000/apedit
+[I 201016 19:23:50 startup:22] 
+    
+    Startup of startup.py Script, Version v4.343
+[I 201016 19:23:50 startup:23] Log Level Set To: 20
+[I 201016 19:23:50 startup:36] Running thread 0
+[I 201016 19:23:50 startup:36] Running thread 1
+[I 201016 19:23:50 startup:42] metar-display-v4.py
+[I 201016 19:23:50 startup:36] Running thread 2
+[I 201016 19:23:50 startup:46] check-display.py
+[I 201016 19:23:51 webapp:460] Opening apedit.html
+[I 201016 19:23:51 startup:39] metar-v4.py
+[I 201016 19:23:52 check-display:20] 
+    
+    Startup of check-display.py Script, Version v4.343
+[I 201016 19:23:52 check-display:21] Log Level Set To: 20
+[I 201016 19:23:52 metar-v4:100] 
+    
+    Startup of metar-v4.py Script, Version v4.343
+[I 201016 19:23:52 metar-v4:101] Log Level Set To: 20
+[I 201016 19:23:52 metar-v4:304] Watching /NeoSectional/config.py For Change
+[I 201016 19:23:52 metar-v4:332] metar-v4.py Settings Loaded
+[I 201016 19:23:52 metar-v4:556] Airports File Loaded
+[I 201016 19:23:52 metar-v4:562] METAR Data Loading
+[I 201016 19:23:52 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 19:23:52 metar-display-v4:119] 
+    
+    Startup of metar-display-v4.py Script, Version v4.343
+[I 201016 19:23:52 metar-display-v4:120] Log Level Set To: 20
+[I 201016 19:23:52 metar-display-v4:268] Watching /NeoSectional/config.py For Change
+[I 201016 19:23:52 metar-display-v4:293] Settings Loaded
+[I 201016 19:23:52 metar-display-v4:567] Airports File Loaded
+[I 201016 19:23:52 metar-display-v4:579] Heat Map File Loaded
+[I 201016 19:23:52 metar-display-v4:593] METAR Data Loading
+[I 201016 19:23:52 metar-display-v4:620] Internet Available
+[I 201016 19:23:52 metar-display-v4:621] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:23:52 metar-v4:594] Internet Available
+[I 201016 19:23:52 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:23:52 metar-v4:1137] Starting METAR Data Display
+[I 201016 19:23:52 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 19:23:52 metar-v4:1289] Switch in position 0. Breaking out of loop for METARs
+[I 201016 19:23:53 wipes-v4:38] 
+    
+    Startup of wipes-v4.py Script, Version v4.343
+[I 201016 19:23:53 wipes-v4:39] Log Level Set To: 20
+[I 201016 19:23:53 metar-display-v4:1082] Decoded METAR Data for Display
+[I 201016 19:23:53 metar-display-v4:1141] Built Wind Dictionary
+[I 201016 19:23:53 metar-display-v4:1290] OLED Displays Used
+[I 201016 19:23:53 metar-display-v4:1314] Fonts Loaded
+[I 201016 19:23:53 metar-display-v4:1549] Switch in position 0. Breaking out of loop for METARs
+[I 201016 19:23:53 metar-display-v4:567] Airports File Loaded
+[I 201016 19:23:53 metar-display-v4:579] Heat Map File Loaded
+[I 201016 19:23:53 metar-display-v4:593] METAR Data Loading
+[I 201016 19:23:53 wipes-v4:696] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
+[I 201016 19:23:53 wipes-v4:697] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
+[I 201016 19:23:53 metar-display-v4:620] Internet Available
+[I 201016 19:23:53 metar-display-v4:621] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:23:53 metar-display-v4:1082] Decoded METAR Data for Display
+[I 201016 19:23:53 metar-display-v4:1141] Built Wind Dictionary
+[I 201016 19:23:53 metar-display-v4:1290] OLED Displays Used
+[I 201016 19:23:54 metar-display-v4:1314] Fonts Loaded
+[I 201016 19:23:54 metar-display-v4:1385] Use Welcome Enabled
+[I 201016 19:23:54 wipes-v4:791] Executing Rainbow Wipe
+[I 201016 19:24:04 wipes-v4:796] Turning Off all LEDs
+[I 201016 19:24:04 metar-v4:544] Calling wipes script
+[I 201016 19:24:04 metar-v4:556] Airports File Loaded
+[I 201016 19:24:04 metar-v4:562] METAR Data Loading
+[I 201016 19:24:04 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 19:24:05 metar-v4:594] Internet Available
+[I 201016 19:24:05 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:24:05 metar-v4:1137] Starting METAR Data Display
+[I 201016 19:24:05 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 19:39:06 wipes-v4:38] 
+    
+    Startup of wipes-v4.py Script, Version v4.343
+[I 201016 19:39:06 wipes-v4:39] Log Level Set To: 20
+[I 201016 19:39:07 wipes-v4:696] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
+[I 201016 19:39:07 wipes-v4:697] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
+[I 201016 19:39:08 wipes-v4:791] Executing Rainbow Wipe
+[I 201016 19:39:08 metar-display-v4:567] Airports File Loaded
+[I 201016 19:39:08 metar-display-v4:579] Heat Map File Loaded
+[I 201016 19:39:08 metar-display-v4:593] METAR Data Loading
+[I 201016 19:39:09 metar-display-v4:620] Internet Available
+[I 201016 19:39:09 metar-display-v4:621] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:39:09 metar-display-v4:1082] Decoded METAR Data for Display
+[I 201016 19:39:09 metar-display-v4:1141] Built Wind Dictionary
+[I 201016 19:39:09 metar-display-v4:1290] OLED Displays Used
+[I 201016 19:39:09 metar-display-v4:1314] Fonts Loaded
+[I 201016 19:39:09 metar-display-v4:1385] Use Welcome Enabled
+[I 201016 19:39:18 wipes-v4:796] Turning Off all LEDs
+[I 201016 19:39:18 metar-v4:544] Calling wipes script
+[I 201016 19:39:18 metar-v4:556] Airports File Loaded
+[I 201016 19:39:18 metar-v4:562] METAR Data Loading
+[I 201016 19:39:18 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 19:39:19 metar-v4:594] Internet Available
+[I 201016 19:39:19 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:39:19 metar-v4:1137] Starting METAR Data Display
+[I 201016 19:39:19 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 19:54:21 webapp:1080] Shutoff Map from http://192.168.86.33:5000/apedit
+[I 201016 19:54:22 check-display:74]  -- killin metar-display-v4.py
+[I 201016 19:54:22 shutoff:32] 
+    
+    Startup of shutoff.py Script, Version v4.343
+[I 201016 19:54:22 shutoff:33] Log Level Set To: 20
+[I 201016 19:54:22 shutoff:68] Shutoff Settings Loaded
+[I 201016 19:54:22 shutoff:106] LED's Have Been Turned Off
+[I 201016 19:54:23 webapp:460] Opening apedit.html
+[I 201016 19:54:23 shutoff:111] OLED Display Has Been Turned Off
+[I 201016 19:54:23 shutoff:118] shutoff.py Completed
+[I 201016 19:54:24 check-display:85] check-display.py is stopping
+[I 201016 19:54:32 webapp:1066] Startup Map from http://192.168.86.33:5000/apedit
+[I 201016 19:54:33 startup:22] 
+    
+    Startup of startup.py Script, Version v4.343
+[I 201016 19:54:33 startup:23] Log Level Set To: 20
+[I 201016 19:54:33 startup:36] Running thread 0
+[I 201016 19:54:33 startup:36] Running thread 1
+[I 201016 19:54:33 startup:36] Running thread 2
+[I 201016 19:54:33 startup:42] metar-display-v4.py
+[I 201016 19:54:33 startup:46] check-display.py
+[I 201016 19:54:34 webapp:460] Opening apedit.html
+[I 201016 19:54:34 startup:39] metar-v4.py
+[I 201016 19:54:34 check-display:20] 
+    
+    Startup of check-display.py Script, Version v4.343
+[I 201016 19:54:34 check-display:21] Log Level Set To: 20
+[I 201016 19:54:34 metar-v4:100] 
+    
+    Startup of metar-v4.py Script, Version v4.343
+[I 201016 19:54:34 metar-v4:101] Log Level Set To: 20
+[I 201016 19:54:34 metar-v4:304] Watching /NeoSectional/config.py For Change
+[I 201016 19:54:34 metar-v4:332] metar-v4.py Settings Loaded
+[I 201016 19:54:34 metar-v4:556] Airports File Loaded
+[I 201016 19:54:34 metar-v4:562] METAR Data Loading
+[I 201016 19:54:34 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 19:54:34 metar-display-v4:119] 
+    
+    Startup of metar-display-v4.py Script, Version v4.343
+[I 201016 19:54:34 metar-display-v4:120] Log Level Set To: 20
+[I 201016 19:54:34 metar-display-v4:268] Watching /NeoSectional/config.py For Change
+[I 201016 19:54:34 metar-display-v4:293] Settings Loaded
+[I 201016 19:54:34 metar-display-v4:567] Airports File Loaded
+[I 201016 19:54:34 metar-display-v4:579] Heat Map File Loaded
+[I 201016 19:54:34 metar-display-v4:593] METAR Data Loading
+[I 201016 19:54:35 metar-display-v4:620] Internet Available
+[I 201016 19:54:35 metar-display-v4:621] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:54:35 metar-v4:594] Internet Available
+[I 201016 19:54:35 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:54:35 metar-v4:1137] Starting METAR Data Display
+[I 201016 19:54:35 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 19:54:35 metar-v4:1289] Switch in position 0. Breaking out of loop for METARs
+[I 201016 19:54:35 metar-display-v4:1082] Decoded METAR Data for Display
+[I 201016 19:54:35 metar-display-v4:1141] Built Wind Dictionary
+[I 201016 19:54:35 metar-display-v4:1290] OLED Displays Used
+[I 201016 19:54:35 metar-display-v4:1314] Fonts Loaded
+[I 201016 19:54:35 metar-display-v4:1549] Switch in position 0. Breaking out of loop for METARs
+[I 201016 19:54:35 metar-display-v4:567] Airports File Loaded
+[I 201016 19:54:35 metar-display-v4:579] Heat Map File Loaded
+[I 201016 19:54:35 metar-display-v4:593] METAR Data Loading
+[I 201016 19:54:36 metar-display-v4:620] Internet Available
+[I 201016 19:54:36 metar-display-v4:621] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:54:36 metar-display-v4:1082] Decoded METAR Data for Display
+[I 201016 19:54:36 metar-display-v4:1141] Built Wind Dictionary
+[I 201016 19:54:36 metar-display-v4:1290] OLED Displays Used
+[I 201016 19:54:36 metar-display-v4:1314] Fonts Loaded
+[I 201016 19:54:36 metar-display-v4:1385] Use Welcome Enabled
+[I 201016 19:54:44 check-display:85] check-display.py is stopping
+[I 201016 19:55:49 metar-v4:100] 
+    
+    Startup of metar-v4.py Script, Version v4.343
+[I 201016 19:55:49 metar-v4:101] Log Level Set To: 20
+[I 201016 19:55:49 metar-v4:304] Watching /NeoSectional/config.py For Change
+[I 201016 19:55:49 metar-v4:332] metar-v4.py Settings Loaded
+[I 201016 19:55:49 metar-v4:556] Airports File Loaded
+[I 201016 19:55:49 metar-v4:562] METAR Data Loading
+[I 201016 19:55:49 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 19:55:50 metar-v4:594] Internet Available
+[I 201016 19:55:50 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:55:50 metar-v4:1137] Starting METAR Data Display
+[I 201016 19:55:50 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 19:55:50 metar-v4:1289] Switch in position 0. Breaking out of loop for METARs
+[I 201016 19:57:13 metar-v4:100] 
+    
+    Startup of metar-v4.py Script, Version v4.343
+[I 201016 19:57:13 metar-v4:101] Log Level Set To: 20
+[I 201016 19:57:13 metar-v4:304] Watching /NeoSectional/config.py For Change
+[I 201016 19:57:13 metar-v4:332] metar-v4.py Settings Loaded
+[I 201016 19:57:13 metar-v4:556] Airports File Loaded
+[I 201016 19:57:13 metar-v4:562] METAR Data Loading
+[I 201016 19:57:13 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 19:57:13 metar-v4:594] Internet Available
+[I 201016 19:57:13 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:57:13 metar-v4:1137] Starting METAR Data Display
+[I 201016 19:57:13 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 19:57:13 metar-v4:1289] Switch in position 0. Breaking out of loop for METARs
+[I 201016 19:57:13 wipes-v4:38] 
+    
+    Startup of wipes-v4.py Script, Version v4.343
+[I 201016 19:57:13 wipes-v4:39] Log Level Set To: 20
+[I 201016 19:57:14 wipes-v4:704] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
+[I 201016 19:57:14 wipes-v4:705] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
+[I 201016 19:57:15 wipes-v4:799] Executing Rainbow Wipe
+[I 201016 19:57:25 wipes-v4:804] Turning Off all LEDs
+[I 201016 19:57:25 metar-v4:544] Calling wipes script
+[I 201016 19:57:26 metar-v4:556] Airports File Loaded
+[I 201016 19:57:26 metar-v4:562] METAR Data Loading
+[I 201016 19:57:26 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 19:57:26 metar-v4:594] Internet Available
+[I 201016 19:57:26 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:57:26 metar-v4:1137] Starting METAR Data Display
+[I 201016 19:57:26 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 19:57:35 metar-v4:100] 
+    
+    Startup of metar-v4.py Script, Version v4.343
+[I 201016 19:57:35 metar-v4:101] Log Level Set To: 20
+[I 201016 19:57:35 metar-v4:304] Watching /NeoSectional/config.py For Change
+[I 201016 19:57:35 metar-v4:332] metar-v4.py Settings Loaded
+[I 201016 19:57:35 metar-v4:556] Airports File Loaded
+[I 201016 19:57:35 metar-v4:562] METAR Data Loading
+[I 201016 19:57:35 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 19:57:35 metar-v4:594] Internet Available
+[I 201016 19:57:35 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:57:35 metar-v4:1137] Starting METAR Data Display
+[I 201016 19:57:35 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 19:57:35 metar-v4:1289] Switch in position 0. Breaking out of loop for METARs
+[I 201016 19:57:36 wipes-v4:38] 
+    
+    Startup of wipes-v4.py Script, Version v4.343
+[I 201016 19:57:36 wipes-v4:39] Log Level Set To: 20
+[I 201016 19:57:36 wipes-v4:704] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
+[I 201016 19:57:36 wipes-v4:705] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
+[I 201016 19:57:37 wipes-v4:799] Executing Rainbow Wipe
+[I 201016 19:57:45 wipes-v4:804] Turning Off all LEDs
+[I 201016 19:57:45 metar-v4:544] Calling wipes script
+[I 201016 19:57:45 metar-v4:556] Airports File Loaded
+[I 201016 19:57:45 metar-v4:562] METAR Data Loading
+[I 201016 19:57:45 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 19:57:45 metar-v4:594] Internet Available
+[I 201016 19:57:45 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:57:45 metar-v4:1137] Starting METAR Data Display
+[I 201016 19:57:45 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 19:57:59 webapp:293] Opening Homepage
+[I 201016 19:58:01 webapp:1066] Startup Map from http://192.168.86.33:5000/
+[I 201016 19:58:01 startup:22] 
+    
+    Startup of startup.py Script, Version v4.343
+[I 201016 19:58:01 startup:23] Log Level Set To: 20
+[I 201016 19:58:01 startup:36] Running thread 0
+[I 201016 19:58:01 startup:36] Running thread 1
+[I 201016 19:58:01 startup:36] Running thread 2
+[I 201016 19:58:01 startup:42] metar-display-v4.py
+[I 201016 19:58:01 startup:46] check-display.py
+[I 201016 19:58:02 webapp:293] Opening Homepage
+[I 201016 19:58:02 startup:39] metar-v4.py
+[I 201016 19:58:03 check-display:20] 
+    
+    Startup of check-display.py Script, Version v4.343
+[I 201016 19:58:03 check-display:21] Log Level Set To: 20
+[I 201016 19:58:03 metar-v4:100] 
+    
+    Startup of metar-v4.py Script, Version v4.343
+[I 201016 19:58:03 metar-v4:101] Log Level Set To: 20
+[I 201016 19:58:03 metar-v4:304] Watching /NeoSectional/config.py For Change
+[I 201016 19:58:03 metar-v4:332] metar-v4.py Settings Loaded
+[I 201016 19:58:03 metar-v4:556] Airports File Loaded
+[I 201016 19:58:03 metar-v4:562] METAR Data Loading
+[I 201016 19:58:03 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 19:58:03 metar-display-v4:119] 
+    
+    Startup of metar-display-v4.py Script, Version v4.343
+[I 201016 19:58:03 metar-display-v4:120] Log Level Set To: 20
+[I 201016 19:58:03 metar-display-v4:268] Watching /NeoSectional/config.py For Change
+[I 201016 19:58:03 metar-display-v4:293] Settings Loaded
+[I 201016 19:58:03 metar-display-v4:567] Airports File Loaded
+[I 201016 19:58:03 metar-display-v4:579] Heat Map File Loaded
+[I 201016 19:58:03 metar-display-v4:593] METAR Data Loading
+[I 201016 19:58:03 metar-v4:594] Internet Available
+[I 201016 19:58:03 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:58:03 metar-v4:1137] Starting METAR Data Display
+[I 201016 19:58:03 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 19:58:03 metar-v4:1289] Switch in position 0. Breaking out of loop for METARs
+[I 201016 19:58:03 wipes-v4:38] 
+    
+    Startup of wipes-v4.py Script, Version v4.343
+[I 201016 19:58:03 wipes-v4:39] Log Level Set To: 20
+[I 201016 19:58:03 metar-display-v4:620] Internet Available
+[I 201016 19:58:03 metar-display-v4:621] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:58:04 metar-display-v4:1082] Decoded METAR Data for Display
+[I 201016 19:58:04 metar-display-v4:1141] Built Wind Dictionary
+[I 201016 19:58:04 metar-display-v4:1290] OLED Displays Used
+[I 201016 19:58:04 wipes-v4:704] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
+[I 201016 19:58:04 wipes-v4:705] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
+[I 201016 19:58:04 metar-display-v4:1314] Fonts Loaded
+[I 201016 19:58:04 metar-display-v4:1549] Switch in position 0. Breaking out of loop for METARs
+[I 201016 19:58:04 metar-display-v4:567] Airports File Loaded
+[I 201016 19:58:04 metar-display-v4:579] Heat Map File Loaded
+[I 201016 19:58:04 metar-display-v4:593] METAR Data Loading
+[I 201016 19:58:05 metar-display-v4:620] Internet Available
+[I 201016 19:58:05 metar-display-v4:621] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:58:05 wipes-v4:799] Executing Rainbow Wipe
+[I 201016 19:58:05 metar-display-v4:1082] Decoded METAR Data for Display
+[I 201016 19:58:05 metar-display-v4:1141] Built Wind Dictionary
+[I 201016 19:58:05 metar-display-v4:1290] OLED Displays Used
+[I 201016 19:58:05 metar-display-v4:1314] Fonts Loaded
+[I 201016 19:58:05 metar-display-v4:1385] Use Welcome Enabled
+[I 201016 19:58:09 webapp:1080] Shutoff Map from http://192.168.86.33:5000/
+[I 201016 19:58:10 shutoff:32] 
+    
+    Startup of shutoff.py Script, Version v4.343
+[I 201016 19:58:10 shutoff:33] Log Level Set To: 20
+[I 201016 19:58:10 shutoff:68] Shutoff Settings Loaded
+[I 201016 19:58:10 shutoff:106] LED's Have Been Turned Off
+[I 201016 19:58:11 webapp:293] Opening Homepage
+[I 201016 19:58:11 shutoff:111] OLED Display Has Been Turned Off
+[I 201016 19:58:11 shutoff:118] shutoff.py Completed
+[I 201016 19:58:13 check-display:74]  -- killin metar-display-v4.py
+[I 201016 19:58:15 check-display:85] check-display.py is stopping
+[I 201016 19:58:16 webapp:1066] Startup Map from http://192.168.86.33:5000/
+[I 201016 19:58:17 startup:22] 
+    
+    Startup of startup.py Script, Version v4.343
+[I 201016 19:58:17 startup:23] Log Level Set To: 20
+[I 201016 19:58:17 startup:36] Running thread 0
+[I 201016 19:58:17 startup:36] Running thread 1
+[I 201016 19:58:17 startup:42] metar-display-v4.py
+[I 201016 19:58:17 startup:36] Running thread 2
+[I 201016 19:58:17 startup:46] check-display.py
+[I 201016 19:58:17 webapp:293] Opening Homepage
+[I 201016 19:58:18 startup:39] metar-v4.py
+[I 201016 19:58:18 check-display:20] 
+    
+    Startup of check-display.py Script, Version v4.343
+[I 201016 19:58:18 check-display:21] Log Level Set To: 20
+[I 201016 19:58:18 metar-v4:100] 
+    
+    Startup of metar-v4.py Script, Version v4.343
+[I 201016 19:58:18 metar-v4:101] Log Level Set To: 20
+[I 201016 19:58:18 metar-v4:304] Watching /NeoSectional/config.py For Change
+[I 201016 19:58:18 metar-v4:332] metar-v4.py Settings Loaded
+[I 201016 19:58:18 metar-v4:556] Airports File Loaded
+[I 201016 19:58:18 metar-v4:562] METAR Data Loading
+[I 201016 19:58:18 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 19:58:18 metar-display-v4:119] 
+    
+    Startup of metar-display-v4.py Script, Version v4.343
+[I 201016 19:58:18 metar-display-v4:120] Log Level Set To: 20
+[I 201016 19:58:18 metar-display-v4:268] Watching /NeoSectional/config.py For Change
+[I 201016 19:58:18 metar-display-v4:293] Settings Loaded
+[I 201016 19:58:18 metar-display-v4:567] Airports File Loaded
+[I 201016 19:58:18 metar-display-v4:579] Heat Map File Loaded
+[I 201016 19:58:19 metar-display-v4:593] METAR Data Loading
+[I 201016 19:58:19 metar-v4:594] Internet Available
+[I 201016 19:58:19 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:58:19 metar-v4:1137] Starting METAR Data Display
+[I 201016 19:58:19 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 19:58:19 metar-v4:1289] Switch in position 0. Breaking out of loop for METARs
+[I 201016 19:58:19 wipes-v4:38] 
+    
+    Startup of wipes-v4.py Script, Version v4.343
+[I 201016 19:58:19 wipes-v4:39] Log Level Set To: 20
+[I 201016 19:58:19 metar-display-v4:620] Internet Available
+[I 201016 19:58:19 metar-display-v4:621] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:58:19 metar-display-v4:1082] Decoded METAR Data for Display
+[I 201016 19:58:19 metar-display-v4:1141] Built Wind Dictionary
+[I 201016 19:58:19 metar-display-v4:1290] OLED Displays Used
+[I 201016 19:58:19 metar-display-v4:1314] Fonts Loaded
+[I 201016 19:58:19 metar-display-v4:1549] Switch in position 0. Breaking out of loop for METARs
+[I 201016 19:58:19 metar-display-v4:567] Airports File Loaded
+[I 201016 19:58:19 metar-display-v4:579] Heat Map File Loaded
+[I 201016 19:58:19 wipes-v4:704] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
+[I 201016 19:58:19 wipes-v4:705] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
+[I 201016 19:58:19 metar-display-v4:593] METAR Data Loading
+[I 201016 19:58:19 metar-display-v4:620] Internet Available
+[I 201016 19:58:19 metar-display-v4:621] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:58:20 metar-display-v4:1082] Decoded METAR Data for Display
+[I 201016 19:58:20 metar-display-v4:1141] Built Wind Dictionary
+[I 201016 19:58:20 metar-display-v4:1290] OLED Displays Used
+[I 201016 19:58:20 metar-display-v4:1314] Fonts Loaded
+[I 201016 19:58:20 metar-display-v4:1385] Use Welcome Enabled
+[I 201016 19:58:20 wipes-v4:799] Executing Rainbow Wipe
+[I 201016 19:58:28 wipes-v4:804] Turning Off all LEDs
+[I 201016 19:58:28 metar-v4:544] Calling wipes script
+[I 201016 19:58:28 metar-v4:556] Airports File Loaded
+[I 201016 19:58:28 metar-v4:562] METAR Data Loading
+[I 201016 19:58:28 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 19:58:28 metar-v4:594] Internet Available
+[I 201016 19:58:28 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 19:58:28 metar-v4:1137] Starting METAR Data Display
+[I 201016 19:58:28 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 20:13:29 wipes-v4:39] 
+    
+    Startup of wipes-v4.py Script, Version v4.343
+[I 201016 20:13:29 wipes-v4:40] Log Level Set To: 20
+[I 201016 20:13:30 wipes-v4:705] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
+[I 201016 20:13:30 wipes-v4:706] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
+[I 201016 20:13:30 metar-display-v4:567] Airports File Loaded
+[I 201016 20:13:30 metar-display-v4:579] Heat Map File Loaded
+[I 201016 20:13:30 metar-display-v4:593] METAR Data Loading
+[I 201016 20:13:31 wipes-v4:800] Executing Rainbow Wipe
+[I 201016 20:13:32 metar-display-v4:620] Internet Available
+[I 201016 20:13:32 metar-display-v4:621] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 20:13:32 metar-display-v4:1082] Decoded METAR Data for Display
+[I 201016 20:13:32 metar-display-v4:1141] Built Wind Dictionary
+[I 201016 20:13:32 metar-display-v4:1290] OLED Displays Used
+[I 201016 20:13:32 metar-display-v4:1314] Fonts Loaded
+[I 201016 20:13:32 metar-display-v4:1385] Use Welcome Enabled
+[I 201016 20:13:39 wipes-v4:805] Turning Off all LEDs
+[I 201016 20:13:39 metar-v4:544] Calling wipes script
+[I 201016 20:13:39 metar-v4:556] Airports File Loaded
+[I 201016 20:13:39 metar-v4:562] METAR Data Loading
+[I 201016 20:13:39 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 20:13:39 metar-v4:594] Internet Available
+[I 201016 20:13:39 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 20:13:39 metar-v4:1137] Starting METAR Data Display
+[I 201016 20:13:39 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 20:28:40 wipes-v4:39] 
+    
+    Startup of wipes-v4.py Script, Version v4.343
+[I 201016 20:28:40 wipes-v4:40] Log Level Set To: 20
+[I 201016 20:28:40 wipes-v4:705] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
+[I 201016 20:28:40 wipes-v4:706] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
+[I 201016 20:28:41 wipes-v4:800] Executing Rainbow Wipe
+[I 201016 20:28:45 metar-display-v4:567] Airports File Loaded
+[I 201016 20:28:45 metar-display-v4:579] Heat Map File Loaded
+[I 201016 20:28:45 metar-display-v4:593] METAR Data Loading
+[I 201016 20:28:46 metar-display-v4:620] Internet Available
+[I 201016 20:28:46 metar-display-v4:621] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 20:28:46 metar-display-v4:1082] Decoded METAR Data for Display
+[I 201016 20:28:46 metar-display-v4:1141] Built Wind Dictionary
+[I 201016 20:28:46 metar-display-v4:1290] OLED Displays Used
+[I 201016 20:28:46 metar-display-v4:1314] Fonts Loaded
+[I 201016 20:28:46 metar-display-v4:1385] Use Welcome Enabled
+[I 201016 20:28:49 wipes-v4:805] Turning Off all LEDs
+[I 201016 20:28:49 metar-v4:544] Calling wipes script
+[I 201016 20:28:49 metar-v4:556] Airports File Loaded
+[I 201016 20:28:49 metar-v4:562] METAR Data Loading
+[I 201016 20:28:49 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 20:28:49 metar-v4:594] Internet Available
+[I 201016 20:28:49 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 20:28:49 metar-v4:1137] Starting METAR Data Display
+[I 201016 20:28:49 metar-v4:1230] Decoded METAR Data for Display
+[I 201016 20:43:52 wipes-v4:39] 
+    
+    Startup of wipes-v4.py Script, Version v4.343
+[I 201016 20:43:52 wipes-v4:40] Log Level Set To: 20
+[I 201016 20:43:53 wipes-v4:705] maxlat = 48.55 minlat = 0.0 maxlon = 0.0 minlon = -124.25
+[I 201016 20:43:53 wipes-v4:706] sizelat = 48.55 sizelon = 124.25 centerlat 24.27 centerlon = -62.12
+[I 201016 20:43:54 wipes-v4:800] Executing Rainbow Wipe
+[I 201016 20:43:59 metar-display-v4:567] Airports File Loaded
+[I 201016 20:43:59 metar-display-v4:579] Heat Map File Loaded
+[I 201016 20:43:59 metar-display-v4:593] METAR Data Loading
+[I 201016 20:43:59 metar-display-v4:620] Internet Available
+[I 201016 20:43:59 metar-display-v4:621] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 20:44:00 metar-display-v4:1082] Decoded METAR Data for Display
+[I 201016 20:44:00 metar-display-v4:1141] Built Wind Dictionary
+[I 201016 20:44:00 metar-display-v4:1290] OLED Displays Used
+[I 201016 20:44:00 metar-display-v4:1314] Fonts Loaded
+[I 201016 20:44:00 metar-display-v4:1385] Use Welcome Enabled
+[I 201016 20:44:01 wipes-v4:805] Turning Off all LEDs
+[I 201016 20:44:02 metar-v4:544] Calling wipes script
+[I 201016 20:44:02 metar-v4:556] Airports File Loaded
+[I 201016 20:44:02 metar-v4:562] METAR Data Loading
+[I 201016 20:44:02 metar-v4:590] RPI IP Address = 192.168.86.33
+[I 201016 20:44:02 metar-v4:594] Internet Available
+[I 201016 20:44:02 metar-v4:595] https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow=2.5&stationString=KSAT,KHOU,KOLS,KCRP,KBRO,KIAH,KELP,KODO,KABI,KTUS,KLFT,KMSY,KBTR,KFTW,KSHV,KLBB,KMOB,KPNS,KJAN,KAMA,KOKC,KLIT,KMEM,KMYF,KSPG,KTLH,KBHM,KTUL,KXNA,KJAX,KSAV,KHSV,KATL,KMIA,KSGF,KPBI,KMCO,KEYW,KBNA,KCHA,KTYS,KAVL,KGSP,KCAE,KCHS,KCLT,KMYR,KFAY,KGSO,KRDU,KEVV,KSDF,KLEX,KLWB,KLYH,KCMH,KCLE,KPIT,KBUF,KRIC,KORF,KDCA,KROC,KBWI,KABE,KPHL,KACY,KSYR,KEWR,KALB,KJFK,KBDL,KPVD,KBOS,KMHT,KBGR,KPWM,KBTV,KFVE,KCVG,KDAY,KIND,KFWA,KDTW,KSBN,KFNT,KGRR,KSTL,KSPI,KPIA,KORD,KMLI,KMKE,K83D,KMCI,KMSN,KGRB,KCID,KDSM,KCKC,KASX,KMSP,KJMS,KOMA,KMHE,KBIS,KLNK,KPIR,KICT,KRAP,KECS,KLAA,KCYS,KCPR,KDEN,KMOT,KCOS,KBIL,KHDN,KMTJ,K46U,KGPI,KMSO,KGGW,KHVR,KCOE,KGEG,KAFO,KLGU,KSLC,KPSC,KONO,KBOI,KBNO,KPDX,KBAM,KAST,KTMK,KOTH,KNUW,KSEA,KAAT,KCEC,KACV,KRNO,KSMF,KSFO,KMRY,KFAT,KFMN,KBCE,KPGA,KABQ,KFLG,KSJN,KPRC,KLAS,KIGM,KHII,KPHX,KONT,KLAX,KSBA,KNYL,KSAN,KTYL
+[I 201016 20:44:02 metar-v4:1137] Starting METAR Data Display
+[I 201016 20:44:02 metar-v4:1230] Decoded METAR Data for Display
