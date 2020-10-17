@@ -1260,9 +1260,16 @@ def get_apinfo():
 
     for apinfo in root.iter('Station'):
         stationId = apinfo.find('station_id').text
-        site = apinfo.find('site').text
-        state = apinfo.find('state').text
-        apinfo_dict[stationId] = [site,state]
+
+        if stationId[0] != 'K':
+            site = apinfo.find('site').text
+            country = apinfo.find('country').text
+            apinfo_dict[stationId] = [site,country]
+
+        else:
+            site = apinfo.find('site').text
+            state = apinfo.find('state').text
+            apinfo_dict[stationId] = [site,state]
 
 #rgb and hex routines
 def rgb2hex(rgb):

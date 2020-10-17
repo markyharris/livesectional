@@ -526,7 +526,7 @@ outerloop = 1                   #Set to TRUE for infinite outerloop
 display_num = 0
 while (outerloop):
     display_num = display_num + 1
-    
+
     #Time calculations, dependent on 'hour_to_display' offset. this determines how far in the future the TAF data should be.
     #This time is recalculated everytime the FAA data gets updated
     zulu = datetime.utcnow() + timedelta(hours=hour_to_display)     #Get current time plus Offset
@@ -1200,7 +1200,6 @@ while (outerloop):
                 flightcategory = metar.find('flight_category').text  #pull flight category if it exists and save all the algoritm above
             #End of added routine to create flight category via cloud cover and/or visability when flight category is not reported.
 
-
             #grab wind speeds from returned FAA data
             if metar.find('wind_speed_kt') is None: #if wind speed is blank, then bypass
                 windspeedkt = 0
@@ -1245,7 +1244,7 @@ while (outerloop):
 
         #Timer routine, used to turn off LED's at night if desired. Use 24 hour time in settings.
         if usetimer: #check to see if the user wants to use a timer.
-             
+
              if time_in_range(timeoff, end_time, datetime.now().time()):
 
                 # If temporary lights-on period from refresh button has expired, restore the original light schedule
@@ -1253,7 +1252,7 @@ while (outerloop):
                     end_time = lights_on
                     timeoff = lights_out
                     temp_lights_on = 0
-                
+
                 sys.stdout.write ("\n\033[1;34;40m Sleeping-  ") #Escape codes to render Blue text on screen
                 sys.stdout.flush ()
                 turnoff(strip)
