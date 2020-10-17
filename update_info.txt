@@ -1,8 +1,9 @@
 Version 4.343
 10-16-2020
-Fixed bug in metar-v4.py
-Fixed bug in webapp.py which caused an error on the airport editor when an international airport is entered and saved
-Added changes to https://github.com/markyharris/livesectional
+Fixed bug in wipes-v4.py that didn't dim the LED Brightness when a light sensor is used.
+Fixed bug in metar-v4.py.
+Fixed bug in webapp.py which caused an error on the airport editor when an international airport is entered and saved.
+Added changes to https://github.com/markyharris/livesectional.
 
 Version 4.342 - Image must be downloaded for this version.
 Fixed bug in webapp.py when page is loaded directly from URL box rather than the loaded page.
