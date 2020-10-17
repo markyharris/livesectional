@@ -7,7 +7,7 @@
 #    minor update 1
 #    error fix 0
 
-version='v4.342'
+version='v4.343'
 hostname=''
 username=''
 password=''
