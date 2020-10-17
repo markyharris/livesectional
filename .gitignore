@@ -4,3 +4,5 @@ __pycache__/
 logfile.log.1
 logfile.log.2
 logfile.log.3
+
+sendemail.py
