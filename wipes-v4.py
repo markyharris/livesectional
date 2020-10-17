@@ -14,7 +14,8 @@
 #       Morse Code
 #       Rabbit Chase
 #
-#       Fixed wipes that turned on NULL and LGND Leds
+#    Fixed wipes that turned on NULL and LGND Leds
+#    Fixed dimming feature when a wipe is executed
 
 #Import needed libraries
 import urllib.request, urllib.error, urllib.parse
@@ -118,6 +119,14 @@ CODE = {'A':'.-', 'B':'-...', 'C':'-.-.', 'D':'-..', 'E':'.', 'F':'..-.', 'G':'-
 #Create an instance of NeoPixel
 strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL, LED_STRIP)
 strip.begin()
+
+#Bright light will provide a low state (0) on GPIO. Dark light will provide a high state (1).
+#Full brightness will be used if no light sensor is installed.
+if GPIO.input(4) == 1:
+    LED_BRIGHTNESS = dimmed_value
+else:
+    LED_BRIGHTNESS = bright_value
+strip.setBrightness(LED_BRIGHTNESS)
 
 #Functions
 #Rainbow Animation functions - taken from https://github.com/JJSilva/NeoSectional/blob/master/metar.py
