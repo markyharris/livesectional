@@ -17,7 +17,7 @@
           <li>Sleep Timer - The Map can be put to sleep at night (or anytime) if desired. Pressing a pushbutton will turn on temporarily.
           <li>Reload the config settings automatically. The map will restart and reload the settings when new settings are saved.
           <li>Map builder has the ability to use both types of LED's, either RGB and/or GRB color encoding on same map.
-          <li>Decodes the airport ID to show City and State. 
+          <li>Decodes the airport ID to show City and State. If international airports are used, it will show Site and Country. 
           <li>Will display IP address if an LCD/OLED display is used.
 	  <li>Logging capabilities were added to help with diagnosing issues.
           <li>The builder can now download and backup the config file, airports file, Heat Map file and logfile.
@@ -25,7 +25,7 @@
           <li>Wind direction can now be displayed using an arrow or numbers in degrees and includes Gusts as well.
           <li>The user interface was improved to optimize for mobile applications.
           <li>Config Profiles available to load to help start the configuration process.
-          <li>Many new Transitional Wipes were added for when the FAA weather is being updated.
+          <li>Many new Transitional Wipes were added for when the FAA weather is being updated. Some are still a work in process.
           <li>Ability to setup wifi remotely through the use of Android or IPhone app thanks to  <a class="text-danger" href="http://berrylan.org" target="_blank">Berrylan.org</a>.
           <li>A System Information page was added to help with diagnosis if necessary. 
           <li>A Phone App was added to allow the casual user to control the data displayed on the map if a Rotary Switch was not installed. (Thank you Lance B.)
@@ -34,7 +34,6 @@
           <li>Added the ability to expand RPI's file system without needing to enter the command line.
           <li>Added the ability to rotate OLED display 180 degrees, and to reverse the position order of OLED's due to build constraints.
           <li>Automatically update software online, rather than re-burn an image. *Major updates may require an image re-burn.
-          <li>Import Settings File, Airports File and Heat Map File was added to expedite software upgrades that need an image re-burn.
         </ul>
     </p>
   <hr>
@@ -90,8 +89,9 @@
              </ul>
           <li>Map Utilities
           <ul>
-             <li>Homepage - Will bring up this page.
+             <li>Homepage - Will bring up the Home page.
              <li>Set RPI Timezone - Allows the user to set their Time Zone without the command line.
+             <li>Expand File System - Allows RPI to utilize the entire amount of memory on the microSD Card.
              <li>Download Config File - Allows the builder to backup the config file to another computer.         
              <li>Download Airports File - Allows the builder to backup the airports file to another computer.
              <li>Download Heat Map File - Allows the builder to download Heat Map file for diagnostic purposes.
@@ -102,6 +102,7 @@
              <li>Create QR Code for Web Remote - Creates a QR Code to display for users to run phone app.
              <li>View Schematics - Opens new web page with access to the various Schematics helpful for building.
              <li>System Information - Opens new web page and displays information about the system, RPI and OS.
+             <li>Update History - Lists the various versions along with the updates made.
              <li>Help - Opens a new web page and loads the Help page of LiveSectional.com.
             </ul>
         </ul>
