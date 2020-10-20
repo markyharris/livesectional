@@ -71,7 +71,7 @@ picraft==1.0
 piglow==1.2.5
 pigpio==1.44
 Pillow==5.4.1
-psutil==5.5.1
+psutil==5.6.6
 pycparser==2.20
 pycrypto==2.6.1
 pyflakes==2.2.0
