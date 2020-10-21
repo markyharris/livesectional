@@ -1239,6 +1239,8 @@ def get_apinfo():
 
     apurl = orig_apurl #Assign base FAA url to temp variable
     for airportcode in airports:
+        if airportcode == "NULL" or airportcode == "LGND":
+            continue
         apurl = apurl + airportcode + ","
     apurl = apurl[:-1]
 
