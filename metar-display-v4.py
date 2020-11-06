@@ -17,6 +17,7 @@
 #     Added ability to detect a Rotary Switch is NOT installed and react accordingly.
 #     Added ability to specifiy an exclusive subset of airports to display.
 #     Added ability to display text rotated 180 degrees, and/or reverse order of display of multiple OLED's if wired backwards
+#     Added fix to Sleep Timer. Thank You to Matthew G for your code to make this work.
 
 #Displays airport ID, wind speed in kts and wind direction on an LCD or OLED display.
 #Wind direction uses an arrow to display general wind direction from the 8 cardinal points on a compass.
@@ -80,6 +81,7 @@ import os
 from os.path import getmtime
 from datetime import datetime
 from datetime import timedelta
+from datetime import time as time_ #part of timer fix
 import operator
 import RPi.GPIO as GPIO
 import socket
@@ -267,12 +269,14 @@ WATCHED_FILES = [LOCAL_CONFIG_FILE_PATH, __file__]
 WATCHED_FILES_MTIMES = [(f, getmtime(f)) for f in WATCHED_FILES]
 logger.info('Watching ' + LOCAL_CONFIG_FILE_PATH + ' For Change')
 
-#Timer calculations
-now = datetime.now()                            #Get current time and compare to timer setting
-timeoff = now.replace(hour=offhour, minute=offminutes, second=0, microsecond=0) #When to turn map off
-timeon = now.replace(hour=onhour, minute=onminutes, second=0, microsecond=0)    #When to turn map back on
-diff = timeon - timeoff                         #determine the length of time between timeoff and timeon. Used for comparing to datetime.now()
-delay_time = 10
+#Timer calculations - Part of Timer Fix - Thank You to Matthew G
+now = datetime.now()                    #Get current time and compare to timer setting
+lights_out = time_(offhour, offminutes, 0)
+timeoff = lights_out
+lights_on = time_(onhour, onminutes, 0)
+end_time = lights_on
+delay_time = 10                         #Number of seconds to delay before retrying to connect to the internet.
+temp_lights_on = 0                      #Set flag for next round if sleep timer is interrupted by button push.
 
 #MOS related settings
 mos_filepath = '/NeoSectional/GFSMAV'           #location of the downloaded local MOS file.
@@ -293,6 +297,14 @@ s.connect(("8.8.8.8", 80))
 logger.info("Settings Loaded")
 
 #Functions
+# Part of Timer Fix - Thank You to Matthew G
+# See if a time falls within a range
+def time_in_range(start, end, x):
+    if start <= end:
+        return start <= x <= end
+    else:
+        return start <= x or x <= end
+
 #Functions for LCD Display
 def write_to_lcd(lcd, framebuffer, num_cols):
     #Write the framebuffer out to the specified LCD.
@@ -1490,19 +1502,17 @@ while True:
 
         #Timer routine, used to turn off LED's at night if desired. Use 24 hour time in settings.
         if usetimer:                            #check to see if the user wants to use a timer.
-            if diff.days < 0:                   #this checks to see if the timeoff is before midnight and timeon is after (typical) and adjust.
-                diff = timedelta(days=0, seconds=diff.seconds, microseconds=diff.microseconds)
+            if time_in_range(timeoff, end_time, datetime.now().time()): #Part of Timer Fix - Thank You to Matthew G
 
-            end_time = timeoff + diff
-            if temp_time_flag == 1:             #reset end_time if we are in temporarily on during sleep mode
-                end_time = temp_end_time
-                temp_time_flag = 0              #reset flag for next round
-
-            if timeoff <= datetime.now() <= end_time:
-#                sys.stdout.write ("\n\033[1;35;40m Display Sleeping-  ") #Escape codes to render Purple text on screen
-#                sys.stdout.flush ()
+                # If temporary lights-on period from refresh button has expired, restore the original light schedule
+                #Part of Timer Fix
+                if temp_lights_on == 1:
+                    end_time = lights_on
+                    timeoff = lights_out
+                    temp_lights_on = 0
 
                 logger.info("Display Going to Sleep")
+
                 if lcddisplay:
                     lcd.clear()
 
@@ -1512,7 +1522,7 @@ while True:
                     clearoleddisplays()         #clear displays with no borders
                     border = tmp1
 
-                while timeoff <= datetime.now() <= end_time:
+                while time_in_range(timeoff, end_time, datetime.now().time()): #Part of timer fix
 #                    sys.stdout.write ("z")
 #                    sys.stdout.flush ()
 
@@ -1524,11 +1534,13 @@ while True:
 
                     temp_timeoff = timeoff      #store original timeoff time and restore later.
                     time.sleep(1)
+
                     if GPIO.input(22) == False: #Pushbutton for Refresh. check to see if we should turn on temporarily during sleep mo$
-                        temp_end_time = end_time
-                        end_time = datetime.now()
-                        timeoff = datetime.now() + timedelta(minutes=tempsleepon) #Set timeoff to now + 5 minutes
-                        temp_time_flag = 1      #Set this to 1 if button is pressed
+                        # Set to turn lights on two seconds ago to make sure we hit the loop next time through - Part of Timer Fix
+                        end_time = (datetime.now()-timedelta(seconds=2)).time()
+                        timeoff = (datetime.now()+timedelta(minutes=tempsleepon)).time()
+                        temp_lights_on = 1 #Set this to 1 if button is pressed
+                        logger.info("Sleep interrupted by button push")
 
                     #Routine to restart this script if config.py is changed while this script is running.
                     for f, mtime in WATCHED_FILES_MTIMES:

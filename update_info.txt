@@ -1,3 +1,10 @@
+Version 4.344
+11-5-2020
+Fixed Sleep Timer bug in metar-display-v4.py
+Fixed Rotary Switch Settings in all Profiles
+Updated Thank-You section of index.html
+Files updated: metar-display-v4.py, admin.py, index.html, Profiles
+
 Version 4.343
 10-16-2020
 Fixed bug in wipes-v4.py that didn't dim the LED Brightness when a light sensor is used.
