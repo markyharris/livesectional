@@ -1,9 +1,10 @@
 Version 4.344
 11-5-2020
+Added Newer Image Check and message to update routine in webapp.py, base.html and index.html
 Fixed Sleep Timer bug in metar-display-v4.py
 Fixed Rotary Switch Settings in all Profiles
 Updated Thank-You section of index.html
-Files updated: metar-display-v4.py, admin.py, index.html, Profiles
+Files updated: metar-display-v4.py, admin.py, index.html, webapp.py, Profiles
 
 Version 4.343
 10-16-2020

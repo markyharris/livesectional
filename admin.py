@@ -8,6 +8,7 @@
 #    error fix 0
 
 version='v4.344'
+min_update_ver='4.321'
 hostname=''
 username=''
 password=''

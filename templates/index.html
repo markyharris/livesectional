@@ -121,6 +121,9 @@
     {% if update_available == 1 %}
         <p class="lead"><a class="text-danger" href="/update">Click Here to Update to Version {{ update_vers }}</a></p>
     {% endif %}
+    {% if update_available == 2 %}
+        <p class="lead"><a class="text-danger" href="https://www.livesectional.com/downloads/" target="_blank">Click to Download Latest Image</a></p>
+    {% endif %}
 
     <p class="lead">
         Version {{ version }} of LiveSectional adds many new features for builders to take advantage of. Take a look;

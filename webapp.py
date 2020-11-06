@@ -1104,9 +1104,9 @@ def testled():
     url = request.referrer
     if url is None:
         url = 'http://' + ipadd + ':5000/index' #Use index if called from URL and not page.
-        
+
     temp = url.split('/')
-        
+
 #    flash("Testing LED's")
     logger.info("Running testled.py from " + url)
     os.system('sudo python3 /NeoSectional/testled.py')
@@ -1325,6 +1325,9 @@ def checkforupdate():
     delfile(verfilename) #Delete the downloaded version file.
     logger.info('Checked for Software Update')
 
+    if float(admin.version[1:])<float(admin.min_update_ver): #Check to see if a newer Image is available
+        return "image"
+
     if float(update_vers) > float(admin.version[1:]): #Strip leading 'v' can compare as floats to determine if an update available.
         return True
     else:
@@ -1361,9 +1364,14 @@ if __name__ == '__main__':
         logger.info('Update Available')
         update_available = 1                    #Update is available
 
-    else:
+    elif checkforupdate() == False:
         logger.info('No Updates Available')
         update_available = 0                    #No update available
+
+    elif checkforupdate() == "image":
+        logger.info('Newer Image Available for Download')
+        update_available = 2                    #Newer image available
+
 
     #Get system info and display
     python_ver = ("Python Version = " + sys.version)
