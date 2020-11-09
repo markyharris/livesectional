@@ -16,6 +16,7 @@
 #
 #    Fixed wipes that turned on NULL and LGND Leds
 #    Fixed dimming feature when a wipe is executed
+#    Fixed bug whereby lat/lon was miscalculated for certain wipes.
 
 #Import needed libraries
 import urllib.request, urllib.error, urllib.parse
