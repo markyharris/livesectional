@@ -1,10 +1,14 @@
+Version 4.345
+12-1-2020
+Fixed bugs in wipes-v4.py that caused the lat/lons to be calculated incorrectly.
+
 Version 4.344
 11-5-2020
-Added Newer Image Check and message to update routine in webapp.py, base.html and index.html
-Fixed Sleep Timer bug in metar-display-v4.py
-Fixed Rotary Switch Settings in all Profiles
-Updated Thank-You section of index.html
-Files updated: metar-display-v4.py, admin.py, index.html, webapp.py, Profiles
+Added Newer Image Check and message to update routine in webapp.py, base.html and index.html.
+Fixed Sleep Timer bug in metar-display-v4.py.
+Fixed Rotary Switch Settings in all Profiles.
+Updated Thank-You section of index.html.
+Files updated: metar-display-v4.py, admin.py, index.html, webapp.py, Profiles.
 
 Version 4.343
 10-16-2020
@@ -15,11 +19,11 @@ Added changes to https://github.com/markyharris/livesectional.
 
 Version 4.342 - Image must be downloaded for this version.
 Fixed bug in webapp.py when page is loaded directly from URL box rather than the loaded page.
-Added logging of Current RPI IP address whenever FAA weather update is retrieved in metar-v4.py
+Added logging of Current RPI IP address whenever FAA weather update is retrieved in metar-v4.py.
 Fixed bug where TAF XML reports OVC without a cloud level agl. It uses vert_vis_ft as a backup in metar-v4.py.
 Fixed bug when debug mode is changed to 'Debug' in metar-v4.py. 
 Added a few dependencies to accomodate future features.
-Files updated: admin.py, metar-v4.py, webapp.py,
+Files updated: admin.py, metar-v4.py, webapp.py.
 
 Version 4.331
 7-24-2020
@@ -27,17 +31,17 @@ Added menu item to Expand File System.
 Created routine to Expand File System.
 Added WiFi, Memory and CPU information to System Information page.
 Fixed bug where previous version was not properly backed up.
-Files updated: admin.py, update_info.txt, webapp.py, expandfs.html, base.html, index.html, info-v4.py
+Files updated: admin.py, update_info.txt, webapp.py, expandfs.html, base.html, index.html, info-v4.py.
 
 Version 4.330
 7-23-2020
 Added a Update History Page to provide this information.
 Updated Utilities Menu to include Update History.
 Added formatting to the Time Zone Set page.
-Files updated: admin.py, update_info.txt, webapp.py, update_info.html, base.html, index.html
+Files updated: admin.py, update_info.txt, webapp.py, update_info.html, base.html, index.html.
 
 Version 4.321
 7-22-2020
 Added Heat Map Data Import for easier upgrading.
 Various small bug fixes.
-Files updated: admin.py, update_info.txt, webapp.py, hmedit.html, base.html, index.html
+Files updated: admin.py, update_info.txt, webapp.py, hmedit.html, base.html, index.html.

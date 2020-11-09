@@ -123,9 +123,9 @@ strip.begin()
 #Bright light will provide a low state (0) on GPIO. Dark light will provide a high state (1).
 #Full brightness will be used if no light sensor is installed.
 if GPIO.input(4) == 1:
-    LED_BRIGHTNESS = dimmed_value
+    LED_BRIGHTNESS = config.dimmed_value
 else:
-    LED_BRIGHTNESS = bright_value
+    LED_BRIGHTNESS = config.bright_value
 strip.setBrightness(LED_BRIGHTNESS)
 
 #Functions
@@ -198,7 +198,7 @@ def frange(start, stop, step):
 #Also need to pass starting value and ending values to iterate through. These are floats for Lat/Lon. ie. 36.23
 #Pass Step value to iterate through the values provided in start and end. Typically needs to be .01
 #pass the start color and ending color. Pass a wait time or delay, ie. .01
-def wipe(dict_name, start, end, step, color1, color2, wait):
+def wipe(dict_name, start, end, step, color1, color2, wait_mult):
     #Need to find duplicate values (lat/lons) from dictionary using flip technique
     flipped = {}
     for key, value in list(dict_name.items()):  #create a dict where keys and values are swapped
@@ -220,19 +220,22 @@ def wipe(dict_name, start, end, step, color1, color2, wait):
                 color = rgbtogrb_wipes(led_pin, color1, rgb_grb)
                 strip.setPixelColor(led_pin, color)
                 strip.show()
-                time.sleep(wait*2)
+                time.sleep(wait*wait_mult)
 
                 color = rgbtogrb_wipes(led_pin, color2, rgb_grb)
                 strip.setPixelColor(led_pin, color)
                 strip.show()
-                time.sleep(wait)
+                time.sleep(wait*wait_mult)
+
 
 #Circle wipe
-def circlewipe(centerlat, centerlon, iter, color1, color2):
+def circlewipe(centerlat, centerlon, color1, color2):
     global apinfodict
     circle_x = centerlon
     circle_y = centerlat
-    rad = .5
+    rad_inc = 4
+    rad = rad_inc
+    iter = int(sizelat/rad_inc) #attempt to figure number of iterations necessary to cover whole map
 
     for j in range(iter):
         for key in apinfodict:
@@ -243,17 +246,17 @@ def circlewipe(centerlat, centerlon, iter, color1, color2):
             if ((x - circle_x) * (x - circle_x) + (y - circle_y) * (y - circle_y) <= rad * rad):
 #               print("Inside")
                 color = rgbtogrb_wipes(led_pin, color1, rgb_grb)
-                strip.setPixelColor(led_pin, color)
             else:
 #               print("Outside")
                 color = rgbtogrb_wipes(led_pin, color2, rgb_grb)
-                strip.setPixelColor(led_pin, color)
-            strip.show()
-            time.sleep(int(wait/2))
 
-        rad = rad +.25
+            strip.setPixelColor(led_pin, color)
+            strip.show()
+            time.sleep(wait)
+        rad = rad + rad_inc
 
     for j in range(iter):
+        rad = rad - rad_inc
         for key in apinfodict:
             x = float(apinfodict[key][2])
             y = float(apinfodict[key][1])
@@ -262,17 +265,16 @@ def circlewipe(centerlat, centerlon, iter, color1, color2):
             if ((x - circle_x) * (x - circle_x) + (y - circle_y) * (y - circle_y) <= rad * rad):
 #               print("Inside")
                 color = rgbtogrb_wipes(led_pin, color1, rgb_grb)
-                strip.setPixelColor(led_pin, color)
             else:
 #               print("Outside")
                 color = rgbtogrb_wipes(led_pin, color2, rgb_grb)
-                strip.setPixelColor(led_pin, color)
-            strip.show()
-            time.sleep(int(wait/2))
 
-        rad = rad -.25
+            strip.setPixelColor(led_pin, color)
+            strip.show()
+            time.sleep(wait)
 
     allonoff_wipes((0,0,0),.1)
+
 
 #radar wipe - Needs area calc routines to determine areas of triangles
 def area(x1, y1, x2, y2, x3, y3):
@@ -343,7 +345,7 @@ def center(max,min):
     z = ((max-min)/2) + min
     return round(z,2)
 
-def squarewipe(minlon, minlat, maxlon, maxlat, iter, color1, color2, step=.1, wait=.01):
+def squarewipe(minlon, minlat, maxlon, maxlat, iter, color1, color2, step=.5, wait_mult=10):
     global apinfodict
     declon = minlon
     declat = minlat
@@ -363,20 +365,20 @@ def squarewipe(minlon, minlat, maxlon, maxlat, iter, color1, color2, step=.1, wa
 
 #                print((declon, declat, inclon, inclat, px1, py1)) #debug
                 if findpoint(declon, declat, inclon, inclat, px1, py1):
-#                   print('Inside') #debug
+#                    print('Inside') #debug
                     color = rgbtogrb_wipes(led_pin, color1, rgb_grb)
-                    strip.setPixelColor(led_pin, color)
                 else:
-#                   print('Not Inside') #debug
+#                    print('Not Inside') #debug
                     color = rgbtogrb_wipes(led_pin, color2, rgb_grb)
-                    strip.setPixelColor(led_pin, color)
+
+                strip.setPixelColor(led_pin, color)
 
             inclat = round(inclat - step,2)
             declon = round(declon + step,2)
             declat = round(declat + step,2)
 
             strip.show()
-            time.sleep(wait*3)
+            time.sleep(wait*wait_mult)
 
         for inclon in frange(centlon, maxlon, step):
             #declon, declat = Upper Left of box.
@@ -388,22 +390,21 @@ def squarewipe(minlon, minlat, maxlon, maxlat, iter, color1, color2, step=.1, wa
 
 #                print((declon, declat, inclon, inclat, px1, py1)) #debug
                 if findpoint(declon, declat, inclon, inclat, px1, py1):
-#                   print('Inside') #debug
+#                    print('Inside') #debug
                     color = rgbtogrb_wipes(led_pin, color1, rgb_grb)
-                    strip.setPixelColor(led_pin, color)
                 else:
 #                   print('Not Inside') #debug
                     color = rgbtogrb_wipes(led_pin, color2, rgb_grb)
-                    strip.setPixelColor(led_pin, color)
+
+                strip.setPixelColor(led_pin, color)
 
             inclat = round(inclat + step,2)
             declon = round(declon - step,2)
             declat = round(declat - step,2)
 
             strip.show()
-            time.sleep(wait*3)
+            time.sleep(wait*wait_mult)
 
-    allonoff_wipes((0,0,0),.1)
 
 #Turn on or off all the lights using the same color.
 def allonoff_wipes(color1, wait):
@@ -429,7 +430,7 @@ def fade(color1, wait):
                 color = rgbtogrb_wipes(led_pin, color2, rgb_grb)
                 strip.setPixelColor(led_pin, color)
         strip.show()
-        time.sleep(wait*1)
+        time.sleep(wait*.5)
 
     for val in range(LED_BRIGHTNESS,0,-1):      #strip.numPixels()):
         for led_pin in range(strip.numPixels()): #0,LED_BRIGHTNESS,1):
@@ -440,7 +441,8 @@ def fade(color1, wait):
                 color = rgbtogrb_wipes(led_pin, color2, rgb_grb)
                 strip.setPixelColor(led_pin, color)
         strip.show()
-        time.sleep(wait*1)
+        time.sleep(wait*.5)
+    time.sleep(wait*1)
 
 #Dim LED's
 def dimwipe(data,value):
@@ -651,13 +653,15 @@ if __name__ == '__main__':
 
         #grab latitude of airport
         if metar.find('latitude') is None: #if weather string is blank, then bypass
-            lat = '0'
+#            lat = '0'
+            pass
         else:
             lat = metar.find('latitude').text
 
         #grab longitude of airport
         if metar.find('longitude') is None:     #if weather string is blank, then bypass
-            lon = '0'
+#            lon = '0'
+            pass
         else:
             lon = metar.find('longitude').text
 
@@ -681,26 +685,29 @@ if __name__ == '__main__':
     for key, value in latdict.items():
         temp = float(value)
         latlist.append(temp)
-        logger.debug(latlist)
+    logger.debug(latlist)
 
     for key, value in londict.items():
         temp = float(value)
         lonlist.append(temp)
-        logger.debug(lonlist)
+    logger.debug(lonlist)
 
     for airportcode in airports:
         ap_id.append(airportcode)
-        logger.debug(ap_id)
+    logger.debug(ap_id)
 
     #set the maximum and minimum Lat/Lons to constrain area.
     maxlat = max(latlist)                       #Upper bounds of box
     minlat = min(latlist)                       #Lower bounds of box
+
     maxlon = max(lonlist)                       #Right bounds of box
     minlon = min(lonlist)                       #Left bounds of box
+
     sizelat = round(abs(maxlat - minlat),2)     #height of box
     sizelon = round(abs(maxlon - minlon),2)     #width of box
-    centerlat = round((maxlat-minlat)/2+minlat,2) #center y coord of box
-    centerlon = round((maxlon-minlon)/2+minlon,2) #center x coord of box
+
+    centerlat = round(sizelat/2+minlat,2)       #center y coord of box
+    centerlon = round(sizelon/2+minlon,2)       #center x coord of box
 
     logger.info('maxlat = ' + str(maxlat) + ' minlat = ' + str(minlat) + ' maxlon = ' + str(maxlon) + ' minlon = ' + str(minlon))
     logger.info('sizelat = ' + str(sizelat) + ' sizelon = ' + str(sizelon) + ' centerlat ' + str(centerlat) + ' centerlon = ' + str(centerlon))
@@ -729,15 +736,15 @@ if __name__ == '__main__':
         else:
             radarwipe(centerlat, centerlon, 130, radar_color1, radar_color2)
 
-    #Circle wipe. provide center coordinates and number of iterations, provide inside of circle color then outside of circle.
+    #Circle wipe. provide center coordinates, provide inside of circle color then outside of circle.
     if num_circle > 0:
         logger.info('Executing Circle Wipe')
 
     for j in range(num_circle):
         if rand:
-            circlewipe(centerlat, centerlon, 13, randcolor(), randcolor())
+            circlewipe(centerlat, centerlon, randcolor(), randcolor())
         else:
-            circlewipe(centerlat, centerlon, 13, circle_color1, circle_color2)
+            circlewipe(centerlat, centerlon, circle_color1, circle_color2)
 
     #Wipe from bottom to top and back, then side to side
     if num_updn > 0:
@@ -745,15 +752,15 @@ if __name__ == '__main__':
 
     for j in range(num_updn):
         if rand:
-            wipe(latdict, minlat, maxlat, .01, randcolor(), randcolor(), .01)
-            wipe(latdict, maxlat, minlat, .01, randcolor(), randcolor(), .01)
-            wipe(londict, minlon, maxlon, .01, randcolor(), randcolor(), .01)
-            wipe(londict, maxlon, minlon, .01, randcolor(), randcolor(), .01)
+            wipe(latdict, minlat, maxlat, .01, randcolor(), randcolor(), .1)
+            wipe(latdict, maxlat, minlat, .01, randcolor(), randcolor(), .1)
+            wipe(londict, minlon, maxlon, .01, randcolor(), randcolor(), .1)
+            wipe(londict, maxlon, minlon, .01, randcolor(), randcolor(), .1)
         else:
-            wipe(latdict, minlat, maxlat, .01, updn_color1, updn_color2, .01)
-            wipe(latdict, maxlat, minlat, .01, updn_color1, updn_color2, .01)
-            wipe(londict, minlon, maxlon, .01, updn_color1, updn_color2, .01)
-            wipe(londict, maxlon, minlon, .01, updn_color1, updn_color2, .01)
+            wipe(latdict, minlat, maxlat, .01, updn_color1, updn_color2, .1)
+            wipe(latdict, maxlat, minlat, .01, updn_color1, updn_color2, .1)
+            wipe(londict, minlon, maxlon, .01, updn_color1, updn_color2, .1)
+            wipe(londict, maxlon, minlon, .01, updn_color1, updn_color2, .1)
 
     #change colors on whole board
     if num_allsame > 0:
@@ -761,9 +768,9 @@ if __name__ == '__main__':
 
     for j in range(num_allsame):
         if rand:
-            allonoff_wipes(randcolor(),wait*100)
+            allonoff_wipes(randcolor(),wait*1000)
         else:
-            allonoff_wipes(allsame_color1,wait*100)
+            allonoff_wipes(allsame_color1,wait*1000)
 
     #Fade colors in and out on whole board
     if num_fade > 0:
@@ -791,9 +798,9 @@ if __name__ == '__main__':
 
     for j in range(num_morse):
         if rand:
-            morse(randcolor(),randcolor(), morse_msg, wait*20)
+            morse(randcolor(),randcolor(), morse_msg, wait*60)
         else:
-            morse(morse_color1, morse_color2, morse_msg, wait*20)
+            morse(morse_color1, morse_color2, morse_msg, wait*60)
 
     #rainbow effect
     if num_rainbow > 0:
@@ -805,7 +812,7 @@ if __name__ == '__main__':
     logger.info('Turning Off all LEDs')
     allonoff_wipes((0,0,0),.1)
 
-#Rabbit Chase effect
+    #Rabbit Chase effect
     if num_rabbit > 0:
         logger.info('Executing Rabbit Chase Wipe')
 
