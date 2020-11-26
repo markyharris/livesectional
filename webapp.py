@@ -141,6 +141,30 @@ def map1():
     return render_template('mapedit.html', title='Map', num = 5)
 #    return folium_map._repr_html_()
 
+#Route to manually check for update using menu item
+@app.route('/test_for_update', methods=["GET", "POST"])
+def test_for_update():
+    global update_available
+    url = request.referrer
+    if url is None:
+        url = 'http://' + ipadd + ':5000/index' #Use index if called from URL and not page.
+
+    temp = url.split('/')
+
+    testupdate()
+
+    if update_available == 0:
+        flash('No Update Available')
+
+    elif update_available == 1:
+        flash('UPDATE AVAILABLE, Use Map Utilities to Update')
+
+    else:
+        flash('New Image Available -  Use Map Utilities to Download')
+
+    logger.info('Checking to see if there is an update available')
+    return redirect(temp[3]) #temp[3] holds name of page that called this route.
+
 #Route to update Software if one is available and user chooses to update
 @app.route('/update_info', methods=["GET", "POST"])
 def update_info():
@@ -1339,6 +1363,22 @@ def checkforupdate():
         return False
 
 
+def testupdate():
+    #Check to see if an newer version of the software is available, and update if user so chooses
+    global update_available
+    if checkforupdate() == True:
+        logger.info('Update Available')
+        update_available = 1                    #Update is available
+
+    elif checkforupdate() == False:
+        logger.info('No Updates Available')
+        update_available = 0                    #No update available
+
+    elif checkforupdate() == "image":
+        logger.info('Newer Image Available for Download')
+        update_available = 2                    #Newer image available
+
+
 #executed code
 if __name__ == '__main__':
 
@@ -1365,18 +1405,7 @@ if __name__ == '__main__':
     current_timezone = tztemp[3]
 
     #Check to see if an newer version of the software is available, and update if user so chooses
-    if checkforupdate() == True:
-        logger.info('Update Available')
-        update_available = 1                    #Update is available
-
-    elif checkforupdate() == False:
-        logger.info('No Updates Available')
-        update_available = 0                    #No update available
-
-    elif checkforupdate() == "image":
-        logger.info('Newer Image Available for Download')
-        update_available = 2                    #Newer image available
-
+    testupdate()
 
     #Get system info and display
     python_ver = ("Python Version = " + sys.version)

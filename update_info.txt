@@ -1,8 +1,14 @@
+Version 4.346
+11-26-2020
+Added menu item under Map Utilities to manually check for an update.
+Files updated: admin.py, base.html, webapp.py
+
 Version 4.345
-12-1-2020
+11-15-2020
 Fixed bugs in wipes-v4.py that caused the lat/lons to be calculated incorrectly.
 Removed all led off from rainbow wipe.
 Added local variable turnoffrefresh to metar-v4.py to disable the refresh after wipes when updating FAA data.
+Files updated: admin.py, webapp.py, wipes-v4.py
 
 Version 4.344
 11-5-2020
