@@ -633,7 +633,7 @@ while True:
                 logger.info(url)
                 break
             except:
-                logger.warning('Internet NOT Available')
+                logger.warning('FAA Data is Not Available')
                 logger.info(url)
                 time.sleep(delay_time)
                 pass

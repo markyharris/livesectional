@@ -1250,12 +1250,17 @@ def get_apinfo():
             logger.info(apurl)
             break
         except:
-            logger.warning('Internet NOT Available')
+            logger.warning('FAA Data Not Available')
             logger.warning(apurl)
             time.sleep(delay_time)
+            content = ''
             pass
 
 #    content = urllib.request.urlopen(apurl).read()
+
+    if content  == '': #if FAA data not available bypass getting apinfo
+        return
+
     root = ET.fromstring(content) #Process XML data returned from FAA
 
     for apinfo in root.iter('Station'):

@@ -811,7 +811,7 @@ if __name__ == '__main__':
         rainbowCycle(strip, 2, wait)
 
     logger.info('Turning Off all LEDs')
-    allonoff_wipes((0,0,0),.1)
+#    allonoff_wipes((0,0,0),.1)
 
     #Rabbit Chase effect
     if num_rabbit > 0:
@@ -822,4 +822,3 @@ if __name__ == '__main__':
             rabbit(randcolor(),randcolor(), wait*10)
         else:
             rabbit(rabbit_color1, rabbit_color2, wait*10)
-

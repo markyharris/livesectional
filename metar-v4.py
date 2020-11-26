@@ -237,6 +237,8 @@ leg_pin_fog = config.leg_pin_fog        #Set LED pin number for Fog Legend LED
 #* any thing under here unless you are confident in change. *
 #************************************************************
 
+turnoffrefresh = 1                      #0 = do not turn refresh off, 1 = turn off the blanking refresh of the LED string between FAA updates.
+
 #LED Cycle times - Can change if necessary.
 cycle0_wait = .9        #These cycle times all added together will equal the total amount of time the LED takes to finish displaying one cycle.
 cycle1_wait = .9        #Each  cycle, depending on flight category, winds and weather reported will have various colors assigned.
@@ -595,14 +597,15 @@ while (outerloop):
                 logger.info(url)
                 break
             except:
-                logger.warning('Internet NOT Available')
+                logger.warning('FAA Data is Not Available')
                 logger.warning(url)
                 time.sleep(delay_time)
                 pass
 
         root = ET.fromstring(content) #Process XML data returned from FAA
 
-    turnoff(strip) #turn off led before repainting them. If Rainbow stays on, it has hung up before this.
+    if turnoffrefresh == 0:
+        turnoff(strip) #turn off led before repainting them. If Rainbow stays on, it has hung up before this.
 
     #Heat Map routine
     #This will allow the user to display which airports on the map have been landed at. There are 2 display modes;
@@ -1389,10 +1392,10 @@ while (outerloop):
 
         toggle = not(toggle) #Used to determine if the homeport color should be displayed if "homeport = 1"
 
-        print("\nWX Display # "+str(display_num)+" Cycle Loop # "+str(loopcount)+": ",end="")
+        print("\nWX Display") # "+str(display_num)+" Cycle Loop # "+str(loopcount)+": ",end="")
         #Start main loop. This loop will create all the necessary colors to display the weather one time.
         for cycle_num in cycles: #cycle through the strip 6 times, setting the color then displaying to create various effects.
-            print(" "+str(cycle_num),end='')
+            print(" " + str(cycle_num), end = '')
             sys.stdout.flush()
 
             i = 0 #Inner Loop. Increments through each LED in the strip setting the appropriate color to each individual LED.
