@@ -2,7 +2,8 @@ Version 4.346
 11-26-2020
 Added menu item under Map Utilities to manually check for an update.
 Added dynamic display of raw METAR next to airports listed in the Airport Editor.
-Files updated: admin.py, base.html, webapp.py, base.html, apedit.html
+Added new transitional wipe - Checker Board
+Files updated: admin.py, base.html, webapp.py, base.html, apedit.html, wipes-v4.py, config.py, Profiles
 
 Version 4.345
 11-15-2020

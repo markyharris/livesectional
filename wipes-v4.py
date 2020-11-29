@@ -13,6 +13,7 @@
 #       Shuffle
 #       Morse Code
 #       Rabbit Chase
+#       Checkerbox
 #
 #    Fixed wipes that turned on NULL and LGND Leds
 #    Fixed dimming feature when a wipe is executed
@@ -75,6 +76,7 @@ num_fade = config.num_fade
 num_shuffle = config.num_shuffle
 num_morse = config.num_morse
 num_rabbit = config.num_rabbit
+num_checker = config.num_checker
 
 #Wipe Colors - either random colors or specify an on and off color for each wipe.
 rand = config.rand                              #0 = No, 1 = Yes, Randomize the colors used in wipes
@@ -96,6 +98,8 @@ morse_color1 = config.morse_color1
 morse_color2 = config.morse_color2
 rabbit_color1 = config.rabbit_color1
 rabbit_color2 = config.rabbit_color2
+checker_color1 = config.checker_color1
+checker_color2 = config.checker_color2
 
 #List definitions
 ap_id = []                                      #Airport ID List. Used for screen wipes
@@ -407,6 +411,44 @@ def squarewipe(minlon, minlat, maxlon, maxlat, iter, color1, color2, step=.5, wa
             time.sleep(wait*wait_mult)
 
 
+def checkerwipe(minlon, minlat, maxlon, maxlat, iter, color1, color2, cwccw=0, wait_mult=100):
+    global apinfodict
+    centlon = (center(maxlon,minlon))
+    centlat = (center(maxlat,minlat))
+
+    #Example square: lon1, lat1, lon2, lat2  [x1, y1, x2, y2]  -114.87, 37.07, -109.07, 31.42
+    #+-----+-----+
+    #|  1  |  2  |
+    #|-----+-----|
+    #|  3  |  4  |
+    #+-----+-----+
+    square1 = [minlon,centlat,centlon,maxlat]
+    square2 = [centlon,centlat,maxlon,maxlat]
+    square3 = [minlon,minlat,centlon,centlat]
+    square4 = [centlon,minlat,maxlon,centlat]
+    squarelist = [square1,square2,square4,square3]
+
+    if cwccw == 1: #clockwise = 0, counter-clockwise = 1
+        squarelist.reverse()
+
+    for j in range(iter):
+        for box in squarelist:
+            for key in apinfodict:
+                px1 = float(apinfodict[key][2]) #Lon
+                py1 = float(apinfodict[key][1]) #Lat
+                led_pin = int(apinfodict[key][0]) #LED Pin Num
+
+                if findpoint(*box, px1, py1): #Asterick allows unpacking of list in function call.
+                    color = rgbtogrb_wipes(led_pin, color1, rgb_grb)
+                else:
+                    color = rgbtogrb_wipes(led_pin, color2, rgb_grb)
+
+                strip.setPixelColor(led_pin, color)
+            strip.show()
+            time.sleep(wait*wait_mult)
+    allonoff_wipes((0,0,0),.1)
+
+
 #Turn on or off all the lights using the same color.
 def allonoff_wipes(color1, wait):
     for led_pin in range(strip.numPixels()):
@@ -716,6 +758,16 @@ if __name__ == '__main__':
 
     #Start the different wipes. Check to see how many iterations of each. Zero disables the wipe.
     time.sleep(1)                               #pause to give the string of lights a chance get catch up. Used so lights won't hang up.
+
+    #Checker wipe
+    if num_checker > 0:
+        logger.info('Executing checkerbox Wipe')
+
+    for j in range(num_checker):
+        if rand:
+            checkerwipe(minlon, minlat, maxlon, maxlat, 2, randcolor(), randcolor(), 1)
+        else:
+            checkerwipe(minlon, minlat, maxlon, maxlat, 2, checker_color1, checker_color2, 1)
 
     #square wipe - provide coord of box and size, iterations, and colors
     if num_square > 0:

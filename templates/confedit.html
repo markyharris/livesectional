@@ -1427,6 +1427,23 @@
     </tr>
 
 
+    <tr>
+        <td><b>Checker Board Transition</b>
+        <td><input type="number" name="num_checker" min="0" max="10" value = {{ settings.num_checker }}>
+        <td>Enter number of iterations for Checker Board Transition. 0 = disabled. Range is 0 - 10.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspMain Color</b>
+        <td><input type="color" style="float:center" name="checker_color1" id={{ settings.checker_color1 }} size=10 value = {{ checker_color1_hex }}>
+        <td>Main Color to fill box.
+    </tr>
+    <tr>
+        <td><b>&nbsp&nbsp&nbsp&nbsp&nbspSecondary Color</b>
+        <td><input type="color" style="float:center" name="checker_color2" id={{ settings.checker_color2 }} size=10 value = {{ checker_color2_hex }}>
+        <td>Secondary Color. Should be a high contrast to the main color.
+    </tr>
+
+
     </table>
     </div>
 <p></p>

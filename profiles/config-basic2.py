@@ -156,3 +156,7 @@ morse_color2 = (0, 0, 0)
 num_rabbit = 0
 rabbit_color1 = (255, 0, 0)
 rabbit_color2 = (0, 50, 250)
+num_checker = 3
+checker_color1 = (0, 255, 0)
+checker_color2 = (0, 0, 0)
+

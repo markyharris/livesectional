@@ -777,6 +777,8 @@ def confedit():
     morse_color2_hex = rgb2hex (settings["morse_color2"])
     rabbit_color1_hex = rgb2hex (settings["rabbit_color1"])
     rabbit_color2_hex = rgb2hex (settings["rabbit_color2"])
+    checker_color1_hex = rgb2hex (settings["checker_color1"])
+    checker_color2_hex = rgb2hex (settings["checker_color2"])
 
 
     #Pass data to html document
@@ -828,7 +830,9 @@ def confedit():
             'morse_color1_hex' : morse_color1_hex,
             'morse_color2_hex' : morse_color2_hex,
             'rabbit_color1_hex' : rabbit_color1_hex,
-            'rabbit_color2_hex' : rabbit_color2_hex
+            'rabbit_color2_hex' : rabbit_color2_hex,
+            'checker_color1_hex' : checker_color1_hex,
+            'checker_color2_hex' : checker_color2_hex
             }
     return render_template('confedit.html', **templateData)
 
@@ -879,6 +883,8 @@ def handle_post_request():
         data["morse_color2"]= str(hex2rgb(data["morse_color2"]))
         data["rabbit_color1"]= str(hex2rgb(data["rabbit_color1"]))
         data["rabbit_color2"]= str(hex2rgb(data["rabbit_color2"]))
+        data["checker_color1"]= str(hex2rgb(data["checker_color1"]))
+        data["checker_color2"]= str(hex2rgb(data["checker_color2"]))
 
         #check and fix data with leading zeros.
         for key in data:
@@ -952,6 +958,8 @@ def confeditmobile():
     morse_color2_hex = rgb2hex (settings["morse_color2"])
     rabbit_color1_hex = rgb2hex (settings["rabbit_color1"])
     rabbit_color2_hex = rgb2hex (settings["rabbit_color2"])
+    checker_color1_hex = rgb2hex (settings["checker_color1"])
+    checker_color2_hex = rgb2hex (settings["checker_color2"])
 
     #Pass data to html document
     templateData = {
@@ -1002,7 +1010,9 @@ def confeditmobile():
             'morse_color1_hex' : morse_color1_hex,
             'morse_color2_hex' : morse_color2_hex,
             'rabbit_color1_hex' : rabbit_color1_hex,
-            'rabbit_color2_hex' : rabbit_color2_hex
+            'rabbit_color2_hex' : rabbit_color2_hex,
+            'checker_color1_hex' : checker_color1_hex,
+            'checker_color2_hex' : checker_color2_hex
             }
     return render_template('lsremote.html', **templateData)
 
