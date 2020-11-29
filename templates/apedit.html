@@ -76,7 +76,7 @@
         <td colspan=3 style="font-size:small">
     <b>Note:</b> Enter the appropriate 4 character airport identifier. If identifier is only 3 characters, precede it with proper country code, 
     i.e. 'K' for US. If the LED position will not be used, enter <font color="red">'NULL'</font>. Enter <font color="red">'LGND'</font> for LED's used as a legend. <b><font color="red">'Enter' will save airport change. 'Tab' will not. Save each airport change if using LED on/off</color></b></p>
-        
+
     </tr>
     <tr>
         <th style="text-align:center">LED Pin #
@@ -92,6 +92,7 @@
         {% endif %}
     <tr id="{{ loop.index - 1 }}">
         <td width="10%" style="text-align:center"><b>{{ loop.index - 1 }}</b></td>
+
         <td width="10%" style="text-align:center">
 		<input title="{{ apinfo|join(", ") }}" onkeydown="upperCaseF(this)" type="text" minlength="4" maxlength="4" onfocus="fillinledonoff(this)"
 		id="ap{{loop.index-1}}" name="{{loop.index-1}}/ap{{loop.index-1}}/msg{{loop.index-1}}" size="5" onchange="myFunction(this)" value = "{{ap}}">
@@ -99,15 +100,27 @@
         </td>
         <td width="80%" id="msg{{loop.index-1}}">
 	    {% if ap == 'LGND' %}
-              LED in position {{ loop.index -1 }} will be used to display a <b>Legend</b> Item.
+             <font color="red">LED in position {{ loop.index -1 }} will be used to display a <b>Legend</b> Item.</font>
             {% elif ap == 'NULL' %}
-              LED in position {{ loop.index -1 }} will be <b>Off</b>.
+             <font color="red">LED in position {{ loop.index -1 }} will be <b>Off</b>.</font>
             {% else %}
-              <a href=https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId={{ ap}} target="_blank"><b>{{ apinfo|join(", ") }}</b> - Click to See Airport Information</a>
+              <a href=https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId={{ ap }} target="_blank"><b>{{ apinfo|join(", ") }}
+              </b></a> 
+
+             <!--METAR Widget from https://widget.checkwx.com/. Thank you Henry-->
+             <div id="loc{{ loop.index-1 }}" class="checkwx-container" data-type="METAR" data-station="{{ ap }}"></div>
+
+             <!--Backup METAR Retrieve from https://www.navlost.eu/metar/about/
+              <a id="loc{{ loop.index-1 }}">
+                <img src="./static/button1.png" height="23" width="126"
+                 onclick="get_metar('{{ ap }}', 'loc{{ loop.index-1 }}')">
+              </a>-->
+
             {% endif %}
     </td>
     </tr>
 {% endfor %}
 
 </table>
+
 {% endblock %}

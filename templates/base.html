@@ -273,7 +273,6 @@
 
 </div>
 
-
 <script>
 var coll = document.getElementsByClassName("collapsible");
 var i;
@@ -368,6 +367,27 @@ function fillinledonoff(selectObject) {
         myArray = myString.split("/");
         num = myArray[0];
     document.getElementsByName("lednum")[0].value = num;
+}
+</script>
+
+<!--METAR Widget from https://widget.checkwx.com/ - Thanks Henry-->
+<script src="https://api.checkwx.com/widget?key=106e449c03ae4ec6af47581ff9" type="text/javascript"></script>
+
+<!--Backup click for METAR information from https://www.navlost.eu/metar/about/-->
+<script>
+function get_metar(ap, loc) {
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          var result = this.responseText.substring(1, this.responseText.length-1);
+          var myObj = JSON.parse(result);
+          document.getElementById(loc).innerHTML = myObj.report;
+        }
+    };
+
+    xmlhttp.open("GET", "https://navlost.eu/api/reports/metar/"+ap+"?format=application/json", true);
+    xmlhttp.send();
 }
 </script>
 

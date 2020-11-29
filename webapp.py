@@ -15,6 +15,7 @@
 #     Added Web based software update checker and file updater
 #     Added import file ability for Airports and Heat Map Data
 #     Fixed bug when page is loaded directly from URL box rather than the loaded page.
+#     Added menu item to manually check for an update
 
 #print test #force bug to cause webapp.py to error out
 
@@ -37,6 +38,8 @@ import wget
 import zipfile
 import folium
 import folium.plugins
+import requests
+import json
 
 #from neopixel import * #works with python 2.7
 from rpi_ws281x import * #works with python 3.7. sudo pip3 install rpi_ws281x
@@ -71,6 +74,7 @@ datalist = []
 newlist = []
 ipaddresses = []
 current_timezone = ''
+loc = {}
 
 #Settings for web based file updating
 src = '/NeoSectional'                           #Main directory, /NeoSectional
@@ -1344,6 +1348,9 @@ def updatefiles():
 
 def checkforupdate():
     global update_vers
+    get_loc()
+    print(loc) #debug
+
     dlftpfile(source_path + verfilename, target_path + verfilename) #download version file from neoupdate
 
     with open(target_path + verfilename) as file: #Read version number of latest version
@@ -1378,10 +1385,25 @@ def testupdate():
         logger.info('Newer Image Available for Download')
         update_available = 2                    #Newer image available
 
+#May be used to display user location on map in user interface. - Testing
+def get_loc():
+    loc_data = {}
+    global loc
+
+    url_loc = 'https://extreme-ip-lookup.com/json/'
+    r = requests.get(url_loc)
+    data = json.loads(r.content.decode())
+
+    ip_data = data['query']
+    loc_data['city'] = data['city']
+    loc_data['region'] = data['region']
+    loc_data['lat'] = data['lat']
+    loc_data['lon'] = data['lon']
+    loc[ip_data] = loc_data
+
 
 #executed code
 if __name__ == '__main__':
-
     #Display active IP address for builder to open up web browser to configure.
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
