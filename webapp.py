@@ -1,4 +1,4 @@
-#webapp.py - v4, by Mark Harris. Web Based Configurator for LiveSectional - Using Flask and Python
+# webapp.py - v4, by Mark Harris. Web Based Configurator for LiveSectional - Using Flask and Python
 #     Updated to work with Python 3
 #     3 editors for Config.py, Airports, and Heat Map.
 #     This version includes color picker
@@ -16,10 +16,11 @@
 #     Added import file ability for Airports and Heat Map Data
 #     Fixed bug when page is loaded directly from URL box rather than the loaded page.
 #     Added menu item to manually check for an update
+#     Added menu items to display logfile.log, and console output (requires modified version of seashells
 
-#print test #force bug to cause webapp.py to error out
+# print test #force bug to cause webapp.py to error out
 
-#import needed libraries
+# import needed libraries
 #   sudo pip3 install flask
 from flask import Flask, render_template, request, flash, redirect, url_for, send_file, Response
 from werkzeug.utils import secure_filename
@@ -41,8 +42,8 @@ import folium.plugins
 import requests
 import json
 
-#from neopixel import * #works with python 2.7
-from rpi_ws281x import * #works with python 3.7. sudo pip3 install rpi_ws281x
+# from neopixel import * # works with python 2.7
+from rpi_ws281x import * # works with python 3.7. sudo pip3 install rpi_ws281x
 import socket
 import logging
 import logzero
@@ -51,16 +52,16 @@ import config
 import admin
 
 # Setup rotating logfile with 3 rotations, each with a maximum filesize of 1MB:
-version = admin.version          #Software version
+version = admin.version          # Software version
 loglevel = config.loglevel
 loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
-logzero.loglevel(loglevels[loglevel]) #Choices in order; DEBUG, INFO, WARNING, ERROR
+logzero.loglevel(loglevels[loglevel])  # Choices in order; DEBUG, INFO, WARNING, ERROR
 logzero.logfile("/NeoSectional/logfile.log", maxBytes=1e6, backupCount=3)
 logger.info("\n\nStartup of metar-v4.py Script, Version " + version)
 logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 
-#setup variables
-useip2ftp = admin.use_ftp           #0 = No, 1 = Yes. Use IP to FTP for multiple boards on local network admin.
+# setup variables
+useip2ftp = admin.use_ftp           # 0 = No, 1 = Yes. Use IP to FTP for multiple boards on local network admin.
 airports_file = '/NeoSectional/airports'
 airports_bkup = '/NeoSectional/airports-bkup'
 settings_file = '/NeoSectional/config.py'
@@ -76,19 +77,19 @@ ipaddresses = []
 current_timezone = ''
 loc = {}
 
-#Settings for web based file updating
-src = '/NeoSectional'                           #Main directory, /NeoSectional
-dest = '../previousversion'                     #Directory to store currently run version of software
-verfilename = 'version.py'                      #Version Filename
-zipfilename = 'ls.zip'                          #File that holds the names of all the files that need to be updated
+# Settings for web based file updating
+src = '/NeoSectional'                           # Main directory, /NeoSectional
+dest = '../previousversion'                     # Directory to store currently run version of software
+verfilename = 'version.py'                      # Version Filename
+zipfilename = 'ls.zip'                          # File that holds the names of all the files that need to be updated
 source_path = 'http://www.livesectional.com/liveupdate/neoupdate/'
 target_path = '/NeoSectional/'
-update_available = 0                            #0 = No update available, 1 = Yes update available
-update_vers = "4.000"                           #initiate variable
+update_available = 0                            # 0 = No update available, 1 = Yes update available
+update_vers = "4.000"                           # initiate variable
 
-#Used to capture staton information for airport id decode for tooltip display in web pages.
+# Used to capture staton information for airport id decode for tooltip display in web pages.
 apinfo_dict = {}
-orig_apurl="https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString="
+orig_apurl = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString="
 logger.debug(orig_apurl)
 
 # LED strip configuration:
@@ -101,35 +102,35 @@ LED_INVERT     = False          # True to invert the signal (when using NPN tran
 LED_CHANNEL    = 0              # set to '1' for GPIOs 13, 19, 41, 45 or 53
 LED_STRIP      = ws.WS2811_STRIP_RGB   # Strip type and colour ordering
 
-#misc variables
-color = Color(255,255,255)      #Color to display when cycling through LED's. White is the default.
-black_color = Color(0,0,0)      #Color Black used to turn off the LED.
+# misc variables
+color = Color(255,255,255)      # Color to display when cycling through LED's. White is the default.
+black_color = Color(0,0,0)      # Color Black used to turn off the LED.
 num = 0
 now = datetime.now()
 timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
 logger.debug(timestr)
-delay_time = 5                  #Delay in seconds between checking for internet availablility.
-num = 0                         #initialize num for airports editor
+delay_time = 5                  # Delay in seconds between checking for internet availablility.
+num = 0                         # initialize num for airports editor
 
-#instantiate strip
+# instantiate strip
 strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL, LED_STRIP)
 strip.begin()
 
-#Initiate flash session
+# Initiate flash session
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 logger.info("Settings and Flask Have Been Setup")
 
-#Routes for Map Display - Testing
+# Routes for Map Display - Testing
 @app.route('/map1', methods=["GET", "POST"])
 def map1():
     start_coords = (35.1738, -111.6541)
     folium_map = folium.Map(location=start_coords, \
-      zoom_start=6, height='80%', width='100%', \
-      control_scale=True, \
-      zoom_control=True, \
-      tiles='OpenStreetMap')
+      zoom_start = 6, height='80%', width='100%', \
+      control_scale = True, \
+      zoom_control = True, \
+      tiles = 'OpenStreetMap')
 
     folium_map.add_child(folium.LatLngPopup())
     folium_map.add_child(folium.ClickForMarker(popup='Marker'))
@@ -145,13 +146,53 @@ def map1():
     return render_template('mapedit.html', title='Map', num = 5)
 #    return folium_map._repr_html_()
 
-#Route to manually check for update using menu item
+
+# Route to open live console display window using seashells dependency - TESTING
+# Uses the dependency, 'seashells' to display console data to web page. Follow the steps at
+# https://seashells.io/ to install. THEN MUST ADD THE FOLLOWING CODE AT LINE 94
+# AT FILE LOCATION; sudo nano -c /usr/local/lib/python3.7/dist-packages/seashells/__init__.py
+#        # write ip address to file - Mark Harris
+#        ipadd = data.decode()
+#        ipadd = ipadd[11:]
+#        script_name = args.script
+#        if script_name == 'webapp':
+#            f = open("/NeoSectional/console_ip.txt", "w")
+#            f.write(script_name + " " + ipadd)
+#            f.close()
+@app.route('/open_console', methods=["GET", "POST"])
+def open_console():
+    console_ips = []
+    with open("/NeoSectional/console_ip.txt", "r") as file:
+        for line in (file.readlines() [-1:]):
+            line = line.rstrip()
+            console_ips.append(line)
+    return render_template('open_console.html', urls = console_ips, title = 'Display Console Output', num = 5, ipadd = ipadd, timestr = timestr)
+
+
+# Routes to display logfile live, and hopefully for a dashboard
+@app.route('/stream_log', methods=["GET", "POST"])
+def stream_log():
+    global ipadd
+    global timestr
+    return render_template('stream_log.html', title = 'Display Logfile', num = 5, ipadd = ipadd, timestr = timestr)
+
+@app.route('/stream_log1', methods=["GET", "POST"])
+def stream_log1():
+    def generate():
+        with open('/NeoSectional/logfile.log') as f:
+            while True:
+                yield "{}\n".format(f.read())
+                sleep(1)
+
+    return app.response_class(generate(), mimetype='text/plain')
+
+# Route to manually check for update using menu item
 @app.route('/test_for_update', methods=["GET", "POST"])
 def test_for_update():
     global update_available
     url = request.referrer
     if url is None:
-        url = 'http://' + ipadd + ':5000/index' #Use index if called from URL and not page.
+        url = 'http://' + ipadd + ':5000/index'  # Use index if called from URL and not page.
 
     temp = url.split('/')
 
@@ -167,29 +208,39 @@ def test_for_update():
         flash('New Image Available -  Use Map Utilities to Download')
 
     logger.info('Checking to see if there is an update available')
-    return redirect(temp[3]) #temp[3] holds name of page that called this route.
+    return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
-#Route to update Software if one is available and user chooses to update
+# Route to update Software if one is available and user chooses to update
 @app.route('/update_info', methods=["GET", "POST"])
 def update_info():
+    global ipadd
+    global timestr
     with open("/NeoSectional/update_info.txt","r") as file:
         content = file.readlines()
         logger.info(content)
-    return render_template("update_info.html", content = content, title = 'Update Info', num = 5)
+    return render_template("update_info.html", content = content, title = 'Update Info', num = 5, ipadd = ipadd, timestr = timestr)
 
 @app.route('/update', methods=["GET", "POST"])
 def update():
     url = request.referrer
     if url is None:
-        url = 'http://' + ipadd + ':5000/index' #Use index if called from URL and not page.
+        url = 'http://' + ipadd + ':5000/index'  # Use index if called from URL and not page.
 
     temp = url.split('/')
     updatefiles()
     flash('Software has been updated to v' + update_vers)
     logger.info('Updated Software to version ' + update_vers)
-    return redirect(temp[3]) #temp[3] holds name of page that called this route.
+    return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
-#Route to expand RPI's file system.
+
+@app.route('/update_page', methods=["GET", "POST"])
+def update_page():
+    global ipadd
+    global timestr
+    return render_template("update_page.html", title = 'Software Update Information', num = 5, ipadd = ipadd, timestr = timestr)
+
+
+# Route to expand RPI's file system.
 @app.route('/expandfs', methods=["GET", "POST"])
 def expandfs():
     global hmdata
@@ -212,27 +263,26 @@ def expandfs():
         return redirect('expandfs')
 
     templateData = {
-            'title' : 'Expand File System',
+            'title': 'Expand File System',
             'hmdata': hmdata,
-            'airports' : airports,
-            'settings' : settings,
-            'ipadd' : ipadd,
-            'strip' : strip,
-            'ipaddresses' : ipaddresses,
-            'timestr' : timestr,
-            'num' : num,
-            'apinfo_dict' : apinfo_dict,
-            'timestr' : timestr,
-            'version' : version,
-            'update_available' : update_available,
-            'update_vers' : update_vers,
-            'current_timezone' : current_timezone
+            'airports': airports,
+            'settings': settings,
+            'ipadd': ipadd,
+            'strip': strip,
+            'ipaddresses': ipaddresses,
+            'timestr': timestr,
+            'num': num,
+            'apinfo_dict': apinfo_dict,
+            'timestr': timestr,
+            'version': version,
+            'update_available': update_available,
+            'update_vers': update_vers,
+            'current_timezone': current_timezone
             }
 
     return render_template('expandfs.html', **templateData)
 
-
-#Route to display and change Time Zone information.
+# Route to display and change Time Zone information.
 @app.route('/tzset', methods=["GET", "POST"])
 def tzset():
     global hmdata
@@ -264,38 +314,38 @@ def tzset():
     currtzinfo = subprocess.run(['timedatectl', 'status'], stdout=subprocess.PIPE).stdout.decode('utf-8')
     tztemp = currtzinfo.split('\n')
     for j in range(len(tztemp)):
-        if j == 0 or j == 1 or j == 3:
+        if j==0 or j==1 or j==3:
             currtzinfolist.append(tztemp[j])
     current_timezone = tztemp[3]
 
     templateData = {
-            'title' : 'Timezone Set-'+version,
+            'title': 'Timezone Set-'+version,
             'hmdata': hmdata,
-            'airports' : airports,
-            'settings' : settings,
-            'ipadd' : ipadd,
-            'strip' : strip,
-            'ipaddresses' : ipaddresses,
-            'timestr' : timestr,
-            'num' : num,
-            'apinfo_dict' : apinfo_dict,
-            'timestr' : timestr,
-            'version' : version,
-            'update_available' : update_available,
-            'update_vers' : update_vers,
-            'tzoptionlist' : tzoptionlist,
-            'currtzinfolist' : currtzinfolist,
-            'current_timezone' : current_timezone
+            'airports': airports,
+            'settings': settings,
+            'ipadd': ipadd,
+            'strip': strip,
+            'ipaddresses': ipaddresses,
+            'timestr': timestr,
+            'num': num,
+            'apinfo_dict': apinfo_dict,
+            'timestr': timestr,
+            'version': version,
+            'update_available': update_available,
+            'update_vers': update_vers,
+            'tzoptionlist': tzoptionlist,
+            'currtzinfolist': currtzinfolist,
+            'current_timezone': current_timezone
             }
 
     return render_template('tzset.html', **templateData)
 
-#Route to display system information.
+# Route to display system information.
 @app.route('/yield')
 def yindex():
     def inner():
         proc = subprocess.Popen(
-            ['/NeoSectional/info-v4.py'],             #'dmesg' call something with a lot of output so we can see it
+            ['/NeoSectional/info-v4.py'],             # 'dmesg' call something with a lot of output so we can see it
             shell=True,
             stdout=subprocess.PIPE
         )
@@ -307,7 +357,7 @@ def yindex():
 
     return Response(inner(), mimetype='text/html')  # text/html is required for most browsers to show this info.
 
-#Route to create QR Code to display next to map so user can use an app to control the map
+# Route to create QR Code to display next to map so user can use an app to control the map
 @app.route('/qrcode', methods=["GET", "POST"])
 def qrcode():
     global ipadd
@@ -333,25 +383,25 @@ def index ():
     timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
 
     templateData = {
-            'title' : 'LiveSectional Home-'+version,
+            'title': 'LiveSectional Home-'+version,
             'hmdata': hmdata,
-            'airports' : airports,
-            'settings' : settings,
-            'ipadd' : ipadd,
-            'strip' : strip,
-            'ipaddresses' : ipaddresses,
-            'timestr' : timestr,
-            'num' : num,
-            'apinfo_dict' : apinfo_dict,
-            'timestr' : timestr,
-            'current_timezone' : current_timezone,
-            'update_available' : update_available,
-            'update_vers' : update_vers,
-            'version' : version
+            'airports': airports,
+            'settings': settings,
+            'ipadd': ipadd,
+            'strip': strip,
+            'ipaddresses': ipaddresses,
+            'timestr': timestr,
+            'num': num,
+            'apinfo_dict': apinfo_dict,
+            'timestr': timestr,
+            'current_timezone': current_timezone,
+            'update_available': update_available,
+            'update_vers': update_vers,
+            'version': version
             }
     return render_template('index.html', **templateData)
 
-#Routes to download airports, logfile.log and config.py to local computer
+# Routes to download airports, logfile.log and config.py to local computer
 @app.route('/download_ap', methods=["GET", "POST"])
 def downloadairports ():
     logger.info("Downloaded Airport File")
@@ -376,7 +426,7 @@ def downloadhm ():
     path = "hmdata"
     return send_file(path, as_attachment=True)
 
-#Routes for Heat Map Editor
+# Routes for Heat Map Editor
 @app.route("/hmedit", methods=["GET", "POST"])
 def hmedit():
     logger.info("Opening hmedit.html")
@@ -389,22 +439,22 @@ def hmedit():
     now = datetime.now()
     timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
 
-    readhmdata(heatmap_file) #read Heat Map data file
+    readhmdata(heatmap_file)  # read Heat Map data file
 
-    logger.debug(ipadd) #debug to display ip address on console
+    logger.debug(ipadd)  # debug to display ip address on console
 
     templateData = {
-            'title' : 'Heat Map Editor-'+version,
+            'title': 'Heat Map Editor-'+version,
             'hmdata': hmdata,
-            'ipadd' : ipadd,
-            'strip' : strip,
-            'ipaddresses' : ipaddresses,
-            'timestr' : timestr,
-            'num' : num,
-            'current_timezone' : current_timezone,
-            'update_available' : update_available,
-            'update_vers' : update_vers,
-            'apinfo_dict' : apinfo_dict
+            'ipadd': ipadd,
+            'strip': strip,
+            'ipaddresses': ipaddresses,
+            'timestr': timestr,
+            'num': num,
+            'current_timezone': current_timezone,
+            'update_available': update_available,
+            'update_vers': update_vers,
+            'apinfo_dict': apinfo_dict
             }
     return render_template('hmedit.html', **templateData)
 
@@ -421,7 +471,7 @@ def handle_hmpost_request():
 
     if request.method == "POST":
         data = request.form.to_dict()
-        logger.debug(data) #debug
+        logger.debug(data)  # debug
 
         j = 0
         for key in data:
@@ -439,7 +489,7 @@ def handle_hmpost_request():
     flash('Heat Map Data Successfully Saved')
     return redirect("hmedit")
 
-#Import a file to populate Heat Map Data. Must Save Airports to keep
+# Import a file to populate Heat Map Data. Must Save Airports to keep
 @app.route("/importhm", methods=["GET", "POST"])
 def importhm():
     logger.info("Importing Heat Map File")
@@ -450,7 +500,7 @@ def importhm():
     hmdata = []
 
     if 'file' not in request.files:
-        flash ('No File Selected')
+        flash('No File Selected')
         return redirect('./hmedit')
 
     file = request.files['file']
@@ -467,22 +517,22 @@ def importhm():
     logger.debug(hmdata)
 
     templateData = {
-            'title' : 'Heat Map Editor-'+version,
+            'title': 'Heat Map Editor-'+version,
             'hmdata': hmdata,
-            'ipadd' : ipadd,
-            'strip' : strip,
-            'ipaddresses' : ipaddresses,
-            'timestr' : timestr,
-            'num' : num,
-            'current_timezone' : current_timezone,
-            'update_available' : update_available,
-            'update_vers' : update_vers,
-            'apinfo_dict' : apinfo_dict
+            'ipadd': ipadd,
+            'strip': strip,
+            'ipaddresses': ipaddresses,
+            'timestr': timestr,
+            'num': num,
+            'current_timezone': current_timezone,
+            'update_available': update_available,
+            'update_vers': update_vers,
+            'apinfo_dict': apinfo_dict
             }
     flash('Heat Map Imported - Click "Save Heat Map File" to save')
     return render_template("hmedit.html", **templateData)
 
-#Routes for Airport Editor
+# Routes for Airport Editor
 @app.route("/apedit", methods=["GET", "POST"])
 def apedit():
     logger.info("Opening apedit.html")
@@ -496,22 +546,22 @@ def apedit():
     now = datetime.now()
     timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
 
-    readairports(airports_file)  #Read airports file.
+    readairports(airports_file)  # Read airports file.
 
-    logger.debug(ipadd) #debug to display ip address on console
+    logger.debug(ipadd)  # debug to display ip address on console
 
     templateData = {
-            'title' : 'Airports Editor-'+version,
+            'title': 'Airports Editor-'+version,
             'airports': airports,
-            'ipadd' : ipadd,
-            'strip' : strip,
-            'ipaddresses' : ipaddresses,
-            'timestr' : timestr,
-            'num' : num,
-            'current_timezone' : current_timezone,
-            'update_available' : update_available,
-            'update_vers' : update_vers,
-            'apinfo_dict' : apinfo_dict
+            'ipadd': ipadd,
+            'strip': strip,
+            'ipaddresses': ipaddresses,
+            'timestr': timestr,
+            'num': num,
+            'current_timezone': current_timezone,
+            'update_available': update_available,
+            'update_vers': update_vers,
+            'apinfo_dict': apinfo_dict
             }
     return render_template('apedit.html', **templateData)
 
@@ -536,17 +586,17 @@ def numap():
             airports.append("NULL")
 
     templateData = {
-            'title' : 'Airports Editor-'+version,
+            'title': 'Airports Editor-'+version,
             'airports': airports,
-            'ipadd' : ipadd,
-            'strip' : strip,
-            'ipaddresses' : ipaddresses,
-            'timestr' : timestr,
-            'num' : num,
-            'current_timezone' : current_timezone,
-            'update_available' : update_available,
-            'update_vers' : update_vers,
-            'apinfo_dict' : apinfo_dict
+            'ipadd': ipadd,
+            'strip': strip,
+            'ipaddresses': ipaddresses,
+            'timestr': timestr,
+            'num': num,
+            'current_timezone': current_timezone,
+            'update_available': update_available,
+            'update_vers': update_vers,
+            'apinfo_dict': apinfo_dict
             }
 
     flash('Number of LEDs Updated - Click "Save Airports" to save.')
@@ -565,26 +615,26 @@ def handle_appost_request():
 
     if request.method == "POST":
         data = request.form.to_dict()
-        logging.debug(data) #debug
+        logging.debug(data)  # debug
         writeairports(data, airports_file)
 
         readairports(airports_file)
-        get_apinfo() #decode airports to get city and state to display
+        get_apinfo()  # decode airports to get city and state to display
 
-        #update size and data of hmdata based on saved airports file.
-        readhmdata(heatmap_file) #get heat map data to update with newly edited airports file
-        if len(hmdata) > len(airports): #adjust size of hmdata list if length is larger than airports
+        # update size and data of hmdata based on saved airports file.
+        readhmdata(heatmap_file)  # get heat map data to update with newly edited airports file
+        if len(hmdata) > len(airports):  # adjust size of hmdata list if length is larger than airports
             num = len(hmdata) - len(airports)
             hmdata = hmdata[:-num]
 
-        elif len(hmdata) < len(airports): #adjust size of hmdata list if length is smaller than airports
+        elif len(hmdata) < len(airports):  # adjust size of hmdata list if length is smaller than airports
             for n in range(len(hmdata), len(airports)):
                 hmdata.append('NULL 0')
 
-        for index, airport in enumerate(airports): #now that both lists are same length, be sure the data matches
+        for index, airport in enumerate(airports):  # now that both lists are same length, be sure the data matches
             ap, *_ = hmdata[index].split()
             if ap != airport:
-                hmdata[index] = (airport + ' 0') #save changed airport and assign zero landings to it in hmdata
+                hmdata[index] = (airport + ' 0')  # save changed airport and assign zero landings to it in hmdata
         writehmdata(hmdata, heatmap_file)
 
     flash('Airports Successfully Saved')
@@ -606,20 +656,20 @@ def ledonoff():
 
         if "buton" in request.form:
             num = int(request.form['lednum'])
-            logger.info ("LED " + str(num) + " On")
+            logger.info("LED " + str(num) + " On")
             strip.setPixelColor(num, Color(155,155,155))
             strip.show()
             flash('LED ' + str(num) + ' On')
 
         elif "butoff" in request.form:
             num = int(request.form['lednum'])
-            logger.info ("LED " + str(num) + " Off")
+            logger.info("LED " + str(num) + " Off")
             strip.setPixelColor(num, Color(0,0,0))
             strip.show()
             flash('LED ' + str(num) + ' Off')
 
         elif "butup" in request.form:
-            logger.info ("LED UP")
+            logger.info("LED UP")
             num = int(request.form['lednum'])
             strip.setPixelColor(num, Color(0,0,0))
             num = num + 1
@@ -664,27 +714,27 @@ def ledonoff():
             flash('All LEDs should be Off')
             num=0
 
-        else: #if tab is pressed
+        else:  # if tab is pressed
             logger.info("LED Edited")
             num = int(request.form['lednum'])
             flash('LED ' + str(num) + ' Edited')
 
     templateData = {
-            'title' : 'Airports File Editor-'+version,
+            'title': 'Airports File Editor-'+version,
             'airports': airports,
-            'ipadd' : ipadd,
-            'strip' : strip,
-            'ipaddresses' : ipaddresses,
-            'timestr' : timestr,
-            'num' : num,
-            'update_available' : update_available,
-            'update_vers' : update_vers,
-            'apinfo_dict' : apinfo_dict
+            'ipadd': ipadd,
+            'strip': strip,
+            'ipaddresses': ipaddresses,
+            'timestr': timestr,
+            'num': num,
+            'update_available': update_available,
+            'update_vers': update_vers,
+            'apinfo_dict': apinfo_dict
             }
 
     return render_template("apedit.html", **templateData)
 
-#Import a file to populate airports. Must Save Airports to keep
+# Import a file to populate airports. Must Save Airports to keep
 @app.route("/importap", methods=["GET", "POST"])
 def importap():
     logger.info("Importing Airports File")
@@ -693,7 +743,7 @@ def importap():
     global timestr
 
     if 'file' not in request.files:
-        flash ('No File Selected')
+        flash('No File Selected')
         return redirect('./apedit')
 
     file = request.files['file']
@@ -710,22 +760,22 @@ def importap():
     logger.debug(airports)
 
     templateData = {
-            'title' : 'Airports Editor-'+version,
+            'title': 'Airports Editor-'+version,
             'airports': airports,
-            'ipadd' : ipadd,
-            'strip' : strip,
-            'ipaddresses' : ipaddresses,
-            'timestr' : timestr,
-            'num' : num,
-            'current_timezone' : current_timezone,
-            'update_available' : update_available,
-            'update_vers' : update_vers,
-            'apinfo_dict' : apinfo_dict
+            'ipadd': ipadd,
+            'strip': strip,
+            'ipaddresses': ipaddresses,
+            'timestr': timestr,
+            'num': num,
+            'current_timezone': current_timezone,
+            'update_available': update_available,
+            'update_vers': update_vers,
+            'apinfo_dict': apinfo_dict
             }
     flash('Airports Imported - Click "Save Airports" to save')
     return render_template("apedit.html", **templateData)
 
-#Routes for Config Editor
+# Routes for Config Editor
 @app.route("/confedit", methods=["GET", "POST"])
 def confedit():
     logger.info("Opening confedit.html")
@@ -737,102 +787,102 @@ def confedit():
     now = datetime.now()
     timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
 
-    logger.debug(ipadd) #debug
+    logger.debug(ipadd)  # debug
 
-    #change rgb code to hex for html color picker
-    color_vfr_hex = rgb2hex (settings["color_vfr"])
-    color_mvfr_hex = rgb2hex (settings["color_mvfr"])
-    color_ifr_hex = rgb2hex (settings["color_ifr"])
-    color_lifr_hex = rgb2hex (settings["color_lifr"])
-    color_nowx_hex = rgb2hex (settings["color_nowx"])
-    color_black_hex = rgb2hex (settings["color_black"])
-    color_lghtn_hex = rgb2hex (settings["color_lghtn"])
-    color_snow1_hex = rgb2hex (settings["color_snow1"])
-    color_snow2_hex = rgb2hex (settings["color_snow2"])
-    color_rain1_hex = rgb2hex (settings["color_rain1"])
-    color_rain2_hex = rgb2hex (settings["color_rain2"])
-    color_frrain1_hex = rgb2hex (settings["color_frrain1"])
-    color_frrain2_hex = rgb2hex (settings["color_frrain2"])
-    color_dustsandash1_hex = rgb2hex (settings["color_dustsandash1"])
-    color_dustsandash2_hex = rgb2hex (settings["color_dustsandash2"])
-    color_fog1_hex = rgb2hex (settings["color_fog1"])
-    color_fog2_hex = rgb2hex (settings["color_fog2"])
-    color_homeport_hex = rgb2hex (settings["color_homeport"])
+    # change rgb code to hex for html color picker
+    color_vfr_hex = rgb2hex(settings["color_vfr"])
+    color_mvfr_hex = rgb2hex(settings["color_mvfr"])
+    color_ifr_hex = rgb2hex(settings["color_ifr"])
+    color_lifr_hex = rgb2hex(settings["color_lifr"])
+    color_nowx_hex = rgb2hex(settings["color_nowx"])
+    color_black_hex = rgb2hex(settings["color_black"])
+    color_lghtn_hex = rgb2hex(settings["color_lghtn"])
+    color_snow1_hex = rgb2hex(settings["color_snow1"])
+    color_snow2_hex = rgb2hex(settings["color_snow2"])
+    color_rain1_hex = rgb2hex(settings["color_rain1"])
+    color_rain2_hex = rgb2hex(settings["color_rain2"])
+    color_frrain1_hex = rgb2hex(settings["color_frrain1"])
+    color_frrain2_hex = rgb2hex(settings["color_frrain2"])
+    color_dustsandash1_hex = rgb2hex(settings["color_dustsandash1"])
+    color_dustsandash2_hex = rgb2hex(settings["color_dustsandash2"])
+    color_fog1_hex = rgb2hex(settings["color_fog1"])
+    color_fog2_hex = rgb2hex(settings["color_fog2"])
+    color_homeport_hex = rgb2hex(settings["color_homeport"])
 
-    #color picker for transitional wipes
-    fade_color1_hex = rgb2hex (settings["fade_color1"])
-    allsame_color1_hex = rgb2hex (settings["allsame_color1"])
-    allsame_color2_hex = rgb2hex (settings["allsame_color2"])
-    shuffle_color1_hex = rgb2hex (settings["shuffle_color1"])
-    shuffle_color2_hex = rgb2hex (settings["shuffle_color2"])
-    radar_color1_hex = rgb2hex (settings["radar_color1"])
-    radar_color2_hex = rgb2hex (settings["radar_color2"])
-    circle_color1_hex = rgb2hex (settings["circle_color1"])
-    circle_color2_hex = rgb2hex (settings["circle_color2"])
-    square_color1_hex = rgb2hex (settings["square_color1"])
-    square_color2_hex = rgb2hex (settings["square_color2"])
-    updn_color1_hex = rgb2hex (settings["updn_color1"])
-    updn_color2_hex = rgb2hex (settings["updn_color2"])
-    morse_color1_hex = rgb2hex (settings["morse_color1"])
-    morse_color2_hex = rgb2hex (settings["morse_color2"])
-    rabbit_color1_hex = rgb2hex (settings["rabbit_color1"])
-    rabbit_color2_hex = rgb2hex (settings["rabbit_color2"])
-    checker_color1_hex = rgb2hex (settings["checker_color1"])
-    checker_color2_hex = rgb2hex (settings["checker_color2"])
+    # color picker for transitional wipes
+    fade_color1_hex = rgb2hex(settings["fade_color1"])
+    allsame_color1_hex = rgb2hex(settings["allsame_color1"])
+    allsame_color2_hex = rgb2hex(settings["allsame_color2"])
+    shuffle_color1_hex = rgb2hex(settings["shuffle_color1"])
+    shuffle_color2_hex = rgb2hex(settings["shuffle_color2"])
+    radar_color1_hex = rgb2hex(settings["radar_color1"])
+    radar_color2_hex = rgb2hex(settings["radar_color2"])
+    circle_color1_hex = rgb2hex(settings["circle_color1"])
+    circle_color2_hex = rgb2hex(settings["circle_color2"])
+    square_color1_hex = rgb2hex(settings["square_color1"])
+    square_color2_hex = rgb2hex(settings["square_color2"])
+    updn_color1_hex = rgb2hex(settings["updn_color1"])
+    updn_color2_hex = rgb2hex(settings["updn_color2"])
+    morse_color1_hex = rgb2hex(settings["morse_color1"])
+    morse_color2_hex = rgb2hex(settings["morse_color2"])
+    rabbit_color1_hex = rgb2hex(settings["rabbit_color1"])
+    rabbit_color2_hex = rgb2hex(settings["rabbit_color2"])
+    checker_color1_hex = rgb2hex(settings["checker_color1"])
+    checker_color2_hex = rgb2hex(settings["checker_color2"])
 
 
-    #Pass data to html document
+    # Pass data to html document
     templateData = {
-            'title' : 'Settings Editor-'+version,
+            'title': 'Settings Editor-'+version,
             'settings': settings,
-            'ipadd' : ipadd,
-            'ipaddresses' : ipaddresses,
-            'timestr' : timestr,
-            'num' : num,
-            'current_timezone' : current_timezone,
-            'update_available' : update_available,
-            'update_vers' : update_vers,
+            'ipadd': ipadd,
+            'ipaddresses': ipaddresses,
+            'timestr': timestr,
+            'num': num,
+            'current_timezone': current_timezone,
+            'update_available': update_available,
+            'update_vers': update_vers,
 
-            #Color Picker Variables to pass
-            'color_vfr_hex' : color_vfr_hex,
-            'color_mvfr_hex' : color_mvfr_hex,
-            'color_ifr_hex' : color_ifr_hex,
-            'color_lifr_hex' : color_lifr_hex,
-            'color_nowx_hex' : color_nowx_hex,
-            'color_black_hex' : color_black_hex,
-            'color_lghtn_hex' : color_lghtn_hex,
-            'color_snow1_hex' : color_snow1_hex,
-            'color_snow2_hex' : color_snow2_hex,
-            'color_rain1_hex' : color_rain1_hex,
-            'color_rain2_hex' : color_rain2_hex,
-            'color_frrain1_hex' : color_frrain1_hex,
-            'color_frrain2_hex' : color_frrain2_hex,
-            'color_dustsandash1_hex' : color_dustsandash1_hex,
-            'color_dustsandash2_hex' : color_dustsandash2_hex,
-            'color_fog1_hex' : color_fog1_hex,
-            'color_fog2_hex' : color_fog2_hex,
-            'color_homeport_hex' : color_homeport_hex,
+            # Color Picker Variables to pass
+            'color_vfr_hex': color_vfr_hex,
+            'color_mvfr_hex': color_mvfr_hex,
+            'color_ifr_hex': color_ifr_hex,
+            'color_lifr_hex': color_lifr_hex,
+            'color_nowx_hex': color_nowx_hex,
+            'color_black_hex': color_black_hex,
+            'color_lghtn_hex': color_lghtn_hex,
+            'color_snow1_hex': color_snow1_hex,
+            'color_snow2_hex': color_snow2_hex,
+            'color_rain1_hex': color_rain1_hex,
+            'color_rain2_hex': color_rain2_hex,
+            'color_frrain1_hex': color_frrain1_hex,
+            'color_frrain2_hex': color_frrain2_hex,
+            'color_dustsandash1_hex': color_dustsandash1_hex,
+            'color_dustsandash2_hex': color_dustsandash2_hex,
+            'color_fog1_hex': color_fog1_hex,
+            'color_fog2_hex': color_fog2_hex,
+            'color_homeport_hex': color_homeport_hex,
 
-            #Color Picker Variables to pass
-            'fade_color1_hex' : fade_color1_hex,
-            'allsame_color1_hex' : allsame_color1_hex,
-            'allsame_color2_hex' : allsame_color2_hex,
-            'shuffle_color1_hex' : shuffle_color1_hex,
-            'shuffle_color2_hex' : shuffle_color2_hex,
-            'radar_color1_hex' : radar_color1_hex,
-            'radar_color2_hex' : radar_color2_hex,
-            'circle_color1_hex' : circle_color1_hex,
-            'circle_color2_hex' : circle_color2_hex,
-            'square_color1_hex' : square_color1_hex,
-            'square_color2_hex' : square_color2_hex,
-            'updn_color1_hex' : updn_color1_hex,
-            'updn_color2_hex' : updn_color2_hex,
-            'morse_color1_hex' : morse_color1_hex,
-            'morse_color2_hex' : morse_color2_hex,
-            'rabbit_color1_hex' : rabbit_color1_hex,
-            'rabbit_color2_hex' : rabbit_color2_hex,
-            'checker_color1_hex' : checker_color1_hex,
-            'checker_color2_hex' : checker_color2_hex
+            # Color Picker Variables to pass
+            'fade_color1_hex': fade_color1_hex,
+            'allsame_color1_hex': allsame_color1_hex,
+            'allsame_color2_hex': allsame_color2_hex,
+            'shuffle_color1_hex': shuffle_color1_hex,
+            'shuffle_color2_hex': shuffle_color2_hex,
+            'radar_color1_hex': radar_color1_hex,
+            'radar_color2_hex': radar_color2_hex,
+            'circle_color1_hex': circle_color1_hex,
+            'circle_color2_hex': circle_color2_hex,
+            'square_color1_hex': square_color1_hex,
+            'square_color2_hex': square_color2_hex,
+            'updn_color1_hex': updn_color1_hex,
+            'updn_color2_hex': updn_color2_hex,
+            'morse_color1_hex': morse_color1_hex,
+            'morse_color2_hex': morse_color2_hex,
+            'rabbit_color1_hex': rabbit_color1_hex,
+            'rabbit_color2_hex': rabbit_color2_hex,
+            'checker_color1_hex': checker_color1_hex,
+            'checker_color2_hex': checker_color2_hex
             }
     return render_template('confedit.html', **templateData)
 
@@ -845,54 +895,54 @@ def handle_post_request():
     if request.method == "POST":
         data = request.form.to_dict()
 
-        #convert hex value back to rgb string value for storage
-        data["color_vfr"]= str(hex2rgb(data["color_vfr"]))
-        data["color_mvfr"]= str(hex2rgb(data["color_mvfr"]))
-        data["color_ifr"]= str(hex2rgb(data["color_ifr"]))
-        data["color_lifr"]= str(hex2rgb(data["color_lifr"]))
-        data["color_nowx"]= str(hex2rgb(data["color_nowx"]))
-        data["color_black"]= str(hex2rgb(data["color_black"]))
-        data["color_lghtn"]= str(hex2rgb(data["color_lghtn"]))
-        data["color_snow1"]= str(hex2rgb(data["color_snow1"]))
-        data["color_snow2"]= str(hex2rgb(data["color_snow2"]))
-        data["color_rain1"]= str(hex2rgb(data["color_rain1"]))
-        data["color_rain2"]= str(hex2rgb(data["color_rain2"]))
-        data["color_frrain1"]= str(hex2rgb(data["color_frrain1"]))
-        data["color_frrain2"]= str(hex2rgb(data["color_frrain2"]))
-        data["color_dustsandash1"]= str(hex2rgb(data["color_dustsandash1"]))
-        data["color_dustsandash2"]= str(hex2rgb(data["color_dustsandash2"]))
-        data["color_fog1"]= str(hex2rgb(data["color_fog1"]))
-        data["color_fog2"]= str(hex2rgb(data["color_fog2"]))
-        data["color_homeport"]= str(hex2rgb(data["color_homeport"]))
+        # convert hex value back to rgb string value for storage
+        data["color_vfr"] = str(hex2rgb(data["color_vfr"]))
+        data["color_mvfr"] = str(hex2rgb(data["color_mvfr"]))
+        data["color_ifr"] = str(hex2rgb(data["color_ifr"]))
+        data["color_lifr"] = str(hex2rgb(data["color_lifr"]))
+        data["color_nowx"] = str(hex2rgb(data["color_nowx"]))
+        data["color_black"] = str(hex2rgb(data["color_black"]))
+        data["color_lghtn"] = str(hex2rgb(data["color_lghtn"]))
+        data["color_snow1"] = str(hex2rgb(data["color_snow1"]))
+        data["color_snow2"] = str(hex2rgb(data["color_snow2"]))
+        data["color_rain1"] = str(hex2rgb(data["color_rain1"]))
+        data["color_rain2"] = str(hex2rgb(data["color_rain2"]))
+        data["color_frrain1"] = str(hex2rgb(data["color_frrain1"]))
+        data["color_frrain2"] = str(hex2rgb(data["color_frrain2"]))
+        data["color_dustsandash1"] = str(hex2rgb(data["color_dustsandash1"]))
+        data["color_dustsandash2"] = str(hex2rgb(data["color_dustsandash2"]))
+        data["color_fog1"] = str(hex2rgb(data["color_fog1"]))
+        data["color_fog2"] = str(hex2rgb(data["color_fog2"]))
+        data["color_homeport"] = str(hex2rgb(data["color_homeport"]))
 
-        #convert hex value back to rgb string value for storage for Transitional wipes
-        data["fade_color1"]= str(hex2rgb(data["fade_color1"]))
-        data["allsame_color1"]= str(hex2rgb(data["allsame_color1"]))
-        data["allsame_color2"]= str(hex2rgb(data["allsame_color2"]))
-        data["shuffle_color1"]= str(hex2rgb(data["shuffle_color1"]))
-        data["shuffle_color2"]= str(hex2rgb(data["shuffle_color2"]))
-        data["radar_color1"]= str(hex2rgb(data["radar_color1"]))
-        data["radar_color2"]= str(hex2rgb(data["radar_color2"]))
-        data["circle_color1"]= str(hex2rgb(data["circle_color1"]))
-        data["circle_color2"]= str(hex2rgb(data["circle_color2"]))
-        data["square_color1"]= str(hex2rgb(data["square_color1"]))
-        data["square_color2"]= str(hex2rgb(data["square_color2"]))
-        data["updn_color1"]= str(hex2rgb(data["updn_color1"]))
-        data["updn_color2"]= str(hex2rgb(data["updn_color2"]))
-        data["morse_color1"]= str(hex2rgb(data["morse_color1"]))
-        data["morse_color2"]= str(hex2rgb(data["morse_color2"]))
-        data["rabbit_color1"]= str(hex2rgb(data["rabbit_color1"]))
-        data["rabbit_color2"]= str(hex2rgb(data["rabbit_color2"]))
-        data["checker_color1"]= str(hex2rgb(data["checker_color1"]))
-        data["checker_color2"]= str(hex2rgb(data["checker_color2"]))
+        # convert hex value back to rgb string value for storage for Transitional wipes
+        data["fade_color1"] = str(hex2rgb(data["fade_color1"]))
+        data["allsame_color1"] = str(hex2rgb(data["allsame_color1"]))
+        data["allsame_color2"] = str(hex2rgb(data["allsame_color2"]))
+        data["shuffle_color1"] = str(hex2rgb(data["shuffle_color1"]))
+        data["shuffle_color2"] = str(hex2rgb(data["shuffle_color2"]))
+        data["radar_color1"] = str(hex2rgb(data["radar_color1"]))
+        data["radar_color2"] = str(hex2rgb(data["radar_color2"]))
+        data["circle_color1"] = str(hex2rgb(data["circle_color1"]))
+        data["circle_color2"] = str(hex2rgb(data["circle_color2"]))
+        data["square_color1"] = str(hex2rgb(data["square_color1"]))
+        data["square_color2"] = str(hex2rgb(data["square_color2"]))
+        data["updn_color1"] = str(hex2rgb(data["updn_color1"]))
+        data["updn_color2"] = str(hex2rgb(data["updn_color2"]))
+        data["morse_color1"] = str(hex2rgb(data["morse_color1"]))
+        data["morse_color2"] = str(hex2rgb(data["morse_color2"]))
+        data["rabbit_color1"] = str(hex2rgb(data["rabbit_color1"]))
+        data["rabbit_color2"] = str(hex2rgb(data["rabbit_color2"]))
+        data["checker_color1"] = str(hex2rgb(data["checker_color1"]))
+        data["checker_color2"] = str(hex2rgb(data["checker_color2"]))
 
-        #check and fix data with leading zeros.
+        # check and fix data with leading zeros.
         for key in data:
-            if data[key] == '0' or data[key] == '00':
+            if data[key]=='0' or data[key]=='00':
                 data[key] = '0'
 
-            elif data[key][:1] == '0': #Check if first character is a 0. i.e. 01, 02 etc.
-                data[key] = data[key].lstrip('0') #if so, then strip the leading zero before writing to file.
+            elif data[key][:1] == '0':  # Check if first character is a 0. i.e. 01, 02 etc.
+                data[key] = data[key].lstrip('0')  # if so, then strip the leading zero before writing to file.
 
         writeconf(data, settings_file)
         readconf(settings_file)
@@ -900,13 +950,13 @@ def handle_post_request():
 
         url = request.referrer
         if url is None:
-            url = 'http://' + ipadd + ':5000/index' #Use index if called from URL and not page.
+            url = 'http://' + ipadd + ':5000/index'  # Use index if called from URL and not page.
 
         temp = url.split('/')
-        return redirect(temp[3]) #temp[3] holds name of page that called this route.
+        return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
-#Routes for LSREMOTE - Allow Mobile Device Remote. Thank Lance
-#@app.route('/', methods=["GET", "POST"])
+# Routes for LSREMOTE - Allow Mobile Device Remote. Thank Lance
+# @app.route('/', methods=["GET", "POST"])
 @app.route('/lsremote', methods=["GET", "POST"])
 def confeditmobile():
     logger.info("Opening lsremote.html")
@@ -918,105 +968,105 @@ def confeditmobile():
     now = datetime.now()
     timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
 
-    logger.debug(ipadd) #debug
+    logger.debug(ipadd)  # debug
 
-    #change rgb code to hex for html color picker
-    color_vfr_hex = rgb2hex (settings["color_vfr"])
-    color_mvfr_hex = rgb2hex (settings["color_mvfr"])
-    color_ifr_hex = rgb2hex (settings["color_ifr"])
-    color_lifr_hex = rgb2hex (settings["color_lifr"])
-    color_nowx_hex = rgb2hex (settings["color_nowx"])
-    color_black_hex = rgb2hex (settings["color_black"])
-    color_lghtn_hex = rgb2hex (settings["color_lghtn"])
-    color_snow1_hex = rgb2hex (settings["color_snow1"])
-    color_snow2_hex = rgb2hex (settings["color_snow2"])
-    color_rain1_hex = rgb2hex (settings["color_rain1"])
-    color_rain2_hex = rgb2hex (settings["color_rain2"])
-    color_frrain1_hex = rgb2hex (settings["color_frrain1"])
-    color_frrain2_hex = rgb2hex (settings["color_frrain2"])
-    color_dustsandash1_hex = rgb2hex (settings["color_dustsandash1"])
-    color_dustsandash2_hex = rgb2hex (settings["color_dustsandash2"])
-    color_fog1_hex = rgb2hex (settings["color_fog1"])
-    color_fog2_hex = rgb2hex (settings["color_fog2"])
-    color_homeport_hex = rgb2hex (settings["color_homeport"])
+    # change rgb code to hex for html color picker
+    color_vfr_hex = rgb2hex(settings["color_vfr"])
+    color_mvfr_hex = rgb2hex(settings["color_mvfr"])
+    color_ifr_hex = rgb2hex(settings["color_ifr"])
+    color_lifr_hex = rgb2hex(settings["color_lifr"])
+    color_nowx_hex = rgb2hex(settings["color_nowx"])
+    color_black_hex = rgb2hex(settings["color_black"])
+    color_lghtn_hex = rgb2hex(settings["color_lghtn"])
+    color_snow1_hex = rgb2hex(settings["color_snow1"])
+    color_snow2_hex = rgb2hex(settings["color_snow2"])
+    color_rain1_hex = rgb2hex(settings["color_rain1"])
+    color_rain2_hex = rgb2hex(settings["color_rain2"])
+    color_frrain1_hex = rgb2hex(settings["color_frrain1"])
+    color_frrain2_hex = rgb2hex(settings["color_frrain2"])
+    color_dustsandash1_hex = rgb2hex(settings["color_dustsandash1"])
+    color_dustsandash2_hex = rgb2hex(settings["color_dustsandash2"])
+    color_fog1_hex = rgb2hex(settings["color_fog1"])
+    color_fog2_hex = rgb2hex(settings["color_fog2"])
+    color_homeport_hex = rgb2hex(settings["color_homeport"])
 
-    #color picker for transitional wipes
-    fade_color1_hex = rgb2hex (settings["fade_color1"])
-    allsame_color1_hex = rgb2hex (settings["allsame_color1"])
-    allsame_color2_hex = rgb2hex (settings["allsame_color2"])
-    shuffle_color1_hex = rgb2hex (settings["shuffle_color1"])
-    shuffle_color2_hex = rgb2hex (settings["shuffle_color2"])
-    radar_color1_hex = rgb2hex (settings["radar_color1"])
-    radar_color2_hex = rgb2hex (settings["radar_color2"])
-    circle_color1_hex = rgb2hex (settings["circle_color1"])
-    circle_color2_hex = rgb2hex (settings["circle_color2"])
-    square_color1_hex = rgb2hex (settings["square_color1"])
-    square_color2_hex = rgb2hex (settings["square_color2"])
-    updn_color1_hex = rgb2hex (settings["updn_color1"])
-    updn_color2_hex = rgb2hex (settings["updn_color2"])
-    morse_color1_hex = rgb2hex (settings["morse_color1"])
-    morse_color2_hex = rgb2hex (settings["morse_color2"])
-    rabbit_color1_hex = rgb2hex (settings["rabbit_color1"])
-    rabbit_color2_hex = rgb2hex (settings["rabbit_color2"])
-    checker_color1_hex = rgb2hex (settings["checker_color1"])
-    checker_color2_hex = rgb2hex (settings["checker_color2"])
+    # color picker for transitional wipes
+    fade_color1_hex = rgb2hex(settings["fade_color1"])
+    allsame_color1_hex = rgb2hex(settings["allsame_color1"])
+    allsame_color2_hex = rgb2hex(settings["allsame_color2"])
+    shuffle_color1_hex = rgb2hex(settings["shuffle_color1"])
+    shuffle_color2_hex = rgb2hex(settings["shuffle_color2"])
+    radar_color1_hex = rgb2hex(settings["radar_color1"])
+    radar_color2_hex = rgb2hex(settings["radar_color2"])
+    circle_color1_hex = rgb2hex(settings["circle_color1"])
+    circle_color2_hex = rgb2hex(settings["circle_color2"])
+    square_color1_hex = rgb2hex(settings["square_color1"])
+    square_color2_hex = rgb2hex(settings["square_color2"])
+    updn_color1_hex = rgb2hex(settings["updn_color1"])
+    updn_color2_hex = rgb2hex(settings["updn_color2"])
+    morse_color1_hex = rgb2hex(settings["morse_color1"])
+    morse_color2_hex = rgb2hex(settings["morse_color2"])
+    rabbit_color1_hex = rgb2hex(settings["rabbit_color1"])
+    rabbit_color2_hex = rgb2hex(settings["rabbit_color2"])
+    checker_color1_hex = rgb2hex(settings["checker_color1"])
+    checker_color2_hex = rgb2hex(settings["checker_color2"])
 
-    #Pass data to html document
+    # Pass data to html document
     templateData = {
-            'title' : 'Settings Editor-'+version,
+            'title': 'Settings Editor-'+version,
             'settings': settings,
-            'ipadd' : ipadd,
-            'ipaddresses' : ipaddresses,
-            'num' : num,
-            'timestr' : timestr,
-            'current_timezone' : current_timezone,
-            'update_available' : update_available,
-            'update_vers' : update_vers,
+            'ipadd': ipadd,
+            'ipaddresses': ipaddresses,
+            'num': num,
+            'timestr': timestr,
+            'current_timezone': current_timezone,
+            'update_available': update_available,
+            'update_vers': update_vers,
 
-            #Color Picker Variables to pass
-            'color_vfr_hex' : color_vfr_hex,
-            'color_mvfr_hex' : color_mvfr_hex,
-            'color_ifr_hex' : color_ifr_hex,
-            'color_lifr_hex' : color_lifr_hex,
-            'color_nowx_hex' : color_nowx_hex,
-            'color_black_hex' : color_black_hex,
-            'color_lghtn_hex' : color_lghtn_hex,
-            'color_snow1_hex' : color_snow1_hex,
-            'color_snow2_hex' : color_snow2_hex,
-            'color_rain1_hex' : color_rain1_hex,
-            'color_rain2_hex' : color_rain2_hex,
-            'color_frrain1_hex' : color_frrain1_hex,
-            'color_frrain2_hex' : color_frrain2_hex,
-            'color_dustsandash1_hex' : color_dustsandash1_hex,
-            'color_dustsandash2_hex' : color_dustsandash2_hex,
-            'color_fog1_hex' : color_fog1_hex,
-            'color_fog2_hex' : color_fog2_hex,
-            'color_homeport_hex' : color_homeport_hex,
+            # Color Picker Variables to pass
+            'color_vfr_hex': color_vfr_hex,
+            'color_mvfr_hex': color_mvfr_hex,
+            'color_ifr_hex': color_ifr_hex,
+            'color_lifr_hex': color_lifr_hex,
+            'color_nowx_hex': color_nowx_hex,
+            'color_black_hex': color_black_hex,
+            'color_lghtn_hex': color_lghtn_hex,
+            'color_snow1_hex': color_snow1_hex,
+            'color_snow2_hex': color_snow2_hex,
+            'color_rain1_hex': color_rain1_hex,
+            'color_rain2_hex': color_rain2_hex,
+            'color_frrain1_hex': color_frrain1_hex,
+            'color_frrain2_hex': color_frrain2_hex,
+            'color_dustsandash1_hex': color_dustsandash1_hex,
+            'color_dustsandash2_hex': color_dustsandash2_hex,
+            'color_fog1_hex': color_fog1_hex,
+            'color_fog2_hex': color_fog2_hex,
+            'color_homeport_hex': color_homeport_hex,
 
-            #Color Picker Variables to pass
-            'fade_color1_hex' : fade_color1_hex,
-            'allsame_color1_hex' : allsame_color1_hex,
-            'allsame_color2_hex' : allsame_color2_hex,
-            'shuffle_color1_hex' : shuffle_color1_hex,
-            'shuffle_color2_hex' : shuffle_color2_hex,
-            'radar_color1_hex' : radar_color1_hex,
-            'radar_color2_hex' : radar_color2_hex,
-            'circle_color1_hex' : circle_color1_hex,
-            'circle_color2_hex' : circle_color2_hex,
-            'square_color1_hex' : square_color1_hex,
-            'square_color2_hex' : square_color2_hex,
-            'updn_color1_hex' : updn_color1_hex,
-            'updn_color2_hex' : updn_color2_hex,
-            'morse_color1_hex' : morse_color1_hex,
-            'morse_color2_hex' : morse_color2_hex,
-            'rabbit_color1_hex' : rabbit_color1_hex,
-            'rabbit_color2_hex' : rabbit_color2_hex,
-            'checker_color1_hex' : checker_color1_hex,
-            'checker_color2_hex' : checker_color2_hex
+            # Color Picker Variables to pass
+            'fade_color1_hex': fade_color1_hex,
+            'allsame_color1_hex': allsame_color1_hex,
+            'allsame_color2_hex': allsame_color2_hex,
+            'shuffle_color1_hex': shuffle_color1_hex,
+            'shuffle_color2_hex': shuffle_color2_hex,
+            'radar_color1_hex': radar_color1_hex,
+            'radar_color2_hex': radar_color2_hex,
+            'circle_color1_hex': circle_color1_hex,
+            'circle_color2_hex': circle_color2_hex,
+            'square_color1_hex': square_color1_hex,
+            'square_color2_hex': square_color2_hex,
+            'updn_color1_hex': updn_color1_hex,
+            'updn_color2_hex': updn_color2_hex,
+            'morse_color1_hex': morse_color1_hex,
+            'morse_color2_hex': morse_color2_hex,
+            'rabbit_color1_hex': rabbit_color1_hex,
+            'rabbit_color2_hex': rabbit_color2_hex,
+            'checker_color1_hex': checker_color1_hex,
+            'checker_color2_hex': checker_color2_hex
             }
     return render_template('lsremote.html', **templateData)
 
-#Import Config file. Must Save Config File to make permenant
+# Import Config file. Must Save Config File to make permenant
 @app.route("/importconf", methods=["GET", "POST"])
 def importconf():
     logger.info("Importing Config File")
@@ -1027,7 +1077,7 @@ def importconf():
     tmp_settings = []
 
     if 'file' not in request.files:
-        flash ('No File Selected')
+        flash('No File Selected')
         return redirect('./confedit')
 
     file = request.files['file']
@@ -1042,7 +1092,7 @@ def importconf():
     tmp_settings = fdata.split('\n')
 
     for set_line in tmp_settings:
-        if set_line[0:1] == "#" or set_line[0:1] == "\n" or set_line[0:1] == "":
+        if set_line[0:1]=="#" or set_line[0:1]=="\n" or set_line[0:1]=="":
             pass
         else:
             (key, val) = set_line.split("=",1)
@@ -1057,57 +1107,57 @@ def importconf():
 #    return render_template("confedit.html", **templateData)
     return redirect('./confedit')
 
-#Restore config.py settings
+# Restore config.py settings
 @app.route("/restoreconf", methods=["GET", "POST"])
 def restoreconf():
 
-    readconf(settings_file) #read config file
+    readconf(settings_file)  # read config file
     return redirect('./confedit')
 
-#Loads the profile into the Settings Editor, but does not save it.
+# Loads the profile into the Settings Editor, but does not save it.
 @app.route("/profiles", methods=["GET", "POST"])
 def profiles():
     global settings
     config_profiles = {'b1': 'config-basic.py', 'b2': 'config-basic2.py', 'b3': 'config-basic3.py', 'a1': 'config-advanced-1oled.py', 'a2': 'config-advanced-lcd.py', 'a3': 'config-advanced-8oledsrs.py', 'a4': 'config-advanced-lcdrs.py'}
 
     req_profile = request.form['profile']
-    print (req_profile)
-    print (config_profiles)
+    print(req_profile)
+    print(config_profiles)
     tmp_profile = config_profiles[req_profile]
     stored_profile = '/NeoSectional/profiles/' + tmp_profile
 
-    flash (tmp_profile + ' Profile Loaded. Review And Tweak The Settings As Desired. Must Be Saved!')
-    readconf(stored_profile)    #read profile config file
-    return redirect('confedit') #confedit
+    flash(tmp_profile + ' Profile Loaded. Review And Tweak The Settings As Desired. Must Be Saved!')
+    readconf(stored_profile)    # read profile config file
+    return redirect('confedit')
 
-#Route for Reboot of RPI
+# Route for Reboot of RPI
 @app.route("/reboot1", methods=["GET", "POST"])
 def reboot1():
     url = request.referrer
     if url is None:
-        url = 'http://' + ipadd + ':5000/index' #Use index if called from URL and not page.
+        url = 'http://' + ipadd + ':5000/index'  # Use index if called from URL and not page.
 
     temp = url.split('/')
 #    flash("Rebooting Map ")
     logger.info("Rebooting Map from " + url)
     os.system('sudo shutdown -r now')
-    return redirect(temp[3]) #temp[3] holds name of page that called this route.
+    return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
-#Route to startup map and displays
+# Route to startup map and displays
 @app.route("/startup1", methods=["GET", "POST"])
 def startup1():
     url = request.referrer
     if url is None:
-        url = 'http://' + ipadd + ':5000/index' #Use index if called from URL and not page.
+        url = 'http://' + ipadd + ':5000/index'  #Use index if called from URL and not page.
 
     temp = url.split('/')
     logger.info("Startup Map from " + url)
     os.system('sudo python3 /NeoSectional/startup.py run &')
     flash("Map Turned On ")
     time.sleep(1)
-    return redirect(temp[3]) #temp[3] holds name of page that called this route.
+    return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
-#Route to turn off the map and displays
+# Route to turn off the map and displays
 @app.route("/shutdown1", methods=["GET", "POST"])
 def shutdown1():
     url = request.referrer
@@ -1121,54 +1171,54 @@ def shutdown1():
     os.system('sudo python3 /NeoSectional/shutoff.py &')
     flash("Map Turned Off ")
     time.sleep(1)
-    return redirect(temp[3]) #temp[3] holds name of page that called this route.
+    return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
-#Route to power down the RPI
+# Route to power down the RPI
 @app.route("/shutoffnow1", methods=["GET", "POST"])
 def shutoffnow1():
     url = request.referrer
     if url is None:
-        url = 'http://' + ipadd + ':5000/index' #Use index if called from URL and not page.
+        url = 'http://' + ipadd + ':5000/index'  # Use index if called from URL and not page.
 
     temp = url.split('/')
  #   flash("RPI is Shutting Down ")
     logger.info("Shutdown RPI from " + url)
     os.system('sudo shutdown -h now')
-    return redirect(temp[3]) #temp[3] holds name of page that called this route.
+    return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
-#Route to run LED test
+# Route to run LED test
 @app.route("/testled", methods=["GET", "POST"])
 def testled():
     url = request.referrer
     if url is None:
-        url = 'http://' + ipadd + ':5000/index' #Use index if called from URL and not page.
+        url = 'http://' + ipadd + ':5000/index'  #Use index if called from URL and not page.
 
     temp = url.split('/')
 
 #    flash("Testing LED's")
     logger.info("Running testled.py from " + url)
     os.system('sudo python3 /NeoSectional/testled.py')
-    return redirect(temp[3]) #temp[3] holds name of page that called this route.
+    return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
-#Route to run OLED test
+# Route to run OLED test
 @app.route("/testoled", methods=["GET", "POST"])
 def testoled():
     url = request.referrer
     if url is None:
-        url = 'http://' + ipadd + ':5000/index' #Use index if called from URL and not page.
+        url = 'http://' + ipadd + ':5000/index' # Use index if called from URL and not page.
 
     temp = url.split('/')
-    if config.displayused != 1 or config.oledused != 1:
-        return redirect(temp[3]) #temp[3] holds name of page that called this route.
+    if config.displayused!=1 or config.oledused!=1:
+        return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
 #    flash("Testing OLEDs ")
     logger.info("Running testoled.py from " + url)
     os.system('sudo python3 /NeoSectional/testoled.py')
-    return redirect(temp[3]) #temp[3] holds name of page that called this route.
+    return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
 
-#Functions
-#create backup of config.py
+# Functions
+# create backup of config.py
 def copy():
     logger.debug('In Copy Config file Routine')
     f = open(settings_file, "r")
@@ -1179,7 +1229,7 @@ def copy():
     f.write(contents)
     f.close()
 
-#open and read config.py into settings dictionary
+# open and read config.py into settings dictionary
 def readconf(config_file):
     logger.debug('In ReadConf Routine')
     try:
@@ -1193,38 +1243,38 @@ def readconf(config_file):
                     val = val[0]
                     key = key.strip()
                     val = str(val.strip())
-                    logger.debug(key + ", " + val) #debug
+                    logger.debug(key + ", " + val)  # debug
                     settings[(key)] = val
-            logger.debug(settings) #debug
+            logger.debug(settings)  # debug
     except IOError as error:
         logger.error('Config file could not be loaded.')
         logger.error(error)
 
-#write config.py file
+# write config.py file
 def writeconf(settings, file):
     logger.debug('In WriteConf Routine')
     f = open(file, "w+")
     f.write('#config.py - use web based configurator to make changes unless you are comfortable doing it manually')
     f.write('\n\n')
     for key in settings:
-#        logger.debug(key, settings[key]) #debug
+#        logger.debug(key, settings[key]) # debug
         f.write(key + " = " + settings[key])
         f.write('\n')
     f.close()
 
-#write airports file
+# write airports file
 def writeairports(settings, file):
     logger.debug('In WriteAirports Routine')
-    f = open(file, "w") #"w+")
-#       print (settings)
+    f = open(file, "w")  # "w+")
+#       print(settings)
     for key in settings:
         value = settings.get(key)
-        logger.debug(value) #debug
+        logger.debug(value)  # debug
         f.write(value)
         f.write('\n')
     f.close()
 
-#Read airports file
+# Read airports file
 def readairports(airports_file):
     logger.debug('In ReadAirports Routine')
     global airports
@@ -1233,12 +1283,12 @@ def readairports(airports_file):
         with open(airports_file) as f:
             for line in f:
                 airports.append(line.rstrip())
-            logger.debug(airports) #debug
+            logger.debug(airports)  # debug
     except IOError as error:
         logger.error('Airports file could not be loaded.')
         logger.error(error)
 
-#Read heat map file
+# Read heat map file
 def readhmdata(hmdata_file):
     logger.debug('In ReadHMdata Routine')
     global hmdata
@@ -1247,40 +1297,40 @@ def readhmdata(hmdata_file):
         with open(hmdata_file) as f:
             for line in f:
                 hmdata.append(line.rstrip())
-            logger.debug(hmdata) #debug
+            logger.debug(hmdata)  # debug
     except IOError as error:
         logger.error('Heat Map File Not Available. Creating Default Heat Map File')
         logger.error(error)
 
         for airport in airports:
             hmdata.append(airport + " 0")
-        print (hmdata) #debug
+        print (hmdata)  # debug
         writehmdata(hmdata, heatmap_file)
 
-#Write heat map file
+# Write heat map file
 def writehmdata(hmdata,heatmap_file):
     logger.debug('In WriteHMdata Routine')
     f = open(heatmap_file, "w+")
 
     for key in hmdata:
-        logger.debug(key) #debug
+        logger.debug(key)  # debug
         f.write(key)
         f.write('\n')
     f.close()
 
-#routine to capture airport information and pass along to web pages.
+# routine to capture airport information and pass along to web pages.
 def get_apinfo():
     logger.debug('In Get_Apinfo Routine')
 
     global orig_apurl
     global apinfo_dict
 
-    apurl = orig_apurl #Assign base FAA url to temp variable
+    apurl = orig_apurl  # Assign base FAA url to temp variable
     for airportcode in airports:
         apurl = apurl + airportcode + ","
     apurl = apurl[:-1]
 
-    while True: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
+    while True:  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
         try:
 #            s.connect(("8.8.8.8", 80))
             content = urllib.request.urlopen(apurl).read()
@@ -1296,10 +1346,10 @@ def get_apinfo():
 
 #    content = urllib.request.urlopen(apurl).read()
 
-    if content  == '': #if FAA data not available bypass getting apinfo
+    if content  == '':  # if FAA data not available bypass getting apinfo
         return
 
-    root = ET.fromstring(content) #Process XML data returned from FAA
+    root = ET.fromstring(content)  # Process XML data returned from FAA
 
     for apinfo in root.iter('Station'):
         stationId = apinfo.find('station_id').text
@@ -1314,19 +1364,19 @@ def get_apinfo():
             state = apinfo.find('state').text
             apinfo_dict[stationId] = [site,state]
 
-#rgb and hex routines
+# rgb and hex routines
 def rgb2hex(rgb):
     logger.debug(rgb)
     (r,g,b) = eval(rgb)
     hex = '#%02x%02x%02x' % (r, g, b)
     return hex
 
-def hex2rgb(value): #from; https://www.codespeedy.com/convert-rgb-to-hex-color-code-in-python/
+def hex2rgb(value):  # from; https://www.codespeedy.com/convert-rgb-to-hex-color-code-in-python/
     value = value.lstrip('#')
     lv = len(value)
     return tuple(int(value[i:i+lv//3], 16) for i in range(0, lv, lv//3))
 
-#functions for updating software via web
+# functions for updating software via web
 def delfile(filename):
     try:
         os.remove(target_path + filename)
@@ -1350,52 +1400,52 @@ def dlftpfile(url, filename):
     logger.info('Downloaded ' + filename + ' from neoupdate')
 
 def updatefiles():
-    copytoprevdir(src, dest)                       #This copies current version to ../previousversion before updating files.
-    dlftpfile(source_path + zipfilename, target_path + zipfilename) #Download zip file that contains updated files
-    unzipfile(zipfilename)                         #Unzip files and overwrite existing older files
-    delfile(zipfilename)                           #Delete zip file
+    copytoprevdir(src, dest)                       # This copies current version to ../previousversion before updating files.
+    dlftpfile(source_path + zipfilename, target_path + zipfilename) # Download zip file that contains updated files
+    unzipfile(zipfilename)                         # Unzip files and overwrite existing older files
+    delfile(zipfilename)                           # Delete zip file
     logger.info('Updated New Files')
 
 def checkforupdate():
     global update_vers
     get_loc()
-    print(loc) #debug
+    print(loc)  # debug
 
-    dlftpfile(source_path + verfilename, target_path + verfilename) #download version file from neoupdate
+    dlftpfile(source_path + verfilename, target_path + verfilename)  # download version file from neoupdate
 
-    with open(target_path + verfilename) as file: #Read version number of latest version
+    with open(target_path + verfilename) as file:  # Read version number of latest version
         update_vers = file.read()
 
     logger.info('Latest Version = ' + str(update_vers) + ' - ' + 'Current Version = ' + str(admin.version))
 
-    delfile(verfilename) #Delete the downloaded version file.
+    delfile(verfilename)  # Delete the downloaded version file.
     logger.info('Checked for Software Update')
 
-    if float(admin.version[1:])<float(admin.min_update_ver): #Check to see if a newer Image is available
+    if float(admin.version[1:])<float(admin.min_update_ver):  # Check to see if a newer Image is available
         return "image"
 
-    if float(update_vers) > float(admin.version[1:]): #Strip leading 'v' can compare as floats to determine if an update available.
+    if float(update_vers) > float(admin.version[1:]):  # Strip leading 'v' can compare as floats to determine if an update available.
         return True
     else:
         return False
 
 
 def testupdate():
-    #Check to see if an newer version of the software is available, and update if user so chooses
+    # Check to see if an newer version of the software is available, and update if user so chooses
     global update_available
     if checkforupdate() == True:
         logger.info('Update Available')
-        update_available = 1                    #Update is available
+        update_available = 1                    # Update is available
 
     elif checkforupdate() == False:
         logger.info('No Updates Available')
-        update_available = 0                    #No update available
+        update_available = 0                    # No update available
 
     elif checkforupdate() == "image":
         logger.info('Newer Image Available for Download')
-        update_available = 2                    #Newer image available
+        update_available = 2                    # Newer image available
 
-#May be used to display user location on map in user interface. - Testing
+# May be used to display user location on map in user interface. - TESTING
 def get_loc():
     loc_data = {}
     global loc
@@ -1412,12 +1462,12 @@ def get_loc():
     loc[ip_data] = loc_data
 
 
-#executed code
+# executed code
 if __name__ == '__main__':
-    #Display active IP address for builder to open up web browser to configure.
+    # Display active IP address for builder to open up web browser to configure.
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-    while True: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
+    while True:  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
         try:
             s.connect(("8.8.8.8", 80))
             logger.info('Internet Available')
@@ -1428,18 +1478,18 @@ if __name__ == '__main__':
             time.sleep(delay_time)
             pass
 
-    ipadd = s.getsockname()[0] #get IP Address
+    ipadd = s.getsockname()[0]  # get IP Address
     logger.info('Startup - Current RPI IP Address = ' + ipadd)
 
-    #Get Current Time Zone
+    # Get Current Time Zone
     currtzinfo = subprocess.run(['timedatectl', 'status'], stdout=subprocess.PIPE).stdout.decode('utf-8')
     tztemp = currtzinfo.split('\n')
     current_timezone = tztemp[3]
 
-    #Check to see if an newer version of the software is available, and update if user so chooses
+    # Check to see if an newer version of the software is available, and update if user so chooses
     testupdate()
 
-    #Get system info and display
+    # Get system info and display
     python_ver = ("Python Version = " + sys.version)
     logger.info(python_ver)
     print()
@@ -1451,18 +1501,18 @@ if __name__ == '__main__':
     print("  Configure your LiveSectional by opening a   ")
     print("    browser to http://"+ s.getsockname()[0]+":5000")
     print("***********************************************")
-    print ("\033[0;0m\n")
+    print("\033[0;0m\n")
     print("Raspberry Pi System Time - " + timestr)
 
-    #Load files and back up the airports file, then run flask templates
+    # Load files and back up the airports file, then run flask templates
     if useip2ftp ==  1:
-        exec(compile(open("/NeoSectional/ftp-v4.py", "rb").read(), "/NeoSectional/ftp-v4.py", 'exec')) #Get latest ip's to display in editors
+        exec(compile(open("/NeoSectional/ftp-v4.py", "rb").read(), "/NeoSectional/ftp-v4.py", 'exec'))  #Get latest ip's to display in editors
         logger.info("Storing " + str(ipaddresses) + " on ftp server")
-    copy() #make backup of config file
-    readconf(settings_file) #read config file
-    readairports(airports_file) #read airports
-    get_apinfo() #decode airports to get city and state of each airport
-    readhmdata(heatmap_file) #get Heat Map data
+    copy()  # make backup of config file
+    readconf(settings_file)  # read config file
+    readairports(airports_file)  # read airports
+    get_apinfo()  # decode airports to get city and state of each airport
+    readhmdata(heatmap_file)  # get Heat Map data
 
     logger.info("IP Address = " + s.getsockname()[0])
     logger.info("Starting Flask Session")

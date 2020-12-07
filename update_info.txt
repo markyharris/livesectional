@@ -1,9 +1,18 @@
+Version 4.347
+12-3-2020
+Added menu item under Map Utilities to display console output of Scripts.
+Added menu item under Map Utilities to display the contents of the logfile.
+Files updated: webapp.py, base.html, stream_log.html, open_console.html, webapp.py, rc.local, base.html
+This update requires a new dependency, seashells from http://seashells.io which had to be modified,
+So a new image download is required to affect this update.
+
 Version 4.346
 11-26-2020
 Added menu item under Map Utilities to manually check for an update.
+Added dedicated page with instructions on safely updating software.
 Added dynamic display of raw METAR next to airports listed in the Airport Editor.
 Added new transitional wipe - Checker Board
-Files updated: admin.py, base.html, webapp.py, base.html, apedit.html, wipes-v4.py, config.py, Profiles
+Files updated: admin.py, base.html, webapp.py, base.html, apedit.html, wipes-v4.py, config.py, update_page.html, Profiles
 
 Version 4.345
 11-15-2020

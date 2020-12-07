@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block content %}
+<p>
+<p>
+<div class="container-fluid">
+  <div class="card border-primary mb-3">
+  <section class="py-5">
+    <div class="container">
+      <h2 class="display-4">Software Update Information</h2>
+
+
+
+
+<table>
+  <form action="tzset" id="tzset" method="POST">
+  <tr>
+    <td>
+      <p style="color: red;"><b>Software Update Information</b></br>
+      In an effort to be cautious it is wise to download and backup data files specific to the build.</br>
+      Once the update is complete, if necessary import each of the files back.<p>
+    </td>
+  </tr>
+
+  <tr>
+    <td width="33%">
+      <div>
+      Using the 'Map Utilities' menu;
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="margin: auto;">
+      <ul>
+        <li>Download the config.py file
+        <li>Download the airports file
+        <li>Download the hmdata file
+    </td>
+  </tr>
+
+  <tr>
+    <td style="margin: auto;">
+      Once the data files have been backed up then;</br>
+      <b><a href="/update">Click here to install update.</a></b>
+    </td>
+  </tr>
+
+
+  <tr>
+    <td style="margin: auto;">
+      <div class="flashes">
+      {% with messages = get_flashed_messages() %}
+       {% if messages %}
+       <div class=flashes>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+       {% endif %}
+     {% endwith %}
+     </div>
+    </td>
+  </tr>
+
+</table>
+
+</div>
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% block content %}
+<p>
+<p>
+<div class="container-fluid">
+  <div class="card border-primary mb-3">
+  <section class="py-5">
+    <div class="container">
+      <h2 class="display-4">Logfile Display</h2>
+
+
+<table>
+  <tr>
+    <td style="margin: auto;">
+      <div class="flashes">
+      {% with messages = get_flashed_messages() %}
+       {% if messages %}
+       <div class=flashes>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+       {% endif %}
+     {% endwith %}
+     </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td style="margin: auto;">
+    &nbsp
+    </td>
+  </tr>
+
+
+  <tr>
+    <td>
+      <p style="color: red;"><b>
+      To help with debugging;<br>
+      Format:</b> Date, Time, Script Name, Script Line Number, Description
+    </td>
+  </tr>
+
+
+  <tr>
+    <td>
+      <button class="btn btn-primary" onClick="window.location.reload();"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
+<!--      <div>
+        <a href="download_log"><b>Download logfile.log</b></a>
+      </div>-->
+    </td>
+  </tr>
+
+
+  <tr class="text-wrap bd-highlight">
+    <td>
+     <div> <ul id="output"></ul> </div>
+    </td>
+  </tr>
+
+
+  <tr>
+    <td>
+      <button class="btn btn-primary" onClick="window.location.reload();"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
+<!--      <div>
+        <a href="download_log"><b>Download logfile.log</b></a>
+      </div>-->
+    </td>
+  </tr>
+
+
+  <tr>
+    <td style="margin: auto;">
+      <div class="flashes">
+      {% with messages = get_flashed_messages() %}
+       {% if messages %}
+       <div class=flashes>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+       {% endif %}
+     {% endwith %}
+     </div>
+    </td>
+  </tr>
+
+</table>
+
+<script>
+    var output = document.getElementById('output');
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '{{ url_for('stream_log1') }}');
+    xhr.send();
+    var position = 0;
+
+    function handleNewData() {
+        var messages = xhr.responseText.split('\n');
+        messages.slice(position, -1).forEach(function(value) {
+            // build and append a new item to a list to log all output
+            var item = document.createElement('li');
+            item.textContent = value;
+            output.appendChild(item);
+        });
+        position = messages.length - 1;
+    }
+
+    var timer;
+    timer = setInterval(function() {
+        // check the response for new data
+        handleNewData();
+        // stop checking once the response has ended
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            clearInterval(timer);
+        }
+    }, 1000);
+</script>
+
+</div>
+</div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<p>
+<p>
+<div class="container-fluid">
+  <div class="card border-primary mb-3">
+  <section class="py-5">
+    <div class="container">
+       <b>Display Console Output - Refresh if necessary</b>
+
+<table>
+  <tr>
+    <td colspan="2" style="margin: auto;">
+      <div class="flashes">
+      {% with messages = get_flashed_messages() %}
+       {% if messages %}
+       <div class=flashes>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+       {% endif %}
+     {% endwith %}
+     </div>
+    </td>
+  </tr>
+
+  <tr width="100%">
+    <td width="50%"> 
+      {% set script0 = urls[0].split(' ') %}
+      <b><a href="{{ script0[1] }}" target="iframe_a">Console Output</a></b>
+    </td>
+    <td width="50%" style="float:right; text-align: right">
+      <b><a href="{{ script0[1] }}" target="_blank">Detach <i class='fas fa-external-link-alt'></i></a>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan="2">
+      <iframe src="{{ script0[1] }}" name="iframe_a" title="Console Output" frameborder="0" height="500px" width="100%"></iframe>  
+    </td>
+  </tr>
+
+</table>
+</div>
+</div>
+</div>
+
+{% endblock %}
+

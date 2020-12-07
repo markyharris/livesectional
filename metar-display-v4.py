@@ -1428,7 +1428,7 @@ while True:
             else:
                 dimming = dimswitch             #Brightess setting. dimswitch can be 0,1 or 2. 1 is most dim, 2 medium dim.
 
-            logger.debug(welcomelist)
+            logger.info(welcomelist)
 
             while j < len(welcomelist):
                 for ch in range(startnum, stopnum, stepnum):
@@ -1668,7 +1668,7 @@ while True:
 
         #Display information via OLED
         if oledused and metar_taf_mos != 3 and toggle_sw != -1:
-            logger.debug("Display on a OLED display") #debug
+            logger.info("Display on a OLED display") #debug
 
             if temp == len(sortwindslist)-1:    #Check to see if display should be inverted after each group of airports
                 if toginv:
