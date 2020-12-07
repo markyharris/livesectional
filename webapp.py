@@ -1413,8 +1413,8 @@ def updatefiles():
 
 def checkforupdate():
     global update_vers
-    get_loc()
-    print(loc)  # debug
+#    get_loc()
+#    print(loc)  # debug
 
     dlftpfile(source_path + verfilename, target_path + verfilename)  # download version file from neoupdate
 

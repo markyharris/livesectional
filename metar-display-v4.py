@@ -544,6 +544,7 @@ def set_data():
 # Start of executed code #
 ##########################
 while True:
+    logger.info('Start of metar-display-v4.py executed code main loop')
     #Time calculations, dependent on 'hour_to_display' offset. this determines how far in the future the TAF data should be.
     #This time is recalculated everytime the FAA data gets updated
     zulu = datetime.utcnow() + timedelta(hours=hour_to_display) #Get current time plus Offset
@@ -1428,7 +1429,7 @@ while True:
             else:
                 dimming = dimswitch             #Brightess setting. dimswitch can be 0,1 or 2. 1 is most dim, 2 medium dim.
 
-            logger.info(welcomelist)
+            logger.debug(welcomelist)
 
             while j < len(welcomelist):
                 for ch in range(startnum, stopnum, stepnum):
@@ -1668,7 +1669,7 @@ while True:
 
         #Display information via OLED
         if oledused and metar_taf_mos != 3 and toggle_sw != -1:
-            logger.info("Display on a OLED display") #debug
+            logger.debug("Display on a OLED display") #debug
 
             if temp == len(sortwindslist)-1:    #Check to see if display should be inverted after each group of airports
                 if toginv:
