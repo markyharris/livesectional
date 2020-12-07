@@ -149,8 +149,13 @@ def map1():
 
 # Route to open live console display window using seashells dependency - TESTING
 # Uses the dependency, 'seashells' to display console data to web page. Follow the steps at
-# https://seashells.io/ to install. THEN MUST ADD THE FOLLOWING CODE AT LINE 94
+# https://seashells.io/ to install. THEN MUST ADD THE FOLLOWING CODE to copy seashell url to file.
 # AT FILE LOCATION; sudo nano -c /usr/local/lib/python3.7/dist-packages/seashells/__init__.py
+# On line 50 add this to the parser routine
+#        parser.add_argument('-s', '--script', type=str, default='webapp',
+#            help='Capture console stream from livesectional')
+#
+# On line 96 add this routine
 #        # write ip address to file - Mark Harris
 #        ipadd = data.decode()
 #        ipadd = ipadd[11:]
