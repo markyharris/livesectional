@@ -7,11 +7,12 @@
 #    minor update 1
 #    error fix 0
 
-version='v4.347'
+version='v4.350'
 min_update_ver='4.321'
-hostname=''
-username=''
-password=''
-remote_dir=''
-use_ftp=0
+## Obsolete - Will delete in future version
+##hostname=''
+##username=''
+##password=''
+##remote_dir=''
+##use_ftp=0
 use_mos=1

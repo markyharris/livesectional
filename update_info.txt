@@ -1,3 +1,11 @@
+Version 4.350
+12-27-2020
+Added contextual menu item called 'Local Machines' that lists if multiple maps are on same local network.
+Deleted (commented out) code and variables used with ftp-v4.py. This script is now obsolete.
+This update requires new dependencies, python-nmap and nmap.
+So a new image download is required to affect this update.
+Files updated: admin.py, base.html, webapp.py, ftp-v4.py
+
 Version 4.347
 12-3-2020
 Added menu item under Map Utilities to display console output of Scripts.
@@ -12,7 +20,7 @@ Added menu item under Map Utilities to manually check for an update.
 Added dedicated page with instructions on safely updating software.
 Added dynamic display of raw METAR next to airports listed in the Airport Editor.
 Added new transitional wipe - Checker Board
-Files updated: admin.py, base.html, webapp.py, base.html, apedit.html, wipes-v4.py, config.py, update_page.html, Profiles
+Files updated: admin.py, base.html, webapp.py, apedit.html, wipes-v4.py, config.py, update_page.html, Profiles
 
 Version 4.345
 11-15-2020

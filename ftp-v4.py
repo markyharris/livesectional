@@ -1,4 +1,6 @@
 #ftp-v4.py - Mark Harris. This script is used to send the rpi's IP and hostname to a central location, ftp server.
+#     Obsolete script and no longer used on the LiveSectional platform. Saved for posterity sake only.
+
 #     Updated to work under Python 3.7
 #     This is used for multiple LiveSectional maps all on the same local network so the editors will
 #     populate a dropdown box for easy selection of which board to edit. If only one board is present

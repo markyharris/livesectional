@@ -20,6 +20,7 @@ lxml==4.3.2                               #
 numpy==1.16.2                             #
 Pillow==5.4.1                             #
 pysftp==0.2.9                             #
+python-nmap==0.6.1                        #
 requests==2.21.0                          #
 rpi-ws281x==4.2.2                         #
 RPi.GPIO==0.7.0                           #

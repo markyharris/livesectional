@@ -50,6 +50,7 @@ import logzero
 from logzero import logger
 import config
 import admin
+import scan_network
 
 # Setup rotating logfile with 3 rotations, each with a maximum filesize of 1MB:
 version = admin.version          # Software version
@@ -61,7 +62,7 @@ logger.info("\n\nStartup of metar-v4.py Script, Version " + version)
 logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 
 # setup variables
-useip2ftp = admin.use_ftp           # 0 = No, 1 = Yes. Use IP to FTP for multiple boards on local network admin.
+#useip2ftp = admin.use_ftp           # OBSOLETE 0 = No, 1 = Yes. Use IP to FTP for multiple boards on local network admin.
 airports_file = '/NeoSectional/airports'
 airports_bkup = '/NeoSectional/airports-bkup'
 settings_file = '/NeoSectional/config.py'
@@ -76,6 +77,7 @@ newlist = []
 ipaddresses = []
 current_timezone = ''
 loc = {}
+machines = []
 
 # Settings for web based file updating
 src = '/NeoSectional'                           # Main directory, /NeoSectional
@@ -171,7 +173,7 @@ def open_console():
         for line in (file.readlines() [-1:]):
             line = line.rstrip()
             console_ips.append(line)
-    return render_template('open_console.html', urls = console_ips, title = 'Display Console Output', num = 5, ipadd = ipadd, timestr = timestr)
+    return render_template('open_console.html', urls = console_ips, title = 'Display Console Output', num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
 
 
 # Routes to display logfile live, and hopefully for a dashboard
@@ -179,7 +181,7 @@ def open_console():
 def stream_log():
     global ipadd
     global timestr
-    return render_template('stream_log.html', title = 'Display Logfile', num = 5, ipadd = ipadd, timestr = timestr)
+    return render_template('stream_log.html', title = 'Display Logfile', num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
 
 @app.route('/stream_log1', methods=["GET", "POST"])
 def stream_log1():
@@ -223,7 +225,7 @@ def update_info():
     with open("/NeoSectional/update_info.txt","r") as file:
         content = file.readlines()
         logger.info(content)
-    return render_template("update_info.html", content = content, title = 'Update Info', num = 5, ipadd = ipadd, timestr = timestr)
+    return render_template("update_info.html", content = content, title = 'Update Info', num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
 
 @app.route('/update', methods=["GET", "POST"])
 def update():
@@ -242,7 +244,7 @@ def update():
 def update_page():
     global ipadd
     global timestr
-    return render_template("update_page.html", title = 'Software Update Information', num = 5, ipadd = ipadd, timestr = timestr)
+    return render_template("update_page.html", title = 'Software Update Information', num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
 
 
 # Route to expand RPI's file system.
@@ -282,7 +284,8 @@ def expandfs():
             'version': version,
             'update_available': update_available,
             'update_vers': update_vers,
-            'current_timezone': current_timezone
+            'current_timezone': current_timezone,
+            'machines': machines
             }
 
     return render_template('expandfs.html', **templateData)
@@ -340,7 +343,8 @@ def tzset():
             'update_vers': update_vers,
             'tzoptionlist': tzoptionlist,
             'currtzinfolist': currtzinfolist,
-            'current_timezone': current_timezone
+            'current_timezone': current_timezone,
+            'machines': machines
             }
 
     return render_template('tzset.html', **templateData)
@@ -384,6 +388,7 @@ def index ():
     global ipaddresses
     global timestr
     global version
+
     now = datetime.now()
     timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
 
@@ -402,8 +407,11 @@ def index ():
             'current_timezone': current_timezone,
             'update_available': update_available,
             'update_vers': update_vers,
-            'version': version
+            'version': version,
+            'machines': machines
             }
+
+#    flash(machines) # Debug
     return render_template('index.html', **templateData)
 
 # Routes to download airports, logfile.log and config.py to local computer
@@ -459,7 +467,8 @@ def hmedit():
             'current_timezone': current_timezone,
             'update_available': update_available,
             'update_vers': update_vers,
-            'apinfo_dict': apinfo_dict
+            'apinfo_dict': apinfo_dict,
+            'machines': machines
             }
     return render_template('hmedit.html', **templateData)
 
@@ -532,7 +541,8 @@ def importhm():
             'current_timezone': current_timezone,
             'update_available': update_available,
             'update_vers': update_vers,
-            'apinfo_dict': apinfo_dict
+            'apinfo_dict': apinfo_dict,
+            'machines': machines
             }
     flash('Heat Map Imported - Click "Save Heat Map File" to save')
     return render_template("hmedit.html", **templateData)
@@ -566,7 +576,8 @@ def apedit():
             'current_timezone': current_timezone,
             'update_available': update_available,
             'update_vers': update_vers,
-            'apinfo_dict': apinfo_dict
+            'apinfo_dict': apinfo_dict,
+            'machines': machines
             }
     return render_template('apedit.html', **templateData)
 
@@ -601,7 +612,8 @@ def numap():
             'current_timezone': current_timezone,
             'update_available': update_available,
             'update_vers': update_vers,
-            'apinfo_dict': apinfo_dict
+            'apinfo_dict': apinfo_dict,
+            'machines': machines
             }
 
     flash('Number of LEDs Updated - Click "Save Airports" to save.')
@@ -734,7 +746,8 @@ def ledonoff():
             'num': num,
             'update_available': update_available,
             'update_vers': update_vers,
-            'apinfo_dict': apinfo_dict
+            'apinfo_dict': apinfo_dict,
+            'machines': machines
             }
 
     return render_template("apedit.html", **templateData)
@@ -775,7 +788,8 @@ def importap():
             'current_timezone': current_timezone,
             'update_available': update_available,
             'update_vers': update_vers,
-            'apinfo_dict': apinfo_dict
+            'apinfo_dict': apinfo_dict,
+            'machines': machines
             }
     flash('Airports Imported - Click "Save Airports" to save')
     return render_template("apedit.html", **templateData)
@@ -847,6 +861,7 @@ def confedit():
             'current_timezone': current_timezone,
             'update_available': update_available,
             'update_vers': update_vers,
+            'machines': machines,
 
             # Color Picker Variables to pass
             'color_vfr_hex': color_vfr_hex,
@@ -1027,6 +1042,7 @@ def confeditmobile():
             'current_timezone': current_timezone,
             'update_available': update_available,
             'update_vers': update_vers,
+            'machines': machines,
 
             # Color Picker Variables to pass
             'color_vfr_hex': color_vfr_hex,
@@ -1510,14 +1526,21 @@ if __name__ == '__main__':
     print("Raspberry Pi System Time - " + timestr)
 
     # Load files and back up the airports file, then run flask templates
-    if useip2ftp ==  1:
-        exec(compile(open("/NeoSectional/ftp-v4.py", "rb").read(), "/NeoSectional/ftp-v4.py", 'exec'))  #Get latest ip's to display in editors
-        logger.info("Storing " + str(ipaddresses) + " on ftp server")
+
+## This code is obsolete, but left here for posperity's sake.
+##    if useip2ftp ==  1:
+##        exec(compile(open("/NeoSectional/ftp-v4.py", "rb").read(), "/NeoSectional/ftp-v4.py", 'exec'))  #Get latest ip's to display in editors
+##        logger.info("Storing " + str(ipaddresses) + " on ftp server")
+
     copy()  # make backup of config file
     readconf(settings_file)  # read config file
     readairports(airports_file)  # read airports
     get_apinfo()  # decode airports to get city and state of each airport
     readhmdata(heatmap_file)  # get Heat Map data
+
+    print("One Moment - Scanning for Other LiveSectional Maps on Local Network")
+    machines = scan_network.scan_network()
+    print(machines) # Debug
 
     logger.info("IP Address = " + s.getsockname()[0])
     logger.info("Starting Flask Session")

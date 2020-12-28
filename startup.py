@@ -28,9 +28,9 @@ logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 displayused = config.displayused                # 0 = no, 1 = yes. If no, then only the metar.py script will be run. Otherwise both scripts will be threaded.
 autorun = config.autorun                        # 0 = no, 1 = yes. If yes, live sectional will run on boot up. No, must run from cmd line.
 title1 = "metar-v4.py"                          # define the filename for the metar.py file
-prog1 = "sudo python3 /NeoSectional/metar-v4.py 2>&1 | seashells -s metar-v4"
+prog1 = "sudo python3 /NeoSectional/metar-v4.py"
 title2 = "metar-display-v4.py"                  # define the filename for the display.py file
-prog2 = "sudo python3 /NeoSectional/metar-display-v4.py 2>&1 | seashells -s metar-display-v4"
+prog2 = "sudo python3 /NeoSectional/metar-display-v4.py"
 title3 = "check-display.py"                     # define the filename for the check-display.py file
 prog3 = "sudo python3 /NeoSectional/check-display.py"
 

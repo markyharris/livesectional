@@ -133,9 +133,21 @@
           <a class="dropdown-item" href="/update_info" target="update_info">Update History <i class='fa fa-history'></i></a>
           <a class="dropdown-item" href="https://www.livesectional.com/community/ls-schematics/" target="_blank">View Schematics <i class='fas fa-external-link-alt'></i></a>
           <a class="dropdown-item" href="http://www.livesectional.com/community/main-forum/" target="_blank">Help <i class='fas fa-external-link-alt'></i></a>
-
         </div>
       </li>
+
+    {% if machines|length > 1 %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Local Machines</a>
+        <div class="dropdown-menu">
+          {% for i in range(machines|length) %}
+            {% set ip_add = machines[i].split(' ') %}
+            <a class="dropdown-item" href="http://{{ ip_add[0] }}:5000" target="_blank">{{ machines[i] }} <i class='fas fa-external-link-alt'></i></a>
+          {% endfor %}
+        </div>
+      </li>
+    {% endif %}
+
 
 <!--      <li class="nav-item">
           <a class="nav-link" href="http://www.livesectional.com/community/main-forum/" target="_blank">Help</a>
