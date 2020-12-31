@@ -104,6 +104,11 @@
             {% elif ap == 'NULL' %}
              <font color="red">LED in position {{ loop.index -1 }} will be <b>Off</b>.</font>
             {% else %}
+
+             <!-- Widget from metar-taf.com. Works but slows page load dramatically. Commented out for now.
+             <iframe src="https://metar-taf.com/embed/{{ ap }}?bg_color=0057a3&raw=0" frameBorder="0" width="180" height="50"></iframe>
+             -->
+
               <a href=https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId={{ ap }} target="_blank"><b>{{ apinfo|join(", ") }}
               </b></a> 
 

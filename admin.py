@@ -16,3 +16,4 @@ min_update_ver='4.321'
 ##remote_dir=''
 ##use_ftp=0
 use_mos=1
+use_scan_network=1

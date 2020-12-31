@@ -104,6 +104,10 @@ LED_INVERT     = False          # True to invert the signal (when using NPN tran
 LED_CHANNEL    = 0              # set to '1' for GPIOs 13, 19, 41, 45 or 53
 LED_STRIP      = ws.WS2811_STRIP_RGB   # Strip type and colour ordering
 
+# instantiate strip
+strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL, LED_STRIP)
+strip.begin()
+
 # misc variables
 color = Color(255,255,255)      # Color to display when cycling through LED's. White is the default.
 black_color = Color(0,0,0)      # Color Black used to turn off the LED.
@@ -113,16 +117,18 @@ timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
 logger.debug(timestr)
 delay_time = 5                  # Delay in seconds between checking for internet availablility.
 num = 0                         # initialize num for airports editor
-
-# instantiate strip
-strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL, LED_STRIP)
-strip.begin()
+ipadd = ''
 
 # Initiate flash session
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 logger.info("Settings and Flask Have Been Setup")
+
+
+##########
+# Routes #
+##########
 
 # Routes for Map Display - Testing
 @app.route('/map1', methods=["GET", "POST"])
@@ -173,15 +179,14 @@ def open_console():
         for line in (file.readlines() [-1:]):
             line = line.rstrip()
             console_ips.append(line)
-    return render_template('open_console.html', urls = console_ips, title = 'Display Console Output', num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
-
+    return render_template('open_console.html', urls = console_ips, title = 'Display Console Output-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
 
 # Routes to display logfile live, and hopefully for a dashboard
 @app.route('/stream_log', methods=["GET", "POST"])
 def stream_log():
     global ipadd
     global timestr
-    return render_template('stream_log.html', title = 'Display Logfile', num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
+    return render_template('stream_log.html', title = 'Display Logfile-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
 
 @app.route('/stream_log1', methods=["GET", "POST"])
 def stream_log1():
@@ -225,7 +230,7 @@ def update_info():
     with open("/NeoSectional/update_info.txt","r") as file:
         content = file.readlines()
         logger.info(content)
-    return render_template("update_info.html", content = content, title = 'Update Info', num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
+    return render_template("update_info.html", content = content, title = 'Update Info-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
 
 @app.route('/update', methods=["GET", "POST"])
 def update():
@@ -244,7 +249,7 @@ def update():
 def update_page():
     global ipadd
     global timestr
-    return render_template("update_page.html", title = 'Software Update Information', num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
+    return render_template("update_page.html", title = 'Software Update Information-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
 
 
 # Route to expand RPI's file system.
@@ -269,8 +274,9 @@ def expandfs():
 
         return redirect('expandfs')
 
-    templateData = {
-            'title': 'Expand File System',
+    else:
+        templateData = {
+            'title': 'Expand File System-'+version,
             'hmdata': hmdata,
             'airports': airports,
             'settings': settings,
@@ -288,7 +294,7 @@ def expandfs():
             'machines': machines
             }
 
-    return render_template('expandfs.html', **templateData)
+        return render_template('expandfs.html', **templateData)
 
 # Route to display and change Time Zone information.
 @app.route('/tzset', methods=["GET", "POST"])
@@ -1125,7 +1131,6 @@ def importconf():
 
     logger.debug(settings)
     flash('Config File Imported - Click "Save Config File" to save')
-#    return render_template("confedit.html", **templateData)
     return redirect('./confedit')
 
 # Restore config.py settings
@@ -1238,7 +1243,10 @@ def testoled():
     return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
 
-# Functions
+#############
+# Functions #
+#############
+
 # create backup of config.py
 def copy():
     logger.debug('In Copy Config file Routine')
@@ -1538,9 +1546,10 @@ if __name__ == '__main__':
     get_apinfo()  # decode airports to get city and state of each airport
     readhmdata(heatmap_file)  # get Heat Map data
 
-    print("One Moment - Scanning for Other LiveSectional Maps on Local Network")
-    machines = scan_network.scan_network()
-    print(machines) # Debug
+    if admin.use_scan_network == 1:
+        print("One Moment - Scanning for Other LiveSectional Maps on Local Network")
+        machines = scan_network.scan_network()
+        print(machines) # Debug
 
     logger.info("IP Address = " + s.getsockname()[0])
     logger.info("Starting Flask Session")
