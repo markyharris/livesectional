@@ -7,7 +7,7 @@
 #    minor update 1
 #    error fix 0
 
-version='v4.351'
+version='v4.352'
 min_update_ver='4.350'
 ## Obsolete - Will delete in future version
 ##hostname=''
