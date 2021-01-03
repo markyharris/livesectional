@@ -1,8 +1,13 @@
+Version 4.351
+12-31-2020
+Fixed bug in Web Remote app that crashed the script when 'submit/refresh' is pressed.
+Files updated: lsremote.html
+
 Version 4.350
 12-27-2020
 Added contextual menu item called 'Local Machines' that lists if multiple maps are on same local network.
 Deleted (commented out) code and variables used with ftp-v4.py. This script is now obsolete.
-This update requires new dependencies, python-nmap and nmap.
+***This update requires new dependencies, python-nmap and nmap.
 So a new image download is required to affect this update.
 Files updated: admin.py, base.html, webapp.py, ftp-v4.py
 
@@ -11,7 +16,7 @@ Version 4.347
 Added menu item under Map Utilities to display console output of Scripts.
 Added menu item under Map Utilities to display the contents of the logfile.
 Files updated: webapp.py, base.html, stream_log.html, open_console.html, webapp.py, rc.local, base.html
-This update requires a new dependency, seashells from http://seashells.io which had to be modified,
+***This update requires a new dependency, seashells from http://seashells.io which had to be modified,
 So a new image download is required to affect this update.
 
 Version 4.346
@@ -49,7 +54,7 @@ Fixed bug in webapp.py when page is loaded directly from URL box rather than the
 Added logging of Current RPI IP address whenever FAA weather update is retrieved in metar-v4.py.
 Fixed bug where TAF XML reports OVC without a cloud level agl. It uses vert_vis_ft as a backup in metar-v4.py.
 Fixed bug when debug mode is changed to 'Debug' in metar-v4.py. 
-Added a few dependencies to accomodate future features.
+***Added a few dependencies to accomodate future features.
 Files updated: admin.py, metar-v4.py, webapp.py.
 
 Version 4.331

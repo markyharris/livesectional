@@ -9,8 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     {% if update_available == 3 %}
     <script>
     $(document).ready(function(){
@@ -18,12 +17,61 @@
     });
     </script>
     {% endif %}
-
     <link rel="stylesheet" href='/static/style-v4.css' />
-
     <title>{{ title }}</title>
-</head>
 
+<!-- Script to grab Flight Category from www.checkwx.com. Must in HEAD-->
+<script>
+function get_fc(ap,loc) {
+  var xhttp = new XMLHttpRequest();
+  var outp = ""
+
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    console.log(xhttp.responseText);
+    obj = JSON.parse(xhttp.responseText);
+
+      if (obj.data[0].flight_category == 'VFR') {
+        var outp = '<a href="https://www.checkwx.com/weather/'+ap+'/metar" target="_blank"><h5><p class="badge badge-success">'
+        } else if (obj.data[0].flight_category == 'MVFR') {
+        var outp = '<a href="https://www.checkwx.com/weather/'+ap+'/metar" target="_blank"><h5><p class="badge badge-primary">'
+        } else if (obj.data[0].flight_category == 'IFR') {
+        var outp = '<a href="https://www.checkwx.com/weather/'+ap+'/metar" target="_blank"><h5><p class="badge badge-danger">'
+        } else if (obj.data[0].flight_category == 'LIFR') {
+        var outp = '<a href="https://www.checkwx.com/weather/'+ap+'/metar" target="_blank"><h5><p class="badge badge-warning">'
+        }
+      outp = outp + '&nbsp'+obj.data[0].flight_category+'&nbsp</p></h5></a>'
+    document.getElementById(loc).innerHTML = outp
+  }
+};
+
+xhttp.open("GET", "https://api.checkwx.com/metar/"+ap+"/decoded", true);
+xhttp.setRequestHeader('X-API-Key', '106e449c03ae4ec6af47581ff9');
+xhttp.send();
+}
+</script>
+
+<!-- Script to grab raw metar data from api.weather.gov-->    
+<script>
+function get_raw(ap,loc) {
+  var xhttp = new XMLHttpRequest();
+  var outp = ""
+  
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    //console.log(xhttp.responseText);      
+    obj = JSON.parse(xhttp.responseText); 
+    console.log(obj.properties.rawMessage);      
+    document.getElementById(loc).innerHTML = obj.properties.rawMessage       
+  }
+};
+    
+xhttp.open("GET", "https://api.weather.gov/stations/"+ap+"/observations/latest", true);
+xhttp.send();
+}
+</script>   
+
+</head>
 <!--Determine which menu items to disable based on page loaded-->
 {% if title.startswith('Live') %}
     {% set enable = 0 %}
@@ -40,9 +88,9 @@
 {% endif %}
 
 {% if enable != 2  %}
-  <body>
+<body>
 {% else %}
-  <body onload="scrollto()">
+<body onload="scrollto()">
 {% endif %}
 
 <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
