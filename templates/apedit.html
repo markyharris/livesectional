@@ -73,7 +73,7 @@
 <!--Airports File Data-->
 <table style="width=100%">
     <tr bgcolor="#ffffff">
-        <td colspan=5 style="font-size:small">
+        <td colspan=4 style="font-size:small">
     <b>Note:</b> Enter the appropriate 4 character airport identifier. If identifier is only 3 characters, precede it with proper country code, 
     i.e. 'K' for US. If the LED position will not be used, enter <font color="red">'NULL'</font>. Enter <font color="red">'LGND'</font> for LED's used as a legend. <b><font color="red">'Enter' will save airport change. 'Tab' will not. Save each airport change if using LED on/off</color></b></p>
 
@@ -81,9 +81,8 @@
     <tr>
         <th style="text-align:center">Pin #
         <th style="text-align:center">Airport ID
-        <th>Description
-        <th style="text-align:center">CAT
-        <th>Raw METAR Data
+        <th style="text-align:center">Description
+        <th style="text-align:center">Flight Category and Raw METAR
     </tr>
 
 {% for ap in airports %}
@@ -101,32 +100,33 @@
         <!--onfocus="this.value=''"-->       	
         </td>
         
-        <td width="30%" id="msg{{loop.index-1}}">
+        <td width="25%" id="msg{{loop.index-1}}">
 	    {% if ap == 'LGND' %}
-             <font color="red">LED in position {{ loop.index -1 }} will be used to display a <b>Legend</b> Item.</font><td></td><td></td>
+             <font color="red">LED at pin {{ loop.index -1 }} will be used as a <b>Legend</b> item.</font><td></td><td></td>
             {% elif ap == 'NULL' %}
-             <font color="red">LED in position {{ loop.index -1 }} will be <b>Off</b>.</font><td></td><td></td>
+             <font color="red">LED at pin {{ loop.index -1 }} will remain <b>OFF</b>.</font><td></td><td></td>
             {% else %}
 
              <!--Display airport name and city, region and link to info page-->
              <a href=https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId={{ ap }} target="_blank"><b>{{ apinfo|join(", ") }}
              </b></a>
+             
+        </td>
+        <td width="60%" style="text-align:left">
+             <!--Grab Flight Category and raw METAR from api.weather.gov and display badge-->
+             <span id="fcloc{{ loop.index-1 }}">
+             </span> 
+             <script>get_badge('{{ ap }}','fcloc{{ loop.index-1 }}');</script>
+        </td>
+
 
              <!--METAR Widget from https://widget.checkwx.com/. Thank you Henry-->
              <!--<span id="loc{{ loop.index-1 }}" class="checkwx-container" data-type="METAR" data-station="{{ ap }}"></span>-->
-             
-        </td>
-        <td width="5%" style="text-align:center">
-             <!--Grab Flight Category from checkwx.com and display badge-->
-             <span id="fcloc{{ loop.index-1 }}">
-             </span> 
-             <script>get_fc('{{ ap }}','fcloc{{ loop.index-1 }}');</script>
 
-        </td>
-        <td width="50%">
+             <!--<td width="50%">
              <span id="rawloc{{ loop.index-1 }}">
              </span>
-             <script>get_raw('{{ ap }}','rawloc{{ loop.index-1 }}');</script>
+             <script>get_raw('{{ ap }}','rawloc{{ loop.index-1 }}');</script>-->
 
              <!--Backup METAR Retrieve from https://www.navlost.eu/metar/about/
               <a id="loc{{ loop.index-1 }}">

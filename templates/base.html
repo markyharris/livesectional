@@ -20,7 +20,89 @@
     <link rel="stylesheet" href='/static/style-v4.css' />
     <title>{{ title }}</title>
 
-<!-- Script to grab Flight Category from www.checkwx.com. Must in HEAD-->
+
+<!-- Script to get flight category BS4 badge and raw METAR data from api.weather.gov, Works Well-->    
+<script>
+function get_badge(ap,loc) {
+  var xhttp = new XMLHttpRequest();
+  var outp = "";
+  var vis_in_miles = "";
+  var sky_condition = "";
+  var sky_ceiling = "";
+  var flightcategory = "VFR";
+  
+  xhttp.onreadystatechange = function() {
+  if (this.readyState == 4 && this.status == 200) {
+    //console.log(xhttp.responseText); 
+      
+    obj = JSON.parse(xhttp.responseText); 
+    console.log(obj.properties.rawMessage);
+    console.log("Num of Layers "+obj.properties.cloudLayers.length);
+    vis_in_miles = (parseInt(obj.properties.visibility.value)*3.28084/5280).toFixed(2);
+      
+    for (var i = 0; i < obj.properties.cloudLayers.length; i++) {
+      console.log(obj.properties.cloudLayers[i].base.value);      
+      console.log(obj.properties.cloudLayers[i].amount); 
+        sky_condition = obj.properties.cloudLayers[i].amount;
+        sky_ceiling = Math.round(obj.properties.cloudLayers[i].base.value*3.28084);
+
+      if (sky_condition=="OVC" || sky_condition=="BKN" || sky_condition=="OVX" || sky_condition=="VV") {
+          console.log("-->"+sky_condition);
+          console.log("-->"+sky_ceiling);
+                  
+          if (sky_ceiling < 500) {
+              flightcategory = "LIFR";
+          } else if (sky_ceiling >= 500 && sky_ceiling < 1000) {
+              flightcategory = "IFR";
+          } else if (sky_ceiling >= 1000 && sky_ceiling <= 3000) {
+              flightcategory = "MVFR";
+          } else if (sky_ceiling > 3000) {
+              flightcategory = "VFR";
+          }
+
+          if (flightcategory != "VFR") { 
+              break; 
+          }                    
+      }
+    }  
+        
+  if (flightcategory != "LIFR") {
+      if (vis_in_miles < 1) {
+          flightcategory = "LIFR";
+      } else if (vis_in_miles >= 1.0 && vis_in_miles < 3.0) {
+          flightcategory = "IFR";
+      } else if (vis_in_miles >= 3.0 && vis_in_miles <= 5.0) {
+          flightcategory = "MVFR";
+      }                         
+    }
+
+    console.log(flightcategory);                         
+    console.log("Vis = "+vis_in_miles+" miles");      
+
+  }
+      
+  outp = '<a href="https://www.aviationweather.gov/metar/data?ids='+ap+'&format=decoded&hours=0&taf=on&layout=on" target="_blank">';
+  if (flightcategory == 'VFR') {
+    var outp = outp + '<h6><span class="badge badge-success">';
+    } else if (flightcategory == 'MVFR') {
+    var outp = outp + '<h6><span class="badge badge-primary">';
+    } else if (flightcategory == 'IFR') {
+    var outp = outp + '<h6><span class="badge badge-danger">';
+    } else if (flightcategory == 'LIFR') {
+    var outp = outp + '<h6><span class="badge badge-warning">';
+    }      
+
+  outp = outp + '&nbsp'+flightcategory+'&nbsp</span>&nbsp-&nbsp'+obj.properties.rawMessage+'</h6></a>';        
+  document.getElementById(loc).innerHTML = outp;                         
+};
+    
+xhttp.open("GET", "https://api.weather.gov/stations/"+ap+"/observations/latest", true);
+xhttp.send();
+}
+</script>   
+
+ 
+<!-- Script to grab Flight Category from www.checkwx.com. Limited number of hits per day. Must in HEAD-->
 <script>
 function get_fc(ap,loc) {
   var xhttp = new XMLHttpRequest();
@@ -51,7 +133,8 @@ xhttp.send();
 }
 </script>
 
-<!-- Script to grab raw metar data from api.weather.gov-->    
+
+<!-- Script to grab raw METAR data only from api.weather.gov-->    
 <script>
 function get_raw(ap,loc) {
   var xhttp = new XMLHttpRequest();
@@ -70,8 +153,8 @@ xhttp.open("GET", "https://api.weather.gov/stations/"+ap+"/observations/latest",
 xhttp.send();
 }
 </script>   
-
 </head>
+
 <!--Determine which menu items to disable based on page loaded-->
 {% if title.startswith('Live') %}
     {% set enable = 0 %}
