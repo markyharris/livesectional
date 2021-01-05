@@ -89,7 +89,7 @@ function get_badge(ap,loc) {
     } else if (flightcategory == 'IFR') {
     var outp = outp + '<h6><span class="badge badge-danger">';
     } else if (flightcategory == 'LIFR') {
-    var outp = outp + '<h6><span class="badge badge-warning">';
+    var outp = outp + '<h6><span class="badge-lifr">';
     }      
 
   outp = outp + '&nbsp'+flightcategory+'&nbsp</span>&nbsp-&nbsp'+obj.properties.rawMessage+'</h6></a>';        
@@ -410,7 +410,7 @@ xhttp.send();
      <td colspan="6">
       <center>
        <span style="font-size:12px">
-        Copyright 2020, 2021 - Bill Bryson III,  Mark Harris - <a href="http://www.livesectional.com" target="_blank">www.livesectional.com</a>
+        Copyright 2021, 2022 - Bill Bryson III,  Mark Harris - <a href="http://www.livesectional.com" target="_blank">www.livesectional.com</a>
        </span>
       </center>
      </td>
