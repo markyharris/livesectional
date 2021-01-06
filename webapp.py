@@ -17,6 +17,7 @@
 #     Fixed bug when page is loaded directly from URL box rather than the loaded page.
 #     Added menu item to manually check for an update
 #     Added menu items to display logfile.log, and console output (requires modified version of seashells
+#     Added LiveSectional Web Map, which recreates the builders map online.
 
 # print test #force bug to cause webapp.py to error out
 
@@ -78,6 +79,12 @@ ipaddresses = []
 current_timezone = ''
 loc = {}
 machines = []
+lat_list = []
+lon_list = []
+max_lat = ''
+min_lat = ''
+max_lon = ''
+min_lon = ''
 
 # Settings for web based file updating
 src = '/NeoSectional'                           # Main directory, /NeoSectional
@@ -93,6 +100,12 @@ update_vers = "4.000"                           # initiate variable
 apinfo_dict = {}
 orig_apurl = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString="
 logger.debug(orig_apurl)
+
+#Used to display weather and airport locations on a map - WORKING ON THIS
+led_map_dict = {}
+led_map_url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&hoursBeforeNow=1.5&stationString="
+logger.debug(led_map_url)
+
 
 # LED strip configuration:
 LED_COUNT      = 500            # Max Number of LED pixels.
@@ -250,6 +263,93 @@ def update_page():
     global ipadd
     global timestr
     return render_template("update_page.html", title = 'Software Update Information-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
+
+
+# Route to display map's airports on a digital map.
+@app.route('/led_map', methods=["GET", "POST"])
+def led_map():
+    global hmdata
+    global airports
+    global led_map_dict
+    global settings
+    global strip
+    global num
+    global ipadd
+    global strip
+    global ipaddresses
+    global timestr
+    global version
+    global current_timezone
+
+    templateData = {
+        'title': 'LiveSectional Map-'+version,
+        'hmdata': hmdata,
+        'airports': airports,
+        'settings': settings,
+        'ipadd': ipadd,
+        'strip': strip,
+        'ipaddresses': ipaddresses,
+        'timestr': timestr,
+        'num': num,
+        'apinfo_dict': apinfo_dict,
+        'led_map_dict': led_map_dict,
+        'timestr': timestr,
+        'version': version,
+        'update_available': update_available,
+        'update_vers': update_vers,
+        'current_timezone': current_timezone,
+        'machines': machines,
+        'max_lat': max_lat,
+        'min_lat': min_lat,
+        'max_lon': max_lon,
+        'min_lon': min_lon,
+        }
+
+    start_coords = ((float(max_lat)+float(min_lat))/2, (float(max_lon)+float(min_lon))/2)
+    folium_map = folium.Map(location=start_coords, \
+      zoom_start = 5, height='100%', width='100%', \
+      control_scale = True, \
+      zoom_control = True, \
+      tiles = 'OpenStreetMap')
+
+    folium_map.fit_bounds([[min_lat, min_lon], [max_lat, max_lon]])
+
+    for led_ap in led_map_dict:
+        if led_map_dict[led_ap][2] == "VFR":
+            color = 'green'
+        elif led_map_dict[led_ap][2] == "MVFR":
+            color = 'blue'
+        elif led_map_dict[led_ap][2] == "IFR":
+            color = 'red'
+        elif led_map_dict[led_ap][2] == "LIFR":
+            color = 'violet'
+        else:
+            color = 'black'
+
+        pop_url = '<a href="https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId='+led_ap+'"target="_blank">'
+        popup = pop_url+"<b>"+led_ap+"</b><br>"+apinfo_dict[led_ap][0]+', '+apinfo_dict[led_ap][1]+"</a><br><b>"+led_map_dict[led_ap][2]+"</b>"
+
+        folium.CircleMarker(
+            radius=7,
+            fill=True,
+            color=color,
+            location=[led_map_dict[led_ap][0], led_map_dict[led_ap][1]],
+            popup=popup,
+            tooltip=led_ap,
+        ).add_to(folium_map)
+
+    folium_map.add_child(folium.LatLngPopup())
+#    folium_map.add_child(folium.ClickForMarker(popup='Marker'))
+#    folium.plugins.Geocoder().add_to(folium_map)
+
+    folium.TileLayer('http://wms.chartbundle.com/tms/1.0.0/sec/{z}/{x}/{y}.png?origin=nw', attr='chartbundle.com', name='ChartBundle Sectional').add_to(folium_map)
+    folium.TileLayer('Stamen Terrain', name='Stamen Terrain').add_to(folium_map)
+    folium.TileLayer('CartoDB positron', name='CartoDB Positron').add_to(folium_map)
+    # other mapping code (e.g. lines, markers etc.)
+    folium.LayerControl().add_to(folium_map)
+
+    folium_map.save('../../NeoSectional/templates/map.html')
+    return render_template('led_map.html', **templateData)
 
 
 # Route to expand RPI's file system.
@@ -1347,6 +1447,59 @@ def writehmdata(hmdata,heatmap_file):
         f.write('\n')
     f.close()
 
+
+# routine to capture airport information and pass along to web pages. WORKING ON THIS
+def get_led_map_info():
+    logger.debug('In get_led_map_info Routine')
+
+    global led_map_url
+    global led_map_dict
+    global lat_list
+    global lon_list
+    global max_lat
+    global min_lat
+    global max_lon
+    global min_lon
+
+    for airportcode in airports:
+        led_map_url = led_map_url + airportcode + ","
+    led_map_url = led_map_url[:-1]
+
+    while True:  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
+        try:
+            content = urllib.request.urlopen(led_map_url).read()
+            logger.info('Internet Available')
+            logger.info(led_map_url)
+            break
+        except:
+            logger.warning('FAA Data Not Available')
+            logger.warning(led_map_url)
+            time.sleep(delay_time)
+            content = ''
+            pass
+
+    if content  == '':  # if FAA data not available bypass getting apinfo
+        return
+
+    root = ET.fromstring(content)  # Process XML data returned from FAA
+
+    for led_map_info in root.iter('METAR'):
+        stationId = led_map_info.find('station_id').text
+
+        lat = led_map_info.find('latitude').text
+        lon = led_map_info.find('longitude').text
+        lat_list.append(lat)
+        lon_list.append(lon)
+
+        fl_cat = led_map_info.find('flight_category').text
+        led_map_dict[stationId] = [lat,lon,fl_cat]
+
+    max_lat = max(lat_list)
+    min_lat = min(lat_list)
+    max_lon = max(lon_list)
+    min_lon = min(lon_list)
+
+
 # routine to capture airport information and pass along to web pages.
 def get_apinfo():
     logger.debug('In Get_Apinfo Routine')
@@ -1372,8 +1525,6 @@ def get_apinfo():
             time.sleep(delay_time)
             content = ''
             pass
-
-#    content = urllib.request.urlopen(apurl).read()
 
     if content  == '':  # if FAA data not available bypass getting apinfo
         return
@@ -1544,6 +1695,7 @@ if __name__ == '__main__':
     readconf(settings_file)  # read config file
     readairports(airports_file)  # read airports
     get_apinfo()  # decode airports to get city and state of each airport
+    get_led_map_info() # get airport location in lat lon and flight category
     readhmdata(heatmap_file)  # get Heat Map data
 
     if admin.use_scan_network == 1:

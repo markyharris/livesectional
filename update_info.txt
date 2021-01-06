@@ -1,8 +1,9 @@
-Version 4.352
-1-3-2021
+Version 4.360
+1-5-2021
+Added Map Simulation under Map Functions. This will simulate the map being created by the builder online.
 Added Flight Category Badges and Raw METAR data next to each airport in the Airport Editor.
 Fixed bug when the FAA METAR data doesn't include either the flight_category and forecast fields in the xml data.
-Files updated: metar-v4.py, style-v4.css, apedit.html, base.html
+Files updated: metar-v4.py, style-v4.css, apedit.html, base.html, led_map.html, webapp.py
 
 Version 4.351
 12-31-2020
