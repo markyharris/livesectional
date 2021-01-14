@@ -9,11 +9,5 @@
 
 version='v4.360'
 min_update_ver='4.350'
-## Obsolete - Will delete in future version
-##hostname=''
-##username=''
-##password=''
-##remote_dir=''
-##use_ftp=0
 use_mos=1
-use_scan_network=1
+use_scan_network=0

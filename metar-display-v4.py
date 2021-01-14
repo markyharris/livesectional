@@ -1527,10 +1527,11 @@ while True:
 #                    sys.stdout.write ("z")
 #                    sys.stdout.flush ()
 
-                    if sleepmsg:                #Display "Sleeping" message on first oled if desired. 0 = No, 1 = Yes
+                    if sleepmsg == 1:                #Display "Sleeping" message on first oled if desired. 0 = No, 1 = Yes
+
                         rch = random.randint(0,numofdisplays-1)
                         oledcenter("Sleeping", rch, font, "", 1, toggle) #send airport and winds to proper oled display
-                        time.sleep(3)
+                        time.sleep(2)
                         clearoleddisplays()
 
                     temp_timeoff = timeoff      #store original timeoff time and restore later.

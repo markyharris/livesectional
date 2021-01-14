@@ -40,6 +40,9 @@ import wget
 import zipfile
 import folium
 import folium.plugins
+from folium.features import CustomIcon
+from folium.features import DivIcon
+from folium.vector_layers import Circle, CircleMarker, PolyLine, Polygon, Rectangle
 import requests
 import json
 
@@ -101,11 +104,10 @@ apinfo_dict = {}
 orig_apurl = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString="
 logger.debug(orig_apurl)
 
-#Used to display weather and airport locations on a map - WORKING ON THIS
+#Used to display weather and airport locations on a map
 led_map_dict = {}
-led_map_url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&hoursBeforeNow=1.5&stationString="
+led_map_url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString="
 logger.debug(led_map_url)
-
 
 # LED strip configuration:
 LED_COUNT      = 500            # Max Number of LED pixels.
@@ -305,16 +307,25 @@ def led_map():
         'min_lon': min_lon,
         }
 
+    # Update flight categories
+    get_led_map_info()
+
+    points = []
+    title_coords = (max_lat,(float(max_lon)+float(min_lon))/2)
     start_coords = ((float(max_lat)+float(min_lat))/2, (float(max_lon)+float(min_lon))/2)
+
+    # Initialize Map
     folium_map = folium.Map(location=start_coords, \
       zoom_start = 5, height='100%', width='100%', \
       control_scale = True, \
       zoom_control = True, \
       tiles = 'OpenStreetMap')
 
+    # Place map within bounds of screen
     folium_map.fit_bounds([[min_lat, min_lon], [max_lat, max_lon]])
 
-    for led_ap in led_map_dict:
+    # Set Marker Color by Flight Category
+    for j,led_ap in enumerate(led_map_dict):
         if led_map_dict[led_ap][2] == "VFR":
             color = 'green'
         elif led_map_dict[led_ap][2] == "MVFR":
@@ -326,26 +337,63 @@ def led_map():
         else:
             color = 'black'
 
-        pop_url = '<a href="https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId='+led_ap+'"target="_blank">'
-        popup = pop_url+"<b>"+led_ap+"</b><br>"+apinfo_dict[led_ap][0]+', '+apinfo_dict[led_ap][1]+"</a><br><b>"+led_map_dict[led_ap][2]+"</b>"
+        # Get Pin Number to display in popup
+        if led_ap in airports:
+            pin_num = airports.index(led_ap)
+        else:
+            pin_num = None
 
+        pop_url = '<a href="https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId='+led_ap+'"target="_blank">'
+        popup = pop_url+"<b>"+led_ap+"</b><br>"+apinfo_dict[led_ap][0]+',&nbsp'+apinfo_dict[led_ap][1]\
+                +"</a><br>Pin&nbspNumber&nbsp=&nbsp"+str(pin_num)+"<br><b><font size=+2 color="+color+">"+led_map_dict[led_ap][2]+"</font></b>"
+
+        # Add airport markers with proper color to denote flight category
         folium.CircleMarker(
             radius=7,
             fill=True,
             color=color,
             location=[led_map_dict[led_ap][0], led_map_dict[led_ap][1]],
             popup=popup,
-            tooltip=led_ap,
+            tooltip=str(led_ap)+"<br>Pin "+str(pin_num),
+            weight=6,
         ).add_to(folium_map)
 
+    # Add lines between airports. Must make lat/lons floats otherwise recursion error occurs.
+    for pin_ap in airports:
+        if pin_ap in led_map_dict:
+            pin_index = airports.index(pin_ap)
+            points.insert(pin_index, [float(led_map_dict[pin_ap][0]), float(led_map_dict[pin_ap][1])])
+
+    logger.debug(points)
+    folium.PolyLine(points, color='grey', weight=2.5, opacity=1, dash_array='10').add_to(folium_map)
+
+    # Add Title to the top of the map
+    folium.map.Marker(
+        title_coords,
+        icon=DivIcon(
+            icon_size=(500,36),
+            icon_anchor=(150,64),
+            html='<div style="font-size: 24pt"><b>LiveSectional Map Layout</b></div>',
+            )
+        ).add_to(folium_map)
+
+    # Extra features to add if desired
     folium_map.add_child(folium.LatLngPopup())
+#    folium.plugins.Terminator().add_to(folium_map)
 #    folium_map.add_child(folium.ClickForMarker(popup='Marker'))
-#    folium.plugins.Geocoder().add_to(folium_map)
+    folium.plugins.Geocoder().add_to(folium_map)
+
+    folium.plugins.Fullscreen(
+        position="topright",
+        title="Full Screen",
+        title_cancel="Exit Full Screen",
+        force_separate_button=True,
+    ).add_to(folium_map)
 
     folium.TileLayer('http://wms.chartbundle.com/tms/1.0.0/sec/{z}/{x}/{y}.png?origin=nw', attr='chartbundle.com', name='ChartBundle Sectional').add_to(folium_map)
     folium.TileLayer('Stamen Terrain', name='Stamen Terrain').add_to(folium_map)
     folium.TileLayer('CartoDB positron', name='CartoDB Positron').add_to(folium_map)
-    # other mapping code (e.g. lines, markers etc.)
+
     folium.LayerControl().add_to(folium_map)
 
     folium_map.save('../../NeoSectional/templates/map.html')
@@ -1448,7 +1496,7 @@ def writehmdata(hmdata,heatmap_file):
     f.close()
 
 
-# routine to capture airport information and pass along to web pages. WORKING ON THIS
+# routine to capture airport information and pass along to web pages.
 def get_led_map_info():
     logger.debug('In get_led_map_info Routine')
 
@@ -1491,7 +1539,10 @@ def get_led_map_info():
         lat_list.append(lat)
         lon_list.append(lon)
 
-        fl_cat = led_map_info.find('flight_category').text
+        if led_map_info.find('flight_category') is None:
+            fl_cat = 'Not Reported'
+        else:
+            fl_cat = led_map_info.find('flight_category').text
         led_map_dict[stationId] = [lat,lon,fl_cat]
 
     max_lat = max(lat_list)
