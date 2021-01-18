@@ -332,6 +332,9 @@ homeap = color_vfr                      #If 100, then home airport - designate w
 no_visits = (20, 20, 20)        #color_fog2                     #(10, 10, 10)        #dk grey to denote airports never visited
 black = color_black                     #(0,0,0)
 
+# Misc Settings
+ambient_toggle = 0                      # Toggle used for logging when ambient sensor changes from bright to dim.
+
 logger.info("metar-v4.py Settings Loaded")
 
 #Create an instance of NeoPixel
@@ -1397,8 +1400,15 @@ while (outerloop):
         #Full brightness will be used if no light sensor is installed.
         if GPIO.input(4) == 1:
             LED_BRIGHTNESS = dimmed_value
+            if ambient_toggle == 1:
+                logger.info("Ambient Sensor set brightness to dimmed_value")
+                ambient_toggle = 0
         else:
             LED_BRIGHTNESS = bright_value
+            if ambient_toggle == 0:
+                logger.info("Ambient Sensor set brightness to bright_value")
+                ambient_toggle = 1
+
         strip.setBrightness(LED_BRIGHTNESS)
 
         toggle = not(toggle) #Used to determine if the homeport color should be displayed if "homeport = 1"

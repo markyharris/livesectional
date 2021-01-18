@@ -194,6 +194,7 @@ def open_console():
         for line in (file.readlines() [-1:]):
             line = line.rstrip()
             console_ips.append(line)
+    logger.info("Opening open_console in separate window")
     return render_template('open_console.html', urls = console_ips, title = 'Display Console Output-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
 
 # Routes to display logfile live, and hopefully for a dashboard
@@ -201,9 +202,10 @@ def open_console():
 def stream_log():
     global ipadd
     global timestr
+    logger.info("Opening stream_log in separate window")
     return render_template('stream_log.html', title = 'Display Logfile-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
 
-@app.route('/stream_log1', methods=["GET", "POST"])
+@app.route('/stream_log1', methods=["GET", "POST"]) # Alternate route. Not currently used
 def stream_log1():
     def generate():
         with open('/NeoSectional/logfile.log') as f:
@@ -244,7 +246,7 @@ def update_info():
     global timestr
     with open("/NeoSectional/update_info.txt","r") as file:
         content = file.readlines()
-        logger.info(content)
+        logger.debug(content)
     return render_template("update_info.html", content = content, title = 'Update Info-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
 
 @app.route('/update', methods=["GET", "POST"])
@@ -358,6 +360,23 @@ def led_map():
             weight=6,
         ).add_to(folium_map)
 
+
+#    Custom Icon Code - Here for possible future use
+#    url = "../../NeoSectional/static/{}".format
+#    icon_image = url("dot1.gif")
+
+#    icon = CustomIcon(
+#        icon_image,
+#        icon_size=(48, 48),
+#    )
+
+#    marker = folium.Marker(
+#        location=[45.3288, -121.6625], icon=icon, popup="Mt. Hood Meadows"
+#    )
+
+#    folium_map.add_child(marker)
+
+
     # Add lines between airports. Must make lat/lons floats otherwise recursion error occurs.
     for pin_ap in airports:
         if pin_ap in led_map_dict:
@@ -397,6 +416,7 @@ def led_map():
     folium.LayerControl().add_to(folium_map)
 
     folium_map.save('../../NeoSectional/templates/map.html')
+    logger.info("Opening led_map in separate window")
     return render_template('led_map.html', **templateData)
 
 
@@ -441,7 +461,7 @@ def expandfs():
             'current_timezone': current_timezone,
             'machines': machines
             }
-
+        logger.info("Opening expand file system page")
         return render_template('expandfs.html', **templateData)
 
 # Route to display and change Time Zone information.
@@ -501,6 +521,7 @@ def tzset():
             'machines': machines
             }
 
+    logger.info("Opening Time Zone Set page")
     return render_template('tzset.html', **templateData)
 
 # Route to display system information.
@@ -518,6 +539,7 @@ def yindex():
             line = line.decode("utf-8")
             yield line.strip() + '<br/>\n'
 
+    logger.info("Opening yeild to display system info in separate window")
     return Response(inner(), mimetype='text/html')  # text/html is required for most browsers to show this info.
 
 # Route to create QR Code to display next to map so user can use an app to control the map
@@ -525,13 +547,13 @@ def yindex():
 def qrcode():
     global ipadd
     qraddress = 'http://' + ipadd.strip() + ':5000/lsremote'
+    logger.info("Opening qrcode in separate window")
     return render_template('qrcode.html', qraddress = qraddress)
 
 #Routes for homepage
 @app.route('/', methods=["GET", "POST"])
 @app.route('/index', methods=["GET", "POST"])
 def index ():
-    logger.info("Opening Homepage")
     global hmdata
     global airports
     global settings
@@ -566,6 +588,7 @@ def index ():
             }
 
 #    flash(machines) # Debug
+    logger.info("Opening Home Page/Index")
     return render_template('index.html', **templateData)
 
 # Routes to download airports, logfile.log and config.py to local computer
@@ -1284,7 +1307,7 @@ def importconf():
 # Restore config.py settings
 @app.route("/restoreconf", methods=["GET", "POST"])
 def restoreconf():
-
+    logger.info("Restoring Config Settings")
     readconf(settings_file)  # read config file
     return redirect('./confedit')
 
@@ -1302,6 +1325,7 @@ def profiles():
 
     flash(tmp_profile + ' Profile Loaded. Review And Tweak The Settings As Desired. Must Be Saved!')
     readconf(stored_profile)    # read profile config file
+    logger.info("Loading a Profile into Settings Editor")
     return redirect('confedit')
 
 # Route for Reboot of RPI
