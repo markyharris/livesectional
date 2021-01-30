@@ -1,5 +1,6 @@
-#check-display.py - v1.0 by Stuart, Thank you for your contribution to LiveSectional.
-#Used to monitor if metar-v4.py is running and metar-display-v4.py is not, if so, restart the metar-display script
+# check-display.py - v1.0 by Stuart, Thank you for your contribution to LiveSectional.
+# Used to monitor if metar-v4.py is running and metar-display-v4.py is not, if so, restart the metar-display script
+# or visa-versa. If one stops running, this script will start it back up.
 
 import time
 import os
@@ -61,29 +62,46 @@ while True:
         ledrunning = True
         logger.debug(title1 + " Running!")
 
-    #   now the display script
-    if isThisRunning(title2, path2) == False:
-        displayrunning = False
-        logger.debug(title2 + " Not running")
-    else:
-        displayrunning = True
-        logger.debug(title2 + " Running!")
+    if displayused == 0:
+        # kill the LED process if it's not showing as running (should be a not found response, but that's ok)
+        if ledrunning == False:
+            logger.info(" -- killin " + title1)
+            os.system("ps -ef | grep '" + path1 +"' | awk '{print $2}' | xargs sudo kill")
+            time.sleep(2)
+            logger.info(" -- Restarting " + title1)
+            os.system(prog1)                        #execute filename
 
-    # kill the display process if it's not showing as running (should be a not found response, but that's ok)
-    if displayrunning == False:
-        logger.info(" -- killin " + title2)
-        os.system("ps -ef | grep '" + path2 +"' | awk '{print $2}' | xargs sudo kill")
-        time.sleep(2)
 
-    # now restart it if the LEDs are running
-    if ledrunning == True and displayrunning == False:
-        logger.info(" -- Restart " + title2)
-        os.system(prog2)                        #execute filename
+    if displayused == 1:
+        #   now the display script
+        if isThisRunning(title2, path2) == False:
+            displayrunning = False
+            logger.debug(title2 + " Not running")
+        else:
+            displayrunning = True
+            logger.debug(title2 + " Running!")
 
-    # if the LEDs are not running, exit the script
-    if ledrunning == False:
-        logger.info('check-display.py is stopping')
-        break
+        # kill the display process if it's not showing as running (should be a not found response, but that's ok)
+        if displayrunning == False:
+            logger.info(" -- killin " + title2)
+            os.system("ps -ef | grep '" + path2 +"' | awk '{print $2}' | xargs sudo kill")
+            time.sleep(2)
 
-    # now let's wait our interval seconds...
+        # now restart OLEDs if the LEDs are running
+        if ledrunning == True and displayrunning == False:
+            logger.info(" -- Restart " + title2)
+            os.system(prog2)                        #execute filename
+
+        # now restart LEDs if the OLEDs are running
+        elif ledrunning == False and displayrunning == True:
+            logger.info(" -- Restart " + title1)
+            os.system(prog1)                        #execute filename
+
+        # if the LEDs and OLEDs are not running, exit the script
+        elif ledrunning == False and displayrunning == False:
+            logger.info('check-display.py is stopping')
+            break # break out of while loop and quite script
+
+
+    # now let's wait our interval seconds then start again...
     time.sleep(waitsecs)

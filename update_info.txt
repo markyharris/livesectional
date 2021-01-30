@@ -1,3 +1,9 @@
+Version 4.361
+2-1-2021
+Added ability for watchdog script, check-display.py to restart either metar-v4.py (LED's) and/or metar-display-v4.py (OLED's)
+if either one encounter an error that caused an error. Many times this is caused by in interruption to wifi, or FAA data, etc.
+files updated: check-display.py, startup.py, webapp.py.
+
 Version 4.360
 1-5-2021
 Added a Map Layout feature under Map Functions. This will show the LED routing and airports used.

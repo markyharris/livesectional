@@ -41,11 +41,11 @@ def startprgm(i):
         time.sleep(1)
         logger.info(title1)                     # display filename being run
         os.system(prog1)                        # execute filename
-    if (i == 1) and (displayused):              # Run second program prog2 if display is  being used.
+    if (i == 1) and (displayused):              # Run second program prog2 if display is being used.
         logger.info(title2)                     # display filename being run
         time.sleep(1)
         os.system(prog2)                        # execute filename
-    if (i == 2) and (displayused):              # Run second program prog3 if display is  being used (watchdog for displays).
+    if (i == 2): # and (displayused):              # Run third program prog3 if display is being used (watchdog for displays).
         logger.info(title3)                     # display filename being run
         time.sleep(1)
         os.system(prog3)                        # execute filename

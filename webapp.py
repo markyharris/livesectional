@@ -1366,6 +1366,7 @@ def shutdown1():
     logger.info("Shutoff Map from " + url)
     os.system("ps -ef | grep '/NeoSectional/metar-display-v4.py' | awk '{print $2}' | xargs sudo kill")
     os.system("ps -ef | grep '/NeoSectional/metar-v4.py' | awk '{print $2}' | xargs sudo kill")
+    os.system("ps -ef | grep '/NeoSectional/check-display.py' | awk '{print $2}' | xargs sudo kill")
     os.system('sudo python3 /NeoSectional/shutoff.py &')
     flash("Map Turned Off ")
     time.sleep(1)
@@ -1700,7 +1701,7 @@ def testupdate():
         logger.info('Newer Image Available for Download')
         update_available = 2                    # Newer image available
 
-# May be used to display user location on map in user interface. - TESTING
+# May be used to display user location on map in user interface. - TESTING Not working consistently, not used
 def get_loc():
     loc_data = {}
     global loc
