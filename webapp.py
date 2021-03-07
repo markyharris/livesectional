@@ -170,6 +170,11 @@ def map1():
 #    return folium_map._repr_html_()
 
 
+@app.route('/touchscr', methods=["GET", "POST"])
+def touchscr():
+    return render_template('touchscr.html', title = 'Touch Screen', num = 5, machines = machines, ipadd = ipadd)
+
+
 # Route to open live console display window using seashells dependency - TESTING
 # Uses the dependency, 'seashells' to display console data to web page. Follow the steps at
 # https://seashells.io/ to install. THEN MUST ADD THE FOLLOWING CODE to copy seashell url to file.
