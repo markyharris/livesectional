@@ -1,3 +1,10 @@
+Version 4.370
+3-7-2021
+Added routine to check current time against reboot time if desired and reboot in the middle of the night.
+admin.py houses 2 settings that are enabled. use_reboot will enable/disable setting and time_reboot dictates time to reboot.
+Also, autorun in config.py must be set to 'Yes' for this feature to be enabled.
+files updated: admin.py, metar-v4.py, confedit.html.
+
 Version 4.361
 2-1-2021
 Added ability for watchdog script, check-display.py to restart either metar-v4.py (LED's) and/or metar-display-v4.py (OLED's)

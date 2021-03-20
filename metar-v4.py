@@ -22,6 +22,7 @@
 #    Fixed bug when debug mode is changed to 'Debug'.
 #    Switch Version control over to Github at https://github.com/markyharris/livesectional
 #    Fixed METAR Decode routine to handle FAA results that don't include flight_category and forecast fields.
+#    Added routine to check time and reboot each night if setting in admin.py are set accordingly.
 
 #This version retains the features included in metar-v3.py, including hi-wind blinking and lightning when thunderstorms are reported.
 #However, this version adds representations for snow, rain, freezing rain, dust sand ash, and fog when reported in the metar.
@@ -185,6 +186,9 @@ dimmed_value = config.dimmed_value      #Range is 0 - 255. This sets the value o
 bright_value = config.bright_value      #Range is 0 - 255. This sets the value of LED brightness when light sensor detects high ambient light
 metar_age = config.metar_age            #Metar Age in HOURS. This will pull the latest metar that has been published within the timeframe listed here.
                                         #If no Metar has been published within this timeframe, the LED will default to the color specified by color_nowx.
+use_reboot = admin.use_reboot           # Used to determine if board should reboot every day at time set in setting below.
+time_reboot = admin.time_reboot         # 24 hour time in this format, '2400' = midnight. Change these 2 settings in the admin.py file if desired.
+autorun = config.autorun                # Check to be sure Autorun on reboot is set to yes.
 
 # Set Colors in RGB. Change numbers in paranthesis as desired. The order should be (Red,Green,Blue). This setup works for the WS2812 model of LED strips.
 # WS2811 strips uses GRB colors, so change "rgb_grb = 0" above if necessary. Range is 0-255. (https://www.rapidtables.com/web/color/RGB_Color.html)
@@ -341,7 +345,8 @@ logger.info("metar-v4.py Settings Loaded")
 strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL, LED_STRIP)
 strip.begin()
 
-#Functions
+
+# Functions
 def turnoff(strip):
     for i in range(strip.numPixels()):
         strip.setPixelColor(i, Color(0,0,0))
@@ -1252,7 +1257,19 @@ while (outerloop):
     while time.time() < timeout_start + (update_interval * 60): #take 'update_interval' which is in minutes and turn into seconds
         loopcount = loopcount + 1
 
-           #Routine to restart this script if config.py is changed while this script is running.
+        # Check time and reboot machine if time equals time_reboot and if use_reboot along with autorun are both set to 1
+        if use_reboot == 1 and autorun == 1:
+            now = datetime.now()
+            rb_time = now.strftime("%H:%M")
+            logger.debug("**Current Time=" + str(rb_time) + " - **Reboot Time=" + str(time_reboot))
+            print("**Current Time=" + str(rb_time) + " - **Reboot Time=" + str(time_reboot)) #debug
+
+            if rb_time == time_reboot:
+                logger.info("Rebooting at " + time_reboot)
+                time.sleep(1)
+                os.system("sudo reboot now")
+
+        #Routine to restart this script if config.py is changed while this script is running.
         for f, mtime in WATCHED_FILES_MTIMES:
             if getmtime(f) != mtime:
                 logger.info("Restarting from awake" + __file__ + " in 2 sec...")
