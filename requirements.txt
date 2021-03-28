@@ -1,6 +1,7 @@
 #Requirements.txt for dependencies
-#  pip install -r requirements.txt
+#  sudo pip3 install -r requirements.txt
 
+Adafruit-BBIO==1.2.0                      #
 Adafruit-Blinka==3.3.4                    #
 adafruit-circuitpython-busdevice==4.1.1   #
 adafruit-circuitpython-framebuf==1.2.1    #
@@ -22,7 +23,7 @@ Pillow==5.4.1                             #
 pysftp==0.2.9                             #
 python-nmap==0.6.1                        #
 requests==2.21.0                          #
-rpi-ws281x==4.2.2                         #
+rpi-ws281x==4.2.6                         #
 RPi.GPIO==0.7.0                           #
 RPLCD==1.2.2                              #
 smbus2==0.3.0                             #
