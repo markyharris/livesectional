@@ -216,7 +216,7 @@ def stream_log1():
         with open('/NeoSectional/logfile.log') as f:
             while True:
                 yield "{}\n".format(f.read())
-                sleep(1)
+                time.sleep(1)
 
     return app.response_class(generate(), mimetype='text/plain')
 

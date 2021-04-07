@@ -58,7 +58,7 @@
 
     <tr>
         <td><b>LED Count = </b>
-        <td><input type="number" name="LED_COUNT" min="0" max="500" value = {{ settings.LED_COUNT }}>
+        <td><input type="number" name="LED_COUNT" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.LED_COUNT }}>
         <td>Enter the total number of LEDs in the string to build the map. This is not the number of airports to display. (Allowable range = 0 to 500)
     </tr>
     
@@ -74,19 +74,19 @@
 
     <tr>
         <td><b>Set Wind Speed = </b>
-        <td><input type="number" name="max_wind_speed" min="0" max="100" value = {{ settings.max_wind_speed }}>
+        <td><input type="number" name="max_wind_speed" onchange="checkBlankF(this)" min="0" max="100" value = {{ settings.max_wind_speed }}>
         <td>Enter the wind speed at which to start blinking airports if speed is at or above. (Allowable range = 0 to 100).
     </tr>
 
     <tr>
         <td><b>Update FAA Weather = </b>
-        <td><input type="number" name="update_interval" min="1" max="60" value = {{ settings.update_interval }}>
+        <td><input type="number" name="update_interval" onchange="checkBlankF(this)" min="1" max="60" value = {{ settings.update_interval }}>
         <td>Number of MINUTES between FAA updates - 15 minutes is a good compromise. (Allowable range = 1 to 60)
     </tr>
 
     <tr>
         <td><b>Age of Metar = </b>
-        <td><input type="number" name="metar_age" min="0.5" max="6" step=".5" value = {{ settings.metar_age }}>
+        <td><input type="number" name="metar_age" onchange="checkBlankF(this)" min="0.5" max="6" step=".5" value = {{ settings.metar_age }}>
         <td>In HOURS, of the Metar data retrieved from the FAA - 2 to 3 hours is good. (Allowable range = .5 to 6)
     </tr>
 
@@ -115,7 +115,7 @@
 
     <tr>
         <td><b>Default Data Hours Ahead to Display:</b>
-        <td><input type="number" name="time_sw0" min="1" max="24" value = {{ settings.time_sw0 }}>
+        <td><input type="number" name="time_sw0" onchange="checkBlankF(this)" min="1" max="24" value = {{ settings.time_sw0 }}>
         <td>Hours ahead in relation to current time of the TAF/MOS data to display. Range is 1 to 24. 
             Ignored if METAR or Heat Map is chosen.
             THIS SETTING IS ALSO USED FOR ROTARY SWITCH POSITION 0 IN ROTARY SWITCH SETTINGS BELOW.
@@ -134,21 +134,21 @@
 
     <tr>
         <td><b>&nbsp&nbsp&nbsp&nbsp&nbspTime Off</b>
-        <td><input type="text" name="offhour" maxlength="2" size="2" value = {{ settings.offhour }}> :
-            <input type="text" name="offminutes" maxlength="2" size="2" value = {{ settings.offminutes }}>
+        <td><input type="text" name="offhour" onchange="checkBlankF(this)" maxlength="2" size="2" value = {{ settings.offhour }}> :
+            <input type="text" name="offminutes" onchange="checkBlankF(this)" maxlength="2" size="2" value = {{ settings.offminutes }}>
         <td>Enter the desired time to turn map off in 24 hour format. i.e. '9 pm' would be entered '21:00'.
     </tr>
 
     <tr>
         <td><b>&nbsp&nbsp&nbsp&nbsp&nbspTime On</b>
-        <td><input type="text" name="onhour" maxlength="2" size="2" value = {{ settings.onhour }}> :
-            <input type="text" name="onminutes" maxlength="2" size="2" value = {{ settings.onminutes }}>
+        <td><input type="text" name="onhour" onchange="checkBlankF(this)" maxlength="2" size="2" value = {{ settings.onhour }}> :
+            <input type="text" name="onminutes" onchange="checkBlankF(this)" maxlength="2" size="2" value = {{ settings.onminutes }}>
         <td>Enter the desired time to turn map on in 24 hour format. i.e. '8:30 am' would be entered '8:30'.
     </tr>
 
     <tr>
         <td><b>&nbsp&nbsp&nbsp&nbsp&nbspSleep Interrupt Time</b>
-        <td><input type="number" name="tempsleepon" min="0" max="120" value = {{ settings.tempsleepon }}>
+        <td><input type="number" name="tempsleepon" onchange="checkBlankF(this)" min="0" max="120" value = {{ settings.tempsleepon }}>
         <td>Length of time in minutes to temporarily turn on map during sleep mode when button is pushed. (Allowable range = 0 to 120 minutes).
     </tr>
 
@@ -195,7 +195,7 @@
 
     <tr>
         <td><b>Number of OLED Displays =</b>
-        <td><input type="number" name="numofdisplays" min="0" max="8" value = {{ settings.numofdisplays }}>
+        <td><input type="number" name="numofdisplays" onchange="checkBlankF(this)" min="0" max="8" value = {{ settings.numofdisplays }}>
         <td>Enter the number of OLEDs to be used. If 'Display Used' above is 'No', this is ignored. (Allowable range = 0 to 8)
     </tr>
 
@@ -310,7 +310,7 @@
 
     <tr>
         <td><b>Home Airport Pin = </b>
-        <td><input type="number" name="homeport_pin" min="0" max="500" value = {{ settings.homeport_pin }}>
+        <td><input type="number" name="homeport_pin" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.homeport_pin }}>
         <td>Pin number of the home airport if 'Turn On Home Airport Feature' is 'Yes'. Otherwise this is ignored.
     </tr>
 
@@ -329,7 +329,7 @@
 
    <tr>
         <td><b>Homeport Dimming = </b>
-        <td><input type="number" name="dim_value" min="0" max="255" value = {{ settings.dim_value }}>
+        <td><input type="number" name="dim_value" onchange="checkBlankF(this)" min="0" max="255" value = {{ settings.dim_value }}>
         <td>Level of brightness to dim all other airports if home airport is being used. Play with brightness values below for best effect. Range =  0 to 100 percent, 
             where '0' would be no dimming and '100' would be completely dimmed.
     </tr>
@@ -347,20 +347,20 @@
 
     <tr>
         <td colspan="2"><b>Pin #'s to Reverse RGB/GRB Above</b></br>
-        <input type="text" style="float:center" name="rev_rgb_grb" size=25 value = "{{ settings.rev_rgb_grb }}">
+        <input type="text" style="float:center" name="rev_rgb_grb" onchange="checkBlankF(this)" size=25 value = "{{ settings.rev_rgb_grb }}">
         <td colspan="1">Used if both RGB and GRB string models are used to build map. Leave blank if not needed. 
                         <b>Must be in this format; ['1', '2', '3', '4', '5', '6', '7', '8']</b>
     </tr>
 
     <tr>
         <td><b>Low Brightness = </b>
-        <td><input type="number" name="dimmed_value" min="0" max="255" value = {{ settings.dimmed_value }}>
+        <td><input type="number" name="dimmed_value" onchange="checkBlankF(this)" min="0" max="255" value = {{ settings.dimmed_value }}>
         <td>This sets the value of LED brightness when IC238 Ambient Light Sensor detects low ambient light. (Range 0 to 255)
     </tr>
 
     <tr>
         <td><b>High Brightness = </b>
-        <td><input type="number" name="bright_value" min="0" max="255" value = {{ settings.bright_value }}>
+        <td><input type="number" name="bright_value" onchange="checkBlankF(this)" min="0" max="255" value = {{ settings.bright_value }}>
         <td>This sets the value of LED brightness when light sensor detects high ambient light. This value is also used if IC238 Ambient Light Sensor is NOT used. (Range 0 to 255)
     </tr>
 
@@ -596,73 +596,73 @@
 
     <tr>
         <td><b>Pin '#' for VFR Legend LED = </b>
-        <td><input type="number" name="leg_pin_vfr" min="0" max="500" value = {{ settings.leg_pin_vfr }}>
+        <td><input type="number" name="leg_pin_vfr" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.leg_pin_vfr }}>
         <td>Set LED pin number for VFR Legend LED.
     </tr>
 
     <tr>
         <td><b>Pin '#' for MVFR Legend LED = </b>
-        <td><input type="number" name="leg_pin_mvfr" min="0" max="500" value = {{ settings.leg_pin_mvfr }}>
+        <td><input type="number" name="leg_pin_mvfr" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.leg_pin_mvfr }}>
         <td>Set LED pin number for MVFR Legend LED.
     </tr>
 
     <tr>
         <td><b>Pin '#' for IFR Legend LED = </b>
-        <td><input type="number" name="leg_pin_ifr" min="0" max="500" value = {{ settings.leg_pin_ifr }}>
+        <td><input type="number" name="leg_pin_ifr" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.leg_pin_ifr }}>
         <td>Set LED pin number for IFR Legend LED.
     </tr>
 
     <tr>
         <td><b>Pin '#' for LIFR Legend LED = </b>
-        <td><input type="number" name="leg_pin_lifr" min="0" max="500" value = {{ settings.leg_pin_lifr }}>
+        <td><input type="number" name="leg_pin_lifr" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.leg_pin_lifr }}>
         <td>Set LED pin number for LIFR Legend LED.
     </tr>
 
     <tr>
         <td><b>Pin '#' for No Weather (nowx) Legend LED = </b>
-        <td><input type="number" name="leg_pin_nowx" min="0" max="500" value = {{ settings.leg_pin_nowx }}>
+        <td><input type="number" name="leg_pin_nowx" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.leg_pin_nowx }}>
         <td>Set LED pin number for No Weather Legend LED.
     </tr>
 
     <tr>
         <td><b>Pin '#' for Hi Winds Legend LED = </b>
-        <td><input type="number" name="leg_pin_hiwinds" min="0" max="500" value = {{ settings.leg_pin_hiwinds }}>
+        <td><input type="number" name="leg_pin_hiwinds" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.leg_pin_hiwinds }}>
         <td>Set LED pin number for High Winds Legend LED.
     </tr>
 
     <tr>
         <td><b>Pin '#' for Lightning Legend LED = </b>
-        <td><input type="number" name="leg_pin_lghtn" min="0" max="500" value = {{ settings.leg_pin_lghtn }}>
+        <td><input type="number" name="leg_pin_lghtn" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.leg_pin_lghtn }}>
         <td>Set LED pin number for Thunderstorms Legend LED.
     </tr>
 
     <tr>
         <td><b>Pin '#' for Snow Legend LED = </b>
-        <td><input type="number" name="leg_pin_snow" min="0" max="500" value = {{ settings.leg_pin_snow }}>
+        <td><input type="number" name="leg_pin_snow" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.leg_pin_snow }}>
         <td>Set LED pin number for Snow Legend LED.
     </tr>
 
     <tr>
         <td><b>Pin '#' for Rain Legend LED = </b><td>
-        <input type="number" name="leg_pin_rain" min="0" max="500" value = {{ settings.leg_pin_rain }}>
+        <input type="number" name="leg_pin_rain" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.leg_pin_rain }}>
         <td>Set LED pin number for Rain Legend LED.
     </tr>
 
     <tr>
         <td><b>Pin '#' for Freezing Rain Legend LED = </b>
-        <td><input type="number" name="leg_pin_frrain" min="0" max="500" value = {{ settings.leg_pin_frrain }}>
+        <td><input type="number" name="leg_pin_frrain" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.leg_pin_frrain }}>
         <td>Set LED pin number for Freezing Rain Legend LED.
     </tr>
 
     <tr>
         <td><b>Pin '#' for Dust, Sand or Ash Legend LED = </b>
-        <td><input type="number" name="leg_pin_dustsandash" min="0" max="500" value = {{ settings.leg_pin_dustsandash }}>
+        <td><input type="number" name="leg_pin_dustsandash" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.leg_pin_dustsandash }}>
         <td>Set LED pin number for Dust, Sand Ash Legend LED.
     </tr>
 
     <tr>
         <td><b>Pin '#' for Fog Legend LED = </b>
-        <td><input type="number" name="leg_pin_fog" min="0" max="500" value = {{ settings.leg_pin_fog }}>
+        <td><input type="number" name="leg_pin_fog" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.leg_pin_fog }}>
         <td>Set LED pin number for Fog Legend LED.
     </tr>
     
@@ -683,7 +683,7 @@
 
     <tr>
         <td><b>Number of Airports to Display = </b>
-        <td><input type="number" name="num2display" min="0" max="500" value = {{ settings.num2display }}>
+        <td><input type="number" name="num2display" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.num2display }}>
         <td>Number of highest-wind airports to display. Can be as high as airports listed in airports file. 5 to 10 is good.
     </tr>
 
@@ -700,7 +700,7 @@
 
     <tr>
         <td colspan="2"><b>List of Exclusive Airports to Display</b></br>
-        <input type="text" style="float:center" name="exclusive_list" size=45 value = "{{ settings.exclusive_list }}">
+        <input type="text" style="float:center" name="exclusive_list" onchange="checkBlankF(this)" size=45 value = "{{ settings.exclusive_list }}">
         <td colspan="1">Subset list of airports to display on the OLED's. These airports must be in the airports file.   
                         Setting above must be set to 'Yes'. At minimum this field must have <b>[ ]</b> or an error will occur. <b>Note: Must be in this format; ['KFLG', 'KBOS', 'KLAS', 'KDEN']</b>
     </tr>
@@ -718,7 +718,7 @@
 
     <tr>
         <td><b>LCD Display Pause = </b>
-        <td><input type="number" name="lcdpause" min="0" max="3" step=".1" value = {{ settings.lcdpause }}>
+        <td><input type="number" name="lcdpause" onchange="checkBlankF(this)" min="0" max="3" step=".1" value = {{ settings.lcdpause }}>
         <td>Pause between character movements in scroll for LCD only. Used if 'LCD Display Used' = Yes, in 'Basic Settings' above. (0.3 to 1.0 normal).
     </tr>
 
@@ -745,19 +745,19 @@
     
     <tr>
         <td><b>OLED Display Pause = </b>
-        <td><input type="number" name="oledpause" min="0" max="5" step=".1" value = {{ settings.oledpause }}>
+        <td><input type="number" name="oledpause" onchange="checkBlankF(this)" min="0" max="5" step=".1" value = {{ settings.oledpause }}>
         <td>Pause between character movements in scroll for OLED only. Used if 'OLED Displays Used' = Yes, in 'Basic Settings' above. (1.0 to 2.0 normal).
     </tr>
 
     <tr>
         <td><b>OLED Font Size = </b>
-        <td><input type="number" name="fontsize" min="0" max="50" value = {{ settings.fontsize }}>
+        <td><input type="number" name="fontsize" onchange="checkBlankF(this)" min="0" max="50" value = {{ settings.fontsize }}>
         <td>Size of font for OLED display. 24 works well with current font used.
     </tr>
 
     <tr>
         <td><b>OLED Pixel Offset = </b>
-        <td><input type="number" name="offset" min="0" max="10" value = {{ settings.offset }}>
+        <td><input type="number" name="offset" onchange="checkBlankF(this)" min="0" max="10" value = {{ settings.offset }}>
         <td>Pixel offset for OLED text display vertically. Leave at 3 for current font used.
     </tr>
 
@@ -818,13 +818,13 @@
 
     <tr>
         <td><b>OLED Minimum Brightness = </b>
-        <td><input type="number" name="dimmin" min="0" max="255" value = {{ settings.dimmin }}>
+        <td><input type="number" name="dimmin" onchange="checkBlankF(this)" min="0" max="255" value = {{ settings.dimmin }}>
         <td>Set value 0-255 for the minimum brightness (0=darker display, but not off). When Light Sensor IS used.
     </tr>
 
     <tr>
         <td><b>OLED Maximum Brightness = </b>
-        <td><input type="number" name="dimmax" min="0" max="255" value = {{ settings.dimmax }}>
+        <td><input type="number" name="dimmax" onchange="checkBlankF(this)" min="0" max="255" value = {{ settings.dimmax }}>
         <td>Set value 0-255 for the maximum brightness (bright display). When Light Sensor IS used.
     </tr>
 
@@ -870,7 +870,7 @@
 
     <tr>
         <td colspan="2"><b>OLED Welcome Message</b></br>
-        <input type="text" name="welcome" size="25" value = "{{ settings.welcome }}">
+        <input type="text" name="welcome" onchange="checkBlankF(this)" size="25" value = "{{ settings.welcome }}">
         <td>Must be in quotes. You can include a '\n' if you want a line break on the OLED. i.e. "Live\nSectional" will display on two lines.
     </tr>
 
@@ -930,7 +930,7 @@
     </tr>
     <tr>
         <td style="color:grey;"><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
-        <td><input type="number" name="time_sw0" min="1" max="24" value = {{ settings.time_sw0 }} disabled>
+        <td><input type="number" name="time_sw0" onchange="checkBlankF(this)" min="1" max="24" value = {{ settings.time_sw0 }} disabled>
         <td>SET THIS IN BASIC SETTINGS ABOVE. <!--Hours ahead in relation to current time of the TAF/MOS data to display 
             on Rotary Switch Position 0. Range is 1 to 24. Ignored if METAR or Heat Map is chosen.-->
     </tr>
@@ -949,7 +949,7 @@
     </tr>
     <tr>
         <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
-        <td><input type="number" name="time_sw1" min="1" max="24" value = {{ settings.time_sw1 }}>
+        <td><input type="number" name="time_sw1" onchange="checkBlankF(this)" min="1" max="24" value = {{ settings.time_sw1 }}>
         <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 1. Range is 1 to 24.
             Ignored if METAR or Heat Map is chosen.
     </tr>
@@ -968,7 +968,7 @@
     </tr>
     <tr>
         <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
-        <td><input type="number" name="time_sw2" min="1" max="24" value = {{ settings.time_sw2 }}>
+        <td><input type="number" name="time_sw2" onchange="checkBlankF(this)" min="1" max="24" value = {{ settings.time_sw2 }}>
         <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 2. Range is 1 to 24.
             Ignored if METAR or Heat Map is chosen.
     </tr>
@@ -987,7 +987,7 @@
     </tr>
     <tr>
         <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
-        <td><input type="number" name="time_sw3" min="1" max="24" value = {{ settings.time_sw3 }}>
+        <td><input type="number" name="time_sw3" onchange="checkBlankF(this)" min="1" max="24" value = {{ settings.time_sw3 }}>
         <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 3. Range is 1 to 24.
             Ignored if METAR or Heat Map is chosen.
     </tr>
@@ -1006,7 +1006,7 @@
     </tr>
     <tr>
         <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
-        <td><input type="number" name="time_sw4" min="1" max="24" value = {{ settings.time_sw4 }}>
+        <td><input type="number" name="time_sw4" onchange="checkBlankF(this)" min="1" max="24" value = {{ settings.time_sw4 }}>
         <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 4. Range is 1 to 24.
             Ignored if METAR or Heat Map is chosen.
     </tr>
@@ -1025,7 +1025,7 @@
     </tr>
     <tr>
         <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
-        <td><input type="number" name="time_sw5" min="1" max="24" value = {{ settings.time_sw5 }}>
+        <td><input type="number" name="time_sw5" onchange="checkBlankF(this)" min="1" max="24" value = {{ settings.time_sw5 }}>
         <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 5. Range is 1 to 24.
             Ignored if METAR or Heat Map is chosen.
     </tr>
@@ -1044,7 +1044,7 @@
     </tr>
     <tr>
         <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
-        <td><input type="number" name="time_sw6" min="1" max="24" value = {{ settings.time_sw6 }}>
+        <td><input type="number" name="time_sw6" onchange="checkBlankF(this)" min="1" max="24" value = {{ settings.time_sw6 }}>
         <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 6. Range is 1 to 24.
             Ignored if METAR or Heat Map is chosen.
     </tr>
@@ -1063,7 +1063,7 @@
     </tr>
     <tr>
         <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
-        <td><input type="number" name="time_sw7" min="1" max="24" value = {{ settings.time_sw7 }}>
+        <td><input type="number" name="time_sw7" onchange="checkBlankF(this)" min="1" max="24" value = {{ settings.time_sw7 }}>
         <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 7. Range is 1 to 24.
             Ignored if METAR or Heat Map is chosen.
     </tr>
@@ -1082,7 +1082,7 @@
     </tr>
     <tr>
         <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
-        <td><input type="number" name="time_sw8" min="1" max="24" value = {{ settings.time_sw8 }}>
+        <td><input type="number" name="time_sw8" onchange="checkBlankF(this)" min="1" max="24" value = {{ settings.time_sw8 }}>
         <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 8. Range is 1 to 24.
             Ignored if METAR or Heat Map is chosen.
     </tr>
@@ -1101,7 +1101,7 @@
     </tr>
     <tr>
         <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
-        <td><input type="number" name="time_sw9" min="1" max="24" value = {{ settings.time_sw9 }}>
+        <td><input type="number" name="time_sw9" onchange="checkBlankF(this)" min="1" max="24" value = {{ settings.time_sw9 }}>
         <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 9. Range is 1 to 24.
             Ignored if METAR or Heat Map is chosen.
     </tr>
@@ -1120,7 +1120,7 @@
     </tr>
     <tr>
         <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
-        <td><input type="number" name="time_sw10" min="1" max="24" value = {{ settings.time_sw10 }}>
+        <td><input type="number" name="time_sw10" onchange="checkBlankF(this)" min="1" max="24" value = {{ settings.time_sw10 }}>
         <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 10. Range is 1 to 24.
             Ignored if METAR or Heat Map is chosen.
     </tr>
@@ -1139,7 +1139,7 @@
     </tr>
     <tr>
         <td><b>&nbsp&nbsp&nbsp&nbsp&nbspEnter Hours Ahead:</b>
-        <td><input type="number" name="time_sw11" min="1" max="24" value = {{ settings.time_sw11 }}>
+        <td><input type="number" name="time_sw11" onchange="checkBlankF(this)" min="1" max="24" value = {{ settings.time_sw11 }}>
         <td>Hours ahead in relation to current time of the TAF/MOS data to display on Rotary Switch Position 11. Range is 1 to 24.
             Ignored if METAR or Heat Map is chosen.
     </tr>
@@ -1162,13 +1162,13 @@
 
     <tr>
         <td style="display:none"><b>TAF/MOS Hour to Display</b>
-        <td style="display:none"><input type="number" name="hour_to_display" min="1" max="24" value = {{ settings.hour_to_display }}>
+        <td style="display:none"><input type="number" name="hour_to_display" onchange="checkBlankF(this)" min="1" max="24" value = {{ settings.hour_to_display }}>
         <td style="display:none">Time in Hours of the TAF/MOS data to display. Range is 1 to 24. Used when rotary switch is NOT installed.
     </tr>
 
     <tr>
         <td><b>Probability to Display MOS Data</b>
-        <td><input type="number" name="prob" min="1" max="100" value = {{ settings.prob }}>
+        <td><input type="number" name="prob" onchange="checkBlankF(this)" min="1" max="100" value = {{ settings.prob }}>
         <td>For MOS Data (US Only). Probability in % that a particular reported weather will occur at the airport. MOS data uses a different
             model which requires the builder to set a probability level in which to display the weather on the map. i.e. 50 would 
 	    equal a 50% chance. 75 would be a 75% chance.
@@ -1207,7 +1207,7 @@
 
     <tr>
         <td><b>Fade In/Out Delay Time</b>
-        <td><input type="number" name="fade_delay" min="0" max="3" step=".001" value = {{ settings.fade_delay }}>
+        <td><input type="number" name="fade_delay" onchange="checkBlankF(this)" min="0" max="3" step=".001" value = {{ settings.fade_delay }}>
         <td>For Heat Map. Delay time to change how slowly the home airport LED fades in and out. .01 - .05 is typical. Range is 0 - 3 with a step value of .001
     </tr>
 
@@ -1259,21 +1259,21 @@
 
     <tr>
         <td><b>Time Delay</b>
-        <td><input type="number" name="wait" min="0" max=".5" step=".001" value = {{ settings.wait }}>
+        <td><input type="number" name="wait" onchange="checkBlankF(this)" min="0" max=".5" step=".001" value = {{ settings.wait }}>
         <td>Use to adjust the speed of the transition. Range is 0 - .5 with a step value of .001
     </tr>
 
 
     <tr>
         <td><b>Rainbow Transition</b>
-        <td><input type="number" name="num_rainbow" min="0" max="10" value = {{ settings.num_rainbow }}>
+        <td><input type="number" name="num_rainbow" onchange="checkBlankF(this)" min="0" max="10" value = {{ settings.num_rainbow }}>
         <td>Enter number of iterations for Rainbow Transition. 0 = disabled. Range is 0 - 10.
     </tr>
 
 
     <tr>
         <td><b>Fade In/Out Transition</b>
-        <td><input type="number" name="num_fade" min="0" max="10" value = {{ settings.num_fade }}>
+        <td><input type="number" name="num_fade" onchange="checkBlankF(this)" min="0" max="10" value = {{ settings.num_fade }}>
         <td>Enter number of iterations for Fade In/Out Transition. 0 = disabled. Range is 0 - 10.                        
     </tr>
     <tr>
@@ -1290,7 +1290,7 @@
 
     <tr>
         <td><b>All On/Off Transition</b>
-        <td><input type="number" name="num_allsame" min="0" max="10" value = {{ settings.num_allsame }}>
+        <td><input type="number" name="num_allsame" onchange="checkBlankF(this)" min="0" max="10" value = {{ settings.num_allsame }}>
         <td>Enter number of iterations for All On/Off Transition. 0 = disabled. Range is 0 - 10.                        
     </tr>
     <tr>
@@ -1307,7 +1307,7 @@
 
     <tr>
         <td><b>Shuffle Transition</b>
-        <td><input type="number" name="num_shuffle" min="0" max="10" value = {{ settings.num_shuffle }}>
+        <td><input type="number" name="num_shuffle" onchange="checkBlankF(this)" min="0" max="10" value = {{ settings.num_shuffle }}>
         <td>Enter number of iterations for Shuffle Transition. 0 = disabled. Range is 0 - 10.
     </tr>
     <tr>
@@ -1324,7 +1324,7 @@
     
     <tr>
         <td><b>Radar Transition</b>
-        <td><input type="number" name="num_radar" min="0" max="10" value = {{ settings.num_radar }}>
+        <td><input type="number" name="num_radar" onchange="checkBlankF(this)" min="0" max="10" value = {{ settings.num_radar }}>
         <td>Enter number of iterations for Radar Transition. 0 = disabled. Range is 0 - 10.
     </tr>
     <tr>
@@ -1340,7 +1340,7 @@
 
     <tr>
         <td><b>Circle Transition</b>
-        <td><input type="number" name="num_circle" min="0" max="10" value = {{ settings.num_circle }}>
+        <td><input type="number" name="num_circle" onchange="checkBlankF(this)" min="0" max="10" value = {{ settings.num_circle }}>
         <td>Enter number of iterations for Circle Transition. 0 = disabled. Range is 0 - 10.
     </tr>
     <tr>
@@ -1357,7 +1357,7 @@
 
     <tr>
         <td><b>Square Transition</b>
-        <td><input type="number" name="num_square" min="0" max="10" value = {{ settings.num_square }}>
+        <td><input type="number" name="num_square" onchange="checkBlankF(this)" min="0" max="10" value = {{ settings.num_square }}>
         <td>Enter number of iterations for Square Transition. 0 = disabled. Range is 0 - 10.
     </tr>
     <tr>
@@ -1374,7 +1374,7 @@
 
     <tr>
         <td><b>Up/Down Side to Side Transition</b>
-        <td><input type="number" name="num_updn" min="0" max="10" value = {{ settings.num_updn }}>
+        <td><input type="number" name="num_updn" onchange="checkBlankF(this)" min="0" max="10" value = {{ settings.num_updn }}>
         <td>Enter number of iterations for Up/Down Side to Side Transition. 0 = disabled. Range is 0 - 10.
     </tr>
     <tr>
@@ -1391,12 +1391,12 @@
 
     <tr>
         <td><b>Morse Code Transition</b>
-        <td><input type="number" name="num_morse" min="0" max="10" value = {{ settings.num_morse }}>
+        <td><input type="number" name="num_morse" onchange="checkBlankF(this)" min="0" max="10" value = {{ settings.num_morse }}>
         <td>Enter number of iterations for Morse Code Transition. 0 = disabled. Range is 0 - 10.
     </tr>
     <tr>
         <td colspan="2"><b>Message to Display as Morse Code</b></br>
-        <input type="text" style="float:center" name="morse_msg" size="25" value = "{{ settings.morse_msg }}">
+        <input type="text" style="float:center" name="morse_msg" onchange="checkBlankF(this)" size="25" value = "{{ settings.morse_msg }}">
         <td colspan="1">Enter message to display via Morse Code. Keep it short. Available characters are; ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,.?/-(). Be sure to use quotes, i.e. "LiveSectional"
     </tr>
     <tr>
@@ -1413,7 +1413,7 @@
 
     <tr>
         <td><b>Chase the Rabbit Transition</b>
-        <td><input type="number" name="num_rabbit" min="0" max="10" value = {{ settings.num_rabbit }}>
+        <td><input type="number" name="num_rabbit" onchange="checkBlankF(this)" min="0" max="10" value = {{ settings.num_rabbit }}>
         <td>Enter number of iterations for Chase the Rabbit Transition. 0 = disabled. Range is 0 - 10.
     </tr>
     <tr>
@@ -1430,7 +1430,7 @@
 
     <tr>
         <td><b>Checker Board Transition</b>
-        <td><input type="number" name="num_checker" min="0" max="10" value = {{ settings.num_checker }}>
+        <td><input type="number" name="num_checker" onchange="checkBlankF(this)" min="0" max="10" value = {{ settings.num_checker }}>
         <td>Enter number of iterations for Checker Board Transition. 0 = disabled. Range is 0 - 10.
     </tr>
     <tr>

@@ -23,6 +23,7 @@
 #    Switch Version control over to Github at https://github.com/markyharris/livesectional
 #    Fixed METAR Decode routine to handle FAA results that don't include flight_category and forecast fields.
 #    Added routine to check time and reboot each night if setting in admin.py are set accordingly.
+#    Fixed bug that missed lowest sky_condition altitude on METARs not reporting flight categories.
 
 #This version retains the features included in metar-v3.py, including hi-wind blinking and lightning when thunderstorms are reported.
 #However, this version adds representations for snow, rain, freezing rain, dust sand ash, and fog when reported in the metar.
@@ -1165,17 +1166,23 @@ while (outerloop):
                 # This algorithm basically sets the flight category based on the lowest OVC, BKN or OVX layer.
                 # First check to see if the FAA provided the forecast field, if not get the sky_condition.
                 if metar.find('forecast') is None or metar.find('forecast') == 'NONE':
-                    logger.info('FAA xml data does is NOT providing the forecast field for this airport')
+                    logger.info('FAA xml data is NOT providing the forecast field for this airport')
                     for sky_condition in metar.findall('./sky_condition'):   #for each sky_condition from the XML
                         sky_cvr = sky_condition.attrib['sky_cover']     #get the sky cover (BKN, OVC, SCT, etc)
                         logger.debug('Sky Cover = ' + sky_cvr)
 
+                        if sky_cvr in ("OVC","BKN","OVX"): # Break out of for loop once we find one of these conditions
+                            break
+
                 else:
-                    logger.info('FAA xml data does IS providing the forecast field for this airport')
+                    logger.info('FAA xml data IS providing the forecast field for this airport')
                     for sky_condition in metar.findall('./forecast/sky_condition'):   #for each sky_condition from the XML
                         sky_cvr = sky_condition.attrib['sky_cover']     #get the sky cover (BKN, OVC, SCT, etc)
                         logger.debug('Sky Cover = ' + sky_cvr)
                         logger.debug(metar.find('./forecast/fcst_time_from').text)
+
+                        if sky_cvr in ("OVC","BKN","OVX"): # Break out of for loop once we find one of these conditions
+                            break
 
                 if sky_cvr in ("OVC","BKN","OVX"): #If the layer is OVC, BKN or OVX, set Flight category based on height AGL
                     try:

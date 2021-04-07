@@ -496,6 +496,31 @@ function myFunction(selectObject) {
 </script>
 
 <script>
+function checkBlankF(selectObject){
+    var myString = selectObject.name;
+    console.log(myString);
+    var x = selectObject.value;
+    console.log(x);
+
+    if (x.length == 0) {
+        window.alert("You Must Enter a Value.\n It cannot be left blank.");
+        if (myString == 'rev_rgb_grb') {
+        	selectObject.value = "[]";
+        } else if (myString == 'exclusive_list') {
+        	selectObject.value = "[]";
+        } else if (myString == 'welcome') {
+        	selectObject.value = '"Welcome to LiveSectional V4"';
+        } else if (myString == 'morse_msg') {
+        	selectObject.value = '"LiveSectional"';
+        } else {
+          selectObject.value = 0;
+        }
+        return;
+    }
+}
+</script>
+
+<script>
 function upperCaseF(a){
     setTimeout(function(){
         a.value = a.value.toUpperCase();

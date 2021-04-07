@@ -1,15 +1,28 @@
+Version 4.372
+4-5-2021
+Fixed bug that missed lowest altitide ceiling on METAR's not reporting flight categories
+Added check to Settings Editor page to be sure field isn't left blank then accidently saved. This would cause and error.
+Files updated: metar-v4.py, confedit.html, base.html, admin.py
+
+Version 4.371
+3-26-2021
+Fixed two dependencies to allow image to work on RPi 4B.
+Needed to pip3 uninstall rpi_ws281x then pip3 install rpi_ws281x
+Needed to pip3 install Adafruit_BBIO
+Files updated: index.html, admin.py
+
 Version 4.370
 3-7-2021
 Added routine to check current time against reboot time if desired and reboot in the middle of the night.
 admin.py houses 2 settings that are enabled. use_reboot will enable/disable setting and time_reboot dictates time to reboot.
 Also, autorun in config.py must be set to 'Yes' for this feature to be enabled.
-files updated: admin.py, metar-v4.py, confedit.html.
+Files updated: admin.py, metar-v4.py, confedit.html.
 
 Version 4.361
 2-1-2021
 Added ability for watchdog script, check-display.py to restart either metar-v4.py (LED's) and/or metar-display-v4.py (OLED's)
 if either one encounter an error that caused an error. Many times this is caused by in interruption to wifi, or FAA data, etc.
-files updated: check-display.py, startup.py, webapp.py.
+Files updated: check-display.py, startup.py, webapp.py.
 
 Version 4.360
 1-5-2021
