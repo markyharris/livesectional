@@ -1,7 +1,7 @@
 Version 4.372
 4-5-2021
-Fixed bug that missed lowest altitide ceiling on METAR's not reporting flight categories
-Added check to Settings Editor page to be sure field isn't left blank then accidently saved. This would cause and error.
+Fixed bug that missed lowest altitude ceiling on METAR's not reporting flight categories
+Added check to Settings Editor page to be sure field isn't left blank then accidently saved. This would cause an error.
 Files updated: metar-v4.py, confedit.html, base.html, admin.py
 
 Version 4.371
@@ -87,7 +87,7 @@ Fixed bug in webapp.py when page is loaded directly from URL box rather than the
 Added logging of Current RPI IP address whenever FAA weather update is retrieved in metar-v4.py.
 Fixed bug where TAF XML reports OVC without a cloud level agl. It uses vert_vis_ft as a backup in metar-v4.py.
 Fixed bug when debug mode is changed to 'Debug' in metar-v4.py. 
-***Added a few dependencies to accomodate future features.
+***Added a few dependencies to accommodate future features.
 Files updated: admin.py, metar-v4.py, webapp.py.
 
 Version 4.331
