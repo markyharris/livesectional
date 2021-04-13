@@ -108,7 +108,9 @@
             {% else %}
 
              <!--Display airport name and city, region and link to info page-->
-             <a href=https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId={{ ap }} target="_blank"><b>{{ apinfo|join(", ") }}
+             <!--<a href=https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId={{ ap }} target="_blank"><b>{{ apinfo|join(", ") }} -->
+             <a href=http://www.fltplan.com/Airport.cgi?{{ ap }} target="_blank"><b>{{ apinfo|join(", ") }}
+
              </b></a>
              
         </td>

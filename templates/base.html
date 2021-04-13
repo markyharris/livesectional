@@ -30,12 +30,26 @@ function get_badge(ap,loc) {
   var sky_condition = "";
   var sky_ceiling = "";
   var flightcategory = "VFR";
+  var rawMessage = "";
   
   xhttp.onreadystatechange = function() {
+  if (this.status == 404) {
+    console.log('Undefined Airport');
+    rawMessage = 'The Airport ID entered is Undefined. Please Check ID';
+    flightcategory = "UNDF";
+  }
+
   if (this.readyState == 4 && this.status == 200) {
     //console.log(xhttp.responseText); 
-      
-    obj = JSON.parse(xhttp.responseText); 
+    
+ 
+    obj = JSON.parse(xhttp.responseText);
+    rawMessage = obj.properties.rawMessage;
+    if (rawMessage == "") {
+      rawMessage = "No METAR Data Returned by FAA API. CLICK for Raw METAR"; 
+      flightcategory = "NOWX";
+    }
+
     console.log(obj.properties.rawMessage);
     console.log("Num of Layers "+obj.properties.cloudLayers.length);
     vis_in_miles = (parseInt(obj.properties.visibility.value)*3.28084/5280).toFixed(2);
@@ -90,9 +104,13 @@ function get_badge(ap,loc) {
     var outp = outp + '<h6><span class="badge badge-danger">';
     } else if (flightcategory == 'LIFR') {
     var outp = outp + '<h6><span class="badge-lifr">';
-    }      
+    } else if (flightcategory == 'NOWX') {
+    var outp = outp + '<h6><span class="badge-nowx">';
+    } else if (flightcategory == 'UNDF') {
+    var outp = outp + '<h6><span class="badge-undf">';
+    }    
 
-  outp = outp + '&nbsp'+flightcategory+'&nbsp</span>&nbsp-&nbsp'+obj.properties.rawMessage+'</h6></a>';        
+  outp = outp + '&nbsp'+flightcategory+'&nbsp</span>&nbsp-&nbsp'+rawMessage+'</h6></a>';        
   document.getElementById(loc).innerHTML = outp;                         
 };
     
