@@ -1542,6 +1542,7 @@ def get_led_map_info():
     for airportcode in airports:
         led_map_url = led_map_url + airportcode + ","
     led_map_url = led_map_url[:-1]
+    logger.debug(led_map_url) # debug url if neccessary
 
     while True:  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
         try:
@@ -1564,8 +1565,13 @@ def get_led_map_info():
     for led_map_info in root.iter('METAR'):
         stationId = led_map_info.find('station_id').text
 
-        lat = led_map_info.find('latitude').text
-        lon = led_map_info.find('longitude').text
+        try:
+            lat = led_map_info.find('latitude').text
+            lon = led_map_info.find('longitude').text
+        except:
+            lat = '0'
+            lon = '0'
+
         lat_list.append(lat)
         lon_list.append(lon)
 
