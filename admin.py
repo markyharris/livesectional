@@ -7,7 +7,7 @@
 #    minor update 1
 #    error fix 0
 
-version='v4.372'
+version='v4.373'
 min_update_ver='4.350'
 use_mos=1
 use_scan_network=0

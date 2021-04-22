@@ -18,6 +18,7 @@
 #     Added menu item to manually check for an update
 #     Added menu items to display logfile.log, and console output (requires modified version of seashells
 #     Added LiveSectional Web Map, which recreates the builders map online.
+#     Fixed bug where get_led_map_info() would not get lat/Lon from XML file.
 
 # print test #force bug to cause webapp.py to error out
 
