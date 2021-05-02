@@ -929,7 +929,7 @@ while (outerloop):
                         obv = (mos_dict[airport][hr][11])
                         
                         if ( tmp_f == "999" ):
-                          tmp_c = "-100"
+                          tmp_c = 999
                         else:
                           tmp_c = str(((int(tmp_f) - 32) * 5 ) / 9)
 
@@ -1269,10 +1269,10 @@ while (outerloop):
 
             #get temp
             if metar.find('temp_c') is None:
-                temperature = -100
+                temperature = 999
             else:
                 print("Temp:" + metar.find('temp_c').text)
-                temperature = metar.find('temp_c').text
+                temperature = round(float(metar.find('temp_c').text),2)
 
             #grab Weather info from returned FAA data
             if metar.find('wx_string') is None: #if weather string is blank, then bypass
@@ -1686,7 +1686,7 @@ while (outerloop):
                         color = color_homeport
                 # If this is the temperature loop, set the temp color
                 if temperatureloop and not ( airportcode == "NULL" or airportcode == "LGND" ):
-                   if (float(airporttemp) > -100):
+                   if (float(airporttemp) != 999):
                        print(airportcode)
                        print(airporttemp)
                        color = colors.temp(airporttemp,config.min_temp,config.max_temp)
