@@ -93,6 +93,7 @@ import logzero #had to manually install logzero. https://logzero.readthedocs.io/
 from logzero import logger
 import config #Config.py holds user settings used by the various scripts
 import admin
+import colors
 
 # Setup rotating logfile with 3 rotations, each with a maximum filesize of 1MB:
 version = admin.version                 #Software version
@@ -272,7 +273,24 @@ wx_fog_ck = ["BR", "MIFG", "VCFG", "BCFG", "PRFG", "FG", "FZFG"]
 #list definitions
 cycle_wait = [cycle0_wait, cycle1_wait, cycle2_wait, cycle3_wait, cycle4_wait, cycle5_wait] #Used to create weather designation effects.
 cycles = [0,1,2,3,4,5] #Used as a index for the cycle loop.
-legend_pins = [leg_pin_vfr, leg_pin_mvfr, leg_pin_ifr, leg_pin_lifr, leg_pin_nowx, leg_pin_hiwinds, leg_pin_lghtn, leg_pin_snow, leg_pin_rain, leg_pin_frrain, leg_pin_dustsandash, leg_pin_fog] #Used to build legend display
+#Used to build legend display
+legend_pins = [ leg_pin_vfr, 
+                leg_pin_mvfr, 
+                leg_pin_ifr, 
+                leg_pin_lifr, 
+                leg_pin_nowx, 
+                leg_pin_hiwinds, 
+                leg_pin_lghtn, 
+                leg_pin_snow, 
+                leg_pin_rain, 
+                leg_pin_frrain, 
+                leg_pin_dustsandash, 
+                leg_pin_fog,
+                config.leg_pin_temp1,
+                config.leg_pin_temp2,
+                config.leg_pin_temp3,
+                config.leg_pin_temp4,
+                config.leg_pin_temp5 ] 
 
 #Setup for IC238 Light Sensor for LED Dimming, does not need to be commented out if sensor is not used, map will remain at full brightness.
 #For more info on the sensor visit; http://www.uugear.com/portfolio/using-light-sensor-module-with-raspberry-pi/
@@ -322,7 +340,7 @@ temp_lights_on = 0                      #Set flag for next round if sleep timer 
 
 #MOS Data Settings
 mos_filepath = '/NeoSectional/GFSMAV'      #location of the downloaded local MOS file.
-categories = ['HR', 'CLD', 'WDR', 'WSP', 'P06', 'T06', 'POZ', 'POS', 'TYP', 'CIG','VIS','OBV']
+categories = ['HR', 'TMP', 'CLD', 'WDR', 'WSP', 'P06', 'T06', 'POZ', 'POS', 'TYP', 'CIG','VIS','OBV']
 obv_wx = {'N': 'None', 'HZ': 'HZ','BR': 'RA','FG': 'FG','BL': 'HZ'} #Decode from MOS to TAF/METAR
 typ_wx = {'S': 'SN','Z': 'FZRA','R': 'RA'}      #Decode from MOS to TAF/METAR
 mos_dict = collections.OrderedDict()    #Outer Dictionary, keyed by airport ID
@@ -549,6 +567,7 @@ while (outerloop):
     stationiddict = {}
     windsdict = {"":""}
     wxstringdict = {"":""}
+    tempsdict = {"":""}
 
     #Call script and execute desired wipe(s) while data is being updated.
     if usewipes ==  1 and toggle_sw != -1:
@@ -847,11 +866,12 @@ while (outerloop):
 
                     else:
                         #Checking for missing lines of data and x out if necessary.
-                        if (cat_counter == 5 and cat != 'P06')\
-                                or (cat_counter == 6 and cat != 'T06')\
-                                or (cat_counter == 7 and cat != 'POZ')\
-                                or (cat_counter == 8 and cat != 'POS')\
-                                or (cat_counter == 9 and cat != 'TYP'):
+                        if (cat_counter == 5 and cat != 'TMP')\
+                                or (cat_counter == 6 and cat != 'P06')\
+                                or (cat_counter == 7 and cat != 'T06')\
+                                or (cat_counter == 8 and cat != 'POZ')\
+                                or (cat_counter == 9 and cat != 'POS')\
+                                or (cat_counter == 10 and cat != 'TYP'):
 
                             #calculate the number of consecutive missing cats and inject 9's into those positions
                             a = categories.index(last_cat)+1
@@ -895,19 +915,25 @@ while (outerloop):
                 for hr in keys:
                     if int(hr) <= mos_time <= int(hr)+2.99:
 
-                        cld = (mos_dict[airport][hr][0])
-                        wdr = (mos_dict[airport][hr][1]) +'0' #make wind direction end in zero
-                        wsp = (mos_dict[airport][hr][2])
-                        p06 = (mos_dict[airport][hr][3])
-                        t06 = (mos_dict[airport][hr][4])
-                        poz = (mos_dict[airport][hr][5])
-                        pos = (mos_dict[airport][hr][6])
-                        typ = (mos_dict[airport][hr][7])
-                        cig = (mos_dict[airport][hr][8])
-                        vis = (mos_dict[airport][hr][9])
-                        obv = (mos_dict[airport][hr][10])
+                        tmp_f = (mos_dict[airport][hr][0])
+                        cld = (mos_dict[airport][hr][1])
+                        wdr = (mos_dict[airport][hr][2]) +'0' #make wind direction end in zero
+                        wsp = (mos_dict[airport][hr][3])
+                        p06 = (mos_dict[airport][hr][4])
+                        t06 = (mos_dict[airport][hr][5])
+                        poz = (mos_dict[airport][hr][6])
+                        pos = (mos_dict[airport][hr][7])
+                        typ = (mos_dict[airport][hr][8])
+                        cig = (mos_dict[airport][hr][9])
+                        vis = (mos_dict[airport][hr][10])
+                        obv = (mos_dict[airport][hr][11])
+                        
+                        if ( tmp_f == "999" ):
+                          tmp_c = "-100"
+                        else:
+                          tmp_c = str(((int(tmp_f) - 32) * 5 ) / 9)
 
-                        logger.debug(mos_date + hr + cld + wdr + wsp + p06 + t06 + poz + pos + typ + cig + vis + obv) #debug
+                        logger.debug(mos_date + hr + cld + wdr + wsp + p06 + t06 + poz + pos + typ + cig + vis + obv + tmp_c) #debug
 
                         #decode the weather for each airport to display on the livesectional map
                         flightcategory = "VFR" #start with VFR as the assumption
@@ -998,6 +1024,12 @@ while (outerloop):
                 else:
                     windsdict[stationId] = windspeedkt #build windspeed dictionary
 
+                if stationId in tempsdict:
+                    logger.info(stationId + " Duplicate, only saved the first temps")
+                else:
+                    tempsdict[stationId] = tmp_c #build temps dictionary
+
+          
                 if stationId in wxstringdict:
                     logger.info(stationId + " Duplicate, only saved the first weather")
                 else:
@@ -1235,6 +1267,13 @@ while (outerloop):
             else:
                 windspeedkt = metar.find('wind_speed_kt').text
 
+            #get temp
+            if metar.find('temp_c') is None:
+                temperature = -100
+            else:
+                print("Temp:" + metar.find('temp_c').text)
+                temperature = metar.find('temp_c').text
+
             #grab Weather info from returned FAA data
             if metar.find('wx_string') is None: #if weather string is blank, then bypass
                 wxstring = "NONE"
@@ -1252,6 +1291,11 @@ while (outerloop):
             else:
                 windsdict[stationId] = windspeedkt #build windspeed dictionary
 
+            if stationId in tempsdict:
+                logger.info(stationId + " Duplicate, only saved the first temps")
+            else:
+                tempsdict[stationId] = temperature #build temps dictionary
+
             if stationId in wxstringdict:
                 logger.info(stationId + " Duplicate, only saved the first weather")
             else:
@@ -1263,6 +1307,13 @@ while (outerloop):
     loopcount=0
     while time.time() < timeout_start + (update_interval * 60): #take 'update_interval' which is in minutes and turn into seconds
         loopcount = loopcount + 1
+
+        # If enabled. turn on the temperature display loop every tempcycles cycles
+        temperatureloop = 0
+        if ( config.displaytemps and ( loopcount % config.tempcycles == 0)):
+            temperatureloop = 1
+        else:
+            temperatureloop = 0
 
         # Check time and reboot machine if time equals time_reboot and if use_reboot along with autorun are both set to 1
         if use_reboot == 1 and autorun == 1:
@@ -1450,6 +1501,7 @@ while (outerloop):
                 airportwinds = windsdict.get(airportcode,0) #Pull the winds from the dictionary.
                 airportwx_long = wxstringdict.get(airportcode,"NONE") #Pull the weather reported for the airport from dictionary.
                 airportwx = airportwx_long.split(" ",1)[0] #Grab only the first parameter of the weather reported.
+                airporttemp = tempsdict.get(airportcode,0)
 
                 #debug print out
                 if metar_taf_mos == 0:
@@ -1548,6 +1600,16 @@ while (outerloop):
 
                         elif (cycle_num == 0 or cycle_num == 1 or cycle_num == 2):
                             color=color_ifr
+                    if i == config.leg_pin_temp1 and config.legend_temps:
+                        color = colors.temp(config.leg_temp1,config.min_temp,config.max_temp)
+                    if i == config.leg_pin_temp2 and config.legend_temps:
+                        color = colors.temp(config.leg_temp2,config.min_temp,config.max_temp)
+                    if i == config.leg_pin_temp3 and config.legend_temps:
+                        color = colors.temp(config.leg_temp3,config.min_temp,config.max_temp)
+                    if i == config.leg_pin_temp4 and config.legend_temps:
+                        color = colors.temp(config.leg_temp4,config.min_temp,config.max_temp)
+                    if i == config.leg_pin_temp5 and config.legend_temps:
+                        color = colors.temp(config.leg_temp5,config.min_temp,config.max_temp)
 
                 #Start of weather display code for each airport in the "airports" file
                 #Check flight category and set the appropriate color to display
@@ -1622,6 +1684,14 @@ while (outerloop):
                         pass
                     else:
                         color = color_homeport
+                # If this is the temperature loop, set the temp color
+                if temperatureloop and not ( airportcode == "NULL" or airportcode == "LGND" ):
+                   if (float(airporttemp) > -100):
+                       print(airportcode)
+                       print(airporttemp)
+                       color = colors.temp(airporttemp,config.min_temp,config.max_temp)
+                   else:
+                       color = color_black
 
                 xcolor = rgbtogrb(i, color, rgb_grb) #pass pin, color and format. Check and change color code for RGB or GRB format
 
