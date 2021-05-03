@@ -1501,7 +1501,7 @@ while (outerloop):
                 airportwinds = windsdict.get(airportcode,0) #Pull the winds from the dictionary.
                 airportwx_long = wxstringdict.get(airportcode,"NONE") #Pull the weather reported for the airport from dictionary.
                 airportwx = airportwx_long.split(" ",1)[0] #Grab only the first parameter of the weather reported.
-                airporttemp = tempsdict.get(airportcode,0)
+                airporttemp = tempsdict.get(airportcode,999)
 
                 #debug print out
                 if metar_taf_mos == 0:
@@ -1687,8 +1687,6 @@ while (outerloop):
                 # If this is the temperature loop, set the temp color
                 if temperatureloop and not ( airportcode == "NULL" or airportcode == "LGND" ):
                    if (float(airporttemp) != 999):
-                       print(airportcode)
-                       print(airporttemp)
                        color = colors.temp(airporttemp,config.min_temp,config.max_temp)
                    else:
                        color = color_black
