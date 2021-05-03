@@ -254,6 +254,7 @@ cycle2_wait = .08       #For instance, VFR with 20 kts winds will have the first
 cycle3_wait = .1        #The cycle times then reflect how long each color cycle will stay on, producing blinking or flashing effects.
 cycle4_wait = .08       #Lightning effect uses the short intervals at cycle 2 and cycle 4 to create the quick flash. So be careful if you change them.
 cycle5_wait = .5
+cycle6_wait = .22 #Used only for the wind blink feature
 
 #List of METAR weather categories to designate weather in area. Many Metars will report multiple conditions, i.e. '-RA BR'.
 #The code pulls the first/main weather reported to compare against the lists below. In this example it uses the '-RA' and ignores the 'BR'.
@@ -272,8 +273,8 @@ wx_dustsandash_ck = ["DU", "SA", "HZ", "FU", "VA", "BLDU", "BLSA", "PO", "VCSS",
 wx_fog_ck = ["BR", "MIFG", "VCFG", "BCFG", "PRFG", "FG", "FZFG"]
 
 #list definitions
-cycle_wait = [cycle0_wait, cycle1_wait, cycle2_wait, cycle3_wait, cycle4_wait, cycle5_wait] #Used to create weather designation effects.
-cycles = [0,1,2,3,4,5] #Used as a index for the cycle loop.
+cycle_wait = [cycle0_wait, cycle1_wait, cycle2_wait, cycle3_wait, cycle4_wait, cycle5_wait, cycle6_wait] #Used to create weather designation effects.
+cycles = [0,1,2,3,4,5,6] #Used as a index for the cycle loop.
 #Used to build legend display
 legend_pins = [ leg_pin_vfr, 
                 leg_pin_mvfr, 
@@ -1308,7 +1309,8 @@ while (outerloop):
         for cycle_num in cycles: #cycle through the strip 6 times, setting the color then displaying to create various effects.
             print(" " + str(cycle_num), end = '')
             sys.stdout.flush()
-
+            if (not hiwindblink and cycle_num == 6):
+              continue  # Skip cycle 6 unless hiwindblink is enabled
             i = 0 #Inner Loop. Increments through each LED in the strip setting the appropriate color to each individual LED.
             for airportcode in airports:
 
@@ -1354,7 +1356,7 @@ while (outerloop):
                         color = color_nowx
 
                     if i == leg_pin_hiwinds and legend_hiwinds:
-                        if (cycle_num == 3 or cycle_num == 4 or cycle_num == 5):
+                        if (cycle_num == 6):
                             color = color_black
                         else:
                             color=color_ifr
@@ -1445,7 +1447,7 @@ while (outerloop):
 
                 #Check winds and set the 2nd half of cycles to black to create blink effect
                 if hiwindblink: #bypass if "hiwindblink" is set to 0
-                    if (int(airportwinds) >= max_wind_speed and (cycle_num == 3 or cycle_num == 4 or cycle_num == 5)):
+                    if (int(airportwinds) >= max_wind_speed and (cycle_num == 6)):
                         color = color_black
                         print(("HIGH WINDS-> " + airportcode + " Winds = " + str(airportwinds) + " ")) #debug
 
