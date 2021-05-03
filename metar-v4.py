@@ -459,7 +459,6 @@ while (outerloop):
     #This time is recalculated everytime the FAA data gets updated
     zulu = datetime.utcnow() + timedelta(hours=hour_to_display)     #Get current time plus Offset
     current_zulu = zulu.strftime('%Y-%m-%dT%H:%M:%SZ')              #Format time to match whats reported in TAF. ie. 2020-03-24T18:21:54Z
-    #current_hr_zulu = zulu.strftime('%H')                           #Zulu time formated for just the hour, to compare to MOS data
 
     #Dictionary definitions. Need to reset whenever new weather is received
     stationiddict = {}
@@ -712,9 +711,7 @@ while (outerloop):
         # Get the MOS data 
         mos_data = mos.parse(mos_filepath,airports)
         for airport in airports:
-            print(airport)
             if airport in mos_data:
-                print("found")
                 logger.debug('\n' + airport) #debug
 
                 mos_time = zulu
