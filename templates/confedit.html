@@ -298,6 +298,36 @@
         <td>Change airport's LED colors to denote FOG or haze reported. i.e. VFR and FOG would show GREEN then pulse Silver/Grey.
     </tr>
 
+   <tr>
+        <td><b>Display Temperature</b><br>
+        <td>
+            <input type="radio" name="displaytemps" id="displaytempsyes" value="1" {{'checked="checked"' if settings.hiwindblink=="1" else "" }}/>
+            <label for="displaytempsyes">Yes</label>
+            <input type="radio" name="displaytemps" id="displaytempsno" value="0" {{'checked="checked"' if settings.hiwindblink=="0" else "" }}/>
+            <label for="displaytempsno">No</label>
+        
+        <td>Display the temperatures every few cycles. You can select the frequency below
+    </tr>
+
+    <tr>
+        <td><b>Temperature cycles = </b>
+        <td><input type="number" name="tempcycles" onchange="checkBlankF(this)" min="2" max="20" value = {{ settings.tempcycles }}>
+        <td>Sets the frequency that temperatures are displayed. i.e. IF set to 4 every 4th cycle will show temperatures in a gradient from Blue to Red
+    </tr>
+
+    <tr>
+        <td><b>Min Temperature = </b>
+        <td><input type="number" name="min_temp" onchange="checkBlankF(this)" min="-40" max="9" value = {{ settings.min_temp }}>
+        <td>Temperature is displayed as a gradient between Blue and Red. Any temp at or below this value will be blue
+    </tr>
+    <tr>
+        <td><b>Max Temperature = </b>
+        <td><input type="number" name="max_temp" onchange="checkBlankF(this)" min="10" max="50" value = {{ settings.max_temp }}>
+        <td>Temperature is displayed as a gradient between Blue and Red. Any temp at or above this value will be red
+    </tr>
+
+
+
     <tr>
         <td><b>Turn On Home Airport Feature<b><br>
         <td>
@@ -589,6 +619,16 @@
         <td>With this enabled, Fog or Haze legend will be displayed. It will be added to the Flight Categories Legend.
     </tr>
 
+    <tr>
+        <td><b>Add Temperature to Legend</b><br>
+        <td>
+            <input type="radio" name="legend_temps" id="legend_tempsyes" value="1" {{'checked="checked"' if settings.legend_temps=="1" else "" }}/>
+            <label for="legend_tempsyes">Yes</label>
+            <input type="radio" name="legend_temps" id="legend_tempsno" value="0" {{'checked="checked"' if settings.legend_temps=="0" else "" }}/>
+            <label for="legend_tempsno">No</label>
+        <td>With this enabled, temperature legend will be displayed. It will be added to the Flight Categories Legend.
+    </tr>
+
 
     <tr bgcolor="#ffffff">
         <td colspan=3>NOTE: Be sure that the 'airports' file has 'LGND' at these LED positions otherwise the legend will not display properly.
@@ -665,7 +705,40 @@
         <td><input type="number" name="leg_pin_fog" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.leg_pin_fog }}>
         <td>Set LED pin number for Fog Legend LED.
     </tr>
-    
+   
+
+    <tr>
+        <td><b>Pin '#' for Temp 1 Legend LED = </b>
+        <td><input type="number" name="leg_pin_temp1" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.leg_pin_temp1 }}>
+        Temp = <input type="number" name="leg_temp1" onchange="checkBlankF(this)" min="-40" max="40" value = {{ settings.leg_temp1 }}>
+        <td>Set LED pin number for Temp 1 Legend and the temperature it should display 
+    </tr>
+    <tr>
+        <td><b>Pin '#' for Temp 2 Legend LED = </b>
+        <td><input type="number" name="leg_pin_temp2" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.leg_pin_temp2 }}>
+        Temp = <input type="number" name="leg_temp2" onchange="checkBlankF(this)" min="-40" max="40" value = {{ settings.leg_temp2 }}>
+        <td>Set LED pin number for Temp 2 Legend and the temperature it should display
+    </tr>
+    <tr>
+        <td><b>Pin '#' for Temp 3 Legend LED = </b>
+        <td><input type="number" name="leg_pin_temp3" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.leg_pin_temp3 }}>
+        Temp = <input type="number" name="leg_temp3" onchange="checkBlankF(this)" min="-40" max="40" value = {{ settings.leg_temp3 }}>
+        <td>Set LED pin number for Temp 3 Legend and the temperature it should display
+    </tr>
+    <tr>
+        <td><b>Pin '#' for Temp 4 Legend LED = </b>
+        <td><input type="number" name="leg_pin_temp4" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.leg_pin_temp4 }}>
+        Temp = <input type="number" name="leg_temp4" onchange="checkBlankF(this)" min="-40" max="40" value = {{ settings.leg_temp4 }}>
+        <td>Set LED pin number for Temp 4 Legend and the temperature it should display
+    </tr>
+    <tr>
+        <td><b>Pin '#' for Temp 5 Legend LED = </b>
+        <td><input type="number" name="leg_pin_temp5" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.leg_pin_temp5 }}>
+        Temp = <input type="number" name="leg_temp5" onchange="checkBlankF(this)" min="-40" max="40" value = {{ settings.leg_temp5 }}>
+        <td>Set LED pin number for Temp 5 Legend and the temperature it should display
+    </tr>
+
+ 
     </table>
     </div>
     <p></p>
