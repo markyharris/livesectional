@@ -127,7 +127,7 @@ def parse(mos_file,airports):
                 mos_data[station][dh] = {}
                 #Defaults for sometimes missing data
                 mos_data[station][dh]["TYP"] = "9"
-
+                mos_data[station][dh]["T06"] = 0
         if category == "TMP":
             # Temperatures need special processing
             for index, hour in enumerate(hours):
@@ -159,7 +159,7 @@ def parse(mos_file,airports):
                 temp = data[index].strip()
                 if temp == '':
                     temp  = 0
-                mos_data[station][hour][category] = temp
+                mos_data[station][hour][category] = int(temp)
         elif category == "T06":
             # "T06 = probability of thunderstorms/conditional probability of severe thunderstorms during the 6-hr period ending at the indicated time."
             # source: https://www.nws.noaa.gov/mdl/synop/mavcard.php#:~:text=T06%20%3D%20probability%20of%20thunderstorms%2Fconditional,ending%20at%20the%20indicated%20time.

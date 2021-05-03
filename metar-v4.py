@@ -773,23 +773,19 @@ while (outerloop):
                 else:
                     wx = typ_wx[typ] #Get proper representation for typ designator
 
-                    if wx == 'RA' and int(p06) < prob:
+                    if wx == 'RA' and p06 < prob:
                         if obv != 'N':
                             wx = obv_wx[obv]
                         else:
                             wx = 'NONE'
 
-                    if wx == 'SN' and int(pos) < prob:
+                    if wx == 'SN' and pos < prob:
                         wx = 'NONE'
 
-                    if wx == 'FZRA' and int(poz) < prob:
+                    if wx == 'FZRA' and poz < prob:
                         wx = 'NONE'
 
-#                    print (t06,apid) #debug
-                    if t06 == '' or t06 is None:
-                        t06 = '0'
-
-                    if int(t06) > prob: #check for thunderstorms
+                    if t06 > prob: #check for thunderstorms
                         wx = 'TSRA'
                     else:
                         wx = 'NONE'
@@ -805,7 +801,7 @@ while (outerloop):
                 elif wsp == '99': #Check to see if MOS data is not reporting windspeed for this airport
                     windspeedkt = 0
                 else:
-                    windspeedkt = int(wsp)
+                    windspeedkt = wsp
 
                 #grab Weather info from returned FAA data
                 if wx is None: #if weather string is blank, then bypass
