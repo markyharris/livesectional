@@ -842,7 +842,7 @@ while (outerloop):
                 if stationId in tempsdict:
                     logger.info(stationId + " Duplicate, only saved the first temps")
                 else:
-                    tempsdict[stationId] = tmp_c #build temps dictionary
+                    tempsdict[stationId] = tmp #build temps dictionary
 
           
                 if stationId in wxstringdict:
@@ -1125,7 +1125,7 @@ while (outerloop):
 
         # If enabled. turn on the temperature display loop every tempcycles cycles
         temperatureloop = 0
-        if ( config.displaytemps and ( loopcount % config.tempcycles == 0)):
+        if ( config.displaytemps and ( loopcount % config.tempcycles == 0)) and ( (metar_taf_mos == 1) or (metar_taf_mos == 2)) :
             temperatureloop = 1
         else:
             temperatureloop = 0
