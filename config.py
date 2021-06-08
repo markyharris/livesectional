@@ -1,8 +1,8 @@
 #config.py - use web based configurator to make changes unless you are comfortable doing it manually
 
-autorun = 1
+autorun = 0
 LED_COUNT = 183
-legend = 1
+legend = 0
 max_wind_speed = 15
 update_interval = 15
 metar_age = 2.5
@@ -15,8 +15,8 @@ onhour = 6
 onminutes = 30
 tempsleepon = 5
 sleepmsg = 1
-displayused = 1
-oledused = 1
+displayused = 0
+oledused = 0
 lcddisplay = 0
 numofdisplays = 8
 loglevel = 1
