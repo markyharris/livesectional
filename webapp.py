@@ -1755,7 +1755,7 @@ if __name__ == '__main__':
     current_timezone = tztemp[3]
 
     # Check to see if an newer version of the software is available, and update if user so chooses
-    testupdate()
+    # testupdate() # temp fix for server error. More to come
 
     # Get system info and display
     python_ver = ("Python Version = " + sys.version)
