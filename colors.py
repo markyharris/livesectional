@@ -11,11 +11,11 @@ def temp(temp,min,max):
     if ( temp < 0 ):
         temp = 0  # If temp is less than min then set to 0
 
-    if ( temp > max): #highest hue is 38c ~100f
-        temp = max
-    # Calculate the hue between 140(min) and 360(max)
-    hue = (240 - (240 * ( temp / (max + shift ) ))) / 360
-    return tuple(round(i * 255) for i in colorsys.hsv_to_rgb(hue,1,1))
+    if ( temp > max + shift): #highest hue
+        temp = max + shift
+    # Calculate the hue between 0 (red)  and 250 (blue)
+    hue = (245 - (245 * ( temp / (max + shift ) ))) / 360
+    return tuple(round(i * 255) for i in colorsys.hsv_to_rgb(hue,1,0.7))
 
 
 
