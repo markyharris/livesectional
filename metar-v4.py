@@ -1370,7 +1370,7 @@ while (outerloop):
                         if (cycle_num == 2 or cycle_num == 4): #Check for Thunderstorms
                             color = color_lghtn
 
-                        elif (cycle_num == 0 or cycle_num == 1 or cycle_num == 3 or cycle_num == 5):
+                        elif (cycle_num == 0 or cycle_num == 1 or cycle_num == 3 or cycle_num == 5 or cycle_num == 6):
                             color=color_mvfr
 
                     if i == leg_pin_snow and legend_snow:
@@ -1380,7 +1380,7 @@ while (outerloop):
                         if (cycle_num == 4):
                             color = color_snow2
 
-                        elif (cycle_num == 0 or cycle_num == 1 or cycle_num == 2):
+                        elif (cycle_num == 0 or cycle_num == 1 or cycle_num == 2 or cycle_num == 6):
                             color=color_lifr
 
                     if i == leg_pin_rain and legend_rain:
@@ -1390,7 +1390,7 @@ while (outerloop):
                         if (cycle_num == 4):
                             color = color_rain2
 
-                        elif (cycle_num == 0 or cycle_num == 1 or cycle_num == 2):
+                        elif (cycle_num == 0 or cycle_num == 1 or cycle_num == 2 or cycle_num == 6):
                             color=color_vfr
 
                     if i == leg_pin_frrain and legend_frrain:
@@ -1400,7 +1400,7 @@ while (outerloop):
                         if (cycle_num == 4):
                             color = color_frrain2
 
-                        elif (cycle_num == 0 or cycle_num == 1 or cycle_num == 2):
+                        elif (cycle_num == 0 or cycle_num == 1 or cycle_num == 2 or cycle_num == 6):
                             color = color_mvfr
 
                     if i == leg_pin_dustsandash and legend_dustsandash:
@@ -1410,7 +1410,7 @@ while (outerloop):
                         if (cycle_num == 4):
                             color = color_dustsandash2
 
-                        elif (cycle_num == 0 or cycle_num == 1 or cycle_num == 2):
+                        elif (cycle_num == 0 or cycle_num == 1 or cycle_num == 2 or cycle_num == 6):
                             color=color_vfr
 
                     if i == leg_pin_fog and legend_fog:
@@ -1420,7 +1420,7 @@ while (outerloop):
                         if (cycle_num == 4):
                             color = color_fog2
 
-                        elif (cycle_num == 0 or cycle_num == 1 or cycle_num == 2):
+                        elif (cycle_num == 0 or cycle_num == 1 or cycle_num == 2 or cycle_num == 6):
                             color=color_ifr
                     if i == config.leg_pin_temp1 and config.legend_temps:
                         color = colors.temp(config.leg_temp1,config.min_temp,config.max_temp)
