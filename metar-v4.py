@@ -292,7 +292,12 @@ legend_pins = [ leg_pin_vfr,
                 config.leg_pin_temp2,
                 config.leg_pin_temp3,
                 config.leg_pin_temp4,
-                config.leg_pin_temp5 ] 
+                config.leg_pin_temp5,
+                config.leg_pin_temp6, 
+                config.leg_pin_temp7, 
+                config.leg_pin_temp8, 
+                config.leg_pin_temp9, 
+                config.leg_pin_temp10,  ] 
 
 #Setup for IC238 Light Sensor for LED Dimming, does not need to be commented out if sensor is not used, map will remain at full brightness.
 #For more info on the sensor visit; http://www.uugear.com/portfolio/using-light-sensor-module-with-raspberry-pi/
@@ -1427,7 +1432,16 @@ while (outerloop):
                         color = colors.temp(config.leg_temp4,config.min_temp,config.max_temp)
                     if i == config.leg_pin_temp5 and config.legend_temps:
                         color = colors.temp(config.leg_temp5,config.min_temp,config.max_temp)
-
+                    if i == config.leg_pin_temp6 and config.legend_temps:
+                        color = colors.temp(config.leg_temp6,config.min_temp,config.max_temp)
+                    if i == config.leg_pin_temp7 and config.legend_temps:
+                        color = colors.temp(config.leg_temp7,config.min_temp,config.max_temp)
+                    if i == config.leg_pin_temp8 and config.legend_temps:
+                        color = colors.temp(config.leg_temp8,config.min_temp,config.max_temp)
+                    if i == config.leg_pin_temp9 and config.legend_temps:
+                        color = colors.temp(config.leg_temp9,config.min_temp,config.max_temp)
+                    if i == config.leg_pin_temp10 and config.legend_temps:
+                        color = colors.temp(config.leg_temp10,config.min_temp,config.max_temp)
                 #Start of weather display code for each airport in the "airports" file
                 #Check flight category and set the appropriate color to display
                 if  flightcategory != "NONE":
