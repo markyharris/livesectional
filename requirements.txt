@@ -12,7 +12,7 @@ Adafruit-PureIO==1.0.4                    #
 Adafruit-SSD1306==1.6.2                   #
 beautifulsoup4==4.7.1                     #
 Flask==1.0.2                              #
-folium==0.11.0                            #
+folium==0.12.1                            #
 gpiozero==1.5.1                           #
 html5lib==1.0.1                           #
 Jinja2==2.10                              #
