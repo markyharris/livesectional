@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+
+
 # webapp.py - v4, by Mark Harris. Web Based Configurator for LiveSectional - Using Flask and Python
 #     Updated to work with Python 3
 #     3 editors for Config.py, Airports, and Heat Map.
