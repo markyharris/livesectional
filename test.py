@@ -1,8 +1,20 @@
+#!/usr/bin/env python3
 import socket
 import time
 import urllib.request, urllib.error, urllib.parse
 test = 1
 delay_time = 1
+
+import settings
+
+settings.init()
+
+if settings.get_bool('default', 'nightly_reboot'):
+    print('Nightly Reboot Enabled')
+else:
+    print('Nightly Reboot Disabled')
+
+
 
 #Display active IP address for builder to open up web browser to configure.
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -34,4 +46,6 @@ else:
             time.sleep(delay_time)
             pass
 
+
+settings.save_config()
 
