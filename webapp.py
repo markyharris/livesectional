@@ -427,48 +427,48 @@ def led_map():
 
 
 # Route to expand RPI's file system.
-@app.route('/expandfs', methods=["GET", "POST"])
-def expandfs():
-    global hmdata
-    global airports
-    global settings
-    global strip
-    global num
-    global ipadd
-    global strip
-    global ipaddresses
-    global timestr
-    global version
-    global current_timezone
-
-    if request.method == "POST":
-        os.system('sudo raspi-config --expand-rootfs')
-        flash('File System has been expanded')
-        flash('NOTE: Select "Reboot RPI" from "Map Functions" Menu for changes to take affect')
-
-        return redirect('expandfs')
-
-    else:
-        templateData = {
-            'title': 'Expand File System-'+version,
-            'hmdata': hmdata,
-            'airports': airports,
-            'settings': settings,
-            'ipadd': ipadd,
-            'strip': strip,
-            'ipaddresses': ipaddresses,
-            'timestr': timestr,
-            'num': num,
-            'apinfo_dict': apinfo_dict,
-            'timestr': timestr,
-            'version': version,
-            'update_available': update_available,
-            'update_vers': update_vers,
-            'current_timezone': current_timezone,
-            'machines': machines
-            }
-        logger.info("Opening expand file system page")
-        return render_template('expandfs.html', **templateData)
+# @app.route('/expandfs', methods=["GET", "POST"])
+# def expandfs():
+#     global hmdata
+#     global airports
+#     global settings
+#     global strip
+#     global num
+#     global ipadd
+#     global strip
+#     global ipaddresses
+#     global timestr
+#     global version
+#     global current_timezone
+# 
+#     if request.method == "POST":
+#         os.system('sudo raspi-config --expand-rootfs')
+#         flash('File System has been expanded')
+#         flash('NOTE: Select "Reboot RPI" from "Map Functions" Menu for changes to take affect')
+# 
+#         return redirect('expandfs')
+# 
+#     else:
+#         templateData = {
+#             'title': 'Expand File System-'+version,
+#             'hmdata': hmdata,
+#             'airports': airports,
+#             'settings': settings,
+#             'ipadd': ipadd,
+#             'strip': strip,
+#             'ipaddresses': ipaddresses,
+#             'timestr': timestr,
+#             'num': num,
+#             'apinfo_dict': apinfo_dict,
+#             'timestr': timestr,
+#             'version': version,
+#             'update_available': update_available,
+#             'update_vers': update_vers,
+#             'current_timezone': current_timezone,
+#             'machines': machines
+#             }
+#         logger.info("Opening expand file system page")
+#         return render_template('expandfs.html', **templateData)
 
 # Route to display and change Time Zone information.
 @app.route('/tzset', methods=["GET", "POST"])
