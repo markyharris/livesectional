@@ -15,11 +15,11 @@ Flask==1.0.2                              #
 folium==0.12.1                            #
 gpiozero==1.5.1                           #
 html5lib==1.0.1                           #
-Jinja2==2.10                              #
+Jinja2==2.11.3                            #
 logzero==1.5.0                            #
-lxml==4.3.2                               #
+lxml==4.6.3                               #
 numpy==1.16.2                             #
-Pillow==5.4.1                             #
+Pillow==8.3.2                             #
 pysftp==0.2.9                             #
 python-nmap==0.6.1                        #
 requests==2.21.0                          #
@@ -28,6 +28,6 @@ RPi.GPIO==0.7.0                           #
 RPLCD==1.2.2                              #
 seashells==0.1.2                          #
 smbus2==0.3.0                             #
-urllib3==1.24.1                           #
-Werkzeug==0.14.1                          #
+urllib3==1.26.5                           #
+Werkzeug==0.15.3                          #
 wget==3.2                                 #
