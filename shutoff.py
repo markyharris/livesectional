@@ -1,7 +1,7 @@
 # shutoff.py - by Mark Harris
 #     Updated to work with Python 3.7
 #     shutoff the LED's and if equipped the Oled display
-#     Added Logging capabilities which is stored in /NeoSectional/logfile.log
+#     Added Logging capabilities which is stored in /NeoSectional/logs/logfile.log
 
 #import libraries
 from rpi_ws281x import * #works with python 3.7. sudo pip3 install rpi_ws281x
@@ -28,7 +28,7 @@ version = admin.version                         #Software version
 loglevel = config.loglevel
 loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
 logzero.loglevel(loglevels[loglevel])           #Choices in order; DEBUG, INFO, WARNING, ERROR
-logzero.logfile('/NeoSectional/logfile.log', maxBytes=1e6, backupCount=3)
+logzero.logfile('/NeoSectional/logs/logfile.log', maxBytes=1e6, backupCount=3)
 logger.info('\n\nStartup of shutoff.py Script, Version ' + version)
 logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 

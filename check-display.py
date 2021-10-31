@@ -17,7 +17,7 @@ version = admin.version                         #Software version
 loglevel = config.loglevel
 loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
 logzero.loglevel(loglevels[loglevel])           #Choices in order; DEBUG, INFO, WARNING, ERROR
-logzero.logfile("/NeoSectional/logfile.log", maxBytes=1e6, backupCount=3)
+logzero.logfile("/NeoSectional/logs/logfile.log", maxBytes=1e6, backupCount=3)
 logger.info("\n\nStartup of check-display.py Script, Version " + version)
 logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 

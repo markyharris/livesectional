@@ -6,7 +6,7 @@
 #     3 editors for Config.py, Airports, and Heat Map.
 #     This version includes color picker
 #     This version adds ability to TAB between airport textboxes.
-#     Added Logging capabilities which is stored in /NeoSectional/logfile.log
+#     Added Logging capabilities which is stored in /NeoSectional/logs/logfile.log
 #     Added routine to grab airport details, i.e. City and State to display.
 #     Added admin feature that will list IP address of running RPI to ftp server with drop down to pick from.
 #     Added ability to load a profile into Settings Editor/
@@ -65,17 +65,17 @@ version = admin.version          # Software version
 loglevel = config.loglevel
 loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
 logzero.loglevel(loglevels[loglevel])  # Choices in order; DEBUG, INFO, WARNING, ERROR
-logzero.logfile("/NeoSectional/logfile.log", maxBytes=1e6, backupCount=3)
+logzero.logfile("/NeoSectional/logs/logfile.log", maxBytes=1e6, backupCount=3)
 logger.info("\n\nStartup of metar-v4.py Script, Version " + version)
 logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 
 # setup variables
 #useip2ftp = admin.use_ftp           # OBSOLETE 0 = No, 1 = Yes. Use IP to FTP for multiple boards on local network admin.
-airports_file = '/NeoSectional/airports'
+airports_file = '/NeoSectional/data/airports'
 airports_bkup = '/NeoSectional/airports-bkup'
 settings_file = '/NeoSectional/config.py'
 settings_bkup = '/NeoSectional/config-bkup.py'
-heatmap_file = '/NeoSectional/hmdata'
+heatmap_file = '/NeoSectional/data/hmdata'
 local_ftp_file = '/NeoSectional/lsinfo.txt'
 settings = {}
 airports = []
@@ -193,13 +193,13 @@ def touchscr():
 #        ipadd = ipadd[11:]
 #        script_name = args.script
 #        if script_name == 'webapp':
-#            f = open("/NeoSectional/console_ip.txt", "w")
+#            f = open("/NeoSectional/data/console_ip.txt", "w")
 #            f.write(script_name + " " + ipadd)
 #            f.close()
 @app.route('/open_console', methods=["GET", "POST"])
 def open_console():
     console_ips = []
-    with open("/NeoSectional/console_ip.txt", "r") as file:
+    with open("/NeoSectional/data/console_ip.txt", "r") as file:
         for line in (file.readlines() [-1:]):
             line = line.rstrip()
             console_ips.append(line)
@@ -217,7 +217,7 @@ def stream_log():
 @app.route('/stream_log1', methods=["GET", "POST"]) # Alternate route. Not currently used
 def stream_log1():
     def generate():
-        with open('/NeoSectional/logfile.log') as f:
+        with open('/NeoSectional/logs/logfile.log') as f:
             while True:
                 yield "{}\n".format(f.read())
                 time.sleep(1)
@@ -604,7 +604,7 @@ def index ():
 @app.route('/download_ap', methods=["GET", "POST"])
 def downloadairports ():
     logger.info("Downloaded Airport File")
-    path = "airports"
+    path = "data/airports"
     return send_file(path, as_attachment=True)
 
 @app.route('/download_cf', methods=["GET", "POST"])
@@ -616,13 +616,13 @@ def downloadconfig ():
 @app.route('/download_log', methods=["GET", "POST"])
 def downloadlog ():
     logger.info("Downloaded Logfile")
-    path = "logfile.log"
+    path = "logs/logfile.log"
     return send_file(path, as_attachment=True)
 
 @app.route('/download_hm', methods=["GET", "POST"])
 def downloadhm ():
     logger.info("Downloaded Heat Map data file")
-    path = "hmdata"
+    path = "data/hmdata"
     return send_file(path, as_attachment=True)
 
 # Routes for Heat Map Editor

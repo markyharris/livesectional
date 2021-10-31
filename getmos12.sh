@@ -1,6 +1,5 @@
 #!/bin/bash
 
-rm -r /NeoSectional/GFSMAV &
-sudo wget https://www.weather.gov/source/mdl/MOS/GFSMAV.t12z -P /NeoSectional/
-sleep 5
-sudo mv /NeoSectional/GFSMAV.t12z /NeoSectional/GFSMAV
+rm -f /NeoSectional/data/GFSMAV
+sudo wget https://www.weather.gov/source/mdl/MOS/GFSMAV.t12z -P /NeoSectional/data/
+sudo mv /NeoSectional/data/GFSMAV.t12z /NeoSectional/data/GFSMAV

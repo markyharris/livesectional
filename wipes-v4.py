@@ -37,7 +37,7 @@ version = admin.version                         #Software version
 loglevel = config.loglevel
 loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
 logzero.loglevel(loglevels[loglevel])           #Choices in order; DEBUG, INFO, WARNING, ERROR
-logzero.logfile("/NeoSectional/logfile.log", maxBytes=1e6, backupCount=3)
+logzero.logfile("/NeoSectional/logs/logfile.log", maxBytes=1e6, backupCount=3)
 logger.info("\n\nStartup of wipes-v4.py Script, Version " + version)
 logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 
@@ -660,7 +660,7 @@ def rabbit(color1, color2, wait):
 #Start of executed code
 if __name__ == '__main__':
     #read airports file - read each time weather is updated in case a change to "airports" file was made while script was running.
-    with open("/NeoSectional/airports") as f:
+    with open("/NeoSectional/data/airports") as f:
         airports = f.readlines()
     airports = [x.strip() for x in airports]
 

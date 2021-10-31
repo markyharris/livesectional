@@ -7,7 +7,7 @@
 #     then there will be no dropdown box in the editor.
 #     This script will be executed by webapp.py, which once executed will read the local_file and
 #     populate a dropdown box in the editors with all the map's IP addresses to make it easier to switch.
-#     Added Logging capabilities which is stored in /NeoSectional/logfile.log
+#     Added Logging capabilities which is stored in /NeoSectional/logs/logfile.log
 
 #required imports
 import ftplib
@@ -26,7 +26,7 @@ version = admin.version                         #Software version
 loglevel = config.loglevel
 loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
 logzero.loglevel(loglevels[loglevel])           #Choices in order; DEBUG, INFO, WARNING, ERROR
-logzero.logfile('/NeoSectional/logfile.log', maxBytes=1e6, backupCount=3)
+logzero.logfile('/NeoSectional/logs/logfile.log', maxBytes=1e6, backupCount=3)
 logger.info("\nStartup of metar-v4.py Script, Version " + version)
 logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 

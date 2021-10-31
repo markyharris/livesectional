@@ -10,7 +10,7 @@
 #    Fixed bug that wouldn't allow the last airport to be 'NULL' without causing all LED's to show white.
 #    Added auto restart when config.py is changed, so settings will be automatically re-loaded.
 #    Added internet availability check and retry if necessary. This should help when power is disrupted and board reboots before router does.
-#    Added Logging capabilities which is stored in /NeoSectional/logfile.log with 3 backup files for older logfile data.
+#    Added Logging capabilities which is stored in /NeoSectional/logs/logfile.log with 3 backup files for older logfile data.
 #    Added ability to specify specific LED pins to reverse the normal rgb_grb setting. For mixing models of LED strings.
 #    Added a Heat Map of what airports the user has landed at. Not available through Rotary switch. Only Web interface.
 #    Added new wipes, some based on lat/lon of airports
@@ -99,7 +99,7 @@ version = admin.version                 #Software version
 loglevel = config.loglevel
 loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
 logzero.loglevel(loglevels[loglevel])   #Choices in order; DEBUG, INFO, WARNING, ERROR
-logzero.logfile("/NeoSectional/logfile.log", maxBytes=1e6, backupCount=3)
+logzero.logfile("/NeoSectional/logs/logfile.log", maxBytes=1e6, backupCount=3)
 logger.info("\n\nStartup of metar-v4.py Script, Version " + version)
 logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 
@@ -321,7 +321,7 @@ delay_time = 10                         #Number of seconds to delay before retry
 temp_lights_on = 0                      #Set flag for next round if sleep timer is interrupted by button push.
 
 #MOS Data Settings
-mos_filepath = '/NeoSectional/GFSMAV'      #location of the downloaded local MOS file.
+mos_filepath = '/NeoSectional/data/GFSMAV'      #location of the downloaded local MOS file.
 categories = ['HR', 'CLD', 'WDR', 'WSP', 'P06', 'T06', 'POZ', 'POS', 'TYP', 'CIG','VIS','OBV']
 obv_wx = {'N': 'None', 'HZ': 'HZ','BR': 'RA','FG': 'FG','BL': 'HZ'} #Decode from MOS to TAF/METAR
 typ_wx = {'S': 'SN','Z': 'FZRA','R': 'RA'}      #Decode from MOS to TAF/METAR
@@ -557,7 +557,7 @@ while (outerloop):
 
     #read airports file - read each time weather is updated in case a change to "airports" file was made while script was running.
     try:
-        with open('/NeoSectional/airports') as f:
+        with open('/NeoSectional/data/airports') as f:
             airports = f.readlines()
     except IOError as error:
         logger.error('Airports file could not be loaded.')
@@ -626,7 +626,7 @@ while (outerloop):
         #read hmdata file - read each time weather is updated in case a change to "airports" file was made while script was running.
         j = 0
         logger.info("Starting Heat Map")
-        with open('/NeoSectional/hmdata') as f:
+        with open('/NeoSectional/data/hmdata') as f:
             for line in f:
                 (apid, visits) = line.split(' ')
                 apid = apid.strip()
