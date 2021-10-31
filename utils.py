@@ -28,3 +28,19 @@ def waitForInternet():
             return False
         sleep(30)
 
+
+def getLocalIP():
+    ''' Create Socket to the Internet, Query Local IP '''
+    try:
+        # connect to the host -- tells us if the host is actually
+        # reachable
+        sock = socket.create_connection(("ipv4.google.com", 80))
+        if sock is not None:
+            print('Closing socket')
+            sock.close
+        ipaddr = sock.getsockname()[0]
+        return ipaddr
+    except OSError:
+        pass
+    return "0.0.0.0"
+

@@ -1797,8 +1797,8 @@ if __name__ == '__main__':
     else:
         logger.warning("Internet NOT Available")
 
-    ipadd = s.getsockname()[0]  # get IP Address
-    logger.info('Startup - Current RPI IP Address = ' + ipadd)
+    ipaddr = utils.getLocalIP()
+    logger.info('Startup - Current RPI IP Address = ' + ipaddr)
 
     # Get Current Time Zone
     currtzinfo = subprocess.run(['timedatectl', 'status'], stdout=subprocess.PIPE).stdout.decode('utf-8')
@@ -1815,10 +1815,10 @@ if __name__ == '__main__':
     print(python_ver)
     print('LiveSectional Version - ' + version)
     print("\033[1;32;40m***********************************************")
-    print("       My IP Address is = "+ s.getsockname()[0])
+    print("       My IP Address is = "+ utils.getLocalIP())
     print("***********************************************")
     print("  Configure your LiveSectional by opening a   ")
-    print("    browser to http://"+ s.getsockname()[0]+":5000")
+    print("    browser to http://"+ utils.getLocalIP() +":5000")
     print("***********************************************")
     print("\033[0;0m\n")
     print("Raspberry Pi System Time - " + timestr)
@@ -1842,6 +1842,6 @@ if __name__ == '__main__':
         machines = scan_network.scan_network()
         print(machines) # Debug
 
-    logger.info("IP Address = " + s.getsockname()[0])
+    logger.info("IP Address = " + utils.getLocalIP())
     logger.info("Starting Flask Session")
     app.run(debug=True, host='0.0.0.0')
