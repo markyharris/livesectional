@@ -30,9 +30,11 @@ def get_bool(section, key):
     ''' Read Setting '''
     return configfile.getboolean(section, key)
 
+
 def get_integer(section, key):
     ''' Read Setting '''
     return configfile.getint(section, key)
+
 
 def save_config():
     ''' Save configuration file '''

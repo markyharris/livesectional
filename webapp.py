@@ -41,7 +41,7 @@ import urllib.request, urllib.error, urllib.parse
 import socket
 import logging
 
-import settings
+import confsettings
 import utils
 
 import xml.etree.ElementTree as ET
@@ -1792,6 +1792,8 @@ if __name__ == '__main__':
     # Display active IP address for builder to open up web browser to configure.
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
+    confsettings.init()
+
     if utils.waitForInternet():  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
         logger.info("Internet Available")
     else:
@@ -1844,4 +1846,4 @@ if __name__ == '__main__':
 
     logger.info("IP Address = " + utils.getLocalIP())
     logger.info("Starting Flask Session")
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=confsettings.get_bool("default","flask_debug"), host='0.0.0.0')
