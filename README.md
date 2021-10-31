@@ -1,3 +1,15 @@
+# FORK
+
+This is a fork of the code from livesectional.com
+
+The current intent is to
+ - simplify some of the existing code
+ - improve the security (remove python calling sudo )
+ - run the webapp as a non-priv user
+ - move some of the 'one time setup' actions to a setup script (eg: filesystem expansion)
+ - prepare for packaging via .deb to make it more repeatable
+
+
 # LiveSectional.com
 
 <head>
