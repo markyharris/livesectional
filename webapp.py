@@ -42,6 +42,7 @@ import socket
 import logging
 
 import settings
+import utils
 
 import xml.etree.ElementTree as ET
 
@@ -1595,7 +1596,7 @@ def get_led_map_info():
     while True:  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
         try:
             content = urllib.request.urlopen(led_map_url).read()
-            logger.info('Internet Available')
+            logger.info('FAA Data Downloaded')
             logger.info(led_map_url)
             break
         except:
@@ -1651,7 +1652,7 @@ def get_apinfo():
         try:
 #            s.connect(("8.8.8.8", 80))
             content = urllib.request.urlopen(apurl).read()
-            logger.info('Internet Available')
+            logger.info('FAA Airport Data Available')
             logger.info(apurl)
             break
         except:
@@ -1791,16 +1792,10 @@ if __name__ == '__main__':
     # Display active IP address for builder to open up web browser to configure.
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-    while True:  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
-        try:
-            s.connect(("8.8.8.8", 80))
-            logger.info('Internet Available')
-            break
-
-        except:
-            logger.warning('Internet NOT Available')
-            time.sleep(delay_time)
-            pass
+    if waitForInternet():  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
+        logger.info("Internet Available")
+    else
+        logger.warning("Internet NOT Available")
 
     ipadd = s.getsockname()[0]  # get IP Address
     logger.info('Startup - Current RPI IP Address = ' + ipadd)
