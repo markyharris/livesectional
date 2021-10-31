@@ -78,12 +78,14 @@ logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 
 # setup variables
 #useip2ftp = admin.use_ftp           # OBSOLETE 0 = No, 1 = Yes. Use IP to FTP for multiple boards on local network admin.
-airports_file = '/NeoSectional/data/airports'
-airports_bkup = '/NeoSectional/airports-bkup'
+# 
+# Moved to config statement
+## airports_file = '/NeoSectional/data/airports'
+#
+# airports_bkup = '/NeoSectional/airports-bkup'
 settings_file = '/NeoSectional/config.py'
 settings_bkup = '/NeoSectional/config-bkup.py'
-heatmap_file = '/NeoSectional/data/hmdata'
-local_ftp_file = '/NeoSectional/lsinfo.txt'
+# heatmap_file = '/NeoSectional/data/hmdata'
 settings = {}
 airports = []
 hmdata = []
@@ -659,7 +661,7 @@ def hmedit():
     now = datetime.now()
     timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
 
-    readhmdata(heatmap_file)  # read Heat Map data file
+    readhmdata(confsettings.get_string("filenames","heatmap_file"))  # read Heat Map data file
 
     logger.debug(ipadd)  # debug to display ip address on console
 
@@ -705,7 +707,7 @@ def handle_hmpost_request():
             newlist.append(airports[j] + " " + value)
             j += 1
 
-        writehmdata(newlist, heatmap_file)
+        writehmdata(newlist, confsettings.get_string("filenames","heatmap_file"))
         get_apinfo()
 
     flash('Heat Map Data Successfully Saved')
@@ -771,7 +773,7 @@ def apedit():
     now = datetime.now()
     timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
 
-    readairports(airports_file)  # Read airports file.
+    readairports(confsettings.get_string("filenames","airports_file"))  # Read airports file.
 
     logger.debug(ipadd)  # debug to display ip address on console
 
@@ -803,7 +805,7 @@ def numap():
         numap = int(request.form["numofap"])
         print (numap)
 
-    readairports(airports_file)
+    readairports(confsettings.get_string("filenames","airports_file"))
 
     newnum = numap - int(len(airports))
     if newnum < 0:
@@ -845,13 +847,13 @@ def handle_appost_request():
     if request.method == "POST":
         data = request.form.to_dict()
         logging.debug(data)  # debug
-        writeairports(data, airports_file)
+        writeairports(data, confsettings.get_string("filenames","airports_file"))
 
-        readairports(airports_file)
+        readairports(confsettings.get_string("filenames","airports_file"))
         get_apinfo()  # decode airports to get city and state to display
 
         # update size and data of hmdata based on saved airports file.
-        readhmdata(heatmap_file)  # get heat map data to update with newly edited airports file
+        readhmdata(confsettings.get_string("filenames","heatmap_file"))  # get heat map data to update with newly edited airports file
         if len(hmdata) > len(airports):  # adjust size of hmdata list if length is larger than airports
             num = len(hmdata) - len(airports)
             hmdata = hmdata[:-num]
@@ -864,7 +866,7 @@ def handle_appost_request():
             ap, *_ = hmdata[index].split()
             if ap != airport:
                 hmdata[index] = (airport + ' 0')  # save changed airport and assign zero landings to it in hmdata
-        writehmdata(hmdata, heatmap_file)
+        writehmdata(hmdata, confsettings.get_string("filenames","heatmap_file"))
 
     flash('Airports Successfully Saved')
     return redirect("apedit")
@@ -882,7 +884,7 @@ def ledonoff():
 
     if request.method == "POST":
 
-        readairports(airports_file)
+        readairports(confsettings.get_string("filenames","airports_file"))
 
         if "buton" in request.form:
             num = int(request.form['lednum'])
@@ -1529,12 +1531,12 @@ def writeairports(settings, file):
 
 
 # Read airports file
-def readairports(airports_file):
+def readairports(filename):
     logger.debug('In ReadAirports Routine')
     global airports
     airports = []
     try:
-        with open(airports_file) as f:
+        with open(filename) as f:
             for line in f:
                 airports.append(line.rstrip())
             logger.debug(airports)  # debug
@@ -1560,13 +1562,13 @@ def readhmdata(hmdata_file):
         for airport in airports:
             hmdata.append(airport + " 0")
         print (hmdata)  # debug
-        writehmdata(hmdata, heatmap_file)
+        writehmdata(hmdata, confsettings.get_string("filenames","heatmap_file"))
 
 
 # Write heat map file
-def writehmdata(hmdata,heatmap_file):
+def writehmdata(hmdata,filename):
     logger.debug('In WriteHMdata Routine')
-    f = open(heatmap_file, "w+")
+    f = open(filename, "w+")
 
     for key in hmdata:
         logger.debug(key)  # debug
@@ -1802,6 +1804,9 @@ if __name__ == '__main__':
     ipaddr = utils.getLocalIP()
     logger.info('Startup - Current RPI IP Address = ' + ipaddr)
 
+    logger.info('Base Directory :' + confsettings.get_string("filenames", "basedir"))
+    logger.info('Airports File  :' + confsettings.get_string("filenames", "airports_file")) 
+
     # Get Current Time Zone
     currtzinfo = subprocess.run(['timedatectl', 'status'], stdout=subprocess.PIPE).stdout.decode('utf-8')
     tztemp = currtzinfo.split('\n')
@@ -1834,10 +1839,10 @@ if __name__ == '__main__':
 
     copy()  # make backup of config file
     readconf(settings_file)  # read config file
-    readairports(airports_file)  # read airports
+    readairports(confsettings.get_string("filenames","airports_file"))  # read airports
     get_apinfo()  # decode airports to get city and state of each airport
     get_led_map_info() # get airport location in lat lon and flight category
-    readhmdata(heatmap_file)  # get Heat Map data
+    readhmdata(confsettings.get_string("filenames","heatmap_file"))  # get Heat Map data
 
     if admin.use_scan_network == 1:
         print("One Moment - Scanning for Other LiveSectional Maps on Local Network")

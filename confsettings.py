@@ -14,6 +14,7 @@ def init():
     ''' Initialize and load configuration '''
     global configfile
     configfile = configparser.ConfigParser()
+    configfile._interpolation = configparser.ExtendedInterpolation()
     configfile.read(config_filename)
 
 def get(section, key):
