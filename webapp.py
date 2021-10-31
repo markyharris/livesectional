@@ -26,34 +26,40 @@
 # print test #force bug to cause webapp.py to error out
 
 # import needed libraries
-#   sudo pip3 install flask
-from flask import Flask, render_template, request, flash, redirect, url_for, send_file, Response
-from werkzeug.utils import secure_filename
 #    if URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] try;
 #    $ sudo update-ca-certificates --fresh
 #    $ export SSL_CERT_DIR=/etc/ssl/certs
-import urllib.request, urllib.error, urllib.parse
-import xml.etree.ElementTree as ET
 from datetime import datetime
 import time
 import os
 import sys
 import subprocess
 import shutil
-import wget
 import zipfile
+import json
+import urllib.request, urllib.error, urllib.parse
+import socket
+import logging
+
+import settings
+
+import xml.etree.ElementTree as ET
+
 import folium
 import folium.plugins
 from folium.features import CustomIcon
 from folium.features import DivIcon
 from folium.vector_layers import Circle, CircleMarker, PolyLine, Polygon, Rectangle
 import requests
-import json
+
+import wget
+
+#   sudo pip3 install flask
+from flask import Flask, render_template, request, flash, redirect, url_for, send_file, Response
+from werkzeug.utils import secure_filename
 
 # from neopixel import * # works with python 2.7
 from rpi_ws281x import * # works with python 3.7. sudo pip3 install rpi_ws281x
-import socket
-import logging
 import logzero
 from logzero import logger
 import config
@@ -206,6 +212,7 @@ def open_console():
     logger.info("Opening open_console in separate window")
     return render_template('open_console.html', urls = console_ips, title = 'Display Console Output-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
 
+
 # Routes to display logfile live, and hopefully for a dashboard
 @app.route('/stream_log', methods=["GET", "POST"])
 def stream_log():
@@ -213,6 +220,7 @@ def stream_log():
     global timestr
     logger.info("Opening stream_log in separate window")
     return render_template('stream_log.html', title = 'Display Logfile-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
+
 
 @app.route('/stream_log1', methods=["GET", "POST"]) # Alternate route. Not currently used
 def stream_log1():
@@ -223,6 +231,7 @@ def stream_log1():
                 time.sleep(1)
 
     return app.response_class(generate(), mimetype='text/plain')
+
 
 # Route to manually check for update using menu item
 @app.route('/test_for_update', methods=["GET", "POST"])
@@ -248,6 +257,7 @@ def test_for_update():
     logger.info('Checking to see if there is an update available')
     return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
+
 # Route to update Software if one is available and user chooses to update
 @app.route('/update_info', methods=["GET", "POST"])
 def update_info():
@@ -257,6 +267,7 @@ def update_info():
         content = file.readlines()
         logger.debug(content)
     return render_template("update_info.html", content = content, title = 'Update Info-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
+
 
 @app.route('/update', methods=["GET", "POST"])
 def update():
@@ -473,6 +484,7 @@ def led_map():
 #         logger.info("Opening expand file system page")
 #         return render_template('expandfs.html', **templateData)
 
+
 # Route to display and change Time Zone information.
 @app.route('/tzset', methods=["GET", "POST"])
 def tzset():
@@ -533,6 +545,7 @@ def tzset():
     logger.info("Opening Time Zone Set page")
     return render_template('tzset.html', **templateData)
 
+
 # Route to display system information.
 @app.route('/yield')
 def yindex():
@@ -551,6 +564,7 @@ def yindex():
     logger.info("Opening yeild to display system info in separate window")
     return Response(inner(), mimetype='text/html')  # text/html is required for most browsers to show this info.
 
+
 # Route to create QR Code to display next to map so user can use an app to control the map
 @app.route('/qrcode', methods=["GET", "POST"])
 def qrcode():
@@ -558,6 +572,7 @@ def qrcode():
     qraddress = 'http://' + ipadd.strip() + ':5000/lsremote'
     logger.info("Opening qrcode in separate window")
     return render_template('qrcode.html', qraddress = qraddress)
+
 
 #Routes for homepage
 @app.route('/', methods=["GET", "POST"])
@@ -600,6 +615,7 @@ def index ():
     logger.info("Opening Home Page/Index")
     return render_template('index.html', **templateData)
 
+
 # Routes to download airports, logfile.log and config.py to local computer
 @app.route('/download_ap', methods=["GET", "POST"])
 def downloadairports ():
@@ -607,11 +623,13 @@ def downloadairports ():
     path = "data/airports"
     return send_file(path, as_attachment=True)
 
+
 @app.route('/download_cf', methods=["GET", "POST"])
 def downloadconfig ():
     logger.info("Downloaded Config File")
     path = "config.py"
     return send_file(path, as_attachment=True)
+
 
 @app.route('/download_log', methods=["GET", "POST"])
 def downloadlog ():
@@ -619,11 +637,13 @@ def downloadlog ():
     path = "logs/logfile.log"
     return send_file(path, as_attachment=True)
 
+
 @app.route('/download_hm', methods=["GET", "POST"])
 def downloadhm ():
     logger.info("Downloaded Heat Map data file")
     path = "data/hmdata"
     return send_file(path, as_attachment=True)
+
 
 # Routes for Heat Map Editor
 @app.route("/hmedit", methods=["GET", "POST"])
@@ -658,6 +678,7 @@ def hmedit():
             }
     return render_template('hmedit.html', **templateData)
 
+
 @app.route("/hmpost", methods=["GET", "POST"])
 def handle_hmpost_request():
     logger.info("Saving Heat Map Data File")
@@ -688,6 +709,7 @@ def handle_hmpost_request():
 
     flash('Heat Map Data Successfully Saved')
     return redirect("hmedit")
+
 
 # Import a file to populate Heat Map Data. Must Save Airports to keep
 @app.route("/importhm", methods=["GET", "POST"])
@@ -733,6 +755,7 @@ def importhm():
     flash('Heat Map Imported - Click "Save Heat Map File" to save')
     return render_template("hmedit.html", **templateData)
 
+
 # Routes for Airport Editor
 @app.route("/apedit", methods=["GET", "POST"])
 def apedit():
@@ -766,6 +789,7 @@ def apedit():
             'machines': machines
             }
     return render_template('apedit.html', **templateData)
+
 
 @app.route("/numap", methods=["GET", "POST"])
 def numap():
@@ -805,6 +829,7 @@ def numap():
     flash('Number of LEDs Updated - Click "Save Airports" to save.')
     return render_template('apedit.html', **templateData)
 
+
 @app.route("/appost", methods=["GET", "POST"])
 def handle_appost_request():
     logger.info("Saving Airport File")
@@ -842,6 +867,7 @@ def handle_appost_request():
 
     flash('Airports Successfully Saved')
     return redirect("apedit")
+
 
 @app.route("/ledonoff", methods=["GET", "POST"])
 def ledonoff():
@@ -938,6 +964,7 @@ def ledonoff():
 
     return render_template("apedit.html", **templateData)
 
+
 # Import a file to populate airports. Must Save Airports to keep
 @app.route("/importap", methods=["GET", "POST"])
 def importap():
@@ -979,6 +1006,7 @@ def importap():
             }
     flash('Airports Imported - Click "Save Airports" to save')
     return render_template("apedit.html", **templateData)
+
 
 # Routes for Config Editor
 @app.route("/confedit", methods=["GET", "POST"])
@@ -1035,7 +1063,6 @@ def confedit():
     checker_color1_hex = rgb2hex(settings["checker_color1"])
     checker_color2_hex = rgb2hex(settings["checker_color2"])
 
-
     # Pass data to html document
     templateData = {
             'title': 'Settings Editor-'+version,
@@ -1091,6 +1118,7 @@ def confedit():
             'checker_color2_hex': checker_color2_hex
             }
     return render_template('confedit.html', **templateData)
+
 
 @app.route("/post", methods=["GET", "POST"])
 def handle_post_request():
@@ -1160,6 +1188,7 @@ def handle_post_request():
 
         temp = url.split('/')
         return redirect(temp[3])  # temp[3] holds name of page that called this route.
+
 
 # Routes for LSREMOTE - Allow Mobile Device Remote. Thank Lance
 # @app.route('/', methods=["GET", "POST"])
@@ -1273,6 +1302,7 @@ def confeditmobile():
             }
     return render_template('lsremote.html', **templateData)
 
+
 # Import Config file. Must Save Config File to make permenant
 @app.route("/importconf", methods=["GET", "POST"])
 def importconf():
@@ -1313,12 +1343,14 @@ def importconf():
     flash('Config File Imported - Click "Save Config File" to save')
     return redirect('./confedit')
 
+
 # Restore config.py settings
 @app.route("/restoreconf", methods=["GET", "POST"])
 def restoreconf():
     logger.info("Restoring Config Settings")
     readconf(settings_file)  # read config file
     return redirect('./confedit')
+
 
 # Loads the profile into the Settings Editor, but does not save it.
 @app.route("/profiles", methods=["GET", "POST"])
@@ -1337,6 +1369,7 @@ def profiles():
     logger.info("Loading a Profile into Settings Editor")
     return redirect('confedit')
 
+
 # Route for Reboot of RPI
 @app.route("/reboot1", methods=["GET", "POST"])
 def reboot1():
@@ -1349,6 +1382,7 @@ def reboot1():
     logger.info("Rebooting Map from " + url)
     os.system('sudo shutdown -r now')
     return redirect(temp[3])  # temp[3] holds name of page that called this route.
+
 
 # Route to startup map and displays
 @app.route("/startup1", methods=["GET", "POST"])
@@ -1363,6 +1397,7 @@ def startup1():
     flash("Map Turned On ")
     time.sleep(1)
     return redirect(temp[3])  # temp[3] holds name of page that called this route.
+
 
 # Route to turn off the map and displays
 @app.route("/shutdown1", methods=["GET", "POST"])
@@ -1381,6 +1416,7 @@ def shutdown1():
     time.sleep(1)
     return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
+
 # Route to power down the RPI
 @app.route("/shutoffnow1", methods=["GET", "POST"])
 def shutoffnow1():
@@ -1393,6 +1429,7 @@ def shutoffnow1():
     logger.info("Shutdown RPI from " + url)
     os.system('sudo shutdown -h now')
     return redirect(temp[3])  # temp[3] holds name of page that called this route.
+
 
 # Route to run LED test
 @app.route("/testled", methods=["GET", "POST"])
@@ -1407,6 +1444,7 @@ def testled():
     logger.info("Running testled.py from " + url)
     os.system('sudo python3 /NeoSectional/testled.py')
     return redirect(temp[3])  # temp[3] holds name of page that called this route.
+
 
 # Route to run OLED test
 @app.route("/testoled", methods=["GET", "POST"])
@@ -1440,6 +1478,7 @@ def copy():
     f.write(contents)
     f.close()
 
+
 # open and read config.py into settings dictionary
 def readconf(config_file):
     logger.debug('In ReadConf Routine')
@@ -1461,6 +1500,7 @@ def readconf(config_file):
         logger.error('Config file could not be loaded.')
         logger.error(error)
 
+
 # write config.py file
 def writeconf(settings, file):
     logger.debug('In WriteConf Routine')
@@ -1473,6 +1513,7 @@ def writeconf(settings, file):
         f.write('\n')
     f.close()
 
+
 # write airports file
 def writeairports(settings, file):
     logger.debug('In WriteAirports Routine')
@@ -1484,6 +1525,7 @@ def writeairports(settings, file):
         f.write(value)
         f.write('\n')
     f.close()
+
 
 # Read airports file
 def readairports(airports_file):
@@ -1498,6 +1540,7 @@ def readairports(airports_file):
     except IOError as error:
         logger.error('Airports file could not be loaded.')
         logger.error(error)
+
 
 # Read heat map file
 def readhmdata(hmdata_file):
@@ -1517,6 +1560,7 @@ def readhmdata(hmdata_file):
             hmdata.append(airport + " 0")
         print (hmdata)  # debug
         writehmdata(hmdata, heatmap_file)
+
 
 # Write heat map file
 def writehmdata(hmdata,heatmap_file):
@@ -1635,6 +1679,7 @@ def get_apinfo():
             state = apinfo.find('state').text
             apinfo_dict[stationId] = [site,state]
 
+
 # rgb and hex routines
 def rgb2hex(rgb):
     logger.debug(rgb)
@@ -1642,10 +1687,12 @@ def rgb2hex(rgb):
     hex = '#%02x%02x%02x' % (r, g, b)
     return hex
 
+
 def hex2rgb(value):  # from; https://www.codespeedy.com/convert-rgb-to-hex-color-code-in-python/
     value = value.lstrip('#')
     lv = len(value)
     return tuple(int(value[i:i+lv//3], 16) for i in range(0, lv, lv//3))
+
 
 # functions for updating software via web
 def delfile(filename):
@@ -1655,20 +1702,24 @@ def delfile(filename):
     except:
         logger.error("Error while deleting file ", target_path + filename)
 
+
 def unzipfile(filename):
     with zipfile.ZipFile(target_path + filename, 'r') as zip_ref:
         zip_ref.extractall(target_path)
     logger.info('Unzipped ls.zip')
+
 
 def copytoprevdir(src, dest):
     shutil.rmtree(dest)
     shutil.copytree(src,dest)
     logger.info('Copied current version to ../previousversion')
 
+
 def dlftpfile(url, filename):
     wget.download(url, filename)
     print('\n')
     logger.info('Downloaded ' + filename + ' from neoupdate')
+
 
 def updatefiles():
     copytoprevdir(src, dest)                       # This copies current version to ../previousversion before updating files.
@@ -1676,6 +1727,7 @@ def updatefiles():
     unzipfile(zipfilename)                         # Unzip files and overwrite existing older files
     delfile(zipfilename)                           # Delete zip file
     logger.info('Updated New Files')
+
 
 def checkforupdate():
     global update_vers
@@ -1715,6 +1767,7 @@ def testupdate():
     elif checkforupdate() == "image":
         logger.info('Newer Image Available for Download')
         update_available = 2                    # Newer image available
+
 
 # May be used to display user location on map in user interface. - TESTING Not working consistently, not used
 def get_loc():

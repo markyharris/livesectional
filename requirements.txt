@@ -22,7 +22,7 @@ numpy==1.21.3                             #
 Pillow==8.3.2                             #
 pysftp==0.2.9                             #
 python-nmap==0.7.1                        #
-requests==2.21.0                          #
+# requests==2.21.0                          #
 rpi-ws281x==4.2.6                         #
 RPi.GPIO==0.7.0                           #
 RPLCD==1.3.0                              #
