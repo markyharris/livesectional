@@ -1792,9 +1792,9 @@ if __name__ == '__main__':
     # Display active IP address for builder to open up web browser to configure.
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-    if waitForInternet():  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
+    if utils.waitForInternet():  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
         logger.info("Internet Available")
-    else
+    else:
         logger.warning("Internet NOT Available")
 
     ipadd = s.getsockname()[0]  # get IP Address
