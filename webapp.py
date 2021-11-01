@@ -41,9 +41,6 @@ import urllib.request, urllib.error, urllib.parse
 import socket
 import logging
 
-import confsettings
-import utils
-
 import xml.etree.ElementTree as ET
 
 import folium
@@ -51,6 +48,7 @@ import folium.plugins
 from folium.features import CustomIcon
 from folium.features import DivIcon
 from folium.vector_layers import Circle, CircleMarker, PolyLine, Polygon, Rectangle
+
 import requests
 
 import wget
@@ -63,6 +61,10 @@ from werkzeug.utils import secure_filename
 from rpi_ws281x import * # works with python 3.7. sudo pip3 install rpi_ws281x
 import logzero
 from logzero import logger
+
+import confsettings
+import utils
+
 import config
 import admin
 import scan_network
@@ -1759,11 +1761,11 @@ def checkforupdate():
 def testupdate():
     # Check to see if an newer version of the software is available, and update if user so chooses
     global update_available
-    if checkforupdate() == True:
+    if checkforupdate() is True:
         logger.info('Update Available')
         update_available = 1                    # Update is available
 
-    elif checkforupdate() == False:
+    elif checkforupdate() is False:
         logger.info('No Updates Available')
         update_available = 0                    # No update available
 
