@@ -79,8 +79,10 @@ logger.info("\n\nStartup of metar-v4.py Script, Version " + version)
 logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 
 # setup variables
-#useip2ftp = admin.use_ftp           # OBSOLETE 0 = No, 1 = Yes. Use IP to FTP for multiple boards on local network admin.
-# 
+# useip2ftp = admin.use_ftp           
+# OBSOLETE 0 = No, 1 = Yes. Use IP to FTP for multiple boards 
+#  on local network admin.
+#
 # Moved to config statement
 ## airports_file = '/NeoSectional/data/airports'
 #
@@ -459,14 +461,14 @@ def led_map():
 #     global timestr
 #     global version
 #     global current_timezone
-# 
+#
 #     if request.method == "POST":
 #         os.system('sudo raspi-config --expand-rootfs')
 #         flash('File System has been expanded')
 #         flash('NOTE: Select "Reboot RPI" from "Map Functions" Menu for changes to take affect')
-# 
+#
 #         return redirect('expandfs')
-# 
+#
 #     else:
 #         templateData = {
 #             'title': 'Expand File System-'+version,
@@ -1807,7 +1809,7 @@ if __name__ == '__main__':
     logger.info('Startup - Current RPI IP Address = ' + ipaddr)
 
     logger.info('Base Directory :' + confsettings.get_string("filenames", "basedir"))
-    logger.info('Airports File  :' + confsettings.get_string("filenames", "airports_file")) 
+    logger.info('Airports File  :' + confsettings.get_string("filenames", "airports_file"))
 
     # Get Current Time Zone
     currtzinfo = subprocess.run(['timedatectl', 'status'], stdout=subprocess.PIPE).stdout.decode('utf-8')
