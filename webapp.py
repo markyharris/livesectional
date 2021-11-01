@@ -163,6 +163,7 @@ logger.info("Settings and Flask Have Been Setup")
 # Routes for Map Display - Testing
 @app.route('/map1', methods=["GET", "POST"])
 def map1():
+    """Flask Route: /map1"""
     start_coords = (35.1738, -111.6541)
     folium_map = folium.Map(location=start_coords, \
       zoom_start = 6, height='80%', width='100%', \
@@ -174,7 +175,8 @@ def map1():
     folium_map.add_child(folium.ClickForMarker(popup='Marker'))
     folium.plugins.Geocoder().add_to(folium_map)
 
-    folium.TileLayer('http://wms.chartbundle.com/tms/1.0.0/sec/{z}/{x}/{y}.png?origin=nw', attr='chartbundle.com', name='ChartBundle Sectional').add_to(folium_map)
+    folium.TileLayer('http://wms.chartbundle.com/tms/1.0.0/sec/{z}/{x}/{y}.png?origin=nw', \
+            attr='chartbundle.com', name='ChartBundle Sectional').add_to(folium_map)
     folium.TileLayer('Stamen Terrain', name='Stamen Terrain').add_to(folium_map)
     folium.TileLayer('CartoDB positron', name='CartoDB Positron').add_to(folium_map)
     # other mapping code (e.g. lines, markers etc.)
@@ -187,6 +189,7 @@ def map1():
 
 @app.route('/touchscr', methods=["GET", "POST"])
 def touchscr():
+    """Flask Route: /touchscr - Touch Screen template"""
     return render_template('touchscr.html', title = 'Touch Screen', num = 5, machines = machines, ipadd = ipadd)
 
 
@@ -209,6 +212,7 @@ def touchscr():
 #            f.close()
 @app.route('/open_console', methods=["GET", "POST"])
 def open_console():
+    """Flask Route: /open_console - Launching Console in discrete window"""
     console_ips = []
     with open("/NeoSectional/data/console_ip.txt", "r") as file:
         for line in (file.readlines() [-1:]):
@@ -221,6 +225,7 @@ def open_console():
 # Routes to display logfile live, and hopefully for a dashboard
 @app.route('/stream_log', methods=["GET", "POST"])
 def stream_log():
+    """Flask Route: /stream_log - Watch logs live"""
     global ipadd
     global timestr
     logger.info("Opening stream_log in separate window")
@@ -229,6 +234,7 @@ def stream_log():
 
 @app.route('/stream_log1', methods=["GET", "POST"]) # Alternate route. Not currently used
 def stream_log1():
+    """Flask Route: /stream_log1 - UNUSED ALTERNATE LOGS ROUTE"""
     def generate():
         with open('/NeoSectional/logs/logfile.log') as f:
             while True:
@@ -241,6 +247,7 @@ def stream_log1():
 # Route to manually check for update using menu item
 @app.route('/test_for_update', methods=["GET", "POST"])
 def test_for_update():
+    """Flask Route: /test_for_update - Run new software update checks"""
     global update_available
     url = request.referrer
     if url is None:
@@ -266,6 +273,7 @@ def test_for_update():
 # Route to update Software if one is available and user chooses to update
 @app.route('/update_info', methods=["GET", "POST"])
 def update_info():
+    """Flask Route: /update_info - Display Software Updates"""
     global ipadd
     global timestr
     with open("/NeoSectional/update_info.txt","r") as file:
@@ -276,6 +284,7 @@ def update_info():
 
 @app.route('/update', methods=["GET", "POST"])
 def update():
+    """Flask Route: /update - Execute Update for files"""
     url = request.referrer
     if url is None:
         url = 'http://' + ipadd + ':5000/index'  # Use index if called from URL and not page.
@@ -289,6 +298,7 @@ def update():
 
 @app.route('/update_page', methods=["GET", "POST"])
 def update_page():
+    """Flask Route: /update_page"""
     global ipadd
     global timestr
     return render_template("update_page.html", title = 'Software Update Information-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
@@ -297,6 +307,7 @@ def update_page():
 # Route to display map's airports on a digital map.
 @app.route('/led_map', methods=["GET", "POST"])
 def led_map():
+    """Flask Route: /led_map - Display LED Map showing existing airports on MAP"""
     global hmdata
     global airports
     global led_map_dict
@@ -493,6 +504,7 @@ def led_map():
 # Route to display and change Time Zone information.
 @app.route('/tzset', methods=["GET", "POST"])
 def tzset():
+    """Flask Route: /tzset - Display and Set Timezone Information"""
     global hmdata
     global airports
     global settings
@@ -554,6 +566,7 @@ def tzset():
 # Route to display system information.
 @app.route('/yield')
 def yindex():
+    """Flask Route: /yield - Display System Info"""
     def inner():
         proc = subprocess.Popen(
             ['/NeoSectional/info-v4.py'],             # 'dmesg' call something with a lot of output so we can see it
@@ -573,6 +586,7 @@ def yindex():
 # Route to create QR Code to display next to map so user can use an app to control the map
 @app.route('/qrcode', methods=["GET", "POST"])
 def qrcode():
+    """Flask Route: /qrcode - Generate QRcode for site URL"""
     global ipadd
     qraddress = 'http://' + ipadd.strip() + ':5000/lsremote'
     logger.info("Opening qrcode in separate window")
@@ -583,6 +597,7 @@ def qrcode():
 @app.route('/', methods=["GET", "POST"])
 @app.route('/index', methods=["GET", "POST"])
 def index ():
+    """Flask Route: / and /index - Homepage"""
     global hmdata
     global airports
     global settings
@@ -624,6 +639,7 @@ def index ():
 # Routes to download airports, logfile.log and config.py to local computer
 @app.route('/download_ap', methods=["GET", "POST"])
 def downloadairports ():
+    """Flask Route: /download_ap - Export airports file"""
     logger.info("Downloaded Airport File")
     path = "data/airports"
     return send_file(path, as_attachment=True)
@@ -631,13 +647,15 @@ def downloadairports ():
 
 @app.route('/download_cf', methods=["GET", "POST"])
 def downloadconfig ():
+    """Flask Route: /download_cf - Export configuration file"""
     logger.info("Downloaded Config File")
-    path = "config.py"
+    path = "config.ini"
     return send_file(path, as_attachment=True)
 
 
 @app.route('/download_log', methods=["GET", "POST"])
 def downloadlog ():
+    """Flask Route: /download_log - Export log file"""
     logger.info("Downloaded Logfile")
     path = "logs/logfile.log"
     return send_file(path, as_attachment=True)
@@ -645,6 +663,7 @@ def downloadlog ():
 
 @app.route('/download_hm', methods=["GET", "POST"])
 def downloadhm ():
+    """Flask Route: /download_hm - Export heatmap data file"""
     logger.info("Downloaded Heat Map data file")
     path = "data/hmdata"
     return send_file(path, as_attachment=True)
@@ -653,6 +672,7 @@ def downloadhm ():
 # Routes for Heat Map Editor
 @app.route("/hmedit", methods=["GET", "POST"])
 def hmedit():
+    """Flask Route: /hmedit - Heat Map Editor"""
     logger.info("Opening hmedit.html")
     global strip
     global num
@@ -686,6 +706,7 @@ def hmedit():
 
 @app.route("/hmpost", methods=["GET", "POST"])
 def handle_hmpost_request():
+    """Flask Route: /hmpost - Upload HeatMap Data"""
     logger.info("Saving Heat Map Data File")
     global hmdata
     global strip
@@ -719,6 +740,7 @@ def handle_hmpost_request():
 # Import a file to populate Heat Map Data. Must Save Airports to keep
 @app.route("/importhm", methods=["GET", "POST"])
 def importhm():
+    """Flask Route: /importhm - Importing Heat Map"""
     logger.info("Importing Heat Map File")
     global ipaddresses
     global airports
@@ -764,6 +786,7 @@ def importhm():
 # Routes for Airport Editor
 @app.route("/apedit", methods=["GET", "POST"])
 def apedit():
+    """Flask Route: /apedit - Airport Editor"""
     logger.info("Opening apedit.html")
     global airports
     global strip
@@ -798,6 +821,7 @@ def apedit():
 
 @app.route("/numap", methods=["GET", "POST"])
 def numap():
+    """Flask Route: /numap"""
     logger.info("Updating Number of Airports in airport file")
     global ipaddresses
     global airports
@@ -837,6 +861,7 @@ def numap():
 
 @app.route("/appost", methods=["GET", "POST"])
 def handle_appost_request():
+    """Flask Route: /appost"""
     logger.info("Saving Airport File")
     global airports
     global hmdata
@@ -876,6 +901,7 @@ def handle_appost_request():
 
 @app.route("/ledonoff", methods=["GET", "POST"])
 def ledonoff():
+    """Flask Route: /ledonoff"""
     logger.info("Controlling LED's on/off")
     global airports
     global strip
@@ -973,6 +999,7 @@ def ledonoff():
 # Import a file to populate airports. Must Save Airports to keep
 @app.route("/importap", methods=["GET", "POST"])
 def importap():
+    """Flask Route: /importap - Import Airports File"""
     logger.info("Importing Airports File")
     global ipaddresses
     global airports
@@ -1016,6 +1043,7 @@ def importap():
 # Routes for Config Editor
 @app.route("/confedit", methods=["GET", "POST"])
 def confedit():
+    """Flask Route: /confedit - Configuration Editor"""
     logger.info("Opening confedit.html")
     global ipaddresses
     global ipadd
@@ -1127,6 +1155,7 @@ def confedit():
 
 @app.route("/post", methods=["GET", "POST"])
 def handle_post_request():
+    """Flask Route: /post"""
     logger.info("Saving Config File")
     global ipaddresses
     global timestr
@@ -1199,6 +1228,7 @@ def handle_post_request():
 # @app.route('/', methods=["GET", "POST"])
 @app.route('/lsremote', methods=["GET", "POST"])
 def confeditmobile():
+    """Flask Route: /lsremote - Mobile Device API"""
     logger.info("Opening lsremote.html")
     global ipaddresses
     global ipadd
@@ -1311,6 +1341,7 @@ def confeditmobile():
 # Import Config file. Must Save Config File to make permenant
 @app.route("/importconf", methods=["GET", "POST"])
 def importconf():
+    """Flask Route: /importconf - Flask Config Uploader"""
     logger.info("Importing Config File")
     global ipaddresses
     global airports
@@ -1352,6 +1383,7 @@ def importconf():
 # Restore config.py settings
 @app.route("/restoreconf", methods=["GET", "POST"])
 def restoreconf():
+    """Flask Route: /restoreconf"""
     logger.info("Restoring Config Settings")
     readconf(settings_file)  # read config file
     return redirect('./confedit')
@@ -1360,6 +1392,7 @@ def restoreconf():
 # Loads the profile into the Settings Editor, but does not save it.
 @app.route("/profiles", methods=["GET", "POST"])
 def profiles():
+    """Flask Route: /profiles - Load from Multiple Config Profiles"""
     global settings
     config_profiles = {'b1': 'config-basic.py', 'b2': 'config-basic2.py', 'b3': 'config-basic3.py', 'a1': 'config-advanced-1oled.py', 'a2': 'config-advanced-lcd.py', 'a3': 'config-advanced-8oledsrs.py', 'a4': 'config-advanced-lcdrs.py'}
 
@@ -1378,6 +1411,7 @@ def profiles():
 # Route for Reboot of RPI
 @app.route("/reboot1", methods=["GET", "POST"])
 def reboot1():
+    """Flask Route: /reboot1 - Request host reboot"""
     url = request.referrer
     if url is None:
         url = 'http://' + ipadd + ':5000/index'  # Use index if called from URL and not page.
@@ -1392,6 +1426,7 @@ def reboot1():
 # Route to startup map and displays
 @app.route("/startup1", methods=["GET", "POST"])
 def startup1():
+    """Flask Route: /startup1 - Trigger process startup"""
     url = request.referrer
     if url is None:
         url = 'http://' + ipadd + ':5000/index'  #Use index if called from URL and not page.
@@ -1407,6 +1442,7 @@ def startup1():
 # Route to turn off the map and displays
 @app.route("/shutdown1", methods=["GET", "POST"])
 def shutdown1():
+    """Flask Route: /shutdown1 - Trigger process shutdown"""
     url = request.referrer
     if url is None:
         url = 'http://' + ipadd + ':5000/index' #Use index if called from URL and not page.
@@ -1425,6 +1461,7 @@ def shutdown1():
 # Route to power down the RPI
 @app.route("/shutoffnow1", methods=["GET", "POST"])
 def shutoffnow1():
+    """Flask Route: /shutoffnow1 - Turn Off RPI"""
     url = request.referrer
     if url is None:
         url = 'http://' + ipadd + ':5000/index'  # Use index if called from URL and not page.
@@ -1439,6 +1476,7 @@ def shutoffnow1():
 # Route to run LED test
 @app.route("/testled", methods=["GET", "POST"])
 def testled():
+    """Flask Route: /testled - Run LED Test scripts"""
     url = request.referrer
     if url is None:
         url = 'http://' + ipadd + ':5000/index'  #Use index if called from URL and not page.
@@ -1454,6 +1492,7 @@ def testled():
 # Route to run OLED test
 @app.route("/testoled", methods=["GET", "POST"])
 def testoled():
+    """Flask Route: /testoled - Run OLED Test sequence"""
     url = request.referrer
     if url is None:
         url = 'http://' + ipadd + ':5000/index' # Use index if called from URL and not page.
@@ -1474,6 +1513,7 @@ def testoled():
 
 # create backup of config.py
 def copy():
+    """Create copy of old configuration file"""
     logger.debug('In Copy Config file Routine')
     f = open(settings_file, "r")
     contents = f.read()
@@ -1486,6 +1526,7 @@ def copy():
 
 # open and read config.py into settings dictionary
 def readconf(config_file):
+    """Load old configuration file """
     logger.debug('In ReadConf Routine')
     try:
         with open(config_file) as f:
@@ -1508,6 +1549,7 @@ def readconf(config_file):
 
 # write config.py file
 def writeconf(settings, file):
+    """Save old style configuration file"""
     logger.debug('In WriteConf Routine')
     f = open(file, "w+")
     f.write('#config.py - use web based configurator to make changes unless you are comfortable doing it manually')
@@ -1521,6 +1563,7 @@ def writeconf(settings, file):
 
 # write airports file
 def writeairports(settings, file):
+    """Save settings key data - FIXME - Why settings and not airports here"""
     logger.debug('In WriteAirports Routine')
     f = open(file, "w")  # "w+")
 #       print(settings)
@@ -1534,6 +1577,7 @@ def writeairports(settings, file):
 
 # Read airports file
 def readairports(filename):
+    """Load airport data from airports file"""
     logger.debug('In ReadAirports Routine')
     global airports
     airports = []
@@ -1549,6 +1593,7 @@ def readairports(filename):
 
 # Read heat map file
 def readhmdata(hmdata_file):
+    """Load heatmap data from hmdata file"""
     logger.debug('In ReadHMdata Routine')
     global hmdata
     hmdata = []
@@ -1569,6 +1614,7 @@ def readhmdata(hmdata_file):
 
 # Write heat map file
 def writehmdata(hmdata,filename):
+    """Save hmdata to hmdata file"""
     logger.debug('In WriteHMdata Routine')
     f = open(filename, "w+")
 
@@ -1689,8 +1735,8 @@ def get_apinfo():
 def rgb2hex(rgb):
     logger.debug(rgb)
     (r,g,b) = eval(rgb)
-    hex = '#%02x%02x%02x' % (r, g, b)
-    return hex
+    hexval = '#%02x%02x%02x' % (r, g, b)
+    return hexval
 
 
 def hex2rgb(value):  # from; https://www.codespeedy.com/convert-rgb-to-hex-color-code-in-python/

@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # startup.py v4 - by Mark Harris with contribution from Stuart.
 #    Thank you for your help.
 #    Used to start 3 scripts, one to run the metar leds and one to update an
