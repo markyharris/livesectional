@@ -2,7 +2,7 @@
 #  sudo pip3 install -r requirements.txt
 
 Adafruit-BBIO==1.2.0                      #
-Adafruit-Blinka==3.3.4                    #
+Adafruit-Blinka==6.15.0                    #
 adafruit-circuitpython-busdevice==4.1.1   #
 adafruit-circuitpython-framebuf==1.4.7    #
 adafruit-circuitpython-ssd1306==2.12.2     #
