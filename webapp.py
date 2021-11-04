@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-
+"""
 
 # webapp.py - v4, by Mark Harris. Web Based Configurator for LiveSectional - Using Flask and Python
 #     Updated to work with Python 3
@@ -23,6 +23,7 @@
 #     Added LiveSectional Web Map, which recreates the builders map online.
 #     Fixed bug where get_led_map_info() would not get lat/Lon from XML file.
 
+"""
 # print test #force bug to cause webapp.py to error out
 
 # import needed libraries
@@ -1629,6 +1630,7 @@ def writehmdata(hmdata,filename):
 
 # routine to capture airport information and pass along to web pages.
 def get_led_map_info():
+    """Routine to capture airport information and pass along to web pages"""
     logger.debug('In get_led_map_info Routine')
 
     global led_map_url
@@ -1690,6 +1692,7 @@ def get_led_map_info():
 
 # routine to capture airport information and pass along to web pages.
 def get_apinfo():
+    """routine to capture airport information and pass along to web pages."""
     logger.debug('In Get_Apinfo Routine')
 
     global orig_apurl
@@ -1735,6 +1738,7 @@ def get_apinfo():
 
 # rgb and hex routines
 def rgb2hex(rgb):
+    """Convert RGB to HEX"""
     logger.debug(rgb)
     (r,g,b) = eval(rgb)
     hexval = '#%02x%02x%02x' % (r, g, b)
@@ -1742,6 +1746,7 @@ def rgb2hex(rgb):
 
 
 def hex2rgb(value):  # from; https://www.codespeedy.com/convert-rgb-to-hex-color-code-in-python/
+    """Hex to RGB"""
     value = value.lstrip('#')
     lv = len(value)
     return tuple(int(value[i:i+lv//3], 16) for i in range(0, lv, lv//3))
@@ -1749,6 +1754,7 @@ def hex2rgb(value):  # from; https://www.codespeedy.com/convert-rgb-to-hex-color
 
 # functions for updating software via web
 def delfile(filename):
+    """Delete File""" # FIXME - Check to make sure filename is not relative
     try:
         os.remove(target_path + filename)
         logger.info('Deleted ' + filename)
@@ -1757,24 +1763,28 @@ def delfile(filename):
 
 
 def unzipfile(filename):
+    """Unzip file""" # FIXME - Check to make sure that filename isn't outside target_path
     with zipfile.ZipFile(target_path + filename, 'r') as zip_ref:
         zip_ref.extractall(target_path)
     logger.info('Unzipped ls.zip')
 
 
 def copytoprevdir(src, dest):
+    """Delete target; clone src""" # FIXME Error handling for rmtree
     shutil.rmtree(dest)
     shutil.copytree(src,dest)
     logger.info('Copied current version to ../previousversion')
 
 
 def dlftpfile(url, filename):
+    """ Download file """ # FIXME - Error handling for wget
     wget.download(url, filename)
     print('\n')
     logger.info('Downloaded ' + filename + ' from neoupdate')
 
 
 def updatefiles():
+    """ Deploy updates """ # FIXME - Make software update process more robust - or replace with .deb update
     copytoprevdir(src, dest)                       # This copies current version to ../previousversion before updating files.
     dlftpfile(source_path + zipfilename, target_path + zipfilename) # Download zip file that contains updated files
     unzipfile(zipfilename)                         # Unzip files and overwrite existing older files
@@ -1783,6 +1793,7 @@ def updatefiles():
 
 
 def checkforupdate():
+    """ Download updates ; check for version info """
     global update_vers
 #    get_loc()
 #    print(loc)  # debug
@@ -1807,7 +1818,7 @@ def checkforupdate():
 
 
 def testupdate():
-    # Check to see if an newer version of the software is available, and update if user so chooses
+    """ Check to see if an newer version of the software is available, and update if user so chooses"""
     global update_available
     if checkforupdate() is True:
         logger.info('Update Available')
@@ -1824,6 +1835,7 @@ def testupdate():
 
 # May be used to display user location on map in user interface. - TESTING Not working consistently, not used
 def get_loc():
+    """ Try figure out approximate location from IP data """
     loc_data = {}
     global loc
 
