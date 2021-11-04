@@ -11,7 +11,7 @@ Adafruit-GPIO==1.0.3                      #
 Adafruit-PureIO==1.1.9                    #
 Adafruit-SSD1306==1.6.2                   #
 beautifulsoup4==4.7.1                     #
-Flask==1.0.2                              #
+Flask==2.0.2                              #
 folium==0.12.1                            #
 gpiozero==1.6.2                           #
 html5lib==1.1                           #
