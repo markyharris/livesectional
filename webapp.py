@@ -80,8 +80,8 @@ logger.info("\n\nStartup of metar-v4.py Script, Version " + version)
 logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 
 # setup variables
-# useip2ftp = admin.use_ftp           
-# OBSOLETE 0 = No, 1 = Yes. Use IP to FTP for multiple boards 
+# useip2ftp = admin.use_ftp
+# OBSOLETE 0 = No, 1 = Yes. Use IP to FTP for multiple boards
 #  on local network admin.
 #
 # Moved to config statement
