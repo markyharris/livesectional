@@ -15,7 +15,7 @@ Flask==1.0.2                              #
 folium==0.12.1                            #
 gpiozero==1.6.2                           #
 html5lib==1.1                           #
-Jinja2==2.11.3                            #
+Jinja2==3.0.2                            #
 logzero==1.7.0                            #
 lxml==4.6.4                               #
 numpy==1.21.3                             #
