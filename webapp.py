@@ -146,8 +146,8 @@ color = Color(255,255,255)      # Color to display when cycling through LED's. W
 black_color = Color(0,0,0)      # Color Black used to turn off the LED.
 num = 0
 now = datetime.now()
-timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
-logger.debug(timestr)
+loc_timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
+logger.debug(loc_timestr)
 delay_time = 5                  # Delay in seconds between checking for internet availablility.
 num = 0                         # initialize num for airports editor
 ipadd = ''
@@ -222,7 +222,7 @@ def open_console():
             line = line.rstrip()
             console_ips.append(line)
     logger.info("Opening open_console in separate window")
-    return render_template('open_console.html', urls = console_ips, title = 'Display Console Output-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
+    return render_template('open_console.html', urls = console_ips, title = 'Display Console Output-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = loc_timestr)
 
 
 # Routes to display logfile live, and hopefully for a dashboard
@@ -230,9 +230,9 @@ def open_console():
 def stream_log():
     """Flask Route: /stream_log - Watch logs live"""
     global ipadd
-    global timestr
+    global loc_timestr
     logger.info("Opening stream_log in separate window")
-    return render_template('stream_log.html', title = 'Display Logfile-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
+    return render_template('stream_log.html', title = 'Display Logfile-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = loc_timestr)
 
 
 @app.route('/stream_log1', methods=["GET", "POST"]) # Alternate route. Not currently used
@@ -278,11 +278,11 @@ def test_for_update():
 def update_info():
     """Flask Route: /update_info - Display Software Updates"""
     global ipadd
-    global timestr
+    global loc_timestr
     with open("/NeoSectional/update_info.txt","r") as file:
         content = file.readlines()
         logger.debug(content)
-    return render_template("update_info.html", content = content, title = 'Update Info-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
+    return render_template("update_info.html", content = content, title = 'Update Info-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = loc_timestr)
 
 
 @app.route('/update', methods=["GET", "POST"])
@@ -303,8 +303,8 @@ def update():
 def update_page():
     """Flask Route: /update_page"""
     global ipadd
-    global timestr
-    return render_template("update_page.html", title = 'Software Update Information-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = timestr)
+    global loc_timestr
+    return render_template("update_page.html", title = 'Software Update Information-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = loc_timestr)
 
 
 # Route to display map's airports on a digital map.
@@ -320,7 +320,7 @@ def led_map():
     global ipadd
     global strip
     global ipaddresses
-    global timestr
+    global loc_timestr
     global version
     global current_timezone
 
@@ -332,11 +332,10 @@ def led_map():
         'ipadd': ipadd,
         'strip': strip,
         'ipaddresses': ipaddresses,
-        'timestr': timestr,
+        'timestr': loc_timestr,
         'num': num,
         'apinfo_dict': apinfo_dict,
         'led_map_dict': led_map_dict,
-        'timestr': timestr,
         'version': version,
         'update_available': update_available,
         'update_vers': update_vers,
@@ -490,10 +489,9 @@ def led_map():
 #             'ipadd': ipadd,
 #             'strip': strip,
 #             'ipaddresses': ipaddresses,
-#             'timestr': timestr,
 #             'num': num,
 #             'apinfo_dict': apinfo_dict,
-#             'timestr': timestr,
+#             'timestr': loc_timestr,
 #             'version': version,
 #             'update_available': update_available,
 #             'update_vers': update_vers,
@@ -516,12 +514,12 @@ def tzset():
     global ipadd
     global strip
     global ipaddresses
-    global timestr
+    global loc_timestr
     global version
     global current_timezone
 
     loc_now = datetime.now()
-    timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
+    loc_timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
     loc_currtzinfolist = []
 
     if request.method == "POST":
@@ -549,10 +547,9 @@ def tzset():
             'ipadd': ipadd,
             'strip': strip,
             'ipaddresses': ipaddresses,
-            'timestr': timestr,
+            'timestr': loc_timestr,
             'num': num,
             'apinfo_dict': apinfo_dict,
-            'timestr': timestr,
             'version': version,
             'update_available': update_available,
             'update_vers': update_vers,
@@ -609,11 +606,11 @@ def index ():
     global ipadd
     global strip
     global ipaddresses
-    global timestr
+    global loc_timestr
     global version
 
     loc_now = datetime.now()
-    timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
+    loc_timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
 
     templateData = {
             'title': 'LiveSectional Home-'+version,
@@ -623,10 +620,9 @@ def index ():
             'ipadd': ipadd,
             'strip': strip,
             'ipaddresses': ipaddresses,
-            'timestr': timestr,
+            'timestr': loc_timestr,
             'num': num,
             'apinfo_dict': apinfo_dict,
-            'timestr': timestr,
             'current_timezone': current_timezone,
             'update_available': update_available,
             'update_vers': update_vers,
@@ -682,9 +678,9 @@ def hmedit():
     global ipadd
     global strip
     global ipaddresses
-    global timestr
+    global loc_timestr
     loc_now = datetime.now()
-    timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
+    loc_timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
 
     readhmdata(confsettings.get_string("filenames","heatmap_file"))  # read Heat Map data file
 
@@ -696,7 +692,7 @@ def hmedit():
             'ipadd': ipadd,
             'strip': strip,
             'ipaddresses': ipaddresses,
-            'timestr': timestr,
+            'timestr': loc_timestr,
             'num': num,
             'current_timezone': current_timezone,
             'update_available': update_available,
@@ -716,7 +712,7 @@ def handle_hmpost_request():
     global num
     global ipadd
     global ipaddresses
-    global timestr
+    global loc_timestr
     loc_newlist = []
 
     if request.method == "POST":
@@ -747,7 +743,7 @@ def importhm():
     logger.info("Importing Heat Map File")
     global ipaddresses
     global airports
-    global timestr
+    global loc_timestr
     global hmdata
     hmdata = []
 
@@ -774,7 +770,7 @@ def importhm():
             'ipadd': ipadd,
             'strip': strip,
             'ipaddresses': ipaddresses,
-            'timestr': timestr,
+            'timestr': loc_timestr,
             'num': num,
             'current_timezone': current_timezone,
             'update_available': update_available,
@@ -797,9 +793,9 @@ def apedit():
     global ipadd
     global strip
     global ipaddresses
-    global timestr
+    global loc_timestr
     loc_now = datetime.now()
-    timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
+    loc_timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
 
     readairports(confsettings.get_string("filenames","airports_file"))  # Read airports file.
 
@@ -811,7 +807,7 @@ def apedit():
             'ipadd': ipadd,
             'strip': strip,
             'ipaddresses': ipaddresses,
-            'timestr': timestr,
+            'timestr': loc_timestr,
             'num': num,
             'current_timezone': current_timezone,
             'update_available': update_available,
@@ -828,7 +824,7 @@ def numap():
     logger.info("Updating Number of Airports in airport file")
     global ipaddresses
     global airports
-    global timestr
+    global loc_timestr
 
     if request.method == "POST":
         loc_numap = int(request.form["numofap"])
@@ -849,7 +845,7 @@ def numap():
             'ipadd': ipadd,
             'strip': strip,
             'ipaddresses': ipaddresses,
-            'timestr': timestr,
+            'timestr': loc_timestr,
             'num': num,
             'current_timezone': current_timezone,
             'update_available': update_available,
@@ -872,7 +868,7 @@ def handle_appost_request():
     global num
     global ipadd
     global ipaddresses
-    global timestr
+    global loc_timestr
 
     if request.method == "POST":
         data = request.form.to_dict()
@@ -911,7 +907,7 @@ def ledonoff():
     global num
     global ipadd
     global ipaddresses
-    global timestr
+    global loc_timestr
 
     if request.method == "POST":
 
@@ -988,7 +984,7 @@ def ledonoff():
             'ipadd': ipadd,
             'strip': strip,
             'ipaddresses': ipaddresses,
-            'timestr': timestr,
+            'timestr': loc_timestr,
             'num': num,
             'update_available': update_available,
             'update_vers': update_vers,
@@ -1006,7 +1002,7 @@ def importap():
     logger.info("Importing Airports File")
     global ipaddresses
     global airports
-    global timestr
+    global loc_timestr
 
     if 'file' not in request.files:
         flash('No File Selected')
@@ -1031,7 +1027,7 @@ def importap():
             'ipadd': ipadd,
             'strip': strip,
             'ipaddresses': ipaddresses,
-            'timestr': timestr,
+            'timestr': loc_timestr,
             'num': num,
             'current_timezone': current_timezone,
             'update_available': update_available,
@@ -1050,11 +1046,11 @@ def confedit():
     logger.info("Opening confedit.html")
     global ipaddresses
     global ipadd
-    global timestr
+    global loc_timestr
     global settings
 
     loc_now = datetime.now()
-    timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
+    loc_timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
 
     logger.debug(ipadd)  # debug
 
@@ -1105,7 +1101,7 @@ def confedit():
             'settings': settings,
             'ipadd': ipadd,
             'ipaddresses': ipaddresses,
-            'timestr': timestr,
+            'timestr': loc_timestr,
             'num': num,
             'current_timezone': current_timezone,
             'update_available': update_available,
@@ -1161,7 +1157,7 @@ def handle_post_request():
     """Flask Route: /post"""
     logger.info("Saving Config File")
     global ipaddresses
-    global timestr
+    global loc_timestr
 
     if request.method == "POST":
         data = request.form.to_dict()
@@ -1235,11 +1231,11 @@ def confeditmobile():
     logger.info("Opening lsremote.html")
     global ipaddresses
     global ipadd
-    global timestr
+    global loc_timestr
     global settings
 
     loc_now = datetime.now()
-    timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
+    loc_timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
 
     logger.debug(ipadd)  # debug
 
@@ -1291,7 +1287,7 @@ def confeditmobile():
             'ipadd': ipadd,
             'ipaddresses': ipaddresses,
             'num': num,
-            'timestr': timestr,
+            'timestr': loc_timestr,
             'current_timezone': current_timezone,
             'update_available': update_available,
             'update_vers': update_vers,
@@ -1349,7 +1345,7 @@ def importconf():
     global ipaddresses
     global airports
     global settings
-    global timestr
+    global loc_timestr
     tmp_settings = []
 
     if 'file' not in request.files:
@@ -1890,7 +1886,7 @@ if __name__ == '__main__':
     print("    browser to http://"+ utils.getLocalIP() +":5000")
     print("***********************************************")
     print("\033[0;0m\n")
-    print("Raspberry Pi System Time - " + timestr)
+    print("Raspberry Pi System Time - " + loc_timestr)
 
     # Load files and back up the airports file, then run flask templates
 
