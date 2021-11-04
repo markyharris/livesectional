@@ -368,15 +368,15 @@ def led_map():
     # Set Marker Color by Flight Category
     for j,led_ap in enumerate(led_map_dict):
         if led_map_dict[led_ap][2] == "VFR":
-            color = 'green'
+            loc_color = 'green'
         elif led_map_dict[led_ap][2] == "MVFR":
-            color = 'blue'
+            loc_color = 'blue'
         elif led_map_dict[led_ap][2] == "IFR":
-            color = 'red'
+            loc_color = 'red'
         elif led_map_dict[led_ap][2] == "LIFR":
-            color = 'violet'
+            loc_color = 'violet'
         else:
-            color = 'black'
+            loc_color = 'black'
 
         # Get Pin Number to display in popup
         if led_ap in airports:
@@ -386,13 +386,13 @@ def led_map():
 
         pop_url = '<a href="https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId='+led_ap+'"target="_blank">'
         popup = pop_url+"<b>"+led_ap+"</b><br>"+apinfo_dict[led_ap][0]+',&nbsp'+apinfo_dict[led_ap][1]\
-                +"</a><br>Pin&nbspNumber&nbsp=&nbsp"+str(pin_num)+"<br><b><font size=+2 color="+color+">"+led_map_dict[led_ap][2]+"</font></b>"
+                +"</a><br>Pin&nbspNumber&nbsp=&nbsp"+str(pin_num)+"<br><b><font size=+2 color="+loc_color+">"+led_map_dict[led_ap][2]+"</font></b>"
 
         # Add airport markers with proper color to denote flight category
         folium.CircleMarker(
             radius=7,
             fill=True,
-            color=color,
+            color=loc_color,
             location=[led_map_dict[led_ap][0], led_map_dict[led_ap][1]],
             popup=popup,
             tooltip=str(led_ap)+"<br>Pin "+str(pin_num),
@@ -520,9 +520,9 @@ def tzset():
     global version
     global current_timezone
 
-    now = datetime.now()
-    timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
-    currtzinfolist = []
+    loc_now = datetime.now()
+    timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
+    loc_currtzinfolist = []
 
     if request.method == "POST":
         timezone = request.form['tzselected']
@@ -534,12 +534,12 @@ def tzset():
     tzlist = subprocess.run(['timedatectl', 'list-timezones'], stdout=subprocess.PIPE).stdout.decode('utf-8')
     tzoptionlist = tzlist.split()
 
-    currtzinfo = subprocess.run(['timedatectl', 'status'], stdout=subprocess.PIPE).stdout.decode('utf-8')
-    tztemp = currtzinfo.split('\n')
-    for j in range(len(tztemp)):
+    loc_currtzinfo = subprocess.run(['timedatectl', 'status'], stdout=subprocess.PIPE).stdout.decode('utf-8')
+    loc_tztemp = loc_currtzinfo.split('\n')
+    for j in range(len(loc_tztemp)):
         if j==0 or j==1 or j==3:
-            currtzinfolist.append(tztemp[j])
-    current_timezone = tztemp[3]
+            loc_currtzinfolist.append(loc_tztemp[j])
+    current_timezone = loc_tztemp[3]
 
     templateData = {
             'title': 'Timezone Set-'+version,
@@ -557,7 +557,7 @@ def tzset():
             'update_available': update_available,
             'update_vers': update_vers,
             'tzoptionlist': tzoptionlist,
-            'currtzinfolist': currtzinfolist,
+            'currtzinfolist': loc_currtzinfolist,
             'current_timezone': current_timezone,
             'machines': machines
             }
@@ -612,8 +612,8 @@ def index ():
     global timestr
     global version
 
-    now = datetime.now()
-    timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
+    loc_now = datetime.now()
+    timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
 
     templateData = {
             'title': 'LiveSectional Home-'+version,
@@ -683,8 +683,8 @@ def hmedit():
     global strip
     global ipaddresses
     global timestr
-    now = datetime.now()
-    timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
+    loc_now = datetime.now()
+    timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
 
     readhmdata(confsettings.get_string("filenames","heatmap_file"))  # read Heat Map data file
 
@@ -717,7 +717,7 @@ def handle_hmpost_request():
     global ipadd
     global ipaddresses
     global timestr
-    newlist = []
+    loc_newlist = []
 
     if request.method == "POST":
         data = request.form.to_dict()
@@ -730,10 +730,10 @@ def handle_hmpost_request():
             if value == '':
                 value = '0'
 
-            newlist.append(airports[j] + " " + value)
+            loc_newlist.append(airports[j] + " " + value)
             j += 1
 
-        writehmdata(newlist, confsettings.get_string("filenames","heatmap_file"))
+        writehmdata(loc_newlist, confsettings.get_string("filenames","heatmap_file"))
         get_apinfo()
 
     flash('Heat Map Data Successfully Saved')
@@ -798,8 +798,8 @@ def apedit():
     global strip
     global ipaddresses
     global timestr
-    now = datetime.now()
-    timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
+    loc_now = datetime.now()
+    timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
 
     readairports(confsettings.get_string("filenames","airports_file"))  # Read airports file.
 
@@ -831,16 +831,16 @@ def numap():
     global timestr
 
     if request.method == "POST":
-        numap = int(request.form["numofap"])
-        print (numap)
+        loc_numap = int(request.form["numofap"])
+        print (loc_numap)
 
     readairports(confsettings.get_string("filenames","airports_file"))
 
-    newnum = numap - int(len(airports))
+    newnum = loc_numap - int(len(airports))
     if newnum < 0:
         airports = airports[:newnum]
     else:
-        for n in range(len(airports), numap):
+        for n in range(len(airports), loc_numap):
             airports.append("NULL")
 
     templateData = {
@@ -892,10 +892,10 @@ def handle_appost_request():
             for n in range(len(hmdata), len(airports)):
                 hmdata.append('NULL 0')
 
-        for index, airport in enumerate(airports):  # now that both lists are same length, be sure the data matches
-            ap, *_ = hmdata[index].split()
+        for loc_index, airport in enumerate(airports):  # now that both lists are same length, be sure the data matches
+            ap, *_ = hmdata[loc_index].split()
             if ap != airport:
-                hmdata[index] = (airport + ' 0')  # save changed airport and assign zero landings to it in hmdata
+                hmdata[loc_index] = (airport + ' 0')  # save changed airport and assign zero landings to it in hmdata
         writehmdata(hmdata, confsettings.get_string("filenames","heatmap_file"))
 
     flash('Airports Successfully Saved')
@@ -1053,8 +1053,8 @@ def confedit():
     global timestr
     global settings
 
-    now = datetime.now()
-    timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
+    loc_now = datetime.now()
+    timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
 
     logger.debug(ipadd)  # debug
 
@@ -1238,8 +1238,8 @@ def confeditmobile():
     global timestr
     global settings
 
-    now = datetime.now()
-    timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
+    loc_now = datetime.now()
+    timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
 
     logger.debug(ipadd)  # debug
 
@@ -1551,27 +1551,27 @@ def readconf(config_file):
 
 
 # write config.py file
-def writeconf(settings, file):
+def writeconf(loc_settings, file):
     """Save old style configuration file"""
     logger.debug('In WriteConf Routine')
     f = open(file, "w+")
     f.write('#config.py - use web based configurator to make changes unless you are comfortable doing it manually')
     f.write('\n\n')
-    for key in settings:
+    for key in loc_settings:
 #        logger.debug(key, settings[key]) # debug
-        f.write(key + " = " + settings[key])
+        f.write(key + " = " + loc_settings[key])
         f.write('\n')
     f.close()
 
 
 # write airports file
-def writeairports(settings, file):
+def writeairports(loc_settings, file):
     """Save settings key data - FIXME - Why settings and not airports here"""
     logger.debug('In WriteAirports Routine')
     f = open(file, "w")  # "w+")
-#       print(settings)
-    for key in settings:
-        value = settings.get(key)
+#       print(loc_settings)
+    for key in loc_settings:
+        value = loc_settings.get(key)
         logger.debug(value)  # debug
         f.write(value)
         f.write('\n')
@@ -1616,12 +1616,12 @@ def readhmdata(hmdata_file):
 
 
 # Write heat map file
-def writehmdata(hmdata,filename):
+def writehmdata(loc_hmdata,filename):
     """Save hmdata to hmdata file"""
     logger.debug('In WriteHMdata Routine')
     f = open(filename, "w+")
 
-    for key in hmdata:
+    for key in loc_hmdata:
         logger.debug(key)  # debug
         f.write(key)
         f.write('\n')
@@ -1769,7 +1769,7 @@ def unzipfile(filename):
     logger.info('Unzipped ls.zip')
 
 
-def copytoprevdir(src, dest):
+def copytoprevdir(src_dir, dest_dir):
     """Delete target; clone src""" # FIXME Error handling for rmtree
     shutil.rmtree(dest)
     shutil.copytree(src,dest)
