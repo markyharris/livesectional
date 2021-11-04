@@ -60,11 +60,14 @@ from werkzeug.utils import secure_filename
 
 # from neopixel import * # works with python 2.7
 from rpi_ws281x import * # works with python 3.7. sudo pip3 install rpi_ws281x
-import logzero
-from logzero import logger
+# import logzero
+# from logzero import logger
+
+import debugging
 
 import confsettings
 import utils
+import appinfo
 
 import config
 import admin
@@ -72,12 +75,12 @@ import scan_network
 
 # Setup rotating logfile with 3 rotations, each with a maximum filesize of 1MB:
 version = admin.version          # Software version
-loglevel = config.loglevel
-loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
-logzero.loglevel(loglevels[loglevel])  # Choices in order; DEBUG, INFO, WARNING, ERROR
-logzero.logfile("/NeoSectional/logs/logfile.log", maxBytes=1e6, backupCount=3)
-logger.info("\n\nStartup of metar-v4.py Script, Version " + version)
-logger.info("Log Level Set To: " + str(loglevels[loglevel]))
+#loglevel = config.loglevel
+#loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
+# logzero.loglevel(loglevels[loglevel])  # Choices in order; DEBUG, INFO, WARNING, ERROR
+# logzero.logfile("/NeoSectional/logs/logfile.log", maxBytes=1e6, backupCount=3)
+debugging.info("\n\nStartup of metar-v4.py Script, Version " + version)
+#debugging.info("Log Level Set To: " + str(loglevels[loglevel]))
 
 # setup variables
 # useip2ftp = admin.use_ftp
@@ -98,7 +101,7 @@ datalist = []
 newlist = []
 ipaddresses = []
 current_timezone = ''
-loc = {}
+# loc = {}
 machines = []
 lat_list = []
 lon_list = []
@@ -120,12 +123,12 @@ update_vers = "4.000"                           # initiate variable
 # Used to capture staton information for airport id decode for tooltip display in web pages.
 apinfo_dict = {}
 orig_apurl = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=" # noqa
-logger.debug(orig_apurl)
+debugging.dprint(orig_apurl)
 
 #Used to display weather and airport locations on a map
 led_map_dict = {}
 led_map_url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString=" # noqa
-logger.debug(led_map_url)
+debugging.dprint(led_map_url)
 
 # LED strip configuration:
 LED_COUNT      = 500            # Max Number of LED pixels.
@@ -147,7 +150,7 @@ black_color = Color(0,0,0)      # Color Black used to turn off the LED.
 num = 0
 now = datetime.now()
 loc_timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
-logger.debug(loc_timestr)
+debugging.dprint(loc_timestr)
 delay_time = 5                  # Delay in seconds between checking for internet availablility.
 num = 0                         # initialize num for airports editor
 ipadd = ''
@@ -156,7 +159,7 @@ ipadd = ''
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
-logger.info("Settings and Flask Have Been Setup")
+debugging.info("Settings and Flask Have Been Setup")
 
 
 ##########
@@ -221,7 +224,7 @@ def open_console():
         for line in file.readlines() [-1:]:
             line = line.rstrip()
             console_ips.append(line)
-    logger.info("Opening open_console in separate window")
+    debugging.info("Opening open_console in separate window")
     return render_template('open_console.html',
             urls = console_ips,
             title = 'Display Console Output-'+version,
@@ -237,7 +240,7 @@ def stream_log():
     """Flask Route: /stream_log - Watch logs live"""
     global ipadd
     global loc_timestr
-    logger.info("Opening stream_log in separate window")
+    debugging.info("Opening stream_log in separate window")
     return render_template('stream_log.html', title = 'Display Logfile-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = loc_timestr)
 
 
@@ -275,7 +278,7 @@ def test_for_update():
     else:
         flash('New Image Available -  Use Map Utilities to Download')
 
-    logger.info('Checking to see if there is an update available')
+    debugging.info('Checking to see if there is an update available')
     return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
 
@@ -287,7 +290,7 @@ def update_info():
     global loc_timestr
     with open("/NeoSectional/update_info.txt","r") as file:
         content = file.readlines()
-        logger.debug(content)
+        debugging.dprint(content)
     return render_template("update_info.html",\
             content = content,\
             title = 'Update Info-'+version,\
@@ -307,7 +310,7 @@ def update():
     temp = url.split('/')
     updatefiles()
     flash('Software has been updated to v' + update_vers)
-    logger.info('Updated Software to version ' + update_vers)
+    debugging.info('Updated Software to version ' + update_vers)
     return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
 
@@ -335,7 +338,6 @@ def led_map():
     global strip
     global num
     global ipadd
-    global strip
     global ipaddresses
     global loc_timestr
     global version
@@ -444,7 +446,7 @@ def led_map():
             pin_index = airports.index(pin_ap)
             points.insert(pin_index, [float(led_map_dict[pin_ap][0]), float(led_map_dict[pin_ap][1])])
 
-    logger.debug(points)
+    debugging.dprint(points)
     folium.PolyLine(points, color='grey', weight=2.5, opacity=1, dash_array='10').add_to(folium_map)
 
     # Add Title to the top of the map
@@ -478,7 +480,7 @@ def led_map():
     folium.LayerControl().add_to(folium_map)
 
     folium_map.save('../../NeoSectional/templates/map.html')
-    logger.info("Opening led_map in separate window")
+    debugging.info("Opening led_map in separate window")
     return render_template('led_map.html', **templateData)
 
 
@@ -491,7 +493,6 @@ def led_map():
 #     global strip
 #     global num
 #     global ipadd
-#     global strip
 #     global ipaddresses
 #     global timestr
 #     global version
@@ -522,7 +523,7 @@ def led_map():
 #             'current_timezone': current_timezone,
 #             'machines': machines
 #             }
-#         logger.info("Opening expand file system page")
+#         debugging.info("Opening expand file system page")
 #         return render_template('expandfs.html', **templateData)
 
 
@@ -536,7 +537,6 @@ def tzset():
     global strip
     global num
     global ipadd
-    global strip
     global ipaddresses
     global loc_timestr
     global version
@@ -585,7 +585,7 @@ def tzset():
             'machines': machines
             }
 
-    logger.info("Opening Time Zone Set page")
+    debugging.info("Opening Time Zone Set page")
     return render_template('tzset.html', **templateData)
 
 
@@ -605,7 +605,7 @@ def yindex():
             line = line.decode("utf-8")
             yield line.strip() + '<br/>\n'
 
-    logger.info("Opening yeild to display system info in separate window")
+    debugging.info("Opening yeild to display system info in separate window")
     return Response(inner(), mimetype='text/html')  # text/html is required for most browsers to show this info.
 
 
@@ -615,7 +615,7 @@ def qrcode():
     """Flask Route: /qrcode - Generate QRcode for site URL"""
     global ipadd
     qraddress = 'http://' + ipadd.strip() + ':5000/lsremote'
-    logger.info("Opening qrcode in separate window")
+    debugging.info("Opening qrcode in separate window")
     return render_template('qrcode.html', qraddress = qraddress)
 
 
@@ -630,7 +630,6 @@ def index ():
     global strip
     global num
     global ipadd
-    global strip
     global ipaddresses
     global loc_timestr
     global version
@@ -657,7 +656,7 @@ def index ():
             }
 
 #    flash(machines) # Debug
-    logger.info("Opening Home Page/Index")
+    debugging.info("Opening Home Page/Index")
     return render_template('index.html', **templateData)
 
 
@@ -665,7 +664,7 @@ def index ():
 @app.route('/download_ap', methods=["GET", "POST"])
 def downloadairports ():
     """Flask Route: /download_ap - Export airports file"""
-    logger.info("Downloaded Airport File")
+    debugging.info("Downloaded Airport File")
     path = "data/airports"
     return send_file(path, as_attachment=True)
 
@@ -673,7 +672,7 @@ def downloadairports ():
 @app.route('/download_cf', methods=["GET", "POST"])
 def downloadconfig ():
     """Flask Route: /download_cf - Export configuration file"""
-    logger.info("Downloaded Config File")
+    debugging.info("Downloaded Config File")
     path = "config.ini"
     return send_file(path, as_attachment=True)
 
@@ -681,7 +680,7 @@ def downloadconfig ():
 @app.route('/download_log', methods=["GET", "POST"])
 def downloadlog ():
     """Flask Route: /download_log - Export log file"""
-    logger.info("Downloaded Logfile")
+    debugging.info("Downloaded Logfile")
     path = "logs/logfile.log"
     return send_file(path, as_attachment=True)
 
@@ -689,7 +688,7 @@ def downloadlog ():
 @app.route('/download_hm', methods=["GET", "POST"])
 def downloadhm ():
     """Flask Route: /download_hm - Export heatmap data file"""
-    logger.info("Downloaded Heat Map data file")
+    debugging.info("Downloaded Heat Map data file")
     path = "data/hmdata"
     return send_file(path, as_attachment=True)
 
@@ -698,11 +697,10 @@ def downloadhm ():
 @app.route("/hmedit", methods=["GET", "POST"])
 def hmedit():
     """Flask Route: /hmedit - Heat Map Editor"""
-    logger.info("Opening hmedit.html")
+    debugging.info("Opening hmedit.html")
     global strip
     global num
     global ipadd
-    global strip
     global ipaddresses
     global loc_timestr
     loc_now = datetime.now()
@@ -710,7 +708,7 @@ def hmedit():
 
     readhmdata(confsettings.get_string("filenames","heatmap_file"))  # read Heat Map data file
 
-    logger.debug(ipadd)  # debug to display ip address on console
+    debugging.dprint(ipadd)  # debug to display ip address on console
 
     templateData = {
             'title': 'Heat Map Editor-'+version,
@@ -732,7 +730,7 @@ def hmedit():
 @app.route("/hmpost", methods=["GET", "POST"])
 def handle_hmpost_request():
     """Flask Route: /hmpost - Upload HeatMap Data"""
-    logger.info("Saving Heat Map Data File")
+    debugging.info("Saving Heat Map Data File")
     global hmdata
     global strip
     global num
@@ -743,7 +741,7 @@ def handle_hmpost_request():
 
     if request.method == "POST":
         data = request.form.to_dict()
-        logger.debug(data)  # debug
+        debugging.dprint(data)  # debug
 
         j = 0
         for key in data:
@@ -766,7 +764,7 @@ def handle_hmpost_request():
 @app.route("/importhm", methods=["GET", "POST"])
 def importhm():
     """Flask Route: /importhm - Importing Heat Map"""
-    logger.info("Importing Heat Map File")
+    debugging.info("Importing Heat Map File")
     global ipaddresses
     global airports
     global loc_timestr
@@ -785,10 +783,10 @@ def importhm():
 
     filedata = file.read()
     tmphmdata = bytes.decode(filedata)
-    logger.debug(tmphmdata)
+    debugging.dprint(tmphmdata)
     hmdata = tmphmdata.split('\n')
     hmdata.pop()
-    logger.debug(hmdata)
+    debugging.dprint(hmdata)
 
     templateData = {
             'title': 'Heat Map Editor-'+version,
@@ -812,12 +810,11 @@ def importhm():
 @app.route("/apedit", methods=["GET", "POST"])
 def apedit():
     """Flask Route: /apedit - Airport Editor"""
-    logger.info("Opening apedit.html")
+    debugging.info("Opening apedit.html")
     global airports
     global strip
     global num
     global ipadd
-    global strip
     global ipaddresses
     global loc_timestr
     loc_now = datetime.now()
@@ -825,7 +822,7 @@ def apedit():
 
     readairports(confsettings.get_string("filenames","airports_file"))  # Read airports file.
 
-    logger.debug(ipadd)  # debug to display ip address on console
+    debugging.dprint(ipadd)  # debug to display ip address on console
 
     templateData = {
             'title': 'Airports Editor-'+version,
@@ -847,14 +844,14 @@ def apedit():
 @app.route("/numap", methods=["GET", "POST"])
 def numap():
     """Flask Route: /numap"""
-    logger.info("Updating Number of Airports in airport file")
+    debugging.info("Updating Number of Airports in airport file")
     global ipaddresses
     global airports
     global loc_timestr
 
     if request.method == "POST":
         loc_numap = int(request.form["numofap"])
-        print (loc_numap)
+        debugging.dprint (loc_numap)
 
     readairports(confsettings.get_string("filenames","airports_file"))
 
@@ -887,7 +884,7 @@ def numap():
 @app.route("/appost", methods=["GET", "POST"])
 def handle_appost_request():
     """Flask Route: /appost"""
-    logger.info("Saving Airport File")
+    debugging.info("Saving Airport File")
     global airports
     global hmdata
     global strip
@@ -927,7 +924,7 @@ def handle_appost_request():
 @app.route("/ledonoff", methods=["GET", "POST"])
 def ledonoff():
     """Flask Route: /ledonoff"""
-    logger.info("Controlling LED's on/off")
+    debugging.info("Controlling LED's on/off")
     global airports
     global strip
     global num
@@ -941,20 +938,20 @@ def ledonoff():
 
         if "buton" in request.form:
             num = int(request.form['lednum'])
-            logger.info("LED " + str(num) + " On")
+            debugging.info("LED " + str(num) + " On")
             strip.setPixelColor(num, Color(155,155,155))
             strip.show()
             flash('LED ' + str(num) + ' On')
 
         elif "butoff" in request.form:
             num = int(request.form['lednum'])
-            logger.info("LED " + str(num) + " Off")
+            debugging.info("LED " + str(num) + " Off")
             strip.setPixelColor(num, Color(0,0,0))
             strip.show()
             flash('LED ' + str(num) + ' Off')
 
         elif "butup" in request.form:
-            logger.info("LED UP")
+            debugging.info("LED UP")
             num = int(request.form['lednum'])
             strip.setPixelColor(num, Color(0,0,0))
             num = num + 1
@@ -967,7 +964,7 @@ def ledonoff():
             flash('LED ' + str(num) + ' should be On')
 
         elif "butdown" in request.form:
-            logger.info("LED DOWN")
+            debugging.info("LED DOWN")
             num = int(request.form['lednum'])
             strip.setPixelColor(num, Color(0,0,0))
 
@@ -980,7 +977,7 @@ def ledonoff():
             flash('LED ' + str(num) + ' should be On')
 
         elif "butall" in request.form:
-            logger.info("LED All ON")
+            debugging.info("LED All ON")
             num = int(request.form['lednum'])
 
             for num in range(len(airports)):
@@ -990,7 +987,7 @@ def ledonoff():
             num=0
 
         elif "butnone" in request.form:
-            logger.info("LED All OFF")
+            debugging.info("LED All OFF")
             num = int(request.form['lednum'])
 
             for num in range(len(airports)):
@@ -1000,7 +997,7 @@ def ledonoff():
             num=0
 
         else:  # if tab is pressed
-            logger.info("LED Edited")
+            debugging.info("LED Edited")
             num = int(request.form['lednum'])
             flash('LED ' + str(num) + ' Edited')
 
@@ -1025,7 +1022,7 @@ def ledonoff():
 @app.route("/importap", methods=["GET", "POST"])
 def importap():
     """Flask Route: /importap - Import Airports File"""
-    logger.info("Importing Airports File")
+    debugging.info("Importing Airports File")
     global ipaddresses
     global airports
     global loc_timestr
@@ -1042,10 +1039,10 @@ def importap():
 
     filedata = file.read()
     fdata = bytes.decode(filedata)
-    logger.debug(fdata)
+    debugging.dprint(fdata)
     airports = fdata.split('\n')
     airports.pop()
-    logger.debug(airports)
+    debugging.dprint(airports)
 
     templateData = {
             'title': 'Airports Editor-'+version,
@@ -1069,7 +1066,7 @@ def importap():
 @app.route("/confedit", methods=["GET", "POST"])
 def confedit():
     """Flask Route: /confedit - Configuration Editor"""
-    logger.info("Opening confedit.html")
+    debugging.info("Opening confedit.html")
     global ipaddresses
     global ipadd
     global loc_timestr
@@ -1078,48 +1075,48 @@ def confedit():
     loc_now = datetime.now()
     loc_timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
 
-    logger.debug(ipadd)  # debug
+    debugging.dprint(ipadd)  # debug
 
     # change rgb code to hex for html color picker
-    color_vfr_hex = rgb2hex(settings["color_vfr"])
-    color_mvfr_hex = rgb2hex(settings["color_mvfr"])
-    color_ifr_hex = rgb2hex(settings["color_ifr"])
-    color_lifr_hex = rgb2hex(settings["color_lifr"])
-    color_nowx_hex = rgb2hex(settings["color_nowx"])
-    color_black_hex = rgb2hex(settings["color_black"])
-    color_lghtn_hex = rgb2hex(settings["color_lghtn"])
-    color_snow1_hex = rgb2hex(settings["color_snow1"])
-    color_snow2_hex = rgb2hex(settings["color_snow2"])
-    color_rain1_hex = rgb2hex(settings["color_rain1"])
-    color_rain2_hex = rgb2hex(settings["color_rain2"])
-    color_frrain1_hex = rgb2hex(settings["color_frrain1"])
-    color_frrain2_hex = rgb2hex(settings["color_frrain2"])
-    color_dustsandash1_hex = rgb2hex(settings["color_dustsandash1"])
-    color_dustsandash2_hex = rgb2hex(settings["color_dustsandash2"])
-    color_fog1_hex = rgb2hex(settings["color_fog1"])
-    color_fog2_hex = rgb2hex(settings["color_fog2"])
-    color_homeport_hex = rgb2hex(settings["color_homeport"])
+    color_vfr_hex = utils.rgb2hex(settings["color_vfr"])
+    color_mvfr_hex = utils.rgb2hex(settings["color_mvfr"])
+    color_ifr_hex = utils.rgb2hex(settings["color_ifr"])
+    color_lifr_hex = utils.rgb2hex(settings["color_lifr"])
+    color_nowx_hex = utils.rgb2hex(settings["color_nowx"])
+    color_black_hex = utils.rgb2hex(settings["color_black"])
+    color_lghtn_hex = utils.rgb2hex(settings["color_lghtn"])
+    color_snow1_hex = utils.rgb2hex(settings["color_snow1"])
+    color_snow2_hex = utils.rgb2hex(settings["color_snow2"])
+    color_rain1_hex = utils.rgb2hex(settings["color_rain1"])
+    color_rain2_hex = utils.rgb2hex(settings["color_rain2"])
+    color_frrain1_hex = utils.rgb2hex(settings["color_frrain1"])
+    color_frrain2_hex = utils.rgb2hex(settings["color_frrain2"])
+    color_dustsandash1_hex = utils.rgb2hex(settings["color_dustsandash1"])
+    color_dustsandash2_hex = utils.rgb2hex(settings["color_dustsandash2"])
+    color_fog1_hex = utils.rgb2hex(settings["color_fog1"])
+    color_fog2_hex = utils.rgb2hex(settings["color_fog2"])
+    color_homeport_hex = utils.rgb2hex(settings["color_homeport"])
 
     # color picker for transitional wipes
-    fade_color1_hex = rgb2hex(settings["fade_color1"])
-    allsame_color1_hex = rgb2hex(settings["allsame_color1"])
-    allsame_color2_hex = rgb2hex(settings["allsame_color2"])
-    shuffle_color1_hex = rgb2hex(settings["shuffle_color1"])
-    shuffle_color2_hex = rgb2hex(settings["shuffle_color2"])
-    radar_color1_hex = rgb2hex(settings["radar_color1"])
-    radar_color2_hex = rgb2hex(settings["radar_color2"])
-    circle_color1_hex = rgb2hex(settings["circle_color1"])
-    circle_color2_hex = rgb2hex(settings["circle_color2"])
-    square_color1_hex = rgb2hex(settings["square_color1"])
-    square_color2_hex = rgb2hex(settings["square_color2"])
-    updn_color1_hex = rgb2hex(settings["updn_color1"])
-    updn_color2_hex = rgb2hex(settings["updn_color2"])
-    morse_color1_hex = rgb2hex(settings["morse_color1"])
-    morse_color2_hex = rgb2hex(settings["morse_color2"])
-    rabbit_color1_hex = rgb2hex(settings["rabbit_color1"])
-    rabbit_color2_hex = rgb2hex(settings["rabbit_color2"])
-    checker_color1_hex = rgb2hex(settings["checker_color1"])
-    checker_color2_hex = rgb2hex(settings["checker_color2"])
+    fade_color1_hex = utils.rgb2hex(settings["fade_color1"])
+    allsame_color1_hex = utils.rgb2hex(settings["allsame_color1"])
+    allsame_color2_hex = utils.rgb2hex(settings["allsame_color2"])
+    shuffle_color1_hex = utils.rgb2hex(settings["shuffle_color1"])
+    shuffle_color2_hex = utils.rgb2hex(settings["shuffle_color2"])
+    radar_color1_hex = utils.rgb2hex(settings["radar_color1"])
+    radar_color2_hex = utils.rgb2hex(settings["radar_color2"])
+    circle_color1_hex = utils.rgb2hex(settings["circle_color1"])
+    circle_color2_hex = utils.rgb2hex(settings["circle_color2"])
+    square_color1_hex = utils.rgb2hex(settings["square_color1"])
+    square_color2_hex = utils.rgb2hex(settings["square_color2"])
+    updn_color1_hex = utils.rgb2hex(settings["updn_color1"])
+    updn_color2_hex = utils.rgb2hex(settings["updn_color2"])
+    morse_color1_hex = utils.rgb2hex(settings["morse_color1"])
+    morse_color2_hex = utils.rgb2hex(settings["morse_color2"])
+    rabbit_color1_hex = utils.rgb2hex(settings["rabbit_color1"])
+    rabbit_color2_hex = utils.rgb2hex(settings["rabbit_color2"])
+    checker_color1_hex = utils.rgb2hex(settings["checker_color1"])
+    checker_color2_hex = utils.rgb2hex(settings["checker_color2"])
 
     # Pass data to html document
     templateData = {
@@ -1181,7 +1178,7 @@ def confedit():
 @app.route("/post", methods=["GET", "POST"])
 def handle_post_request():
     """Flask Route: /post"""
-    logger.info("Saving Config File")
+    debugging.info("Saving Config File")
     global ipaddresses
     global loc_timestr
 
@@ -1189,45 +1186,45 @@ def handle_post_request():
         data = request.form.to_dict()
 
         # convert hex value back to rgb string value for storage
-        data["color_vfr"] = str(hex2rgb(data["color_vfr"]))
-        data["color_mvfr"] = str(hex2rgb(data["color_mvfr"]))
-        data["color_ifr"] = str(hex2rgb(data["color_ifr"]))
-        data["color_lifr"] = str(hex2rgb(data["color_lifr"]))
-        data["color_nowx"] = str(hex2rgb(data["color_nowx"]))
-        data["color_black"] = str(hex2rgb(data["color_black"]))
-        data["color_lghtn"] = str(hex2rgb(data["color_lghtn"]))
-        data["color_snow1"] = str(hex2rgb(data["color_snow1"]))
-        data["color_snow2"] = str(hex2rgb(data["color_snow2"]))
-        data["color_rain1"] = str(hex2rgb(data["color_rain1"]))
-        data["color_rain2"] = str(hex2rgb(data["color_rain2"]))
-        data["color_frrain1"] = str(hex2rgb(data["color_frrain1"]))
-        data["color_frrain2"] = str(hex2rgb(data["color_frrain2"]))
-        data["color_dustsandash1"] = str(hex2rgb(data["color_dustsandash1"]))
-        data["color_dustsandash2"] = str(hex2rgb(data["color_dustsandash2"]))
-        data["color_fog1"] = str(hex2rgb(data["color_fog1"]))
-        data["color_fog2"] = str(hex2rgb(data["color_fog2"]))
-        data["color_homeport"] = str(hex2rgb(data["color_homeport"]))
+        data["color_vfr"] = str(utils.hex2rgb(data["color_vfr"]))
+        data["color_mvfr"] = str(utils.hex2rgb(data["color_mvfr"]))
+        data["color_ifr"] = str(utils.hex2rgb(data["color_ifr"]))
+        data["color_lifr"] = str(utils.hex2rgb(data["color_lifr"]))
+        data["color_nowx"] = str(utils.hex2rgb(data["color_nowx"]))
+        data["color_black"] = str(utils.hex2rgb(data["color_black"]))
+        data["color_lghtn"] = str(utils.hex2rgb(data["color_lghtn"]))
+        data["color_snow1"] = str(utils.hex2rgb(data["color_snow1"]))
+        data["color_snow2"] = str(utils.hex2rgb(data["color_snow2"]))
+        data["color_rain1"] = str(utils.hex2rgb(data["color_rain1"]))
+        data["color_rain2"] = str(utils.hex2rgb(data["color_rain2"]))
+        data["color_frrain1"] = str(utils.hex2rgb(data["color_frrain1"]))
+        data["color_frrain2"] = str(utils.hex2rgb(data["color_frrain2"]))
+        data["color_dustsandash1"] = str(utils.hex2rgb(data["color_dustsandash1"]))
+        data["color_dustsandash2"] = str(utils.hex2rgb(data["color_dustsandash2"]))
+        data["color_fog1"] = str(utils.hex2rgb(data["color_fog1"]))
+        data["color_fog2"] = str(utils.hex2rgb(data["color_fog2"]))
+        data["color_homeport"] = str(utils.hex2rgb(data["color_homeport"]))
 
         # convert hex value back to rgb string value for storage for Transitional wipes
-        data["fade_color1"] = str(hex2rgb(data["fade_color1"]))
-        data["allsame_color1"] = str(hex2rgb(data["allsame_color1"]))
-        data["allsame_color2"] = str(hex2rgb(data["allsame_color2"]))
-        data["shuffle_color1"] = str(hex2rgb(data["shuffle_color1"]))
-        data["shuffle_color2"] = str(hex2rgb(data["shuffle_color2"]))
-        data["radar_color1"] = str(hex2rgb(data["radar_color1"]))
-        data["radar_color2"] = str(hex2rgb(data["radar_color2"]))
-        data["circle_color1"] = str(hex2rgb(data["circle_color1"]))
-        data["circle_color2"] = str(hex2rgb(data["circle_color2"]))
-        data["square_color1"] = str(hex2rgb(data["square_color1"]))
-        data["square_color2"] = str(hex2rgb(data["square_color2"]))
-        data["updn_color1"] = str(hex2rgb(data["updn_color1"]))
-        data["updn_color2"] = str(hex2rgb(data["updn_color2"]))
-        data["morse_color1"] = str(hex2rgb(data["morse_color1"]))
-        data["morse_color2"] = str(hex2rgb(data["morse_color2"]))
-        data["rabbit_color1"] = str(hex2rgb(data["rabbit_color1"]))
-        data["rabbit_color2"] = str(hex2rgb(data["rabbit_color2"]))
-        data["checker_color1"] = str(hex2rgb(data["checker_color1"]))
-        data["checker_color2"] = str(hex2rgb(data["checker_color2"]))
+        data["fade_color1"] = str(utils.hex2rgb(data["fade_color1"]))
+        data["allsame_color1"] = str(utils.hex2rgb(data["allsame_color1"]))
+        data["allsame_color2"] = str(utils.hex2rgb(data["allsame_color2"]))
+        data["shuffle_color1"] = str(utils.hex2rgb(data["shuffle_color1"]))
+        data["shuffle_color2"] = str(utils.hex2rgb(data["shuffle_color2"]))
+        data["radar_color1"] = str(utils.hex2rgb(data["radar_color1"]))
+        data["radar_color2"] = str(utils.hex2rgb(data["radar_color2"]))
+        data["circle_color1"] = str(utils.hex2rgb(data["circle_color1"]))
+        data["circle_color2"] = str(utils.hex2rgb(data["circle_color2"]))
+        data["square_color1"] = str(utils.hex2rgb(data["square_color1"]))
+        data["square_color2"] = str(utils.hex2rgb(data["square_color2"]))
+        data["updn_color1"] = str(utils.hex2rgb(data["updn_color1"]))
+        data["updn_color2"] = str(utils.hex2rgb(data["updn_color2"]))
+        data["morse_color1"] = str(utils.hex2rgb(data["morse_color1"]))
+        data["morse_color2"] = str(utils.hex2rgb(data["morse_color2"]))
+        data["rabbit_color1"] = str(utils.hex2rgb(data["rabbit_color1"]))
+        data["rabbit_color2"] = str(utils.hex2rgb(data["rabbit_color2"]))
+        data["checker_color1"] = str(utils.hex2rgb(data["checker_color1"]))
+        data["checker_color2"] = str(utils.hex2rgb(data["checker_color2"]))
 
         # check and fix data with leading zeros.
         for key in data:
@@ -1254,7 +1251,7 @@ def handle_post_request():
 @app.route('/lsremote', methods=["GET", "POST"])
 def confeditmobile():
     """Flask Route: /lsremote - Mobile Device API"""
-    logger.info("Opening lsremote.html")
+    debugging.info("Opening lsremote.html")
     global ipaddresses
     global ipadd
     global loc_timestr
@@ -1263,48 +1260,48 @@ def confeditmobile():
     loc_now = datetime.now()
     loc_timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
 
-    logger.debug(ipadd)  # debug
+    debugging.dprint(ipadd)  # debug
 
     # change rgb code to hex for html color picker
-    color_vfr_hex = rgb2hex(settings["color_vfr"])
-    color_mvfr_hex = rgb2hex(settings["color_mvfr"])
-    color_ifr_hex = rgb2hex(settings["color_ifr"])
-    color_lifr_hex = rgb2hex(settings["color_lifr"])
-    color_nowx_hex = rgb2hex(settings["color_nowx"])
-    color_black_hex = rgb2hex(settings["color_black"])
-    color_lghtn_hex = rgb2hex(settings["color_lghtn"])
-    color_snow1_hex = rgb2hex(settings["color_snow1"])
-    color_snow2_hex = rgb2hex(settings["color_snow2"])
-    color_rain1_hex = rgb2hex(settings["color_rain1"])
-    color_rain2_hex = rgb2hex(settings["color_rain2"])
-    color_frrain1_hex = rgb2hex(settings["color_frrain1"])
-    color_frrain2_hex = rgb2hex(settings["color_frrain2"])
-    color_dustsandash1_hex = rgb2hex(settings["color_dustsandash1"])
-    color_dustsandash2_hex = rgb2hex(settings["color_dustsandash2"])
-    color_fog1_hex = rgb2hex(settings["color_fog1"])
-    color_fog2_hex = rgb2hex(settings["color_fog2"])
-    color_homeport_hex = rgb2hex(settings["color_homeport"])
+    color_vfr_hex = utils.rgb2hex(settings["color_vfr"])
+    color_mvfr_hex = utils.rgb2hex(settings["color_mvfr"])
+    color_ifr_hex = utils.rgb2hex(settings["color_ifr"])
+    color_lifr_hex = utils.rgb2hex(settings["color_lifr"])
+    color_nowx_hex = utils.rgb2hex(settings["color_nowx"])
+    color_black_hex = utils.rgb2hex(settings["color_black"])
+    color_lghtn_hex = utils.rgb2hex(settings["color_lghtn"])
+    color_snow1_hex = utils.rgb2hex(settings["color_snow1"])
+    color_snow2_hex = utils.rgb2hex(settings["color_snow2"])
+    color_rain1_hex = utils.rgb2hex(settings["color_rain1"])
+    color_rain2_hex = utils.rgb2hex(settings["color_rain2"])
+    color_frrain1_hex = utils.rgb2hex(settings["color_frrain1"])
+    color_frrain2_hex = utils.rgb2hex(settings["color_frrain2"])
+    color_dustsandash1_hex = utils.rgb2hex(settings["color_dustsandash1"])
+    color_dustsandash2_hex = utils.rgb2hex(settings["color_dustsandash2"])
+    color_fog1_hex = utils.rgb2hex(settings["color_fog1"])
+    color_fog2_hex = utils.rgb2hex(settings["color_fog2"])
+    color_homeport_hex = utils.rgb2hex(settings["color_homeport"])
 
     # color picker for transitional wipes
-    fade_color1_hex = rgb2hex(settings["fade_color1"])
-    allsame_color1_hex = rgb2hex(settings["allsame_color1"])
-    allsame_color2_hex = rgb2hex(settings["allsame_color2"])
-    shuffle_color1_hex = rgb2hex(settings["shuffle_color1"])
-    shuffle_color2_hex = rgb2hex(settings["shuffle_color2"])
-    radar_color1_hex = rgb2hex(settings["radar_color1"])
-    radar_color2_hex = rgb2hex(settings["radar_color2"])
-    circle_color1_hex = rgb2hex(settings["circle_color1"])
-    circle_color2_hex = rgb2hex(settings["circle_color2"])
-    square_color1_hex = rgb2hex(settings["square_color1"])
-    square_color2_hex = rgb2hex(settings["square_color2"])
-    updn_color1_hex = rgb2hex(settings["updn_color1"])
-    updn_color2_hex = rgb2hex(settings["updn_color2"])
-    morse_color1_hex = rgb2hex(settings["morse_color1"])
-    morse_color2_hex = rgb2hex(settings["morse_color2"])
-    rabbit_color1_hex = rgb2hex(settings["rabbit_color1"])
-    rabbit_color2_hex = rgb2hex(settings["rabbit_color2"])
-    checker_color1_hex = rgb2hex(settings["checker_color1"])
-    checker_color2_hex = rgb2hex(settings["checker_color2"])
+    fade_color1_hex = utils.rgb2hex(settings["fade_color1"])
+    allsame_color1_hex = utils.rgb2hex(settings["allsame_color1"])
+    allsame_color2_hex = utils.rgb2hex(settings["allsame_color2"])
+    shuffle_color1_hex = utils.rgb2hex(settings["shuffle_color1"])
+    shuffle_color2_hex = utils.rgb2hex(settings["shuffle_color2"])
+    radar_color1_hex = utils.rgb2hex(settings["radar_color1"])
+    radar_color2_hex = utils.rgb2hex(settings["radar_color2"])
+    circle_color1_hex = utils.rgb2hex(settings["circle_color1"])
+    circle_color2_hex = utils.rgb2hex(settings["circle_color2"])
+    square_color1_hex = utils.rgb2hex(settings["square_color1"])
+    square_color2_hex = utils.rgb2hex(settings["square_color2"])
+    updn_color1_hex = utils.rgb2hex(settings["updn_color1"])
+    updn_color2_hex = utils.rgb2hex(settings["updn_color2"])
+    morse_color1_hex = utils.rgb2hex(settings["morse_color1"])
+    morse_color2_hex = utils.rgb2hex(settings["morse_color2"])
+    rabbit_color1_hex = utils.rgb2hex(settings["rabbit_color1"])
+    rabbit_color2_hex = utils.rgb2hex(settings["rabbit_color2"])
+    checker_color1_hex = utils.rgb2hex(settings["checker_color1"])
+    checker_color2_hex = utils.rgb2hex(settings["checker_color2"])
 
     # Pass data to html document
     templateData = {
@@ -1367,7 +1364,7 @@ def confeditmobile():
 @app.route("/importconf", methods=["GET", "POST"])
 def importconf():
     """Flask Route: /importconf - Flask Config Uploader"""
-    logger.info("Importing Config File")
+    debugging.info("Importing Config File")
     global ipaddresses
     global airports
     global settings
@@ -1386,7 +1383,7 @@ def importconf():
 
     filedata = file.read()
     fdata = bytes.decode(filedata)
-    logger.debug(fdata)
+    debugging.dprint(fdata)
     tmp_settings = fdata.split('\n')
 
     for set_line in tmp_settings:
@@ -1400,7 +1397,7 @@ def importconf():
             val = str(val.strip())
             settings[(key)] = val
 
-    logger.debug(settings)
+    debugging.dprint(settings)
     flash('Config File Imported - Click "Save Config File" to save')
     return redirect('./confedit')
 
@@ -1409,7 +1406,7 @@ def importconf():
 @app.route("/restoreconf", methods=["GET", "POST"])
 def restoreconf():
     """Flask Route: /restoreconf"""
-    logger.info("Restoring Config Settings")
+    debugging.info("Restoring Config Settings")
     readconf(settings_file)  # read config file
     return redirect('./confedit')
 
@@ -1428,14 +1425,14 @@ def profiles():
             'a4': 'config-advanced-lcdrs.py'}
 
     req_profile = request.form['profile']
-    print(req_profile)
-    print(config_profiles)
+    debugging.dprint(req_profile)
+    debugging.dprint(config_profiles)
     tmp_profile = config_profiles[req_profile]
     stored_profile = '/NeoSectional/profiles/' + tmp_profile
 
     flash(tmp_profile + ' Profile Loaded. Review And Tweak The Settings As Desired. Must Be Saved!')
     readconf(stored_profile)    # read profile config file
-    logger.info("Loading a Profile into Settings Editor")
+    debugging.info("Loading a Profile into Settings Editor")
     return redirect('confedit')
 
 
@@ -1449,7 +1446,7 @@ def reboot1():
 
     temp = url.split('/')
 #    flash("Rebooting Map ")
-    logger.info("Rebooting Map from " + url)
+    debugging.info("Rebooting Map from " + url)
     os.system('sudo shutdown -r now')
     return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
@@ -1463,7 +1460,7 @@ def startup1():
         url = 'http://' + ipadd + ':5000/index'  #Use index if called from URL and not page.
 
     temp = url.split('/')
-    logger.info("Startup Map from " + url)
+    debugging.info("Startup Map from " + url)
     os.system('sudo python3 /NeoSectional/startup.py run &')
     flash("Map Turned On ")
     time.sleep(1)
@@ -1479,7 +1476,7 @@ def shutdown1():
         url = 'http://' + ipadd + ':5000/index' #Use index if called from URL and not page.
 
     temp = url.split('/')
-    logger.info("Shutoff Map from " + url)
+    debugging.info("Shutoff Map from " + url)
     os.system("ps -ef | grep '/NeoSectional/metar-display-v4.py' | awk '{print $2}' | xargs sudo kill")
     os.system("ps -ef | grep '/NeoSectional/metar-v4.py' | awk '{print $2}' | xargs sudo kill")
     os.system("ps -ef | grep '/NeoSectional/check-display.py' | awk '{print $2}' | xargs sudo kill")
@@ -1499,7 +1496,7 @@ def shutoffnow1():
 
     temp = url.split('/')
  #   flash("RPI is Shutting Down ")
-    logger.info("Shutdown RPI from " + url)
+    debugging.info("Shutdown RPI from " + url)
     os.system('sudo shutdown -h now')
     return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
@@ -1515,7 +1512,7 @@ def testled():
     temp = url.split('/')
 
 #    flash("Testing LED's")
-    logger.info("Running testled.py from " + url)
+    debugging.info("Running testled.py from " + url)
     os.system('sudo python3 /NeoSectional/testled.py')
     return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
@@ -1533,7 +1530,7 @@ def testoled():
         return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
 #    flash("Testing OLEDs ")
-    logger.info("Running testoled.py from " + url)
+    debugging.info("Running testoled.py from " + url)
     os.system('sudo python3 /NeoSectional/testoled.py')
     return redirect(temp[3])  # temp[3] holds name of page that called this route.
 
@@ -1545,7 +1542,7 @@ def testoled():
 # create backup of config.py
 def copy():
     """Create copy of old configuration file"""
-    logger.debug('In Copy Config file Routine')
+    debugging.dprint('In Copy Config file Routine')
     f = open(settings_file, "r")
     contents = f.read()
     f.close()
@@ -1558,7 +1555,7 @@ def copy():
 # open and read config.py into settings dictionary
 def readconf(config_file):
     """Load old configuration file """
-    logger.debug('In ReadConf Routine')
+    debugging.dprint('In ReadConf Routine')
     try:
         with open(config_file) as f:
             for line in f:
@@ -1570,23 +1567,23 @@ def readconf(config_file):
                     val = val[0]
                     key = key.strip()
                     val = str(val.strip())
-                    logger.debug(key + ", " + val)  # debug
+                    debugging.dprint(key + ", " + val)  # debug
                     settings[(key)] = val
-            logger.debug(settings)  # debug
+            debugging.dprint(settings)  # debug
     except IOError as error:
-        logger.error('Config file could not be loaded.')
-        logger.error(error)
+        debugging.error('Config file could not be loaded.')
+        debugging.error(error)
 
 
 # write config.py file
 def writeconf(loc_settings, file):
     """Save old style configuration file"""
-    logger.debug('In WriteConf Routine')
+    debugging.dprint('In WriteConf Routine')
     f = open(file, "w+")
     f.write('#config.py - use web based configurator to make changes unless you are comfortable doing it manually')
     f.write('\n\n')
     for key in loc_settings:
-#        logger.debug(key, settings[key]) # debug
+#        debugging.dprint(key, settings[key]) # debug
         f.write(key + " = " + loc_settings[key])
         f.write('\n')
     f.close()
@@ -1595,12 +1592,12 @@ def writeconf(loc_settings, file):
 # write airports file
 def writeairports(loc_settings, file):
     """Save settings key data - FIXME - Why settings and not airports here"""
-    logger.debug('In WriteAirports Routine')
+    debugging.dprint('In WriteAirports Routine')
     f = open(file, "w")  # "w+")
-#       print(loc_settings)
+#       debugging.dprint(loc_settings)
     for key in loc_settings:
         value = loc_settings.get(key)
-        logger.debug(value)  # debug
+        debugging.dprint(value)  # debug
         f.write(value)
         f.write('\n')
     f.close()
@@ -1609,48 +1606,48 @@ def writeairports(loc_settings, file):
 # Read airports file
 def readairports(filename):
     """Load airport data from airports file"""
-    logger.debug('In ReadAirports Routine')
+    debugging.dprint('In ReadAirports Routine')
     global airports
     airports = []
     try:
         with open(filename) as f:
             for line in f:
                 airports.append(line.rstrip())
-            logger.debug(airports)  # debug
+            debugging.dprint(airports)  # debug
     except IOError as error:
-        logger.error('Airports file could not be loaded.')
-        logger.error(error)
+        debugging.error('Airports file could not be loaded.')
+        debugging.error(error)
 
 
 # Read heat map file
 def readhmdata(hmdata_file):
     """Load heatmap data from hmdata file"""
-    logger.debug('In ReadHMdata Routine')
+    debugging.dprint('In ReadHMdata Routine')
     global hmdata
     hmdata = []
     try:
         with open(hmdata_file) as f:
             for line in f:
                 hmdata.append(line.rstrip())
-            logger.debug(hmdata)  # debug
+            debugging.dprint(hmdata)  # debug
     except IOError as error:
-        logger.error('Heat Map File Not Available. Creating Default Heat Map File')
-        logger.error(error)
+        debugging.error('Heat Map File Not Available. Creating Default Heat Map File')
+        debugging.error(error)
 
         for airport in airports:
             hmdata.append(airport + " 0")
-        print (hmdata)  # debug
+        debugging.dprint (hmdata)  # debug
         writehmdata(hmdata, confsettings.get_string("filenames","heatmap_file"))
 
 
 # Write heat map file
 def writehmdata(loc_hmdata,filename):
     """Save hmdata to hmdata file"""
-    logger.debug('In WriteHMdata Routine')
+    debugging.dprint('In WriteHMdata Routine')
     f = open(filename, "w+")
 
     for key in loc_hmdata:
-        logger.debug(key)  # debug
+        debugging.dprint(key)  # debug
         f.write(key)
         f.write('\n')
     f.close()
@@ -1659,7 +1656,7 @@ def writehmdata(loc_hmdata,filename):
 # routine to capture airport information and pass along to web pages.
 def get_led_map_info():
     """Routine to capture airport information and pass along to web pages"""
-    logger.debug('In get_led_map_info Routine')
+    debugging.dprint('In get_led_map_info Routine')
 
     global led_map_url
     global led_map_dict
@@ -1673,17 +1670,17 @@ def get_led_map_info():
     for airportcode in airports:
         led_map_url = led_map_url + airportcode + ","
     led_map_url = led_map_url[:-1]
-    logger.debug(led_map_url) # debug url if neccessary
+    debugging.dprint(led_map_url) # debug url if neccessary
 
     while True:  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
         try:
             content = urllib.request.urlopen(led_map_url).read()
-            logger.info('FAA Data Downloaded')
-            logger.info(led_map_url)
+            debugging.info('FAA Data Downloaded')
+            debugging.info(led_map_url)
             break
         except:
-            logger.warning('FAA Data Not Available')
-            logger.warning(led_map_url)
+            debugging.warn('FAA Data Not Available')
+            debugging.warn(led_map_url)
             time.sleep(delay_time)
             content = ''
             pass
@@ -1721,7 +1718,7 @@ def get_led_map_info():
 # routine to capture airport information and pass along to web pages.
 def get_apinfo():
     """routine to capture airport information and pass along to web pages."""
-    logger.debug('In Get_Apinfo Routine')
+    debugging.dprint('In Get_Apinfo Routine')
 
     global orig_apurl
     global apinfo_dict
@@ -1735,12 +1732,12 @@ def get_apinfo():
         try:
 #            s.connect(("8.8.8.8", 80))
             content = urllib.request.urlopen(apurl).read()
-            logger.info('FAA Airport Data Available')
-            logger.info(apurl)
+            debugging.info('FAA Airport Data Available')
+            debugging.info(apurl)
             break
         except:
-            logger.warning('FAA Data Not Available')
-            logger.warning(apurl)
+            debugging.warn('FAA Data Not Available')
+            debugging.warn(apurl)
             time.sleep(delay_time)
             content = ''
             pass
@@ -1764,77 +1761,44 @@ def get_apinfo():
             apinfo_dict[stationId] = [site,state]
 
 
-# rgb and hex routines
-def rgb2hex(rgb):
-    """Convert RGB to HEX"""
-    logger.debug(rgb)
-    (r,g,b) = eval(rgb)
-    hexval = '#%02x%02x%02x' % (r, g, b)
-    return hexval
-
-
-def hex2rgb(value):  # from; https://www.codespeedy.com/convert-rgb-to-hex-color-code-in-python/
-    """Hex to RGB"""
-    value = value.lstrip('#')
-    lv = len(value)
-    return tuple(int(value[i:i+lv//3], 16) for i in range(0, lv, lv//3))
-
-
-# functions for updating software via web
-def delfile(filename):
-    """Delete File""" # FIXME - Check to make sure filename is not relative
-    try:
-        os.remove(target_path + filename)
-        logger.info('Deleted ' + filename)
-    except:
-        logger.error("Error while deleting file ", target_path + filename)
-
-
 def unzipfile(filename):
     """Unzip file""" # FIXME - Check to make sure that filename isn't outside target_path
     with zipfile.ZipFile(target_path + filename, 'r') as zip_ref:
         zip_ref.extractall(target_path)
-    logger.info('Unzipped ls.zip')
+    debugging.info('Unzipped ls.zip')
 
 
 def copytoprevdir(src_dir, dest_dir):
     """Delete target; clone src""" # FIXME Error handling for rmtree
     shutil.rmtree(dest_dir)
     shutil.copytree(src_dir,dest_dir)
-    logger.info('Copied current version to ../previousversion')
-
-
-def dlftpfile(url, filename):
-    """ Download file """ # FIXME - Error handling for wget
-    wget.download(url, filename)
-    print('\n')
-    logger.info('Downloaded ' + filename + ' from neoupdate')
+    debugging.info('Copied current version to ../previousversion')
 
 
 def updatefiles():
     """ Deploy updates """ # FIXME - Make software update process more robust - or replace with .deb update
     copytoprevdir(src, dest)                       # This copies current version to ../previousversion before updating files.
-    dlftpfile(source_path + zipfilename, target_path + zipfilename) # Download zip file that contains updated files
+    utils.dlftpfile(source_path + zipfilename, target_path + zipfilename) # Download zip file that contains updated files
     unzipfile(zipfilename)                         # Unzip files and overwrite existing older files
-    delfile(zipfilename)                           # Delete zip file
-    logger.info('Updated New Files')
+    utils.delfile(zipfilename)                           # Delete zip file
+    debugging.info('Updated New Files')
 
 
 def checkforupdate():
     """ Download updates ; check for version info """
     global update_vers
-#    get_loc()
+#    utils.get_loc()
 #    print(loc)  # debug
 
-    dlftpfile(source_path + verfilename, target_path + verfilename)  # download version file from neoupdate
+    utils.dlftpfile(source_path + verfilename, target_path + verfilename)  # download version file from neoupdate
 
     with open(target_path + verfilename) as file:  # Read version number of latest version
         update_vers = file.read()
 
-    logger.info('Latest Version = ' + str(update_vers) + ' - ' + 'Current Version = ' + str(admin.version))
+    debugging.info('Latest Version = ' + str(update_vers) + ' - ' + 'Current Version = ' + str(admin.version))
 
-    delfile(verfilename)  # Delete the downloaded version file.
-    logger.info('Checked for Software Update')
+    utils.delfile(verfilename)  # Delete the downloaded version file.
+    debugging.info('Checked for Software Update')
 
     if float(admin.version[1:])<float(admin.min_update_ver):  # Check to see if a newer Image is available
         return "image"
@@ -1849,34 +1813,17 @@ def testupdate():
     """ Check to see if an newer version of the software is available, and update if user so chooses"""
     global update_available
     if checkforupdate() is True:
-        logger.info('Update Available')
+        debugging.info('Update Available')
         update_available = 1                    # Update is available
 
     elif checkforupdate() is False:
-        logger.info('No Updates Available')
+        debugging.info('No Updates Available')
         update_available = 0                    # No update available
 
     elif checkforupdate() == "image":
-        logger.info('Newer Image Available for Download')
+        debugging.info('Newer Image Available for Download')
         update_available = 2                    # Newer image available
 
-
-# May be used to display user location on map in user interface. - TESTING Not working consistently, not used
-def get_loc():
-    """ Try figure out approximate location from IP data """
-    loc_data = {}
-    global loc
-
-    url_loc = 'https://extreme-ip-lookup.com/json/'
-    r = requests.get(url_loc)
-    data = json.loads(r.content.decode())
-
-    ip_data = data['query']
-    loc_data['city'] = data['city']
-    loc_data['region'] = data['region']
-    loc_data['lat'] = data['lat']
-    loc_data['lon'] = data['lon']
-    loc[ip_data] = loc_data
 
 
 # executed code
@@ -1887,15 +1834,15 @@ if __name__ == '__main__':
     confsettings.init()
 
     if utils.waitForInternet():  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
-        logger.info("Internet Available")
+        debugging.info("Internet Available")
     else:
-        logger.warning("Internet NOT Available")
+        debugging.warn("Internet NOT Available")
 
     ipaddr = utils.getLocalIP()
-    logger.info('Startup - Current RPI IP Address = ' + ipaddr)
+    debugging.info('Startup - Current RPI IP Address = ' + ipaddr)
 
-    logger.info('Base Directory :' + confsettings.get_string("filenames", "basedir"))
-    logger.info('Airports File  :' + confsettings.get_string("filenames", "airports_file"))
+    debugging.info('Base Directory :' + confsettings.get_string("filenames", "basedir"))
+    debugging.info('Airports File  :' + confsettings.get_string("filenames", "airports_file"))
 
     # Get Current Time Zone
     currtzinfo = subprocess.run(['timedatectl', 'status'], stdout=subprocess.PIPE).stdout.decode('utf-8')
@@ -1907,25 +1854,25 @@ if __name__ == '__main__':
 
     # Get system info and display
     python_ver = ("Python Version = " + sys.version)
-    logger.info(python_ver)
-    print()
-    print(python_ver)
-    print('LiveSectional Version - ' + version)
-    print("\033[1;32;40m***********************************************")
-    print("       My IP Address is = "+ utils.getLocalIP())
-    print("***********************************************")
-    print("  Configure your LiveSectional by opening a   ")
-    print("    browser to http://"+ utils.getLocalIP() +":5000")
-    print("***********************************************")
-    print("\033[0;0m\n")
-    print("Raspberry Pi System Time - " + loc_timestr)
+    debugging.info(python_ver)
+    debugging.dprint('\n')
+    debugging.dprint(python_ver)
+    debugging.dprint('LiveSectional Version - ' + version)
+    debugging.dprint("\033[1;32;40m***********************************************")
+    debugging.dprint("       My IP Address is = "+ utils.getLocalIP())
+    debugging.dprint("***********************************************")
+    debugging.dprint("  Configure your LiveSectional by opening a   ")
+    debugging.dprint("    browser to http://"+ utils.getLocalIP() +":5000")
+    debugging.dprint("***********************************************")
+    debugging.dprint("\033[0;0m\n")
+    debugging.dprint("Raspberry Pi System Time - " + loc_timestr)
 
     # Load files and back up the airports file, then run flask templates
 
 ## This code is obsolete, but left here for posperity's sake.
 ##    if useip2ftp ==  1:
 ##        exec(compile(open("/NeoSectional/ftp-v4.py", "rb").read(), "/NeoSectional/ftp-v4.py", 'exec'))  #Get latest ip's to display in editors
-##        logger.info("Storing " + str(ipaddresses) + " on ftp server")
+##        debugging.info("Storing " + str(ipaddresses) + " on ftp server")
 
     copy()  # make backup of config file
     readconf(settings_file)  # read config file
@@ -1935,10 +1882,10 @@ if __name__ == '__main__':
     readhmdata(confsettings.get_string("filenames","heatmap_file"))  # get Heat Map data
 
     if admin.use_scan_network == 1:
-        print("One Moment - Scanning for Other LiveSectional Maps on Local Network")
+        debugging.dprint("One Moment - Scanning for Other LiveSectional Maps on Local Network")
         machines = scan_network.scan_network()
-        print(machines) # Debug
+        debugging.dprint(machines) # Debug
 
-    logger.info("IP Address = " + utils.getLocalIP())
-    logger.info("Starting Flask Session")
+    debugging.info("IP Address = " + utils.getLocalIP())
+    debugging.info("Starting Flask Session")
     app.run(debug=confsettings.get_bool("default","flask_debug"), host='0.0.0.0')
