@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import socket
+import debugging
 
 def isConnected():
     ''' Check to see if we can reach an endpoint on the Internet '''
