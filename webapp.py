@@ -119,12 +119,12 @@ update_vers = "4.000"                           # initiate variable
 
 # Used to capture staton information for airport id decode for tooltip display in web pages.
 apinfo_dict = {}
-orig_apurl = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString="
+orig_apurl = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=" # noqa
 logger.debug(orig_apurl)
 
 #Used to display weather and airport locations on a map
 led_map_dict = {}
-led_map_url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString="
+led_map_url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString=" # noqa
 logger.debug(led_map_url)
 
 # LED strip configuration:
@@ -218,11 +218,17 @@ def open_console():
     """Flask Route: /open_console - Launching Console in discrete window"""
     console_ips = []
     with open("/NeoSectional/data/console_ip.txt", "r") as file:
-        for line in (file.readlines() [-1:]):
+        for line in file.readlines() [-1:]:
             line = line.rstrip()
             console_ips.append(line)
     logger.info("Opening open_console in separate window")
-    return render_template('open_console.html', urls = console_ips, title = 'Display Console Output-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = loc_timestr)
+    return render_template('open_console.html',
+            urls = console_ips,
+            title = 'Display Console Output-'+version,
+            num = 5,
+            machines = machines,
+            ipadd = ipadd,
+            timestr = loc_timestr)
 
 
 # Routes to display logfile live, and hopefully for a dashboard
@@ -282,7 +288,13 @@ def update_info():
     with open("/NeoSectional/update_info.txt","r") as file:
         content = file.readlines()
         logger.debug(content)
-    return render_template("update_info.html", content = content, title = 'Update Info-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = loc_timestr)
+    return render_template("update_info.html",\
+            content = content,\
+            title = 'Update Info-'+version,\
+            num = 5,\
+            machines = machines,\
+            ipadd = ipadd,\
+            timestr = loc_timestr)
 
 
 @app.route('/update', methods=["GET", "POST"])
@@ -304,7 +316,12 @@ def update_page():
     """Flask Route: /update_page"""
     global ipadd
     global loc_timestr
-    return render_template("update_page.html", title = 'Software Update Information-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = loc_timestr)
+    return render_template("update_page.html",\
+            title = 'Software Update Information-'+version,\
+            num = 5,\
+            machines = machines,\
+            ipadd = ipadd,\
+            timestr = loc_timestr)
 
 
 # Route to display map's airports on a digital map.
@@ -383,9 +400,15 @@ def led_map():
         else:
             pin_num = None
 
-        pop_url = '<a href="https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId='+led_ap+'"target="_blank">'
-        popup = pop_url+"<b>"+led_ap+"</b><br>"+apinfo_dict[led_ap][0]+',&nbsp'+apinfo_dict[led_ap][1]\
-                +"</a><br>Pin&nbspNumber&nbsp=&nbsp"+str(pin_num)+"<br><b><font size=+2 color="+loc_color+">"+led_map_dict[led_ap][2]+"</font></b>"
+        pop_url = '<a href="https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId='\
+                +led_ap+'"target="_blank">'
+        popup = pop_url+"<b>"+led_ap+"</b><br>"+\
+                apinfo_dict[led_ap][0]+\
+                ',&nbsp'+apinfo_dict[led_ap][1]\
+                +"</a><br>Pin&nbspNumber&nbsp=&nbsp"+\
+                str(pin_num)+"<br><b><font size=+2 color="+\
+                loc_color+">"+\
+                led_map_dict[led_ap][2]+"</font></b>"
 
         # Add airport markers with proper color to denote flight category
         folium.CircleMarker(
@@ -447,7 +470,8 @@ def led_map():
         force_separate_button=True,
     ).add_to(folium_map)
 
-    folium.TileLayer('http://wms.chartbundle.com/tms/1.0.0/sec/{z}/{x}/{y}.png?origin=nw', attr='chartbundle.com', name='ChartBundle Sectional').add_to(folium_map)
+    folium.TileLayer('http://wms.chartbundle.com/tms/1.0.0/sec/{z}/{x}/{y}.png?origin=nw',\
+            attr='chartbundle.com', name='ChartBundle Sectional').add_to(folium_map)
     folium.TileLayer('Stamen Terrain', name='Stamen Terrain').add_to(folium_map)
     folium.TileLayer('CartoDB positron', name='CartoDB Positron').add_to(folium_map)
 
@@ -529,13 +553,15 @@ def tzset():
         os.system('sudo timedatectl set-timezone ' + timezone)
         return redirect('tzset')
 
-    tzlist = subprocess.run(['timedatectl', 'list-timezones'], stdout=subprocess.PIPE).stdout.decode('utf-8')
+    tzlist = subprocess.run(['timedatectl', 'list-timezones'],\
+            stdout=subprocess.PIPE).stdout.decode('utf-8')
     tzoptionlist = tzlist.split()
 
-    loc_currtzinfo = subprocess.run(['timedatectl', 'status'], stdout=subprocess.PIPE).stdout.decode('utf-8')
+    loc_currtzinfo = subprocess.run(['timedatectl', 'status'],\
+            stdout=subprocess.PIPE).stdout.decode('utf-8')
     loc_tztemp = loc_currtzinfo.split('\n')
-    for j in range(len(loc_tztemp)):
-        if j==0 or j==1 or j==3:
+    for j in enumerate(loc_tztemp):
+        if j in (0, 1, 3):
             loc_currtzinfolist.append(loc_tztemp[j])
     current_timezone = loc_tztemp[3]
 
@@ -1393,7 +1419,13 @@ def restoreconf():
 def profiles():
     """Flask Route: /profiles - Load from Multiple Config Profiles"""
     global settings
-    config_profiles = {'b1': 'config-basic.py', 'b2': 'config-basic2.py', 'b3': 'config-basic3.py', 'a1': 'config-advanced-1oled.py', 'a2': 'config-advanced-lcd.py', 'a3': 'config-advanced-8oledsrs.py', 'a4': 'config-advanced-lcdrs.py'}
+    config_profiles = {'b1': 'config-basic.py',\
+            'b2': 'config-basic2.py',\
+            'b3': 'config-basic3.py',\
+            'a1': 'config-advanced-1oled.py',\
+            'a2': 'config-advanced-lcd.py',\
+            'a3': 'config-advanced-8oledsrs.py',\
+            'a4': 'config-advanced-lcdrs.py'}
 
     req_profile = request.form['profile']
     print(req_profile)
@@ -1767,8 +1799,8 @@ def unzipfile(filename):
 
 def copytoprevdir(src_dir, dest_dir):
     """Delete target; clone src""" # FIXME Error handling for rmtree
-    shutil.rmtree(dest)
-    shutil.copytree(src,dest)
+    shutil.rmtree(dest_dir)
+    shutil.copytree(src_dir,dest_dir)
     logger.info('Copied current version to ../previousversion')
 
 
