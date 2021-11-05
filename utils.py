@@ -52,7 +52,8 @@ def get_local_ip():
     return "0.0.0.0"
 
 
-# May be used to display user location on map in user interface. - TESTING Not working consistently, not used
+# May be used to display user location on map in user interface.
+# TESTING Not working consistently, not used
 # This is not working for at least the following reasons
 # 1. extreme-ip-lookup wants an API key
 # 2. extreme-ip-lookup.com is on some pihole blocklists
@@ -76,30 +77,32 @@ def get_loc():
     loc[ip_data] = loc_data
 
 
- # functions for updating software via web
 def delete_file(target_path, filename):
-    """Delete File""" # FIXME - Check to make sure filename is not relative
+    """Delete File"""  # FIXME - Check to make sure filename is not relative
     try:
         os.remove(target_path + filename)
         debugging.info('Deleted ' + filename)
-    except:
-        debugging.error("Error while deleting file " + target_path + filename)
+    except OSError as error:
+        debugging.error("Error " + error.__str__() +
+                        " while deleting file " +
+                        target_path +
+                        filename)
 
 
- # rgb and hex routines
 def rgb2hex(rgb):
     """Convert RGB to HEX"""
     debugging.dprint(rgb)
-    (r,g,b) = eval(rgb)
-    hexval = '#%02x%02x%02x' % (r, g, b)
+    (red_value, green_value, blue_value) = rgb
+    hexval = '#%02x%02x%02x' % (red_value, green_value, blue_value)
     return hexval
 
 
-def hex2rgb(value):  # from; https://www.codespeedy.com/convert-rgb-to-hex-color -code-in-python/
+def hex2rgb(value):
     """Hex to RGB"""
     value = value.lstrip('#')
     length_v = len(value)
-    return tuple(int(value[i:i+length_v//3], 16) for i in range(0, length_v, length_v//3))
+    return tuple(int(value[i:i+length_v//3], 16)
+                 for i in range(0, length_v, length_v//3))
 
 
 def download_file(url, filename):

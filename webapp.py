@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 """
 
 # webapp.py - v4, by Mark Harris. Web Based Configurator for LiveSectional - Using Flask and Python
@@ -24,7 +24,7 @@
 #     Fixed bug where get_led_map_info() would not get lat/Lon from XML file.
 
 """
-# print test #force bug to cause webapp.py to error out
+# print test # force bug to cause webapp.py to error out
 
 # import needed libraries
 #    if URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] try;
@@ -75,12 +75,12 @@ import scan_network
 
 # Setup rotating logfile with 3 rotations, each with a maximum filesize of 1MB:
 version = admin.version          # Software version
-#loglevel = config.loglevel
-#loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
+# loglevel = config.loglevel
+# loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
 # logzero.loglevel(loglevels[loglevel])  # Choices in order; DEBUG, INFO, WARNING, ERROR
 # logzero.logfile("/NeoSectional/logs/logfile.log", maxBytes=1e6, backupCount=3)
 debugging.info("\n\nStartup of metar-v4.py Script, Version " + version)
-#debugging.info("Log Level Set To: " + str(loglevels[loglevel]))
+# debugging.info("Log Level Set To: " + str(loglevels[loglevel]))
 
 # setup variables
 # useip2ftp = admin.use_ftp
@@ -88,7 +88,7 @@ debugging.info("\n\nStartup of metar-v4.py Script, Version " + version)
 #  on local network admin.
 #
 # Moved to config statement
-## airports_file = '/NeoSectional/data/airports'
+# # airports_file = '/NeoSectional/data/airports'
 #
 # airports_bkup = '/NeoSectional/airports-bkup'
 settings_file = '/NeoSectional/config.py'
@@ -125,7 +125,7 @@ apinfo_dict = {}
 orig_apurl = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=" # noqa
 debugging.dprint(orig_apurl)
 
-#Used to display weather and airport locations on a map
+# Used to display weather and airport locations on a map
 led_map_dict = {}
 led_map_url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString=" # noqa
 debugging.dprint(led_map_url)
@@ -145,8 +145,8 @@ strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, 
 strip.begin()
 
 # misc variables
-color = Color(255,255,255)      # Color to display when cycling through LED's. White is the default.
-black_color = Color(0,0,0)      # Color Black used to turn off the LED.
+color = Color(255, 255, 255)      # Color to display when cycling through LED's. White is the default.
+black_color = Color(0, 0, 0)      # Color Black used to turn off the LED.
 num = 0
 now = datetime.now()
 loc_timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
@@ -157,52 +157,65 @@ ipadd = ''
 
 # Initiate flash session
 app = Flask(__name__)
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+app.secret_key = b'_5# y2L"F4Q8z\n\xec]/'
 
 debugging.info("Settings and Flask Have Been Setup")
 
 
-##########
+# # # # # # # # # #
 # Routes #
-##########
+# # # # # # # # # #
 
 # Routes for Map Display - Testing
 @app.route('/map1', methods=["GET", "POST"])
 def map1():
     """Flask Route: /map1"""
     start_coords = (35.1738, -111.6541)
-    folium_map = folium.Map(location=start_coords, \
-      zoom_start = 6, height='80%', width='100%', \
-      control_scale = True, \
-      zoom_control = True, \
-      tiles = 'OpenStreetMap')
+    folium_map = folium.Map(location=start_coords,
+                            zoom_start=6,
+                            height='80%',
+                            width='100%',
+                            control_scale=True,
+                            zoom_control=True,
+                            tiles='OpenStreetMap')
 
     folium_map.add_child(folium.LatLngPopup())
     folium_map.add_child(folium.ClickForMarker(popup='Marker'))
     folium.plugins.Geocoder().add_to(folium_map)
 
-    folium.TileLayer('http://wms.chartbundle.com/tms/1.0.0/sec/{z}/{x}/{y}.png?origin=nw', \
-            attr='chartbundle.com', name='ChartBundle Sectional').add_to(folium_map)
-    folium.TileLayer('Stamen Terrain', name='Stamen Terrain').add_to(folium_map)
-    folium.TileLayer('CartoDB positron', name='CartoDB Positron').add_to(folium_map)
+    folium_url = 'http://wms.chartbundle.com/tms/1.0.0/sec/{z}/{x}/{y}.png?origin=nw'
+    folium.TileLayer(folium_url,
+                     attr='chartbundle.com',
+                     name='ChartBundle Sectional').add_to(folium_map)
+    folium.TileLayer('Stamen Terrain',
+                     name='Stamen Terrain').add_to(folium_map)
+    folium.TileLayer('CartoDB positron',
+                     name='CartoDB Positron').add_to(folium_map)
     # other mapping code (e.g. lines, markers etc.)
     folium.LayerControl().add_to(folium_map)
 
     folium_map.save('/NeoSectional/templates/map.html')
-    return render_template('mapedit.html', title='Map', num = 5)
-#    return folium_map._repr_html_()
+    return render_template('mapedit.html', title='Map', num=5)
+    # return folium_map._repr_html_()
 
 
 @app.route('/touchscr', methods=["GET", "POST"])
 def touchscr():
     """Flask Route: /touchscr - Touch Screen template"""
-    return render_template('touchscr.html', title = 'Touch Screen', num = 5, machines = machines, ipadd = ipadd)
+    return render_template('touchscr.html',
+                           title='Touch Screen',
+                           num=5,
+                           machines=machines,
+                           ipadd=ipadd)
 
 
-# Route to open live console display window using seashells dependency - TESTING
-# Uses the dependency, 'seashells' to display console data to web page. Follow the steps at
-# https://seashells.io/ to install. THEN MUST ADD THE FOLLOWING CODE to copy seashell url to file.
-# AT FILE LOCATION; sudo nano -c /usr/local/lib/python3.7/dist-packages/seashells/__init__.py
+# Route to open live console display window using seashells dependency -
+# TESTING
+# Uses the dependency, 'seashells' to display console data to web page.
+# Follow the steps at https://seashells.io/ to install.
+# THEN MUST ADD THE FOLLOWING CODE to copy seashell url to file.
+# AT FILE LOCATION;
+# sudo nano -c /usr/local/lib/python3.7/dist-packages/seashells/__init__.py
 # On line 50 add this to the parser routine
 #        parser.add_argument('-s', '--script', type=str, default='webapp',
 #            help='Capture console stream from livesectional')
@@ -221,17 +234,17 @@ def open_console():
     """Flask Route: /open_console - Launching Console in discrete window"""
     console_ips = []
     with open("/NeoSectional/data/console_ip.txt", "r") as file:
-        for line in file.readlines() [-1:]:
+        for line in file.readlines()[-1:]:
             line = line.rstrip()
             console_ips.append(line)
     debugging.info("Opening open_console in separate window")
     return render_template('open_console.html',
-            urls = console_ips,
-            title = 'Display Console Output-'+version,
-            num = 5,
-            machines = machines,
-            ipadd = ipadd,
-            timestr = loc_timestr)
+                           urls=console_ips,
+                           title='Display Console Output-'+version,
+                           num=5,
+                           machines=machines,
+                           ipadd=ipadd,
+                           timestr=loc_timestr)
 
 
 # Routes to display logfile live, and hopefully for a dashboard
@@ -241,10 +254,16 @@ def stream_log():
     global ipadd
     global loc_timestr
     debugging.info("Opening stream_log in separate window")
-    return render_template('stream_log.html', title = 'Display Logfile-'+version, num = 5, machines = machines, ipadd = ipadd, timestr = loc_timestr)
+    return render_template('stream_log.html',
+                           title='Display Logfile-'+version,
+                           num=5,
+                           machines=machines,
+                           ipadd=ipadd,
+                           timestr=loc_timestr)
 
 
-@app.route('/stream_log1', methods=["GET", "POST"]) # Alternate route. Not currently used
+@app.route('/stream_log1', methods=["GET", "POST"])
+# Alternate route. Not currently used
 def stream_log1():
     """Flask Route: /stream_log1 - UNUSED ALTERNATE LOGS ROUTE"""
     def generate():
@@ -263,10 +282,10 @@ def test_for_update():
     global update_available
     url = request.referrer
     if url is None:
-        url = 'http://' + ipadd + ':5000/index'  # Use index if called from URL and not page.
+        # Use index if called from URL and not page.
+        url = 'http://' + ipadd + ':5000/index'
 
     temp = url.split('/')
-
     testupdate()
 
     if update_available == 0:
@@ -279,7 +298,7 @@ def test_for_update():
         flash('New Image Available -  Use Map Utilities to Download')
 
     debugging.info('Checking to see if there is an update available')
-    return redirect(temp[3])  # temp[3] holds name of page that called this route.
+    return redirect(temp[3])  # temp[3] holds page that called this route.
 
 
 # Route to update Software if one is available and user chooses to update
@@ -288,16 +307,16 @@ def update_info():
     """Flask Route: /update_info - Display Software Updates"""
     global ipadd
     global loc_timestr
-    with open("/NeoSectional/update_info.txt","r") as file:
+    with open("/NeoSectional/update_info.txt", "r") as file:
         content = file.readlines()
         debugging.dprint(content)
-    return render_template("update_info.html",\
-            content = content,\
-            title = 'Update Info-'+version,\
-            num = 5,\
-            machines = machines,\
-            ipadd = ipadd,\
-            timestr = loc_timestr)
+    return render_template("update_info.html",
+                           content=content,
+                           title='Update Info-'+version,
+                           num=5,
+                           machines=machines,
+                           ipadd=ipadd,
+                           timestr=loc_timestr)
 
 
 @app.route('/update', methods=["GET", "POST"])
@@ -305,13 +324,14 @@ def update():
     """Flask Route: /update - Execute Update for files"""
     url = request.referrer
     if url is None:
-        url = 'http://' + ipadd + ':5000/index'  # Use index if called from URL and not page.
+        url = 'http://' + ipadd + ':5000/index'
+        # Use index if called from URL and not page.
 
     temp = url.split('/')
     updatefiles()
     flash('Software has been updated to v' + update_vers)
     debugging.info('Updated Software to version ' + update_vers)
-    return redirect(temp[3])  # temp[3] holds name of page that called this route.
+    return redirect(temp[3])  # temp[3] holds name of page that called route.
 
 
 @app.route('/update_page', methods=["GET", "POST"])
@@ -319,18 +339,18 @@ def update_page():
     """Flask Route: /update_page"""
     global ipadd
     global loc_timestr
-    return render_template("update_page.html",\
-            title = 'Software Update Information-'+version,\
-            num = 5,\
-            machines = machines,\
-            ipadd = ipadd,\
-            timestr = loc_timestr)
+    return render_template("update_page.html",
+                           title='Software Update Information-'+version,
+                           num=5,
+                           machines=machines,
+                           ipadd=ipadd,
+                           timestr=loc_timestr)
 
 
 # Route to display map's airports on a digital map.
 @app.route('/led_map', methods=["GET", "POST"])
 def led_map():
-    """Flask Route: /led_map - Display LED Map showing existing airports on MAP"""
+    """Flask Route: /led_map - Display LED Map with existing airports"""
     global hmdata
     global airports
     global led_map_dict
@@ -370,21 +390,24 @@ def led_map():
     get_led_map_info()
 
     points = []
-    title_coords = (max_lat,(float(max_lon)+float(min_lon))/2)
-    start_coords = ((float(max_lat)+float(min_lat))/2, (float(max_lon)+float(min_lon))/2)
+    title_coords = (max_lat, (float(max_lon)+float(min_lon))/2)
+    start_coords = ((float(max_lat)+float(min_lat))/2,
+                    (float(max_lon)+float(min_lon))/2)
 
     # Initialize Map
-    folium_map = folium.Map(location=start_coords, \
-      zoom_start = 5, height='100%', width='100%', \
-      control_scale = True, \
-      zoom_control = True, \
-      tiles = 'OpenStreetMap')
+    folium_map = folium.Map(location=start_coords,
+                            zoom_start=5,
+                            height='100%',
+                            width='100%',
+                            control_scale=True,
+                            zoom_control=True,
+                            tiles='OpenStreetMap')
 
     # Place map within bounds of screen
     folium_map.fit_bounds([[min_lat, min_lon], [max_lat, max_lon]])
 
     # Set Marker Color by Flight Category
-    for j,led_ap in enumerate(led_map_dict):
+    for j, led_ap in enumerate(led_map_dict):
         if led_map_dict[led_ap][2] == "VFR":
             loc_color = 'green'
         elif led_map_dict[led_ap][2] == "MVFR":
@@ -404,13 +427,13 @@ def led_map():
 
         pop_url = '<a href="https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId='\
                 +led_ap+'"target="_blank">'
-        popup = pop_url+"<b>"+led_ap+"</b><br>"+\
-                apinfo_dict[led_ap][0]+\
-                ',&nbsp'+apinfo_dict[led_ap][1]\
-                +"</a><br>Pin&nbspNumber&nbsp=&nbsp"+\
-                str(pin_num)+"<br><b><font size=+2 color="+\
-                loc_color+">"+\
-                led_map_dict[led_ap][2]+"</font></b>"
+        popup = pop_url + "<b>" + led_ap + "</b><br>" +\
+            apinfo_dict[led_ap][0] +\
+            ', &nbsp' + apinfo_dict[led_ap][1] +\
+            "</a><br>Pin&nbspNumber&nbsp=&nbsp" +\
+            str(pin_num)+"<br><b><font size=+2 color=" +\
+            loc_color+">" +\
+            led_map_dict[led_ap][2] + "</font></b>"
 
         # Add airport markers with proper color to denote flight category
         folium.CircleMarker(
@@ -440,23 +463,28 @@ def led_map():
 #    folium_map.add_child(marker)
 
 
-    # Add lines between airports. Must make lat/lons floats otherwise recursion error occurs.
+    # Add lines between airports. Must make lat/lons
+    # floats otherwise recursion error occurs.
     for pin_ap in airports:
         if pin_ap in led_map_dict:
             pin_index = airports.index(pin_ap)
-            points.insert(pin_index, [float(led_map_dict[pin_ap][0]), float(led_map_dict[pin_ap][1])])
+            points.insert(pin_index,
+                          [float(led_map_dict[pin_ap][0]),
+                           float(led_map_dict[pin_ap][1])])
 
     debugging.dprint(points)
-    folium.PolyLine(points, color='grey', weight=2.5, opacity=1, dash_array='10').add_to(folium_map)
+    folium.PolyLine(points, color='grey',
+                    weight=2.5,
+                    opacity=1,
+                    dash_array='10').add_to(folium_map)
 
     # Add Title to the top of the map
     folium.map.Marker(
         title_coords,
         icon=DivIcon(
-            icon_size=(500,36),
-            icon_anchor=(150,64),
-            html='<div style="font-size: 24pt"><b>LiveSectional Map Layout</b></div>',
-            )
+            icon_size=(500, 36),
+            icon_anchor=(150, 64),
+            html='<div style="font-size: 24pt"><b>LiveSectional Map Layout</b></div>')
         ).add_to(folium_map)
 
     # Extra features to add if desired
@@ -472,10 +500,13 @@ def led_map():
         force_separate_button=True,
     ).add_to(folium_map)
 
-    folium.TileLayer('http://wms.chartbundle.com/tms/1.0.0/sec/{z}/{x}/{y}.png?origin=nw',\
-            attr='chartbundle.com', name='ChartBundle Sectional').add_to(folium_map)
-    folium.TileLayer('Stamen Terrain', name='Stamen Terrain').add_to(folium_map)
-    folium.TileLayer('CartoDB positron', name='CartoDB Positron').add_to(folium_map)
+    folium.TileLayer('http://wms.chartbundle.com/tms/1.0.0/sec/{z}/{x}/{y}.png?origin=nw',
+                     attr='chartbundle.com',
+                     name='ChartBundle Sectional').add_to(folium_map)
+    folium.TileLayer('Stamen Terrain',
+                     name='Stamen Terrain').add_to(folium_map)
+    folium.TileLayer('CartoDB positron',
+                     name='CartoDB Positron').add_to(folium_map)
 
     folium.LayerControl().add_to(folium_map)
 
@@ -501,7 +532,8 @@ def led_map():
 #     if request.method == "POST":
 #         os.system('sudo raspi-config --expand-rootfs')
 #         flash('File System has been expanded')
-#         flash('NOTE: Select "Reboot RPI" from "Map Functions" Menu for changes to take affect')
+#         flash('NOTE: Select "Reboot RPI" from
+#                       "Map Functions" Menu for changes to take affect')
 #
 #         return redirect('expandfs')
 #
@@ -553,12 +585,12 @@ def tzset():
         os.system('sudo timedatectl set-timezone ' + timezone)
         return redirect('tzset')
 
-    tzlist = subprocess.run(['timedatectl', 'list-timezones'],\
-            stdout=subprocess.PIPE).stdout.decode('utf-8')
+    tzlist = subprocess.run(['timedatectl', 'list-timezones'],
+                            stdout=subprocess.PIPE).stdout.decode('utf-8')
     tzoptionlist = tzlist.split()
 
-    loc_currtzinfo = subprocess.run(['timedatectl', 'status'],\
-            stdout=subprocess.PIPE).stdout.decode('utf-8')
+    loc_currtzinfo = subprocess.run(['timedatectl', 'status'],
+                stdout=subprocess.PIPE).stdout.decode('utf-8')
     loc_tztemp = loc_currtzinfo.split('\n')
     for j in enumerate(loc_tztemp):
         if j in (0, 1, 3):
@@ -595,34 +627,37 @@ def yindex():
     """Flask Route: /yield - Display System Info"""
     def inner():
         proc = subprocess.Popen(
-            ['/NeoSectional/info-v4.py'],             # 'dmesg' call something with a lot of output so we can see it
+            ['/NeoSectional/info-v4.py'],
+            # 'dmesg' call something with a lot of output so we can see it
             shell=True,
             stdout=subprocess.PIPE
         )
 
-        for line in iter(proc.stdout.readline,b''):
-            time.sleep(.01)                           # Don't need this just shows the text streaming
+        for line in iter(proc.stdout.readline, b''):
+            time.sleep(.01)
+            # Don't need this just shows the text streaming
             line = line.decode("utf-8")
             yield line.strip() + '<br/>\n'
 
     debugging.info("Opening yeild to display system info in separate window")
-    return Response(inner(), mimetype='text/html')  # text/html is required for most browsers to show this info.
+    return Response(inner(), mimetype='text/html')
+    # text/html is required for most browsers to show this info.
 
 
-# Route to create QR Code to display next to map so user can use an app to control the map
+# Route to create QR Code to display next to
+# map so user can use an app to control the map
 @app.route('/qrcode', methods=["GET", "POST"])
 def qrcode():
     """Flask Route: /qrcode - Generate QRcode for site URL"""
     global ipadd
     qraddress = 'http://' + ipadd.strip() + ':5000/lsremote'
     debugging.info("Opening qrcode in separate window")
-    return render_template('qrcode.html', qraddress = qraddress)
+    return render_template('qrcode.html', qraddress=qraddress)
 
 
-#Routes for homepage
 @app.route('/', methods=["GET", "POST"])
 @app.route('/index', methods=["GET", "POST"])
-def index ():
+def index():
     """Flask Route: / and /index - Homepage"""
     global hmdata
     global airports
@@ -662,7 +697,7 @@ def index ():
 
 # Routes to download airports, logfile.log and config.py to local computer
 @app.route('/download_ap', methods=["GET", "POST"])
-def downloadairports ():
+def downloadairports():
     """Flask Route: /download_ap - Export airports file"""
     debugging.info("Downloaded Airport File")
     path = "data/airports"
@@ -670,7 +705,7 @@ def downloadairports ():
 
 
 @app.route('/download_cf', methods=["GET", "POST"])
-def downloadconfig ():
+def downloadconfig():
     """Flask Route: /download_cf - Export configuration file"""
     debugging.info("Downloaded Config File")
     path = "config.ini"
@@ -678,7 +713,7 @@ def downloadconfig ():
 
 
 @app.route('/download_log', methods=["GET", "POST"])
-def downloadlog ():
+def downloadlog():
     """Flask Route: /download_log - Export log file"""
     debugging.info("Downloaded Logfile")
     path = "logs/logfile.log"
@@ -686,7 +721,7 @@ def downloadlog ():
 
 
 @app.route('/download_hm', methods=["GET", "POST"])
-def downloadhm ():
+def downloadhm():
     """Flask Route: /download_hm - Export heatmap data file"""
     debugging.info("Downloaded Heat Map data file")
     path = "data/hmdata"
@@ -706,7 +741,7 @@ def hmedit():
     loc_now = datetime.now()
     loc_timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
 
-    readhmdata(confsettings.get_string("filenames","heatmap_file"))  # read Heat Map data file
+    readhmdata(confsettings.get_string("filenames", "heatmap_file"))
 
     debugging.dprint(ipadd)  # debug to display ip address on console
 
@@ -753,7 +788,8 @@ def handle_hmpost_request():
             loc_newlist.append(airports[j] + " " + value)
             j += 1
 
-        writehmdata(loc_newlist, confsettings.get_string("filenames","heatmap_file"))
+        writehmdata(loc_newlist,
+                    confsettings.get_string("filenames", "heatmap_file"))
         get_apinfo()
 
     flash('Heat Map Data Successfully Saved')
@@ -820,7 +856,8 @@ def apedit():
     loc_now = datetime.now()
     loc_timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
 
-    readairports(confsettings.get_string("filenames","airports_file"))  # Read airports file.
+    readairports(confsettings.get_string("filenames",
+                                         "airports_file"))
 
     debugging.dprint(ipadd)  # debug to display ip address on console
 
@@ -851,9 +888,9 @@ def numap():
 
     if request.method == "POST":
         loc_numap = int(request.form["numofap"])
-        debugging.dprint (loc_numap)
+        debugging.dprint(loc_numap)
 
-    readairports(confsettings.get_string("filenames","airports_file"))
+    readairports(confsettings.get_string("filenames", "airports_file"))
 
     newnum = loc_numap - int(len(airports))
     if newnum < 0:
@@ -896,26 +933,33 @@ def handle_appost_request():
     if request.method == "POST":
         data = request.form.to_dict()
         logging.debug(data)  # debug
-        writeairports(data, confsettings.get_string("filenames","airports_file"))
+        writeairports(data, confsettings.get_string("filenames",
+                                                    "airports_file"))
 
-        readairports(confsettings.get_string("filenames","airports_file"))
+        readairports(confsettings.get_string("filenames", "airports_file"))
         get_apinfo()  # decode airports to get city and state to display
 
         # update size and data of hmdata based on saved airports file.
-        readhmdata(confsettings.get_string("filenames","heatmap_file"))  # get heat map data to update with newly edited airports file
-        if len(hmdata) > len(airports):  # adjust size of hmdata list if length is larger than airports
+        readhmdata(confsettings.get_string("filenames", "heatmap_file"))
+        # get heat map data to update with newly edited airports file
+        if len(hmdata) > len(airports):
+            # adjust size of hmdata list if length is larger than airports
             num = len(hmdata) - len(airports)
             hmdata = hmdata[:-num]
 
-        elif len(hmdata) < len(airports):  # adjust size of hmdata list if length is smaller than airports
+        elif len(hmdata) < len(airports):
+            # adjust size of hmdata list if length is smaller than airports
             for n in range(len(hmdata), len(airports)):
                 hmdata.append('NULL 0')
 
-        for loc_index, airport in enumerate(airports):  # now that both lists are same length, be sure the data matches
+        for loc_index, airport in enumerate(airports):
+            # now that both lists are same length, be sure the data matches
             ap, *_ = hmdata[loc_index].split()
             if ap != airport:
-                hmdata[loc_index] = (airport + ' 0')  # save changed airport and assign zero landings to it in hmdata
-        writehmdata(hmdata, confsettings.get_string("filenames","heatmap_file"))
+                hmdata[loc_index] = (airport + ' 0')
+                # save changed airport and set zero landings to it in hmdata
+        writehmdata(hmdata, confsettings.get_string("filenames",
+                                                    "heatmap_file"))
 
     flash('Airports Successfully Saved')
     return redirect("apedit")
@@ -934,45 +978,45 @@ def ledonoff():
 
     if request.method == "POST":
 
-        readairports(confsettings.get_string("filenames","airports_file"))
+        readairports(confsettings.get_string("filenames", "airports_file"))
 
         if "buton" in request.form:
             num = int(request.form['lednum'])
             debugging.info("LED " + str(num) + " On")
-            strip.setPixelColor(num, Color(155,155,155))
+            strip.setPixelColor(num, Color(155, 155, 155))
             strip.show()
             flash('LED ' + str(num) + ' On')
 
         elif "butoff" in request.form:
             num = int(request.form['lednum'])
             debugging.info("LED " + str(num) + " Off")
-            strip.setPixelColor(num, Color(0,0,0))
+            strip.setPixelColor(num, Color(0, 0, 0))
             strip.show()
             flash('LED ' + str(num) + ' Off')
 
         elif "butup" in request.form:
             debugging.info("LED UP")
             num = int(request.form['lednum'])
-            strip.setPixelColor(num, Color(0,0,0))
+            strip.setPixelColor(num, Color(0, 0, 0))
             num = num + 1
 
             if num > len(airports):
                 num = len(airports)
 
-            strip.setPixelColor(num, Color(155,155,155))
+            strip.setPixelColor(num, Color(155, 155, 155))
             strip.show()
             flash('LED ' + str(num) + ' should be On')
 
         elif "butdown" in request.form:
             debugging.info("LED DOWN")
             num = int(request.form['lednum'])
-            strip.setPixelColor(num, Color(0,0,0))
+            strip.setPixelColor(num, Color(0, 0, 0))
 
             num = num - 1
             if num < 0:
                 num = 0
 
-            strip.setPixelColor(num, Color(155,155,155))
+            strip.setPixelColor(num, Color(155, 155, 155))
             strip.show()
             flash('LED ' + str(num) + ' should be On')
 
@@ -981,20 +1025,20 @@ def ledonoff():
             num = int(request.form['lednum'])
 
             for num in range(len(airports)):
-                strip.setPixelColor(num, Color(155,155,155))
+                strip.setPixelColor(num, Color(155, 155, 155))
             strip.show()
             flash('All LEDs should be On')
-            num=0
+            num = 0
 
         elif "butnone" in request.form:
             debugging.info("LED All OFF")
             num = int(request.form['lednum'])
 
             for num in range(len(airports)):
-                strip.setPixelColor(num, Color(0,0,0))
+                strip.setPixelColor(num, Color(0, 0, 0))
             strip.show()
             flash('All LEDs should be Off')
-            num=0
+            num = 0
 
         else:  # if tab is pressed
             debugging.info("LED Edited")
@@ -1205,7 +1249,8 @@ def handle_post_request():
         data["color_fog2"] = str(utils.hex2rgb(data["color_fog2"]))
         data["color_homeport"] = str(utils.hex2rgb(data["color_homeport"]))
 
-        # convert hex value back to rgb string value for storage for Transitional wipes
+        # convert hex value back to rgb string
+        # value for storage for Transitional wipes
         data["fade_color1"] = str(utils.hex2rgb(data["fade_color1"]))
         data["allsame_color1"] = str(utils.hex2rgb(data["allsame_color1"]))
         data["allsame_color2"] = str(utils.hex2rgb(data["allsame_color2"]))
@@ -1228,11 +1273,13 @@ def handle_post_request():
 
         # check and fix data with leading zeros.
         for key in data:
-            if data[key]=='0' or data[key]=='00':
+            if data[key] == '0' or data[key] == '00':
                 data[key] = '0'
 
-            elif data[key][:1] == '0':  # Check if first character is a 0. i.e. 01, 02 etc.
-                data[key] = data[key].lstrip('0')  # if so, then strip the leading zero before writing to file.
+            elif data[key][:1] == '0':
+                # Check if first character is a 0. i.e. 01, 02 etc.
+                data[key] = data[key].lstrip('0')
+                # if so, then strip the leading zero before writing to file.
 
         writeconf(data, settings_file)
         readconf(settings_file)
@@ -1240,10 +1287,12 @@ def handle_post_request():
 
         url = request.referrer
         if url is None:
-            url = 'http://' + ipadd + ':5000/index'  # Use index if called from URL and not page.
+            url = 'http://' + ipadd + ':5000/index'
+            # Use index if called from URL and not page.
 
         temp = url.split('/')
-        return redirect(temp[3])  # temp[3] holds name of page that called this route.
+        return redirect(temp[3])
+        # temp[3] holds name of page that called this route.
 
 
 # Routes for LSREMOTE - Allow Mobile Device Remote. Thank Lance
@@ -1387,11 +1436,11 @@ def importconf():
     tmp_settings = fdata.split('\n')
 
     for set_line in tmp_settings:
-        if set_line[0:1]=="#" or set_line[0:1]=="\n" or set_line[0:1]=="":
+        if set_line[0:1] in ("# ", "\n", ""):
             pass
         else:
-            (key, val) = set_line.split("=",1)
-            val = val.split("#",1)
+            (key, val) = set_line.split("=", 1)
+            val = val.split("# ", 1)
             val = val[0]
             key = key.strip()
             val = str(val.strip())
@@ -1416,13 +1465,13 @@ def restoreconf():
 def profiles():
     """Flask Route: /profiles - Load from Multiple Config Profiles"""
     global settings
-    config_profiles = {'b1': 'config-basic.py',\
-            'b2': 'config-basic2.py',\
-            'b3': 'config-basic3.py',\
-            'a1': 'config-advanced-1oled.py',\
-            'a2': 'config-advanced-lcd.py',\
-            'a3': 'config-advanced-8oledsrs.py',\
-            'a4': 'config-advanced-lcdrs.py'}
+    config_profiles = {'b1': 'config-basic.py',
+                       'b2': 'config-basic2.py',
+                       'b3': 'config-basic3.py',
+                       'a1': 'config-advanced-1oled.py',
+                       'a2': 'config-advanced-lcd.py',
+                       'a3': 'config-advanced-8oledsrs.py',
+                       'a4': 'config-advanced-lcdrs.py'}
 
     req_profile = request.form['profile']
     debugging.dprint(req_profile)
@@ -1430,8 +1479,8 @@ def profiles():
     tmp_profile = config_profiles[req_profile]
     stored_profile = '/NeoSectional/profiles/' + tmp_profile
 
-    flash(tmp_profile + ' Profile Loaded. Review And Tweak The Settings As Desired. Must Be Saved!')
-    readconf(stored_profile)    # read profile config file
+    flash(tmp_profile + 'Profile Loaded. Review And Tweak The Settings As Desired. Must Be Saved!')
+    readconf(stored_profile)   # read profile config file
     debugging.info("Loading a Profile into Settings Editor")
     return redirect('confedit')
 
@@ -1442,13 +1491,15 @@ def reboot1():
     """Flask Route: /reboot1 - Request host reboot"""
     url = request.referrer
     if url is None:
-        url = 'http://' + ipadd + ':5000/index'  # Use index if called from URL and not page.
+        url = 'http://' + ipadd + ':5000/index'
+        # Use index if called from URL and not page.
 
     temp = url.split('/')
-#    flash("Rebooting Map ")
+    # flash("Rebooting Map ")
     debugging.info("Rebooting Map from " + url)
     os.system('sudo shutdown -r now')
-    return redirect(temp[3])  # temp[3] holds name of page that called this route.
+    return redirect(temp[3])
+    # temp[3] holds name of page that called this route.
 
 
 # Route to startup map and displays
@@ -1457,14 +1508,16 @@ def startup1():
     """Flask Route: /startup1 - Trigger process startup"""
     url = request.referrer
     if url is None:
-        url = 'http://' + ipadd + ':5000/index'  #Use index if called from URL and not page.
+        url = 'http://' + ipadd + ':5000/index'
+        # Use index if called from URL and not page.
 
     temp = url.split('/')
     debugging.info("Startup Map from " + url)
     os.system('sudo python3 /NeoSectional/startup.py run &')
     flash("Map Turned On ")
     time.sleep(1)
-    return redirect(temp[3])  # temp[3] holds name of page that called this route.
+    return redirect(temp[3])
+    # temp[3] holds name of page that called this route.
 
 
 # Route to turn off the map and displays
@@ -1473,7 +1526,8 @@ def shutdown1():
     """Flask Route: /shutdown1 - Trigger process shutdown"""
     url = request.referrer
     if url is None:
-        url = 'http://' + ipadd + ':5000/index' #Use index if called from URL and not page.
+        url = 'http://' + ipadd + ':5000/index'
+        # Use index if called from URL and not page.
 
     temp = url.split('/')
     debugging.info("Shutoff Map from " + url)
@@ -1483,7 +1537,8 @@ def shutdown1():
     os.system('sudo python3 /NeoSectional/shutoff.py &')
     flash("Map Turned Off ")
     time.sleep(1)
-    return redirect(temp[3])  # temp[3] holds name of page that called this route.
+    return redirect(temp[3])
+    # temp[3] holds name of page that called this route.
 
 
 # Route to power down the RPI
@@ -1492,13 +1547,15 @@ def shutoffnow1():
     """Flask Route: /shutoffnow1 - Turn Off RPI"""
     url = request.referrer
     if url is None:
-        url = 'http://' + ipadd + ':5000/index'  # Use index if called from URL and not page.
+        url = 'http://' + ipadd + ':5000/index'
+        # Use index if called from URL and not page.
 
     temp = url.split('/')
- #   flash("RPI is Shutting Down ")
+    # flash("RPI is Shutting Down ")
     debugging.info("Shutdown RPI from " + url)
     os.system('sudo shutdown -h now')
-    return redirect(temp[3])  # temp[3] holds name of page that called this route.
+    return redirect(temp[3])
+    # temp[3] holds name of page that called this route.
 
 
 # Route to run LED test
@@ -1507,14 +1564,16 @@ def testled():
     """Flask Route: /testled - Run LED Test scripts"""
     url = request.referrer
     if url is None:
-        url = 'http://' + ipadd + ':5000/index'  #Use index if called from URL and not page.
+        url = 'http://' + ipadd + ':5000/index'
+        # Use index if called from URL and not page.
 
     temp = url.split('/')
 
-#    flash("Testing LED's")
+#   flash("Testing LED's")
     debugging.info("Running testled.py from " + url)
     os.system('sudo python3 /NeoSectional/testled.py')
-    return redirect(temp[3])  # temp[3] holds name of page that called this route.
+    return redirect(temp[3])
+    # temp[3] holds name of page that called this route.
 
 
 # Route to run OLED test
@@ -1523,21 +1582,24 @@ def testoled():
     """Flask Route: /testoled - Run OLED Test sequence"""
     url = request.referrer
     if url is None:
-        url = 'http://' + ipadd + ':5000/index' # Use index if called from URL and not page.
+        url = 'http://' + ipadd + ':5000/index'
+        # Use index if called from URL and not page.
 
     temp = url.split('/')
-    if config.displayused!=1 or config.oledused!=1:
-        return redirect(temp[3])  # temp[3] holds name of page that called this route.
+    if config.displayused != 1 or config.oledused != 1:
+        return redirect(temp[3])
+        # temp[3] holds name of page that called this route.
 
-#    flash("Testing OLEDs ")
+    # flash("Testing OLEDs ")
     debugging.info("Running testoled.py from " + url)
     os.system('sudo python3 /NeoSectional/testoled.py')
-    return redirect(temp[3])  # temp[3] holds name of page that called this route.
+    return redirect(temp[3])
+    # temp[3] holds name of page that called this route.
 
 
-#############
+# # # # # # # # # # # # #
 # Functions #
-#############
+# # # # # # # # # # # # #
 
 # create backup of config.py
 def copy():
@@ -1559,11 +1621,11 @@ def readconf(config_file):
     try:
         with open(config_file) as f:
             for line in f:
-                if line[0] == "#" or line[0] == "\n":
+                if line[0] == "# " or line[0] == "\n":
                     pass
                 else:
-                    (key, val) = line.split("=",1)
-                    val = val.split("#",1)
+                    (key, val) = line.split("=", 1)
+                    val = val.split("# ", 1)
                     val = val[0]
                     key = key.strip()
                     val = str(val.strip())
@@ -1580,7 +1642,7 @@ def writeconf(loc_settings, file):
     """Save old style configuration file"""
     debugging.dprint('In WriteConf Routine')
     f = open(file, "w+")
-    f.write('#config.py - use web based configurator to make changes unless you are comfortable doing it manually')
+    f.write('# config.py - use web based configurator to make changes unless you are comfortable doing it manually')
     f.write('\n\n')
     for key in loc_settings:
 #        debugging.dprint(key, settings[key]) # debug
@@ -1637,11 +1699,11 @@ def readhmdata(hmdata_file):
         for airport in airports:
             hmdata.append(airport + " 0")
         debugging.dprint (hmdata)  # debug
-        writehmdata(hmdata, confsettings.get_string("filenames","heatmap_file"))
+        writehmdata(hmdata, confsettings.get_string("filenames", "heatmap_file"))
 
 
 # Write heat map file
-def writehmdata(loc_hmdata,filename):
+def writehmdata(loc_hmdata, filename):
     """Save hmdata to hmdata file"""
     debugging.dprint('In WriteHMdata Routine')
     f = open(filename, "w+")
@@ -1668,11 +1730,13 @@ def get_led_map_info():
     global min_lon
 
     for airportcode in airports:
-        led_map_url = led_map_url + airportcode + ","
+        led_map_url = led_map_url + airportcode + ", "
     led_map_url = led_map_url[:-1]
-    debugging.dprint(led_map_url) # debug url if neccessary
+    debugging.dprint(led_map_url)  # debug url if neccessary
 
-    while True:  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
+    while True:
+        # check internet availability and retry if necessary.
+        # If house power outage, map may boot quicker than router.
         try:
             content = urllib.request.urlopen(led_map_url).read()
             debugging.info('FAA Data Downloaded')
@@ -1685,7 +1749,7 @@ def get_led_map_info():
             content = ''
             pass
 
-    if content  == '':  # if FAA data not available bypass getting apinfo
+    if content == '':  # if FAA data not available bypass getting apinfo
         return
 
     root = ET.fromstring(content)  # Process XML data returned from FAA
@@ -1707,7 +1771,7 @@ def get_led_map_info():
             fl_cat = 'Not Reported'
         else:
             fl_cat = led_map_info.find('flight_category').text
-        led_map_dict[stationId] = [lat,lon,fl_cat]
+        led_map_dict[stationId] = [lat, lon, fl_cat]
 
     max_lat = max(lat_list)
     min_lat = min(lat_list)
@@ -1725,12 +1789,14 @@ def get_apinfo():
 
     apurl = orig_apurl  # Assign base FAA url to temp variable
     for airportcode in airports:
-        apurl = apurl + airportcode + ","
+        apurl = apurl + airportcode + ", "
     apurl = apurl[:-1]
 
-    while True:  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
+    while True:
+        # check internet availability and retry if necessary.
+        # If house power outage, map may boot quicker than router.
         try:
-#            s.connect(("8.8.8.8", 80))
+            # s.connect(("8.8.8.8", 80))
             content = urllib.request.urlopen(apurl).read()
             debugging.info('FAA Airport Data Available')
             debugging.info(apurl)
@@ -1742,7 +1808,7 @@ def get_apinfo():
             content = ''
             pass
 
-    if content  == '':  # if FAA data not available bypass getting apinfo
+    if content == '':  # if FAA data not available bypass getting apinfo
         return
 
     root = ET.fromstring(content)  # Process XML data returned from FAA
@@ -1753,34 +1819,42 @@ def get_apinfo():
         if stationId[0] != 'K':
             site = apinfo.find('site').text
             country = apinfo.find('country').text
-            apinfo_dict[stationId] = [site,country]
+            apinfo_dict[stationId] = [site, country]
 
         else:
             site = apinfo.find('site').text
             state = apinfo.find('state').text
-            apinfo_dict[stationId] = [site,state]
+            apinfo_dict[stationId] = [site, state]
 
 
 def unzipfile(filename):
-    """Unzip file""" # FIXME - Check to make sure that filename isn't outside target_path
+    """ Unzip file """
+    # FIXME - Check to make sure that filename isn't outside target_path
     with zipfile.ZipFile(target_path + filename, 'r') as zip_ref:
         zip_ref.extractall(target_path)
     debugging.info('Unzipped ls.zip')
 
 
 def copytoprevdir(src_dir, dest_dir):
-    """Delete target; clone src""" # FIXME Error handling for rmtree
+    """ Delete target; clone src """
+    # FIXME Error handling for rmtree
     shutil.rmtree(dest_dir)
-    shutil.copytree(src_dir,dest_dir)
+    shutil.copytree(src_dir, dest_dir)
     debugging.info('Copied current version to ../previousversion')
 
 
 def updatefiles():
-    """ Deploy updates """ # FIXME - Make software update process more robust - or replace with .deb update
-    copytoprevdir(src, dest)                       # This copies current version to ../previousversion before updating files.
-    utils.download_file(source_path + zipfilename, target_path + zipfilename) # Download zip file that contains updated files
-    unzipfile(zipfilename)                         # Unzip files and overwrite existing older files
-    utils.delete_file(zipfilename)                           # Delete zip file
+    """ Deploy updates """
+    # FIXME - Make software update process more robust
+    # or replace with .deb update
+    copytoprevdir(src, dest)
+    # This copies current version to ../previousversion before updating files.
+    utils.download_file(source_path + zipfilename, target_path + zipfilename)
+    # Download zip file that contains updated files
+    unzipfile(zipfilename)
+    # Unzip files and overwrite existing older files
+    utils.delete_file(target_path, zipfilename)
+    # Delete zip file
     debugging.info('Updated New Files')
 
 
@@ -1790,27 +1864,40 @@ def checkforupdate():
 #    utils.get_loc()
 #    print(loc)  # debug
 
-    utils.download_file(source_path + verfilename, target_path + verfilename)  # download version file from neoupdate
+    utils.download_file(source_path + verfilename,
+                        target_path + verfilename)
+    # download version file from neoupdate
 
-    with open(target_path + verfilename) as file:  # Read version number of latest version
+    with open(target_path + verfilename) as file:
+        # Read version number of latest version
         update_vers = file.read()
 
-    debugging.info('Latest Version = ' + str(update_vers) + ' - ' + 'Current Version = ' + str(admin.version))
+    debugging.info('Latest Version = ' +
+                   str(update_vers) + ' - ' +
+                   'Current Version = ' +
+                   str(admin.version))
 
-    utils.delete_file(verfilename)  # Delete the downloaded version file.
+    # Delete the downloaded version file.
+    utils.delete_file(target_path, verfilename)
     debugging.info('Checked for Software Update')
 
-    if float(admin.version[1:])<float(admin.min_update_ver):  # Check to see if a newer Image is available
+    if float(admin.version[1:]) < float(admin.min_update_ver):
+        # Check to see if a newer Image is available
         return "image"
 
-    if float(update_vers) > float(admin.version[1:]):  # Strip leading 'v' can compare as floats to determine if an update available.
+    if float(update_vers) > float(admin.version[1:]):
+        # Strip leading 'v' can compare as floats to
+        # determine if an update available.
         return True
     else:
         return False
 
 
 def testupdate():
-    """ Check to see if an newer version of the software is available, and update if user so chooses"""
+    """ Check to see if an newer version of the
+        software is available,
+        and update if user so chooses
+    """
     global update_available
     if checkforupdate() is True:
         debugging.info('Update Available')
@@ -1825,15 +1912,16 @@ def testupdate():
         update_available = 2                    # Newer image available
 
 
-
-# executed code
 if __name__ == '__main__':
-    # Display active IP address for builder to open up web browser to configure.
+    # Display active IP address for builder to open up web
+    # browser to configure.
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
     confsettings.init()
 
-    if utils.wait_for_internet():  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
+    if utils.wait_for_internet():
+        # check internet availability and retry if necessary.
+        # If house power outage, map may boot quicker than router.
         debugging.info("Internet Available")
     else:
         debugging.warn("Internet NOT Available")
@@ -1841,15 +1929,19 @@ if __name__ == '__main__':
     ipaddr = utils.get_local_ip()
     debugging.info('Startup - Current RPI IP Address = ' + ipaddr)
 
-    debugging.info('Base Directory :' + confsettings.get_string("filenames", "basedir"))
-    debugging.info('Airports File  :' + confsettings.get_string("filenames", "airports_file"))
+    debugging.info('Base Directory :' +
+                   confsettings.get_string("filenames", "basedir"))
+    debugging.info('Airports File  :' +
+                   confsettings.get_string("filenames", "airports_file"))
 
     # Get Current Time Zone
-    currtzinfo = subprocess.run(['timedatectl', 'status'], stdout=subprocess.PIPE).stdout.decode('utf-8')
+    currtzinfo = subprocess.run(['timedatectl', 'status'],
+                                stdout=subprocess.PIPE).stdout.decode('utf-8')
     tztemp = currtzinfo.split('\n')
     current_timezone = tztemp[3]
 
-    # Check to see if an newer version of the software is available, and update if user so chooses
+    # Check to see if an newer version of the software is available,
+    # and update if user so chooses
     # testupdate() # temp fix for server error. More to come
 
     # Get system info and display
@@ -1869,17 +1961,17 @@ if __name__ == '__main__':
 
     # Load files and back up the airports file, then run flask templates
 
-## This code is obsolete, but left here for posperity's sake.
-##    if useip2ftp ==  1:
-##        exec(compile(open("/NeoSectional/ftp-v4.py", "rb").read(), "/NeoSectional/ftp-v4.py", 'exec'))  #Get latest ip's to display in editors
-##        debugging.info("Storing " + str(ipaddresses) + " on ftp server")
+# # This code is obsolete, but left here for posperity's sake.
+# #    if useip2ftp ==  1:
+# #        exec(compile(open("/NeoSectional/ftp-v4.py", "rb").read(), "/NeoSectional/ftp-v4.py", 'exec'))  # Get latest ip's to display in editors
+# #        debugging.info("Storing " + str(ipaddresses) + " on ftp server")
 
     copy()  # make backup of config file
     readconf(settings_file)  # read config file
-    readairports(confsettings.get_string("filenames","airports_file"))  # read airports
+    readairports(confsettings.get_string("filenames", "airports_file"))  # read airports
     get_apinfo()  # decode airports to get city and state of each airport
     get_led_map_info() # get airport location in lat lon and flight category
-    readhmdata(confsettings.get_string("filenames","heatmap_file"))  # get Heat Map data
+    readhmdata(confsettings.get_string("filenames", "heatmap_file"))  # get Heat Map data
 
     if admin.use_scan_network == 1:
         debugging.dprint("One Moment - Scanning for Other LiveSectional Maps on Local Network")
@@ -1888,4 +1980,4 @@ if __name__ == '__main__':
 
     debugging.info("IP Address = " + utils.get_local_ip())
     debugging.info("Starting Flask Session")
-    app.run(debug=confsettings.get_bool("default","flask_debug"), host='0.0.0.0')
+    app.run(debug=confsettings.get_bool("default", "flask_debug"), host='0.0.0.0')
