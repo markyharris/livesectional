@@ -188,7 +188,7 @@ def map1():
     # other mapping code (e.g. lines, markers etc.)
     folium.LayerControl().add_to(folium_map)
 
-    folium_map.save('../../NeoSectional/templates/map.html')
+    folium_map.save('/NeoSectional/templates/map.html')
     return render_template('mapedit.html', title='Map', num = 5)
 #    return folium_map._repr_html_()
 
@@ -479,7 +479,7 @@ def led_map():
 
     folium.LayerControl().add_to(folium_map)
 
-    folium_map.save('../../NeoSectional/templates/map.html')
+    folium_map.save('/NeoSectional/templates/map.html')
     debugging.info("Opening led_map in separate window")
     return render_template('led_map.html', **templateData)
 
