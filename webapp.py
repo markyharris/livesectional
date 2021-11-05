@@ -434,7 +434,7 @@ def led_map():
                 + led_ap + '"target="_blank">'
         popup = pop_url + "<b>" + led_ap + "</b><br>" +\
             apinfo_dict[led_ap][0] +\
-            ', &nbsp' + apinfo_dict[led_ap][1] +\
+            ',&nbsp' + apinfo_dict[led_ap][1] +\
             "</a><br>Pin&nbspNumber&nbsp=&nbsp" +\
             str(pin_num)+"<br><b><font size=+2 color=" +\
             loc_color+">" +\
@@ -1634,7 +1634,7 @@ def readconf(config_file):
                     val = val[0]
                     key = key.strip()
                     val = str(val.strip())
-                    debugging.dprint(key + ", " + val)  # debug
+                    debugging.dprint(key + "," + val)  # debug
                     settings[(key)] = val
             debugging.dprint(settings)  # debug
     except IOError as error:
@@ -1737,7 +1737,7 @@ def get_led_map_info():
     global min_lon
 
     for airportcode in airports:
-        led_map_url = led_map_url + airportcode + ", "
+        led_map_url = led_map_url + airportcode + ","
     led_map_url = led_map_url[:-1]
     debugging.dprint(led_map_url)  # debug url if neccessary
 
@@ -1796,7 +1796,7 @@ def get_apinfo():
 
     apurl = orig_apurl  # Assign base FAA url to temp variable
     for airportcode in airports:
-        apurl = apurl + airportcode + ", "
+        apurl = apurl + airportcode + ","
     apurl = apurl[:-1]
 
     while True:
