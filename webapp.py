@@ -115,6 +115,7 @@ src = '/NeoSectional'                           # Main directory, /NeoSectional
 dest = '../previousversion'                     # Directory to store currently run version of software
 verfilename = 'version.py'                      # Version Filename
 zipfilename = 'ls.zip'                          # File that holds the names of all the files that need to be updated
+# FIXME: Move URL to configuration
 source_path = 'http://www.livesectional.com/liveupdate/neoupdate/'
 target_path = '/NeoSectional/'
 update_available = 0                            # 0 = No update available, 1 = Yes update available
@@ -122,11 +123,13 @@ update_vers = "4.000"                           # initiate variable
 
 # Used to capture staton information for airport id decode for tooltip display in web pages.
 apinfo_dict = {}
+# FIXME: Move URL to configuration
 orig_apurl = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString=" # noqa
 debugging.dprint(orig_apurl)
 
 # Used to display weather and airport locations on a map
 led_map_dict = {}
+# FIXME: Move URL to configuration
 led_map_url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString=" # noqa
 debugging.dprint(led_map_url)
 
@@ -183,6 +186,7 @@ def map1():
     folium_map.add_child(folium.ClickForMarker(popup='Marker'))
     folium.plugins.Geocoder().add_to(folium_map)
 
+    # FIXME: Move URL to configuration
     folium_url = 'http://wms.chartbundle.com/tms/1.0.0/sec/{z}/{x}/{y}.png?origin=nw'
     folium.TileLayer(folium_url,
                      attr='chartbundle.com',
@@ -425,8 +429,9 @@ def led_map():
         else:
             pin_num = None
 
+        # FIXME - Move URL to config file
         pop_url = '<a href="https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId='\
-                +led_ap+'"target="_blank">'
+                + led_ap + '"target="_blank">'
         popup = pop_url + "<b>" + led_ap + "</b><br>" +\
             apinfo_dict[led_ap][0] +\
             ', &nbsp' + apinfo_dict[led_ap][1] +\
@@ -462,10 +467,9 @@ def led_map():
 
 #    folium_map.add_child(marker)
 
-
-    # Add lines between airports. Must make lat/lons
-    # floats otherwise recursion error occurs.
     for pin_ap in airports:
+        # Add lines between airports. Must make lat/lons
+        # floats otherwise recursion error occurs.
         if pin_ap in led_map_dict:
             pin_index = airports.index(pin_ap)
             points.insert(pin_index,
@@ -500,6 +504,7 @@ def led_map():
         force_separate_button=True,
     ).add_to(folium_map)
 
+    # FIXME: Move URL to configuration
     folium.TileLayer('http://wms.chartbundle.com/tms/1.0.0/sec/{z}/{x}/{y}.png?origin=nw',
                      attr='chartbundle.com',
                      name='ChartBundle Sectional').add_to(folium_map)
@@ -590,7 +595,7 @@ def tzset():
     tzoptionlist = tzlist.split()
 
     loc_currtzinfo = subprocess.run(['timedatectl', 'status'],
-                stdout=subprocess.PIPE).stdout.decode('utf-8')
+                                    stdout=subprocess.PIPE).stdout.decode('utf-8')
     loc_tztemp = loc_currtzinfo.split('\n')
     for j in enumerate(loc_tztemp):
         if j in (0, 1, 3):
@@ -1642,10 +1647,11 @@ def writeconf(loc_settings, file):
     """Save old style configuration file"""
     debugging.dprint('In WriteConf Routine')
     f = open(file, "w+")
-    f.write('# config.py - use web based configurator to make changes unless you are comfortable doing it manually')
+    f.write('# config.py - use web based configurator')
+    f.write('# Manual configuration should be avoided')
     f.write('\n\n')
     for key in loc_settings:
-#        debugging.dprint(key, settings[key]) # debug
+        # debugging.dprint(key, settings[key]) # debug
         f.write(key + " = " + loc_settings[key])
         f.write('\n')
     f.close()
@@ -1693,13 +1699,14 @@ def readhmdata(hmdata_file):
                 hmdata.append(line.rstrip())
             debugging.dprint(hmdata)  # debug
     except IOError as error:
-        debugging.error('Heat Map File Not Available. Creating Default Heat Map File')
+        debugging.error('Heat Map File Not Available. Creating Default')
         debugging.error(error)
 
         for airport in airports:
             hmdata.append(airport + " 0")
-        debugging.dprint (hmdata)  # debug
-        writehmdata(hmdata, confsettings.get_string("filenames", "heatmap_file"))
+        debugging.dprint(hmdata)  # debug
+        writehmdata(hmdata, confsettings.get_string("filenames",
+                                                    "heatmap_file"))
 
 
 # Write heat map file
@@ -1963,21 +1970,24 @@ if __name__ == '__main__':
 
 # # This code is obsolete, but left here for posperity's sake.
 # #    if useip2ftp ==  1:
-# #        exec(compile(open("/NeoSectional/ftp-v4.py", "rb").read(), "/NeoSectional/ftp-v4.py", 'exec'))  # Get latest ip's to display in editors
+# #        exec(compile(open("/NeoSectional/ftp-v4.py", "rb").read(),
+# #                 "/NeoSectional/ftp-v4.py", 'exec'))
+# # Get latest ip's to display in editors
 # #        debugging.info("Storing " + str(ipaddresses) + " on ftp server")
 
     copy()  # make backup of config file
     readconf(settings_file)  # read config file
-    readairports(confsettings.get_string("filenames", "airports_file"))  # read airports
+    readairports(confsettings.get_string("filenames", "airports_file"))
     get_apinfo()  # decode airports to get city and state of each airport
-    get_led_map_info() # get airport location in lat lon and flight category
-    readhmdata(confsettings.get_string("filenames", "heatmap_file"))  # get Heat Map data
+    get_led_map_info()  # get airport location in lat lon and flight category
+    readhmdata(confsettings.get_string("filenames", "heatmap_file"))
 
     if admin.use_scan_network == 1:
         debugging.dprint("One Moment - Scanning for Other LiveSectional Maps on Local Network")
         machines = scan_network.scan_network()
-        debugging.dprint(machines) # Debug
+        debugging.dprint(machines)  # Debug
 
     debugging.info("IP Address = " + utils.get_local_ip())
     debugging.info("Starting Flask Session")
-    app.run(debug=confsettings.get_bool("default", "flask_debug"), host='0.0.0.0')
+    app.run(debug=confsettings.get_bool("default",
+                                        "flask_debug"), host='0.0.0.0')
