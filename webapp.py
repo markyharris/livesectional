@@ -37,8 +37,9 @@ import sys
 import subprocess
 import shutil
 import zipfile
-import json
-import urllib.request, urllib.error, urllib.parse
+# import json
+import urllib
+from urllib import request, error, parse
 import socket
 import logging
 
@@ -52,7 +53,7 @@ from folium.vector_layers import Circle, CircleMarker, PolyLine, Polygon, Rectan
 
 import requests
 
-import wget
+# import wget
 
 #   sudo pip3 install flask
 from flask import Flask, render_template, request, flash, redirect, url_for, send_file, Response
@@ -1280,7 +1281,6 @@ def handle_post_request():
         for key in data:
             if data[key] == '0' or data[key] == '00':
                 data[key] = '0'
-
             elif data[key][:1] == '0':
                 # Check if first character is a 0. i.e. 01, 02 etc.
                 data[key] = data[key].lstrip('0')
@@ -1896,8 +1896,7 @@ def checkforupdate():
         # Strip leading 'v' can compare as floats to
         # determine if an update available.
         return True
-    else:
-        return False
+    return False
 
 
 def testupdate():
@@ -1917,6 +1916,7 @@ def testupdate():
     elif checkforupdate() == "image":
         debugging.info('Newer Image Available for Download')
         update_available = 2                    # Newer image available
+    return update_available
 
 
 if __name__ == '__main__':
