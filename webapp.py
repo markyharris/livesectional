@@ -1,4 +1,4 @@
-# !/usr/bin/env python3
+#!/usr/bin/env python3
 """
 
 # webapp.py - v4, by Mark Harris. Web Based Configurator for LiveSectional - Using Flask and Python
@@ -160,7 +160,7 @@ ipadd = ''
 
 # Initiate flash session
 app = Flask(__name__)
-app.secret_key = b'_5# y2L"F4Q8z\n\xec]/'
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 debugging.info("Settings and Flask Have Been Setup")
 
@@ -1441,11 +1441,11 @@ def importconf():
     tmp_settings = fdata.split('\n')
 
     for set_line in tmp_settings:
-        if set_line[0:1] in ("# ", "\n", ""):
+        if set_line[0:1] in ("#", "\n", ""):
             pass
         else:
             (key, val) = set_line.split("=", 1)
-            val = val.split("# ", 1)
+            val = val.split("#", 1)
             val = val[0]
             key = key.strip()
             val = str(val.strip())
@@ -1626,11 +1626,11 @@ def readconf(config_file):
     try:
         with open(config_file) as f:
             for line in f:
-                if line[0] == "# " or line[0] == "\n":
+                if line[0] == "#" or line[0] == "\n":
                     pass
                 else:
                     (key, val) = line.split("=", 1)
-                    val = val.split("# ", 1)
+                    val = val.split("#", 1)
                     val = val[0]
                     key = key.strip()
                     val = str(val.strip())
