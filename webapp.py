@@ -1833,7 +1833,7 @@ if __name__ == '__main__':
 
     confsettings.init()
 
-    if utils.waitForInternet():  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
+    if utils.wait_for_internet():  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
         debugging.info("Internet Available")
     else:
         debugging.warn("Internet NOT Available")
