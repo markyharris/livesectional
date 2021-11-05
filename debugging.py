@@ -38,10 +38,3 @@ def error(args):
         appname = "LIVEMAP:"
         logtime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         print(logtime, appname, "ERROR:", args, flush=True )
-
-
-
-
-
-
-

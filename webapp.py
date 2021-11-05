@@ -1778,9 +1778,9 @@ def copytoprevdir(src_dir, dest_dir):
 def updatefiles():
     """ Deploy updates """ # FIXME - Make software update process more robust - or replace with .deb update
     copytoprevdir(src, dest)                       # This copies current version to ../previousversion before updating files.
-    utils.dlftpfile(source_path + zipfilename, target_path + zipfilename) # Download zip file that contains updated files
+    utils.download_file(source_path + zipfilename, target_path + zipfilename) # Download zip file that contains updated files
     unzipfile(zipfilename)                         # Unzip files and overwrite existing older files
-    utils.delfile(zipfilename)                           # Delete zip file
+    utils.delete_file(zipfilename)                           # Delete zip file
     debugging.info('Updated New Files')
 
 
@@ -1790,14 +1790,14 @@ def checkforupdate():
 #    utils.get_loc()
 #    print(loc)  # debug
 
-    utils.dlftpfile(source_path + verfilename, target_path + verfilename)  # download version file from neoupdate
+    utils.download_file(source_path + verfilename, target_path + verfilename)  # download version file from neoupdate
 
     with open(target_path + verfilename) as file:  # Read version number of latest version
         update_vers = file.read()
 
     debugging.info('Latest Version = ' + str(update_vers) + ' - ' + 'Current Version = ' + str(admin.version))
 
-    utils.delfile(verfilename)  # Delete the downloaded version file.
+    utils.delete_file(verfilename)  # Delete the downloaded version file.
     debugging.info('Checked for Software Update')
 
     if float(admin.version[1:])<float(admin.min_update_ver):  # Check to see if a newer Image is available
@@ -1838,7 +1838,7 @@ if __name__ == '__main__':
     else:
         debugging.warn("Internet NOT Available")
 
-    ipaddr = utils.getLocalIP()
+    ipaddr = utils.get_local_ip()
     debugging.info('Startup - Current RPI IP Address = ' + ipaddr)
 
     debugging.info('Base Directory :' + confsettings.get_string("filenames", "basedir"))
@@ -1859,10 +1859,10 @@ if __name__ == '__main__':
     debugging.dprint(python_ver)
     debugging.dprint('LiveSectional Version - ' + version)
     debugging.dprint("\033[1;32;40m***********************************************")
-    debugging.dprint("       My IP Address is = "+ utils.getLocalIP())
+    debugging.dprint("       My IP Address is = "+ utils.get_local_ip())
     debugging.dprint("***********************************************")
     debugging.dprint("  Configure your LiveSectional by opening a   ")
-    debugging.dprint("    browser to http://"+ utils.getLocalIP() +":5000")
+    debugging.dprint("    browser to http://"+ utils.get_local_ip() +":5000")
     debugging.dprint("***********************************************")
     debugging.dprint("\033[0;0m\n")
     debugging.dprint("Raspberry Pi System Time - " + loc_timestr)
@@ -1886,6 +1886,6 @@ if __name__ == '__main__':
         machines = scan_network.scan_network()
         debugging.dprint(machines) # Debug
 
-    debugging.info("IP Address = " + utils.getLocalIP())
+    debugging.info("IP Address = " + utils.get_local_ip())
     debugging.info("Starting Flask Session")
     app.run(debug=confsettings.get_bool("default","flask_debug"), host='0.0.0.0')

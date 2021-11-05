@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
+""" Collection of shared utility functions for all of the modules """
 
+import os
+import time
 import socket
+import json
+import requests
+import wget
 import debugging
 
-def isConnected():
+def is_connected():
     ''' Check to see if we can reach an endpoint on the Internet '''
     try:
         # connect to the host -- tells us if the host is actually
@@ -11,26 +17,26 @@ def isConnected():
         sock = socket.create_connection(("www.google.com", 80))
         if sock is not None:
             print('Closing socket')
-            sock.close
+            sock.close()
         return True
     except OSError:
         pass
     return False
 
 
-def waitForInternet():
+def wait_for_internet():
     ''' Delay until Internet is up (return True) - or (return False) '''
-    waitCount = 0
+    wait_count = 0
     while True:
-        if isConnected():
+        if is_connected():
             return True
-        waitCount += 1
-        if waitCount == 6:
+        wait_count += 1
+        if wait_count == 6:
             return False
-        sleep(30)
+        time.sleep(30)
 
 
-def getLocalIP():
+def get_local_ip():
     ''' Create Socket to the Internet, Query Local IP '''
     try:
         # connect to the host -- tells us if the host is actually
@@ -38,7 +44,7 @@ def getLocalIP():
         sock = socket.create_connection(("ipv4.google.com", 80))
         if sock is not None:
             print('Closing socket')
-            sock.close
+            sock.close()
         ipaddr = sock.getsockname()[0]
         return ipaddr
     except OSError:
@@ -59,8 +65,8 @@ def get_loc():
     loc = {}
 
     url_loc = 'https://extreme-ip-lookup.com/json/'
-    r = requests.get(url_loc)
-    data = json.loads(r.content.decode())
+    geo_json_data = requests.get(url_loc)
+    data = json.loads(geo_json_data.content.decode())
 
     ip_data = data['query']
     loc_data['city'] = data['city']
@@ -70,15 +76,14 @@ def get_loc():
     loc[ip_data] = loc_data
 
 
-
  # functions for updating software via web
-def delfile(filename):
+def delete_file(target_path, filename):
     """Delete File""" # FIXME - Check to make sure filename is not relative
     try:
         os.remove(target_path + filename)
         debugging.info('Deleted ' + filename)
     except:
-        debugging.error("Error while deleting file ", target_path + filename)
+        debugging.error("Error while deleting file " + target_path + filename)
 
 
  # rgb and hex routines
@@ -93,7 +98,11 @@ def rgb2hex(rgb):
 def hex2rgb(value):  # from; https://www.codespeedy.com/convert-rgb-to-hex-color -code-in-python/
     """Hex to RGB"""
     value = value.lstrip('#')
-    lv = len(value)
-    return tuple(int(value[i:i+lv//3], 16) for i in range(0, lv, lv//3))
+    length_v = len(value)
+    return tuple(int(value[i:i+length_v//3], 16) for i in range(0, length_v, length_v//3))
 
 
+def download_file(url, filename):
+    """ Download a file """
+    wget.download(url, filename)
+    debugging.info('Downloaded ' + filename + ' from neoupdate')
