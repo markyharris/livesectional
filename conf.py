@@ -9,58 +9,59 @@ Created on Oct 28 - 2021
 import re
 import configparser
 
-config_filename = "config.ini"
 
-def init():
-    ''' Initialize and load configuration '''
-    global configfile
-    configfile = configparser.ConfigParser()
-    configfile._interpolation = configparser.ExtendedInterpolation()
-    configfile.read(config_filename)
+class Conf:
+    """ Configuration Class"""
 
-def get(section, key):
-    ''' Read Setting '''
-    return configfile.get(section, key)
+    def __init__(self):
+        ''' Initialize and load configuration '''
+        self.config_filename = "config.ini"
+        self.configfile = configparser.ConfigParser()
+        self.configfile._interpolation = configparser.ExtendedInterpolation()
+        self.configfile.read(self.config_filename)
 
-def get_color_tuple(section, key):
-    ''' Read three tuple string, Return as tuple of integers'''
-    color_list = []
-    tmp_string = configfile.get(section, key) 
-    print("tmp_string:" + tmp_string + ":--")
-    # color_list = tmp_string.split(',')
-    match_pattern = '(), '
-    color_list = re.split(r"[(),\s]\s*", tmp_string)
-    print(type(color_list))
-    print(len(color_list))
-    print("-=-=-=-=-=-=-")
-    print(color_list)
-    print("-=-=-=-=-=-=-")
-    rgb_r = int(color_list[0])
-    rgb_g = int(color_list[1])
-    rgb_b = int(color_list[2])
-    print(rgb_r, rgb_g, rgb_b)
-    print("-=-=-=-=-=-=-")
+    def get(self, section, key):
+        ''' Read Setting '''
+        return self.configfile.get(section, key)
 
-    return tuple([rgb_r, rgb_g, rgb_b])
+    def get_color_tuple(self, section, key):
+        ''' Read three tuple string, Return as tuple of integers'''
+        color_list = []
+        tmp_string = self.configfile.get(section, key)
+        print("tmp_string:" + tmp_string + ":--")
+        # color_list = tmp_string.split(',')
+        color_list = re.split(r"[(),\s]\s*", tmp_string)
+        print(type(color_list))
+        print(len(color_list))
+        print("-=-=-=-=-=-=-")
+        print(color_list)
+        print("-=-=-=-=-=-=-")
+        rgb_r = int(color_list[0])
+        rgb_g = int(color_list[1])
+        rgb_b = int(color_list[2])
+        print(rgb_r, rgb_g, rgb_b)
+        print("-=-=-=-=-=-=-")
 
-
-def get_string(section, key):
-    ''' Read Setting '''
-    return configfile.get(section, key)
+        return tuple([rgb_r, rgb_g, rgb_b])
 
 
-def get_bool(section, key):
-    ''' Read Setting '''
-    return configfile.getboolean(section, key)
+    def get_string(self, section, key):
+        ''' Read Setting '''
+        return self.configfile.get(section, key)
 
 
-def get_integer(section, key):
-    ''' Read Setting '''
-    return configfile.getint(section, key)
+    def get_bool(self, section, key):
+        ''' Read Setting '''
+        return self.configfile.getboolean(section, key)
 
 
-def save_config():
-    ''' Save configuration file '''
-    cfgfile = open(config_filename,'w')
-    configfile.write(cfgfile)
-    cfgfile.close()
+    def get_integer(self, section, key):
+        ''' Read Setting '''
+        return self.configfile.getint(section, key)
+
+
+    def save_config(self):
+        ''' Save configuration file '''
+        cfgfile = open(self.config_filename,'w')
+        self.configfile.write(cfgfile)
+        cfgfile.close()
