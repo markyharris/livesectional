@@ -39,7 +39,7 @@ import shutil
 import zipfile
 # import json
 import urllib
-from urllib import request, error, parse
+# from urllib import request, error, parse
 import socket
 import logging
 
@@ -66,7 +66,7 @@ from rpi_ws281x import * # works with python 3.7. sudo pip3 install rpi_ws281x
 
 import debugging
 
-import confsettings
+import conf
 import utils
 import appinfo
 
@@ -747,7 +747,7 @@ def hmedit():
     loc_now = datetime.now()
     loc_timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
 
-    readhmdata(confsettings.get_string("filenames", "heatmap_file"))
+    readhmdata(conf.get_string("filenames", "heatmap_file"))
 
     debugging.dprint(ipadd)  # debug to display ip address on console
 
@@ -795,7 +795,7 @@ def handle_hmpost_request():
             j += 1
 
         writehmdata(loc_newlist,
-                    confsettings.get_string("filenames", "heatmap_file"))
+                    conf.get_string("filenames", "heatmap_file"))
         get_apinfo()
 
     flash('Heat Map Data Successfully Saved')
@@ -862,7 +862,7 @@ def apedit():
     loc_now = datetime.now()
     loc_timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
 
-    readairports(confsettings.get_string("filenames",
+    readairports(conf.get_string("filenames",
                                          "airports_file"))
 
     debugging.dprint(ipadd)  # debug to display ip address on console
@@ -896,7 +896,7 @@ def numap():
         loc_numap = int(request.form["numofap"])
         debugging.dprint(loc_numap)
 
-    readairports(confsettings.get_string("filenames", "airports_file"))
+    readairports(conf.get_string("filenames", "airports_file"))
 
     newnum = loc_numap - int(len(airports))
     if newnum < 0:
@@ -939,14 +939,14 @@ def handle_appost_request():
     if request.method == "POST":
         data = request.form.to_dict()
         logging.debug(data)  # debug
-        writeairports(data, confsettings.get_string("filenames",
+        writeairports(data, conf.get_string("filenames",
                                                     "airports_file"))
 
-        readairports(confsettings.get_string("filenames", "airports_file"))
+        readairports(conf.get_string("filenames", "airports_file"))
         get_apinfo()  # decode airports to get city and state to display
 
         # update size and data of hmdata based on saved airports file.
-        readhmdata(confsettings.get_string("filenames", "heatmap_file"))
+        readhmdata(conf.get_string("filenames", "heatmap_file"))
         # get heat map data to update with newly edited airports file
         if len(hmdata) > len(airports):
             # adjust size of hmdata list if length is larger than airports
@@ -964,7 +964,7 @@ def handle_appost_request():
             if ap != airport:
                 hmdata[loc_index] = (airport + ' 0')
                 # save changed airport and set zero landings to it in hmdata
-        writehmdata(hmdata, confsettings.get_string("filenames",
+        writehmdata(hmdata, conf.get_string("filenames",
                                                     "heatmap_file"))
 
     flash('Airports Successfully Saved')
@@ -984,7 +984,7 @@ def ledonoff():
 
     if request.method == "POST":
 
-        readairports(confsettings.get_string("filenames", "airports_file"))
+        readairports(conf.get_string("filenames", "airports_file"))
 
         if "buton" in request.form:
             num = int(request.form['lednum'])
@@ -1128,45 +1128,45 @@ def confedit():
     debugging.dprint(ipadd)  # debug
 
     # change rgb code to hex for html color picker
-    color_vfr_hex = utils.rgb2hex(settings["color_vfr"])
-    color_mvfr_hex = utils.rgb2hex(settings["color_mvfr"])
-    color_ifr_hex = utils.rgb2hex(settings["color_ifr"])
-    color_lifr_hex = utils.rgb2hex(settings["color_lifr"])
-    color_nowx_hex = utils.rgb2hex(settings["color_nowx"])
-    color_black_hex = utils.rgb2hex(settings["color_black"])
-    color_lghtn_hex = utils.rgb2hex(settings["color_lghtn"])
-    color_snow1_hex = utils.rgb2hex(settings["color_snow1"])
-    color_snow2_hex = utils.rgb2hex(settings["color_snow2"])
-    color_rain1_hex = utils.rgb2hex(settings["color_rain1"])
-    color_rain2_hex = utils.rgb2hex(settings["color_rain2"])
-    color_frrain1_hex = utils.rgb2hex(settings["color_frrain1"])
-    color_frrain2_hex = utils.rgb2hex(settings["color_frrain2"])
-    color_dustsandash1_hex = utils.rgb2hex(settings["color_dustsandash1"])
-    color_dustsandash2_hex = utils.rgb2hex(settings["color_dustsandash2"])
-    color_fog1_hex = utils.rgb2hex(settings["color_fog1"])
-    color_fog2_hex = utils.rgb2hex(settings["color_fog2"])
-    color_homeport_hex = utils.rgb2hex(settings["color_homeport"])
+    color_vfr_hex = utils.rgb2hex(conf.get("colors","color_vfr"))
+    color_mvfr_hex = utils.rgb2hex(conf.get("colors","color_mvfr"))
+    color_ifr_hex = utils.rgb2hex(conf.get("colors","color_ifr"))
+    color_lifr_hex = utils.rgb2hex(conf.get("colors","color_lifr"))
+    color_nowx_hex = utils.rgb2hex(conf.get("colors","color_nowx"))
+    color_black_hex = utils.rgb2hex(conf.get("colors","color_black"))
+    color_lghtn_hex = utils.rgb2hex(conf.get("colors","color_lghtn"))
+    color_snow1_hex = utils.rgb2hex(conf.get("colors","color_snow1"))
+    color_snow2_hex = utils.rgb2hex(conf.get("colors","color_snow2"))
+    color_rain1_hex = utils.rgb2hex(conf.get("colors","color_rain1"))
+    color_rain2_hex = utils.rgb2hex(conf.get("colors","color_rain2"))
+    color_frrain1_hex = utils.rgb2hex(conf.get("colors","color_frrain1"))
+    color_frrain2_hex = utils.rgb2hex(conf.get("colors","color_frrain2"))
+    color_dustsandash1_hex = utils.rgb2hex(conf.get("colors","color_dustsandash1"))
+    color_dustsandash2_hex = utils.rgb2hex(conf.get("colors","color_dustsandash2"))
+    color_fog1_hex = utils.rgb2hex(conf.get("colors","color_fog1"))
+    color_fog2_hex = utils.rgb2hex(conf.get("colors","color_fog2"))
+    color_homeport_hex = utils.rgb2hex(conf.get("colors","color_homeport"))
 
     # color picker for transitional wipes
-    fade_color1_hex = utils.rgb2hex(settings["fade_color1"])
-    allsame_color1_hex = utils.rgb2hex(settings["allsame_color1"])
-    allsame_color2_hex = utils.rgb2hex(settings["allsame_color2"])
-    shuffle_color1_hex = utils.rgb2hex(settings["shuffle_color1"])
-    shuffle_color2_hex = utils.rgb2hex(settings["shuffle_color2"])
-    radar_color1_hex = utils.rgb2hex(settings["radar_color1"])
-    radar_color2_hex = utils.rgb2hex(settings["radar_color2"])
-    circle_color1_hex = utils.rgb2hex(settings["circle_color1"])
-    circle_color2_hex = utils.rgb2hex(settings["circle_color2"])
-    square_color1_hex = utils.rgb2hex(settings["square_color1"])
-    square_color2_hex = utils.rgb2hex(settings["square_color2"])
-    updn_color1_hex = utils.rgb2hex(settings["updn_color1"])
-    updn_color2_hex = utils.rgb2hex(settings["updn_color2"])
-    morse_color1_hex = utils.rgb2hex(settings["morse_color1"])
-    morse_color2_hex = utils.rgb2hex(settings["morse_color2"])
-    rabbit_color1_hex = utils.rgb2hex(settings["rabbit_color1"])
-    rabbit_color2_hex = utils.rgb2hex(settings["rabbit_color2"])
-    checker_color1_hex = utils.rgb2hex(settings["checker_color1"])
-    checker_color2_hex = utils.rgb2hex(settings["checker_color2"])
+    fade_color1_hex = utils.rgb2hex(conf.get("colors","fade_color1"))
+    allsame_color1_hex = utils.rgb2hex(conf.get("colors","allsame_color1"))
+    allsame_color2_hex = utils.rgb2hex(conf.get("colors","allsame_color2"))
+    shuffle_color1_hex = utils.rgb2hex(conf.get("colors","shuffle_color1"))
+    shuffle_color2_hex = utils.rgb2hex(conf.get("colors","shuffle_color2"))
+    radar_color1_hex = utils.rgb2hex(conf.get("colors","radar_color1"))
+    radar_color2_hex = utils.rgb2hex(conf.get("colors","radar_color2"))
+    circle_color1_hex = utils.rgb2hex(conf.get("colors","circle_color1"))
+    circle_color2_hex = utils.rgb2hex(conf.get("colors","circle_color2"))
+    square_color1_hex = utils.rgb2hex(conf.get("colors","square_color1"))
+    square_color2_hex = utils.rgb2hex(conf.get("colors","square_color2"))
+    updn_color1_hex = utils.rgb2hex(conf.get("colors","updn_color1"))
+    updn_color2_hex = utils.rgb2hex(conf.get("colors","updn_color2"))
+    morse_color1_hex = utils.rgb2hex(conf.get("colors","morse_color1"))
+    morse_color2_hex = utils.rgb2hex(conf.get("colors","morse_color2"))
+    rabbit_color1_hex = utils.rgb2hex(conf.get("colors","rabbit_color1"))
+    rabbit_color2_hex = utils.rgb2hex(conf.get("colors","rabbit_color2"))
+    checker_color1_hex = utils.rgb2hex(conf.get("colors","checker_color1"))
+    checker_color2_hex = utils.rgb2hex(conf.get("colors","checker_color2"))
 
     # Pass data to html document
     templateData = {
@@ -1317,45 +1317,45 @@ def confeditmobile():
     debugging.dprint(ipadd)  # debug
 
     # change rgb code to hex for html color picker
-    color_vfr_hex = utils.rgb2hex(settings["color_vfr"])
-    color_mvfr_hex = utils.rgb2hex(settings["color_mvfr"])
-    color_ifr_hex = utils.rgb2hex(settings["color_ifr"])
-    color_lifr_hex = utils.rgb2hex(settings["color_lifr"])
-    color_nowx_hex = utils.rgb2hex(settings["color_nowx"])
-    color_black_hex = utils.rgb2hex(settings["color_black"])
-    color_lghtn_hex = utils.rgb2hex(settings["color_lghtn"])
-    color_snow1_hex = utils.rgb2hex(settings["color_snow1"])
-    color_snow2_hex = utils.rgb2hex(settings["color_snow2"])
-    color_rain1_hex = utils.rgb2hex(settings["color_rain1"])
-    color_rain2_hex = utils.rgb2hex(settings["color_rain2"])
-    color_frrain1_hex = utils.rgb2hex(settings["color_frrain1"])
-    color_frrain2_hex = utils.rgb2hex(settings["color_frrain2"])
-    color_dustsandash1_hex = utils.rgb2hex(settings["color_dustsandash1"])
-    color_dustsandash2_hex = utils.rgb2hex(settings["color_dustsandash2"])
-    color_fog1_hex = utils.rgb2hex(settings["color_fog1"])
-    color_fog2_hex = utils.rgb2hex(settings["color_fog2"])
-    color_homeport_hex = utils.rgb2hex(settings["color_homeport"])
+    color_vfr_hex = utils.rgb2hex(conf.get("colors","color_vfr"))
+    color_mvfr_hex = utils.rgb2hex(conf.get("colors","color_mvfr"))
+    color_ifr_hex = utils.rgb2hex(conf.get("colors","color_ifr"))
+    color_lifr_hex = utils.rgb2hex(conf.get("colors","color_lifr"))
+    color_nowx_hex = utils.rgb2hex(conf.get("colors","color_nowx"))
+    color_black_hex = utils.rgb2hex(conf.get("colors","color_black"))
+    color_lghtn_hex = utils.rgb2hex(conf.get("colors","color_lghtn"))
+    color_snow1_hex = utils.rgb2hex(conf.get("colors","color_snow1"))
+    color_snow2_hex = utils.rgb2hex(conf.get("colors","color_snow2"))
+    color_rain1_hex = utils.rgb2hex(conf.get("colors","color_rain1"))
+    color_rain2_hex = utils.rgb2hex(conf.get("colors","color_rain2"))
+    color_frrain1_hex = utils.rgb2hex(conf.get("colors","color_frrain1"))
+    color_frrain2_hex = utils.rgb2hex(conf.get("colors","color_frrain2"))
+    color_dustsandash1_hex = utils.rgb2hex(conf.get("colors","color_dustsandash1"))
+    color_dustsandash2_hex = utils.rgb2hex(conf.get("colors","color_dustsandash2"))
+    color_fog1_hex = utils.rgb2hex(conf.get("colors","color_fog1"))
+    color_fog2_hex = utils.rgb2hex(conf.get("colors","color_fog2"))
+    color_homeport_hex = utils.rgb2hex(conf.get("colors","color_homeport"))
 
     # color picker for transitional wipes
-    fade_color1_hex = utils.rgb2hex(settings["fade_color1"])
-    allsame_color1_hex = utils.rgb2hex(settings["allsame_color1"])
-    allsame_color2_hex = utils.rgb2hex(settings["allsame_color2"])
-    shuffle_color1_hex = utils.rgb2hex(settings["shuffle_color1"])
-    shuffle_color2_hex = utils.rgb2hex(settings["shuffle_color2"])
-    radar_color1_hex = utils.rgb2hex(settings["radar_color1"])
-    radar_color2_hex = utils.rgb2hex(settings["radar_color2"])
-    circle_color1_hex = utils.rgb2hex(settings["circle_color1"])
-    circle_color2_hex = utils.rgb2hex(settings["circle_color2"])
-    square_color1_hex = utils.rgb2hex(settings["square_color1"])
-    square_color2_hex = utils.rgb2hex(settings["square_color2"])
-    updn_color1_hex = utils.rgb2hex(settings["updn_color1"])
-    updn_color2_hex = utils.rgb2hex(settings["updn_color2"])
-    morse_color1_hex = utils.rgb2hex(settings["morse_color1"])
-    morse_color2_hex = utils.rgb2hex(settings["morse_color2"])
-    rabbit_color1_hex = utils.rgb2hex(settings["rabbit_color1"])
-    rabbit_color2_hex = utils.rgb2hex(settings["rabbit_color2"])
-    checker_color1_hex = utils.rgb2hex(settings["checker_color1"])
-    checker_color2_hex = utils.rgb2hex(settings["checker_color2"])
+    fade_color1_hex = utils.rgb2hex(conf.get("colors","fade_color1"))
+    allsame_color1_hex = utils.rgb2hex(conf.get("colors","allsame_color1"))
+    allsame_color2_hex = utils.rgb2hex(conf.get("colors","allsame_color2"))
+    shuffle_color1_hex = utils.rgb2hex(conf.get("colors","shuffle_color1"))
+    shuffle_color2_hex = utils.rgb2hex(conf.get("colors","shuffle_color2"))
+    radar_color1_hex = utils.rgb2hex(conf.get("colors","radar_color1"))
+    radar_color2_hex = utils.rgb2hex(conf.get("colors","radar_color2"))
+    circle_color1_hex = utils.rgb2hex(conf.get("colors","circle_color1"))
+    circle_color2_hex = utils.rgb2hex(conf.get("colors","circle_color2"))
+    square_color1_hex = utils.rgb2hex(conf.get("colors","square_color1"))
+    square_color2_hex = utils.rgb2hex(conf.get("colors","square_color2"))
+    updn_color1_hex = utils.rgb2hex(conf.get("colors","updn_color1"))
+    updn_color2_hex = utils.rgb2hex(conf.get("colors","updn_color2"))
+    morse_color1_hex = utils.rgb2hex(conf.get("colors","morse_color1"))
+    morse_color2_hex = utils.rgb2hex(conf.get("colors","morse_color2"))
+    rabbit_color1_hex = utils.rgb2hex(conf.get("colors","rabbit_color1"))
+    rabbit_color2_hex = utils.rgb2hex(conf.get("colors","rabbit_color2"))
+    checker_color1_hex = utils.rgb2hex(conf.get("colors","checker_color1"))
+    checker_color2_hex = utils.rgb2hex(conf.get("colors","checker_color2"))
 
     # Pass data to html document
     templateData = {
@@ -1705,7 +1705,7 @@ def readhmdata(hmdata_file):
         for airport in airports:
             hmdata.append(airport + " 0")
         debugging.dprint(hmdata)  # debug
-        writehmdata(hmdata, confsettings.get_string("filenames",
+        writehmdata(hmdata, conf.get_string("filenames",
                                                     "heatmap_file"))
 
 
@@ -1924,7 +1924,7 @@ if __name__ == '__main__':
     # browser to configure.
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-    confsettings.init()
+    conf.init()
 
     if utils.wait_for_internet():
         # check internet availability and retry if necessary.
@@ -1937,9 +1937,9 @@ if __name__ == '__main__':
     debugging.info('Startup - Current RPI IP Address = ' + ipaddr)
 
     debugging.info('Base Directory :' +
-                   confsettings.get_string("filenames", "basedir"))
+                   conf.get_string("filenames", "basedir"))
     debugging.info('Airports File  :' +
-                   confsettings.get_string("filenames", "airports_file"))
+                   conf.get_string("filenames", "airports_file"))
 
     # Get Current Time Zone
     currtzinfo = subprocess.run(['timedatectl', 'status'],
@@ -1977,10 +1977,10 @@ if __name__ == '__main__':
 
     copy()  # make backup of config file
     readconf(settings_file)  # read config file
-    readairports(confsettings.get_string("filenames", "airports_file"))
+    readairports(conf.get_string("filenames", "airports_file"))
     get_apinfo()  # decode airports to get city and state of each airport
     get_led_map_info()  # get airport location in lat lon and flight category
-    readhmdata(confsettings.get_string("filenames", "heatmap_file"))
+    readhmdata(conf.get_string("filenames", "heatmap_file"))
 
     if admin.use_scan_network == 1:
         debugging.dprint("One Moment - Scanning for Other LiveSectional Maps on Local Network")
@@ -1989,5 +1989,5 @@ if __name__ == '__main__':
 
     debugging.info("IP Address = " + utils.get_local_ip())
     debugging.info("Starting Flask Session")
-    app.run(debug=confsettings.get_bool("default",
+    app.run(debug=conf.get_bool("default",
                                         "flask_debug"), host='0.0.0.0')

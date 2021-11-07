@@ -4,6 +4,10 @@
 Created on Oct 28 - 2021
 
 @author: chris.higgins@alternoc.net
+
+Config Parser loads boolean data as case-insensitive 
+Will accept any of 'yes'/'no', 'on'/'off', 'true'/'false' and '1'/'0'
+
 """
 
 import configparser
@@ -18,17 +22,17 @@ def init():
     configfile.read(config_filename)
 
 def get(section, key):
-    ''' Read Setting '''
+    ''' Read [SECTION] key '''
     return configfile.get(section, key)
 
 
 def get_string(section, key):
-    ''' Read Setting '''
+    ''' Read String Setting '''
     return configfile.get(section, key)
 
 
 def get_bool(section, key):
-    ''' Read Setting '''
+    ''' Read Boolean Setting - Yes/Y/True/true/1'''
     return configfile.getboolean(section, key)
 
 

@@ -2,7 +2,7 @@ from urllib.request import urlopen
 import json
 from time import sleep
 
-import confsettings
+import conf
 
 class AppInfo:
     ''' Class to store information and data about the install environment.
