@@ -4,12 +4,9 @@
 Created on Oct 28 - 2021
 
 @author: chris.higgins@alternoc.net
-
-Config Parser loads boolean data as case-insensitive 
-Will accept any of 'yes'/'no', 'on'/'off', 'true'/'false' and '1'/'0'
-
 """
 
+import re
 import configparser
 
 config_filename = "config.ini"
@@ -22,17 +19,38 @@ def init():
     configfile.read(config_filename)
 
 def get(section, key):
-    ''' Read [SECTION] key '''
+    ''' Read Setting '''
     return configfile.get(section, key)
+
+def get_color_tuple(section, key):
+    ''' Read three tuple string, Return as tuple of integers'''
+    color_list = []
+    tmp_string = configfile.get(section, key) 
+    print("tmp_string:" + tmp_string + ":--")
+    # color_list = tmp_string.split(',')
+    match_pattern = '(), '
+    color_list = re.split(r"[(),\s]\s*", tmp_string)
+    print(type(color_list))
+    print(len(color_list))
+    print("-=-=-=-=-=-=-")
+    print(color_list)
+    print("-=-=-=-=-=-=-")
+    rgb_r = int(color_list[0])
+    rgb_g = int(color_list[1])
+    rgb_b = int(color_list[2])
+    print(rgb_r, rgb_g, rgb_b)
+    print("-=-=-=-=-=-=-")
+
+    return tuple([rgb_r, rgb_g, rgb_b])
 
 
 def get_string(section, key):
-    ''' Read String Setting '''
+    ''' Read Setting '''
     return configfile.get(section, key)
 
 
 def get_bool(section, key):
-    ''' Read Boolean Setting - Yes/Y/True/true/1'''
+    ''' Read Setting '''
     return configfile.getboolean(section, key)
 
 
