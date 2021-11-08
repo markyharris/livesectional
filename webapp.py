@@ -150,9 +150,6 @@ strip.begin()
 # color = Color(255, 255, 255)      # Color to display when cycling through LED's. White is the default.
 black_color = Color(0, 0, 0)      # Color Black used to turn off the LED.
 num = 0
-now = datetime.now()
-loc_timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
-debugging.dprint(loc_timestr)
 delay_time = 5                  # Delay in seconds between checking for internet availablility.
 num = 0                         # initialize num for airports editor
 ipadd = ''
@@ -236,6 +233,7 @@ def touchscr():
 def open_console():
     """Flask Route: /open_console - Launching Console in discrete window"""
     console_ips = []
+    loc_timestr = utils.current_time()
     with open("/NeoSectional/data/console_ip.txt", "r") as file:
         for line in file.readlines()[-1:]:
             line = line.rstrip()
@@ -255,7 +253,7 @@ def open_console():
 def stream_log():
     """Flask Route: /stream_log - Watch logs live"""
     global ipadd
-    global loc_timestr
+    loc_timestr = utils.current_time()
     debugging.info("Opening stream_log in separate window")
     return render_template('stream_log.html',
                            title='Display Logfile-'+version,
@@ -309,7 +307,7 @@ def test_for_update():
 def update_info():
     """Flask Route: /update_info - Display Software Updates"""
     global ipadd
-    global loc_timestr
+    loc_timestr = utils.current_time()
     with open("/NeoSectional/update_info.txt", "r") as file:
         content = file.readlines()
         debugging.dprint(content)
@@ -341,7 +339,7 @@ def update():
 def update_page():
     """Flask Route: /update_page"""
     global ipadd
-    global loc_timestr
+    loc_timestr = utils.current_time()
     return render_template("update_page.html",
                            title='Software Update Information-'+version,
                            num=5,
@@ -361,9 +359,10 @@ def led_map():
     global strip
     global num
     global ipadd
-    global loc_timestr
     global version
     global current_timezone
+
+    loc_timestr = utils.current_time()
 
     templateData = {
         'title': 'LiveSectional Map-'+version,
@@ -569,7 +568,6 @@ def tzset():
     global strip
     global num
     global ipadd
-    global loc_timestr
     global version
     global current_timezone
 
@@ -662,7 +660,6 @@ def index():
     global strip
     global num
     global ipadd
-    global loc_timestr
     global version
 
     loc_timestr = utils.current_time()
@@ -730,7 +727,6 @@ def hmedit():
     global strip
     global num
     global ipadd
-    global loc_timestr
     loc_timestr = utils.current_time()
 
     readhmdata(conf.get_string("filenames", "heatmap_file"))
@@ -761,7 +757,6 @@ def handle_hmpost_request():
     global strip
     global num
     global ipadd
-    global loc_timestr
     loc_newlist = []
 
     if request.method == "POST":
@@ -792,9 +787,10 @@ def importhm():
     """Flask Route: /importhm - Importing Heat Map"""
     debugging.info("Importing Heat Map File")
     global airports
-    global loc_timestr
     global hmdata
     hmdata = []
+
+    loc_timestr = utils.current_time()
 
     if 'file' not in request.files:
         flash('No File Selected')
@@ -839,7 +835,6 @@ def apedit():
     global strip
     global num
     global ipadd
-    global loc_timestr
     loc_timestr = utils.current_time()
 
     readairports(conf.get_string("filenames",
@@ -868,7 +863,8 @@ def numap():
     """Flask Route: /numap"""
     debugging.info("Updating Number of Airports in airport file")
     global airports
-    global loc_timestr
+
+    loc_timestr = utils.current_time()
 
     if request.method == "POST":
         loc_numap = int(request.form["numofap"])
@@ -910,7 +906,6 @@ def handle_appost_request():
     global strip
     global num
     global ipadd
-    global loc_timestr
 
     if request.method == "POST":
         data = request.form.to_dict()
@@ -955,7 +950,8 @@ def ledonoff():
     global strip
     global num
     global ipadd
-    global loc_timestr
+
+    loc_timestr = utils.current_time()
 
     if request.method == "POST":
 
@@ -1048,7 +1044,8 @@ def importap():
     """Flask Route: /importap - Import Airports File"""
     debugging.info("Importing Airports File")
     global airports
-    global loc_timestr
+    
+    loc_timestr = utils.current_time()
 
     if 'file' not in request.files:
         flash('No File Selected')
@@ -1090,7 +1087,6 @@ def confedit():
     """Flask Route: /confedit - Configuration Editor"""
     debugging.info("Opening confedit.html")
     global ipadd
-    global loc_timestr
     global settings
 
     loc_timestr = utils.current_time()
@@ -1198,7 +1194,6 @@ def confedit():
 def handle_post_request():
     """Flask Route: /post"""
     debugging.info("Saving Config File")
-    global loc_timestr
 
     if request.method == "POST":
         data = request.form.to_dict()
@@ -1275,7 +1270,6 @@ def confeditmobile():
     """Flask Route: /lsremote - Mobile Device API"""
     debugging.info("Opening lsremote.html")
     global ipadd
-    global loc_timestr
     global settings
 
     loc_timestr = utils.current_time()
@@ -1386,7 +1380,6 @@ def importconf():
     debugging.info("Importing Config File")
     global airports
     global settings
-    global loc_timestr
     tmp_settings = []
 
     if 'file' not in request.files:
@@ -1910,6 +1903,8 @@ if __name__ == '__main__':
                                 stdout=subprocess.PIPE).stdout.decode('utf-8')
     tztemp = currtzinfo.split('\n')
     current_timezone = tztemp[3]
+
+    loc_timestr = utils.current_time()
 
     # Check to see if an newer version of the software is available,
     # and update if user so chooses

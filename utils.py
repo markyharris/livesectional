@@ -8,6 +8,7 @@ import json
 import requests
 import wget
 import debugging
+from datetime import datetime
 
 def is_connected():
     ''' Check to see if we can reach an endpoint on the Internet '''
@@ -38,14 +39,15 @@ def wait_for_internet():
 
 def get_local_ip():
     ''' Create Socket to the Internet, Query Local IP '''
+    ipaddr = "UNKN"
     try:
         # connect to the host -- tells us if the host is actually
         # reachable
         sock = socket.create_connection(("ipv4.google.com", 80))
         if sock is not None:
+            ipaddr = sock.getsockname()[0]
             print('Closing socket')
             sock.close()
-        ipaddr = sock.getsockname()[0]
         return ipaddr
     except OSError:
         pass
