@@ -321,23 +321,6 @@ xhttp.send();
 </nav>
 
 
-{% if enable != 0 %}
-<div>
-<h1>&nbsp</h1>
-        {% if ipaddresses|length > 1 %}
-                <form>
-                <select name="option_ip" onchange="this.options[this.selectedIndex].value && (window.location = this.options[this.selectedIndex].value);">
-                {% for ip in ipaddresses %}
-                        {% set ipinfo = ip.split(' ') %}
-                        <option value="http://{{ ipinfo[0] }}:5000/lsremote" {{"selected" if ipinfo[0] == ipadd else "" }}>{{ ip }}</option>
-                {% endfor %}
-                </select>
-                </form>
-        {% endif %}
-</div>
-{% endif %}
-
-
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
  <div class="modal-dialog modal-dialog-centered" role="document">
   <div class="modal-content">

@@ -70,7 +70,7 @@ import conf
 import utils
 import appinfo
 
-import config
+# import config
 import admin
 import scan_network
 
@@ -80,7 +80,7 @@ version = admin.version          # Software version
 # loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
 # logzero.loglevel(loglevels[loglevel])  # Choices in order; DEBUG, INFO, WARNING, ERROR
 # logzero.logfile("/NeoSectional/logs/logfile.log", maxBytes=1e6, backupCount=3)
-debugging.info("\n\nStartup of metar-v4.py Script, Version " + version)
+# debugging.info("\n\nStartup of metar-v4.py Script, Version " + version)
 # debugging.info("Log Level Set To: " + str(loglevels[loglevel]))
 
 # setup variables
@@ -89,7 +89,6 @@ debugging.info("\n\nStartup of metar-v4.py Script, Version " + version)
 #  on local network admin.
 #
 # Moved to config statement
-# # airports_file = '/NeoSectional/data/airports'
 #
 # airports_bkup = '/NeoSectional/airports-bkup'
 settings_file = '/NeoSectional/config.py'
@@ -100,7 +99,6 @@ airports = []
 hmdata = []
 datalist = []
 newlist = []
-ipaddresses = []
 current_timezone = ''
 # loc = {}
 machines = []
@@ -149,7 +147,7 @@ strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, 
 strip.begin()
 
 # misc variables
-color = Color(255, 255, 255)      # Color to display when cycling through LED's. White is the default.
+# color = Color(255, 255, 255)      # Color to display when cycling through LED's. White is the default.
 black_color = Color(0, 0, 0)      # Color Black used to turn off the LED.
 num = 0
 now = datetime.now()
@@ -363,7 +361,6 @@ def led_map():
     global strip
     global num
     global ipadd
-    global ipaddresses
     global loc_timestr
     global version
     global current_timezone
@@ -375,7 +372,6 @@ def led_map():
         'settings': settings,
         'ipadd': ipadd,
         'strip': strip,
-        'ipaddresses': ipaddresses,
         'timestr': loc_timestr,
         'num': num,
         'apinfo_dict': apinfo_dict,
@@ -530,7 +526,6 @@ def led_map():
 #     global strip
 #     global num
 #     global ipadd
-#     global ipaddresses
 #     global timestr
 #     global version
 #     global current_timezone
@@ -551,7 +546,6 @@ def led_map():
 #             'settings': settings,
 #             'ipadd': ipadd,
 #             'strip': strip,
-#             'ipaddresses': ipaddresses,
 #             'num': num,
 #             'apinfo_dict': apinfo_dict,
 #             'timestr': loc_timestr,
@@ -575,13 +569,11 @@ def tzset():
     global strip
     global num
     global ipadd
-    global ipaddresses
     global loc_timestr
     global version
     global current_timezone
 
-    loc_now = datetime.now()
-    loc_timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
+    loc_timestr = utils.current_time()
     loc_currtzinfolist = []
 
     if request.method == "POST":
@@ -610,7 +602,6 @@ def tzset():
             'settings': settings,
             'ipadd': ipadd,
             'strip': strip,
-            'ipaddresses': ipaddresses,
             'timestr': loc_timestr,
             'num': num,
             'apinfo_dict': apinfo_dict,
@@ -671,12 +662,10 @@ def index():
     global strip
     global num
     global ipadd
-    global ipaddresses
     global loc_timestr
     global version
 
-    loc_now = datetime.now()
-    loc_timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
+    loc_timestr = utils.current_time()
 
     templateData = {
             'title': 'LiveSectional Home-'+version,
@@ -685,7 +674,6 @@ def index():
             'settings': settings,
             'ipadd': ipadd,
             'strip': strip,
-            'ipaddresses': ipaddresses,
             'timestr': loc_timestr,
             'num': num,
             'apinfo_dict': apinfo_dict,
@@ -706,7 +694,7 @@ def index():
 def downloadairports():
     """Flask Route: /download_ap - Export airports file"""
     debugging.info("Downloaded Airport File")
-    path = "data/airports"
+    path = conf.get_string("filenames", "airports_file")
     return send_file(path, as_attachment=True)
 
 
@@ -742,10 +730,8 @@ def hmedit():
     global strip
     global num
     global ipadd
-    global ipaddresses
     global loc_timestr
-    loc_now = datetime.now()
-    loc_timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
+    loc_timestr = utils.current_time()
 
     readhmdata(conf.get_string("filenames", "heatmap_file"))
 
@@ -756,7 +742,6 @@ def hmedit():
             'hmdata': hmdata,
             'ipadd': ipadd,
             'strip': strip,
-            'ipaddresses': ipaddresses,
             'timestr': loc_timestr,
             'num': num,
             'current_timezone': current_timezone,
@@ -776,7 +761,6 @@ def handle_hmpost_request():
     global strip
     global num
     global ipadd
-    global ipaddresses
     global loc_timestr
     loc_newlist = []
 
@@ -807,7 +791,6 @@ def handle_hmpost_request():
 def importhm():
     """Flask Route: /importhm - Importing Heat Map"""
     debugging.info("Importing Heat Map File")
-    global ipaddresses
     global airports
     global loc_timestr
     global hmdata
@@ -835,7 +818,6 @@ def importhm():
             'hmdata': hmdata,
             'ipadd': ipadd,
             'strip': strip,
-            'ipaddresses': ipaddresses,
             'timestr': loc_timestr,
             'num': num,
             'current_timezone': current_timezone,
@@ -857,10 +839,8 @@ def apedit():
     global strip
     global num
     global ipadd
-    global ipaddresses
     global loc_timestr
-    loc_now = datetime.now()
-    loc_timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
+    loc_timestr = utils.current_time()
 
     readairports(conf.get_string("filenames",
                                          "airports_file"))
@@ -872,7 +852,6 @@ def apedit():
             'airports': airports,
             'ipadd': ipadd,
             'strip': strip,
-            'ipaddresses': ipaddresses,
             'timestr': loc_timestr,
             'num': num,
             'current_timezone': current_timezone,
@@ -888,7 +867,6 @@ def apedit():
 def numap():
     """Flask Route: /numap"""
     debugging.info("Updating Number of Airports in airport file")
-    global ipaddresses
     global airports
     global loc_timestr
 
@@ -910,7 +888,6 @@ def numap():
             'airports': airports,
             'ipadd': ipadd,
             'strip': strip,
-            'ipaddresses': ipaddresses,
             'timestr': loc_timestr,
             'num': num,
             'current_timezone': current_timezone,
@@ -933,7 +910,6 @@ def handle_appost_request():
     global strip
     global num
     global ipadd
-    global ipaddresses
     global loc_timestr
 
     if request.method == "POST":
@@ -979,7 +955,6 @@ def ledonoff():
     global strip
     global num
     global ipadd
-    global ipaddresses
     global loc_timestr
 
     if request.method == "POST":
@@ -1056,7 +1031,6 @@ def ledonoff():
             'airports': airports,
             'ipadd': ipadd,
             'strip': strip,
-            'ipaddresses': ipaddresses,
             'timestr': loc_timestr,
             'num': num,
             'update_available': update_available,
@@ -1073,7 +1047,6 @@ def ledonoff():
 def importap():
     """Flask Route: /importap - Import Airports File"""
     debugging.info("Importing Airports File")
-    global ipaddresses
     global airports
     global loc_timestr
 
@@ -1099,7 +1072,6 @@ def importap():
             'airports': airports,
             'ipadd': ipadd,
             'strip': strip,
-            'ipaddresses': ipaddresses,
             'timestr': loc_timestr,
             'num': num,
             'current_timezone': current_timezone,
@@ -1117,63 +1089,60 @@ def importap():
 def confedit():
     """Flask Route: /confedit - Configuration Editor"""
     debugging.info("Opening confedit.html")
-    global ipaddresses
     global ipadd
     global loc_timestr
     global settings
 
-    loc_now = datetime.now()
-    loc_timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
+    loc_timestr = utils.current_time()
 
-    debugging.dprint(ipadd)  # debug
+    # debugging.dprint(ipadd)  # debug
 
     # change rgb code to hex for html color picker
-    color_vfr_hex = utils.rgb2hex(conf.get("colors","color_vfr"))
-    color_mvfr_hex = utils.rgb2hex(conf.get("colors","color_mvfr"))
-    color_ifr_hex = utils.rgb2hex(conf.get("colors","color_ifr"))
-    color_lifr_hex = utils.rgb2hex(conf.get("colors","color_lifr"))
-    color_nowx_hex = utils.rgb2hex(conf.get("colors","color_nowx"))
-    color_black_hex = utils.rgb2hex(conf.get("colors","color_black"))
-    color_lghtn_hex = utils.rgb2hex(conf.get("colors","color_lghtn"))
-    color_snow1_hex = utils.rgb2hex(conf.get("colors","color_snow1"))
-    color_snow2_hex = utils.rgb2hex(conf.get("colors","color_snow2"))
-    color_rain1_hex = utils.rgb2hex(conf.get("colors","color_rain1"))
-    color_rain2_hex = utils.rgb2hex(conf.get("colors","color_rain2"))
-    color_frrain1_hex = utils.rgb2hex(conf.get("colors","color_frrain1"))
-    color_frrain2_hex = utils.rgb2hex(conf.get("colors","color_frrain2"))
-    color_dustsandash1_hex = utils.rgb2hex(conf.get("colors","color_dustsandash1"))
-    color_dustsandash2_hex = utils.rgb2hex(conf.get("colors","color_dustsandash2"))
-    color_fog1_hex = utils.rgb2hex(conf.get("colors","color_fog1"))
-    color_fog2_hex = utils.rgb2hex(conf.get("colors","color_fog2"))
-    color_homeport_hex = utils.rgb2hex(conf.get("colors","color_homeport"))
+    color_vfr_hex = utils.rgb2hex(conf.get_color("colors","color_vfr"))
+    color_mvfr_hex = utils.rgb2hex(conf.get_color("colors","color_mvfr"))
+    color_ifr_hex = utils.rgb2hex(conf.get_color("colors","color_ifr"))
+    color_lifr_hex = utils.rgb2hex(conf.get_color("colors","color_lifr"))
+    color_nowx_hex = utils.rgb2hex(conf.get_color("colors","color_nowx"))
+    color_black_hex = utils.rgb2hex(conf.get_color("colors","color_black"))
+    color_lghtn_hex = utils.rgb2hex(conf.get_color("colors","color_lghtn"))
+    color_snow1_hex = utils.rgb2hex(conf.get_color("colors","color_snow1"))
+    color_snow2_hex = utils.rgb2hex(conf.get_color("colors","color_snow2"))
+    color_rain1_hex = utils.rgb2hex(conf.get_color("colors","color_rain1"))
+    color_rain2_hex = utils.rgb2hex(conf.get_color("colors","color_rain2"))
+    color_frrain1_hex = utils.rgb2hex(conf.get_color("colors","color_frrain1"))
+    color_frrain2_hex = utils.rgb2hex(conf.get_color("colors","color_frrain2"))
+    color_dustsandash1_hex = utils.rgb2hex(conf.get_color("colors","color_dustsandash1"))
+    color_dustsandash2_hex = utils.rgb2hex(conf.get_color("colors","color_dustsandash2"))
+    color_fog1_hex = utils.rgb2hex(conf.get_color("colors","color_fog1"))
+    color_fog2_hex = utils.rgb2hex(conf.get_color("colors","color_fog2"))
+    color_homeport_hex = utils.rgb2hex(conf.get_color("colors","color_homeport"))
 
     # color picker for transitional wipes
-    fade_color1_hex = utils.rgb2hex(conf.get("colors","fade_color1"))
-    allsame_color1_hex = utils.rgb2hex(conf.get("colors","allsame_color1"))
-    allsame_color2_hex = utils.rgb2hex(conf.get("colors","allsame_color2"))
-    shuffle_color1_hex = utils.rgb2hex(conf.get("colors","shuffle_color1"))
-    shuffle_color2_hex = utils.rgb2hex(conf.get("colors","shuffle_color2"))
-    radar_color1_hex = utils.rgb2hex(conf.get("colors","radar_color1"))
-    radar_color2_hex = utils.rgb2hex(conf.get("colors","radar_color2"))
-    circle_color1_hex = utils.rgb2hex(conf.get("colors","circle_color1"))
-    circle_color2_hex = utils.rgb2hex(conf.get("colors","circle_color2"))
-    square_color1_hex = utils.rgb2hex(conf.get("colors","square_color1"))
-    square_color2_hex = utils.rgb2hex(conf.get("colors","square_color2"))
-    updn_color1_hex = utils.rgb2hex(conf.get("colors","updn_color1"))
-    updn_color2_hex = utils.rgb2hex(conf.get("colors","updn_color2"))
-    morse_color1_hex = utils.rgb2hex(conf.get("colors","morse_color1"))
-    morse_color2_hex = utils.rgb2hex(conf.get("colors","morse_color2"))
-    rabbit_color1_hex = utils.rgb2hex(conf.get("colors","rabbit_color1"))
-    rabbit_color2_hex = utils.rgb2hex(conf.get("colors","rabbit_color2"))
-    checker_color1_hex = utils.rgb2hex(conf.get("colors","checker_color1"))
-    checker_color2_hex = utils.rgb2hex(conf.get("colors","checker_color2"))
+    fade_color1_hex = utils.rgb2hex(conf.get_color("colors","fade_color1"))
+    allsame_color1_hex = utils.rgb2hex(conf.get_color("colors","allsame_color1"))
+    allsame_color2_hex = utils.rgb2hex(conf.get_color("colors","allsame_color2"))
+    shuffle_color1_hex = utils.rgb2hex(conf.get_color("colors","shuffle_color1"))
+    shuffle_color2_hex = utils.rgb2hex(conf.get_color("colors","shuffle_color2"))
+    radar_color1_hex = utils.rgb2hex(conf.get_color("colors","radar_color1"))
+    radar_color2_hex = utils.rgb2hex(conf.get_color("colors","radar_color2"))
+    circle_color1_hex = utils.rgb2hex(conf.get_color("colors","circle_color1"))
+    circle_color2_hex = utils.rgb2hex(conf.get_color("colors","circle_color2"))
+    square_color1_hex = utils.rgb2hex(conf.get_color("colors","square_color1"))
+    square_color2_hex = utils.rgb2hex(conf.get_color("colors","square_color2"))
+    updn_color1_hex = utils.rgb2hex(conf.get_color("colors","updn_color1"))
+    updn_color2_hex = utils.rgb2hex(conf.get_color("colors","updn_color2"))
+    morse_color1_hex = utils.rgb2hex(conf.get_color("colors","morse_color1"))
+    morse_color2_hex = utils.rgb2hex(conf.get_color("colors","morse_color2"))
+    rabbit_color1_hex = utils.rgb2hex(conf.get_color("colors","rabbit_color1"))
+    rabbit_color2_hex = utils.rgb2hex(conf.get_color("colors","rabbit_color2"))
+    checker_color1_hex = utils.rgb2hex(conf.get_color("colors","checker_color1"))
+    checker_color2_hex = utils.rgb2hex(conf.get_color("colors","checker_color2"))
 
     # Pass data to html document
     templateData = {
             'title': 'Settings Editor-'+version,
             'settings': settings,
             'ipadd': ipadd,
-            'ipaddresses': ipaddresses,
             'timestr': loc_timestr,
             'num': num,
             'current_timezone': current_timezone,
@@ -1229,7 +1198,6 @@ def confedit():
 def handle_post_request():
     """Flask Route: /post"""
     debugging.info("Saving Config File")
-    global ipaddresses
     global loc_timestr
 
     if request.method == "POST":
@@ -1306,63 +1274,60 @@ def handle_post_request():
 def confeditmobile():
     """Flask Route: /lsremote - Mobile Device API"""
     debugging.info("Opening lsremote.html")
-    global ipaddresses
     global ipadd
     global loc_timestr
     global settings
 
-    loc_now = datetime.now()
-    loc_timestr = (loc_now.strftime("%H:%M:%S - %b %d, %Y"))
+    loc_timestr = utils.current_time()
 
     debugging.dprint(ipadd)  # debug
 
     # change rgb code to hex for html color picker
-    color_vfr_hex = utils.rgb2hex(conf.get("colors","color_vfr"))
-    color_mvfr_hex = utils.rgb2hex(conf.get("colors","color_mvfr"))
-    color_ifr_hex = utils.rgb2hex(conf.get("colors","color_ifr"))
-    color_lifr_hex = utils.rgb2hex(conf.get("colors","color_lifr"))
-    color_nowx_hex = utils.rgb2hex(conf.get("colors","color_nowx"))
-    color_black_hex = utils.rgb2hex(conf.get("colors","color_black"))
-    color_lghtn_hex = utils.rgb2hex(conf.get("colors","color_lghtn"))
-    color_snow1_hex = utils.rgb2hex(conf.get("colors","color_snow1"))
-    color_snow2_hex = utils.rgb2hex(conf.get("colors","color_snow2"))
-    color_rain1_hex = utils.rgb2hex(conf.get("colors","color_rain1"))
-    color_rain2_hex = utils.rgb2hex(conf.get("colors","color_rain2"))
-    color_frrain1_hex = utils.rgb2hex(conf.get("colors","color_frrain1"))
-    color_frrain2_hex = utils.rgb2hex(conf.get("colors","color_frrain2"))
-    color_dustsandash1_hex = utils.rgb2hex(conf.get("colors","color_dustsandash1"))
-    color_dustsandash2_hex = utils.rgb2hex(conf.get("colors","color_dustsandash2"))
-    color_fog1_hex = utils.rgb2hex(conf.get("colors","color_fog1"))
-    color_fog2_hex = utils.rgb2hex(conf.get("colors","color_fog2"))
-    color_homeport_hex = utils.rgb2hex(conf.get("colors","color_homeport"))
+    color_vfr_hex = utils.rgb2hex(conf.get_color("colors","color_vfr"))
+    color_mvfr_hex = utils.rgb2hex(conf.get_color("colors","color_mvfr"))
+    color_ifr_hex = utils.rgb2hex(conf.get_color("colors","color_ifr"))
+    color_lifr_hex = utils.rgb2hex(conf.get_color("colors","color_lifr"))
+    color_nowx_hex = utils.rgb2hex(conf.get_color("colors","color_nowx"))
+    color_black_hex = utils.rgb2hex(conf.get_color("colors","color_black"))
+    color_lghtn_hex = utils.rgb2hex(conf.get_color("colors","color_lghtn"))
+    color_snow1_hex = utils.rgb2hex(conf.get_color("colors","color_snow1"))
+    color_snow2_hex = utils.rgb2hex(conf.get_color("colors","color_snow2"))
+    color_rain1_hex = utils.rgb2hex(conf.get_color("colors","color_rain1"))
+    color_rain2_hex = utils.rgb2hex(conf.get_color("colors","color_rain2"))
+    color_frrain1_hex = utils.rgb2hex(conf.get_color("colors","color_frrain1"))
+    color_frrain2_hex = utils.rgb2hex(conf.get_color("colors","color_frrain2"))
+    color_dustsandash1_hex = utils.rgb2hex(conf.get_color("colors","color_dustsandash1"))
+    color_dustsandash2_hex = utils.rgb2hex(conf.get_color("colors","color_dustsandash2"))
+    color_fog1_hex = utils.rgb2hex(conf.get_color("colors","color_fog1"))
+    color_fog2_hex = utils.rgb2hex(conf.get_color("colors","color_fog2"))
+    color_homeport_hex = utils.rgb2hex(conf.get_color("colors","color_homeport"))
 
     # color picker for transitional wipes
-    fade_color1_hex = utils.rgb2hex(conf.get("colors","fade_color1"))
-    allsame_color1_hex = utils.rgb2hex(conf.get("colors","allsame_color1"))
-    allsame_color2_hex = utils.rgb2hex(conf.get("colors","allsame_color2"))
-    shuffle_color1_hex = utils.rgb2hex(conf.get("colors","shuffle_color1"))
-    shuffle_color2_hex = utils.rgb2hex(conf.get("colors","shuffle_color2"))
-    radar_color1_hex = utils.rgb2hex(conf.get("colors","radar_color1"))
-    radar_color2_hex = utils.rgb2hex(conf.get("colors","radar_color2"))
-    circle_color1_hex = utils.rgb2hex(conf.get("colors","circle_color1"))
-    circle_color2_hex = utils.rgb2hex(conf.get("colors","circle_color2"))
-    square_color1_hex = utils.rgb2hex(conf.get("colors","square_color1"))
-    square_color2_hex = utils.rgb2hex(conf.get("colors","square_color2"))
-    updn_color1_hex = utils.rgb2hex(conf.get("colors","updn_color1"))
-    updn_color2_hex = utils.rgb2hex(conf.get("colors","updn_color2"))
-    morse_color1_hex = utils.rgb2hex(conf.get("colors","morse_color1"))
-    morse_color2_hex = utils.rgb2hex(conf.get("colors","morse_color2"))
-    rabbit_color1_hex = utils.rgb2hex(conf.get("colors","rabbit_color1"))
-    rabbit_color2_hex = utils.rgb2hex(conf.get("colors","rabbit_color2"))
-    checker_color1_hex = utils.rgb2hex(conf.get("colors","checker_color1"))
-    checker_color2_hex = utils.rgb2hex(conf.get("colors","checker_color2"))
+    fade_color1_hex = utils.rgb2hex(conf.get_color("colors","fade_color1"))
+    allsame_color1_hex = utils.rgb2hex(conf.get_color("colors","allsame_color1"))
+    allsame_color2_hex = utils.rgb2hex(conf.get_color("colors","allsame_color2"))
+    shuffle_color1_hex = utils.rgb2hex(conf.get_color("colors","shuffle_color1"))
+    shuffle_color2_hex = utils.rgb2hex(conf.get_color("colors","shuffle_color2"))
+    radar_color1_hex = utils.rgb2hex(conf.get_color("colors","radar_color1"))
+    radar_color2_hex = utils.rgb2hex(conf.get_color("colors","radar_color2"))
+    circle_color1_hex = utils.rgb2hex(conf.get_color("colors","circle_color1"))
+    circle_color2_hex = utils.rgb2hex(conf.get_color("colors","circle_color2"))
+    square_color1_hex = utils.rgb2hex(conf.get_color("colors","square_color1"))
+    square_color2_hex = utils.rgb2hex(conf.get_color("colors","square_color2"))
+    updn_color1_hex = utils.rgb2hex(conf.get_color("colors","updn_color1"))
+    updn_color2_hex = utils.rgb2hex(conf.get_color("colors","updn_color2"))
+    morse_color1_hex = utils.rgb2hex(conf.get_color("colors","morse_color1"))
+    morse_color2_hex = utils.rgb2hex(conf.get_color("colors","morse_color2"))
+    rabbit_color1_hex = utils.rgb2hex(conf.get_color("colors","rabbit_color1"))
+    rabbit_color2_hex = utils.rgb2hex(conf.get_color("colors","rabbit_color2"))
+    checker_color1_hex = utils.rgb2hex(conf.get_color("colors","checker_color1"))
+    checker_color2_hex = utils.rgb2hex(conf.get_color("colors","checker_color2"))
 
     # Pass data to html document
     templateData = {
             'title': 'Settings Editor-'+version,
             'settings': settings,
             'ipadd': ipadd,
-            'ipaddresses': ipaddresses,
             'num': num,
             'timestr': loc_timestr,
             'current_timezone': current_timezone,
@@ -1419,7 +1384,6 @@ def confeditmobile():
 def importconf():
     """Flask Route: /importconf - Flask Config Uploader"""
     debugging.info("Importing Config File")
-    global ipaddresses
     global airports
     global settings
     global loc_timestr
@@ -1924,7 +1888,7 @@ if __name__ == '__main__':
     # browser to configure.
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-    conf.init()
+    conf = conf.Conf()
 
     if utils.wait_for_internet():
         # check internet availability and retry if necessary.
@@ -1973,7 +1937,6 @@ if __name__ == '__main__':
 # #        exec(compile(open("/NeoSectional/ftp-v4.py", "rb").read(),
 # #                 "/NeoSectional/ftp-v4.py", 'exec'))
 # # Get latest ip's to display in editors
-# #        debugging.info("Storing " + str(ipaddresses) + " on ftp server")
 
     copy()  # make backup of config file
     readconf(settings_file)  # read config file
