@@ -308,7 +308,7 @@ def update_info():
     """Flask Route: /update_info - Display Software Updates"""
     global ipadd
     loc_timestr = utils.current_time()
-    with open("/NeoSectional/update_info.txt", "r") as file:
+    with open(conf.get_string("filenames", "release_notes"), "r") as file:
         content = file.readlines()
         debugging.dprint(content)
     return render_template("update_info.html",
