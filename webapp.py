@@ -580,7 +580,9 @@ def tzset():
         timezone = request.form['tzselected']
         flash('Timezone set to ' + timezone)
         flash('NOTE: Select "Reboot RPI" from "Map Functions" Menu for changes to take affect')
-        os.system('sudo timedatectl set-timezone ' + timezone)
+        # FIXME - This takes user input ; and then passes it straight to sudo 
+        # Need to set application level timezone information rather than tinkering with OS level
+        # os.system('sudo timedatectl set-timezone ' + timezone)
         return redirect('tzset')
 
     tzlist = subprocess.run(['timedatectl', 'list-timezones'],

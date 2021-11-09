@@ -13,3 +13,8 @@
  - It shouldn't become a hidden launching pad to grant access to the network
  - External connections should be minimized
 
+- Timezone Handling Notes
+ - The base OS has a timezone configuration that we shouldn't need to change.
+ - There should be an ability to specify the timezone information for any data displayed by the application
+ - We shouldn't force the underlying system to align to the application level timezone info
+ - 
