@@ -74,6 +74,8 @@ import appinfo
 import admin
 import scan_network
 
+import sysinfo
+
 # Setup rotating logfile with 3 rotations, each with a maximum filesize of 1MB:
 version = admin.version          # Software version
 # loglevel = config.loglevel
@@ -620,22 +622,9 @@ def tzset():
 @app.route('/yield')
 def yindex():
     """Flask Route: /yield - Display System Info"""
-    def inner():
-        proc = subprocess.Popen(
-            ['/NeoSectional/info-v4.py'],
-            # 'dmesg' call something with a lot of output so we can see it
-            shell=True,
-            stdout=subprocess.PIPE
-        )
-
-        for line in iter(proc.stdout.readline, b''):
-            time.sleep(.01)
-            # Don't need this just shows the text streaming
-            line = line.decode("utf-8")
-            yield line.strip() + '<br/>\n'
-
-    debugging.info("Opening yeild to display system info in separate window")
-    return Response(inner(), mimetype='text/html')
+    system_information = sysinfo.query_system_information()
+    debugging.info("Opening yield to display system info in separate window")
+    return Response(system_information, mimetype='text/html')
     # text/html is required for most browsers to show this info.
 
 
