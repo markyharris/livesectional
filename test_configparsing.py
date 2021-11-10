@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-import os
-import time
+# import os
+# import time
 import conf
 
 
@@ -14,14 +14,12 @@ def load_config_entries():
     print("conf.get_bool : flask_debug")
     print(conf.get_bool("default","flask_debug"))
     print("conf.get_color_tuple")
-    print(conf.get_color_tuple("colors","color_vfr"))
+    print(conf.get_color("colors","color_vfr"))
 
 
 
 if __name__ == '__main__':
-    conf.init()
+    conf = conf.Conf()
     print("Testing Configuration Parsing")
     load_config_entries()
     print("Testing complete")
-
-
