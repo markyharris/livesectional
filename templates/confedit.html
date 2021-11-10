@@ -11,17 +11,18 @@
 
     <td width='33%' class="submitbuttons"><center>
     <div class="flashes">
+	    <ul>
 {% with messages = get_flashed_messages() %}
   {% if messages %}
     <div class=flashes>
     {% for message in messages %}
-      </div>{{ message }}</li>
+    </div><li>{{ message }}</li>
     {% endfor %}
-    </ul>
   {% endif %}
 {% endwith %}
-    </center>
+    </ul>
     </div>
+    </center>
     </td>
 
     <td width='33%' class="submitbuttons">
