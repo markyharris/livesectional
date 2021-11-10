@@ -3,6 +3,9 @@ Version 4.4
 Forked from v4.373 - Started reorganizing code
 Moved data files to data/ directory
 Redo of configuration management - using common settings.py / config.ini update
+Moved to local copy of fontawesome 6
+Minimizing external dependencies
+Pushing through pylint to standardize code
 
 
 Version 4.373
