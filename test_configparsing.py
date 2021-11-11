@@ -22,4 +22,7 @@ if __name__ == '__main__':
     conf = conf.Conf()
     print("Testing Configuration Parsing")
     load_config_entries()
+    print("Generate Flask settings dict")
+    print(conf.gen_settings_dict())
     print("Testing complete")
+
