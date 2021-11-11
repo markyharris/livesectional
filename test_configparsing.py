@@ -5,24 +5,18 @@
 import conf
 
 
-def load_config_entries():
+def test_config_handling():
+    confdata = conf.Conf()
     print("Hello World")
-    print("conf.get")
-    print(conf.get("default","welcome"))
-    print("conf.get_string")
-    print(conf.get_string("default","welcome"))
-    print("conf.get_bool : flask_debug")
-    print(conf.get_bool("default","flask_debug"))
-    print("conf.get_color_tuple")
-    print(conf.get_color("colors","color_vfr"))
-
-
-
-if __name__ == '__main__':
-    conf = conf.Conf()
-    print("Testing Configuration Parsing")
-    load_config_entries()
+    print("confdata.get")
+    print(confdata.get("default","welcome"))
+    print("confdata.get_string")
+    print(confdata.get_string("default","welcome"))
+    print("confdata.get_bool : flask_debug")
+    print(confdata.get_bool("default","flask_debug"))
+    print("confdata.get_color_tuple")
+    print(confdata.get_color("colors","color_vfr"))
     print("Generate Flask settings dict")
-    print(conf.gen_settings_dict())
+    print(confdata.gen_settings_dict())
     print("Testing complete")
 
