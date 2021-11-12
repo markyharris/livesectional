@@ -50,9 +50,9 @@ class Conf:
         return self.configfile.get(section, key)
 
 
-    def set_string(self, section, key):
+    def set_string(self, section, key, value):
         """ Set String Value """
-        self.configfile.set_string(section, key)
+        self.configfile.set(section, key, value)
 
 
     def get_bool(self, section, key):

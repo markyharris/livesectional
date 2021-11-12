@@ -32,6 +32,7 @@
 #    $ export SSL_CERT_DIR=/etc/ssl/certs
 from datetime import datetime
 import time
+import pytz
 import os
 import sys
 import subprocess
@@ -564,6 +565,7 @@ def led_map():
 @app.route('/tzset', methods=["GET", "POST"])
 def tzset():
     """Flask Route: /tzset - Display and Set Timezone Information"""
+    # Globals needed for base html template data
     global hmdata
     global airports
     global settings
@@ -579,23 +581,19 @@ def tzset():
     if request.method == "POST":
         timezone = request.form['tzselected']
         flash('Timezone set to ' + timezone)
-        flash('NOTE: Select "Reboot RPI" from "Map Functions" Menu for changes to take affect')
+        debugging.info("Request to update timezone to: " + timezone)
+        conf.set_string("default", "timezone", timezone)
+        conf.save_config()
+
+        # flash('NOTE: Select "Reboot RPI" from "Map Functions" Menu for changes to take affect')
         # FIXME - This takes user input ; and then passes it straight to sudo 
         # Need to set application level timezone information rather than tinkering with OS level
         # os.system('sudo timedatectl set-timezone ' + timezone)
         return redirect('tzset')
 
-    tzlist = subprocess.run(['timedatectl', 'list-timezones'],
-                            stdout=subprocess.PIPE).stdout.decode('utf-8')
-    tzoptionlist = tzlist.split()
+    tzlist = pytz.common_timezones
 
-    loc_currtzinfo = subprocess.run(['timedatectl', 'status'],
-                                    stdout=subprocess.PIPE).stdout.decode('utf-8')
-    loc_tztemp = loc_currtzinfo.split('\n')
-    for j in enumerate(loc_tztemp):
-        if j in (0, 1, 3):
-            loc_currtzinfolist.append(loc_tztemp[j])
-    current_timezone = loc_tztemp[3]
+    current_timezone = conf.get_string("default", "timezone")
 
     templateData = {
             'title': 'Timezone Set-'+version,
@@ -610,8 +608,7 @@ def tzset():
             'version': version,
             'update_available': update_available,
             'update_vers': update_vers,
-            'tzoptionlist': tzoptionlist,
-            'currtzinfolist': loc_currtzinfolist,
+            'tzoptionlist': tzlist,
             'current_timezone': current_timezone,
             'machines': machines
             }

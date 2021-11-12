@@ -115,7 +115,7 @@ def download_file(url, filename):
     debugging.info('Downloaded ' + filename + ' from neoupdate')
 
 
-def current_time(conf):
+def current_time():
     """ Generate standard string format for current itme """
     curr_time = datetime.now()
     return curr_time.strftime("%H:%M:%S - %b %d, %Y")

@@ -9,16 +9,13 @@
       <h2 class="display-4">Time Zone Information</h2>
 
 
-{% set list = current_timezone.split(' ') %}
 
 <table>
   <form action="tzset" id="tzset" method="POST">
   <tr>
     <td>
       <p style="color: red;"><b>Current Time and Timezone Information</b></p>
-      {% for line in currtzinfolist %}
-        <b>{{ line }}</b><br>
-      {% endfor %}<br>
+        <b>{{ current_timezone }}</b><br>
     </td>
   </tr>
 
@@ -34,7 +31,7 @@
     <td style="margin: auto;">
       <select name="tzselected" id="tzselected">
       {% for o in tzoptionlist %}
-      <option value="{{ o }}" {{"selected" if o == list[18] else "" }}>{{ o }}</option>
+      <option value="{{ o }}" {{"selected" if o == current_timezone else "" }}>{{ o }}</option>
       {% endfor %}
       </select>
     </td>
