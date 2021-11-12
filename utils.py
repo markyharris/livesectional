@@ -9,6 +9,8 @@ import requests
 import wget
 import debugging
 from datetime import datetime
+import pytz
+import conf
 
 def is_connected():
     ''' Check to see if we can reach an endpoint on the Internet '''
@@ -113,8 +115,20 @@ def download_file(url, filename):
     debugging.info('Downloaded ' + filename + ' from neoupdate')
 
 
-def current_time():
+def current_time(conf):
     """ Generate standard string format for current itme """
     curr_time = datetime.now()
     return curr_time.strftime("%H:%M:%S - %b %d, %Y")
+
+
+def set_timezone(conf, newtimezone):
+    """ Set timezone configuration string """
+    # Doo stuff to set the timezone 
+    conf.set_string("default", "timezone")
+    conf.save_config()
+
+
+def get_timezone(conf): 
+    """ Return timezone configuration """
+    return conf.get_string("default", "timezone")
 

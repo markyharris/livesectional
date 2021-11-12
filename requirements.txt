@@ -32,3 +32,4 @@ urllib3==1.26.7                           #
 Werkzeug==2.0.2                          #
 wget                                #
 psutil>=5.8.0
+pytz

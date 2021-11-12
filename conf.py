@@ -50,6 +50,11 @@ class Conf:
         return self.configfile.get(section, key)
 
 
+    def set_string(self, section, key):
+        """ Set String Value """
+        self.configfile.set_string(section, key)
+
+
     def get_bool(self, section, key):
         ''' Read Setting '''
         return self.configfile.getboolean(section, key)
