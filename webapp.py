@@ -236,7 +236,8 @@ def touchscr():
 def open_console():
     """Flask Route: /open_console - Launching Console in discrete window"""
     console_ips = []
-    loc_timestr = utils.current_time()
+    loc_timestr = utils.current_time(conf)
+    loc_timestr_utc = utils.current_time_utc(conf)
     with open("/NeoSectional/data/console_ip.txt", "r") as file:
         for line in file.readlines()[-1:]:
             line = line.rstrip()
@@ -248,6 +249,7 @@ def open_console():
                            num=5,
                            machines=machines,
                            ipadd=ipadd,
+                           timestrutc=loc_timestr_utc,
                            timestr=loc_timestr)
 
 
@@ -256,14 +258,17 @@ def open_console():
 def stream_log():
     """Flask Route: /stream_log - Watch logs live"""
     global ipadd
-    loc_timestr = utils.current_time()
+    loc_timestr = utils.current_time(conf)
+    loc_timestr_utc = utils.current_time_utc(conf)
     debugging.info("Opening stream_log in separate window")
     return render_template('stream_log.html',
                            title='Display Logfile-'+version,
                            num=5,
                            machines=machines,
                            ipadd=ipadd,
+                           timestrutc=loc_timestr_utc,
                            timestr=loc_timestr)
+
 
 
 @app.route('/stream_log1', methods=["GET", "POST"])
@@ -310,7 +315,8 @@ def test_for_update():
 def update_info():
     """Flask Route: /update_info - Display Software Updates"""
     global ipadd
-    loc_timestr = utils.current_time()
+    loc_timestr = utils.current_time(conf)
+    loc_timestr_utc = utils.current_time_utc(conf)
     with open(conf.get_string("filenames", "release_notes"), "r") as file:
         content = file.readlines()
         debugging.dprint(content)
@@ -320,6 +326,7 @@ def update_info():
                            num=5,
                            machines=machines,
                            ipadd=ipadd,
+                           timestrutc=loc_timestr_utc,
                            timestr=loc_timestr)
 
 
@@ -342,12 +349,14 @@ def update():
 def update_page():
     """Flask Route: /update_page"""
     global ipadd
-    loc_timestr = utils.current_time()
+    loc_timestr = utils.current_time(conf)
+    loc_timestr_utc = utils.current_time_utc(conf)
     return render_template("update_page.html",
                            title='Software Update Information-'+version,
                            num=5,
                            machines=machines,
                            ipadd=ipadd,
+                           timestrutc=loc_timestr_utc,
                            timestr=loc_timestr)
 
 
@@ -365,7 +374,8 @@ def led_map():
     global version
     global current_timezone
 
-    loc_timestr = utils.current_time()
+    loc_timestr = utils.current_time(conf)
+    loc_timestr_utc = utils.current_time_utc(conf)
 
     templateData = {
         'title': 'LiveSectional Map-'+version,
@@ -375,6 +385,7 @@ def led_map():
         'ipadd': ipadd,
         'strip': strip,
         'timestr': loc_timestr,
+        'timestrutc': loc_timestr_utc,
         'num': num,
         'apinfo_dict': apinfo_dict,
         'led_map_dict': led_map_dict,
@@ -551,6 +562,7 @@ def led_map():
 #             'num': num,
 #             'apinfo_dict': apinfo_dict,
 #             'timestr': loc_timestr,
+#             'timestrutc': loc_timestr_utc,
 #             'version': version,
 #             'update_available': update_available,
 #             'update_vers': update_vers,
@@ -575,7 +587,8 @@ def tzset():
     global version
     global current_timezone
 
-    loc_timestr = utils.current_time()
+    loc_timestr = utils.current_time(conf)
+    loc_timestr_utc = utils.current_time_utc(conf)
     loc_currtzinfolist = []
 
     if request.method == "POST":
@@ -603,6 +616,7 @@ def tzset():
             'ipadd': ipadd,
             'strip': strip,
             'timestr': loc_timestr,
+            'timestrutc': loc_timestr_utc,
             'num': num,
             'apinfo_dict': apinfo_dict,
             'version': version,
@@ -650,7 +664,8 @@ def index():
     global ipadd
     global version
 
-    loc_timestr = utils.current_time()
+    loc_timestr = utils.current_time(conf)
+    loc_timestr_utc = utils.current_time_utc(conf)
 
     templateData = {
             'title': 'LiveSectional Home-'+version,
@@ -660,6 +675,7 @@ def index():
             'ipadd': ipadd,
             'strip': strip,
             'timestr': loc_timestr,
+            'timestrutc': loc_timestr_utc,
             'num': num,
             'apinfo_dict': apinfo_dict,
             'current_timezone': current_timezone,
@@ -715,7 +731,8 @@ def hmedit():
     global strip
     global num
     global ipadd
-    loc_timestr = utils.current_time()
+    loc_timestr = utils.current_time(conf)
+    loc_timestr_utc = utils.current_time_utc(conf)
 
     readhmdata(conf.get_string("filenames", "heatmap_file"))
 
@@ -727,6 +744,7 @@ def hmedit():
             'ipadd': ipadd,
             'strip': strip,
             'timestr': loc_timestr,
+            'timestrutc': loc_timestr_utc,
             'num': num,
             'current_timezone': current_timezone,
             'update_available': update_available,
@@ -778,7 +796,8 @@ def importhm():
     global hmdata
     hmdata = []
 
-    loc_timestr = utils.current_time()
+    loc_timestr = utils.current_time(conf)
+    loc_timestr_utc = utils.current_time_utc(conf)
 
     if 'file' not in request.files:
         flash('No File Selected')
@@ -803,6 +822,7 @@ def importhm():
             'ipadd': ipadd,
             'strip': strip,
             'timestr': loc_timestr,
+            'timestrutc': loc_timestr_utc,
             'num': num,
             'current_timezone': current_timezone,
             'update_available': update_available,
@@ -823,7 +843,8 @@ def apedit():
     global strip
     global num
     global ipadd
-    loc_timestr = utils.current_time()
+    loc_timestr = utils.current_time(conf)
+    loc_timestr_utc = utils.current_time_utc(conf)
 
     readairports(conf.get_string("filenames",
                                          "airports_file"))
@@ -836,6 +857,7 @@ def apedit():
             'ipadd': ipadd,
             'strip': strip,
             'timestr': loc_timestr,
+            'timestrutc': loc_timestr_utc,
             'num': num,
             'current_timezone': current_timezone,
             'update_available': update_available,
@@ -852,7 +874,8 @@ def numap():
     debugging.info("Updating Number of Airports in airport file")
     global airports
 
-    loc_timestr = utils.current_time()
+    loc_timestr = utils.current_time(conf)
+    loc_timestr_utc = utils.current_time_utc(conf)
 
     if request.method == "POST":
         loc_numap = int(request.form["numofap"])
@@ -873,6 +896,7 @@ def numap():
             'ipadd': ipadd,
             'strip': strip,
             'timestr': loc_timestr,
+            'timestrutc': loc_timestr_utc,
             'num': num,
             'current_timezone': current_timezone,
             'update_available': update_available,
@@ -939,7 +963,8 @@ def ledonoff():
     global num
     global ipadd
 
-    loc_timestr = utils.current_time()
+    loc_timestr = utils.current_time(conf)
+    loc_timestr_utc = utils.current_time_utc(conf)
 
     if request.method == "POST":
 
@@ -1016,6 +1041,7 @@ def ledonoff():
             'ipadd': ipadd,
             'strip': strip,
             'timestr': loc_timestr,
+            'timestrutc': loc_timestr_utc,
             'num': num,
             'update_available': update_available,
             'update_vers': update_vers,
@@ -1033,7 +1059,8 @@ def importap():
     debugging.info("Importing Airports File")
     global airports
     
-    loc_timestr = utils.current_time()
+    loc_timestr = utils.current_time(conf)
+    loc_timestr_utc = utils.current_time_utc(conf)
 
     if 'file' not in request.files:
         flash('No File Selected')
@@ -1058,6 +1085,7 @@ def importap():
             'ipadd': ipadd,
             'strip': strip,
             'timestr': loc_timestr,
+            'timestrutc': loc_timestr_utc,
             'num': num,
             'current_timezone': current_timezone,
             'update_available': update_available,
@@ -1077,7 +1105,8 @@ def confedit():
     global ipadd
     global settings
 
-    loc_timestr = utils.current_time()
+    loc_timestr = utils.current_time(conf)
+    loc_timestr_utc = utils.current_time_utc(conf)
 
     # debugging.dprint(ipadd)  # debug
 
@@ -1128,6 +1157,7 @@ def confedit():
             'settings': settings,
             'ipadd': ipadd,
             'timestr': loc_timestr,
+            'timestrutc': loc_timestr_utc,
             'num': num,
             'current_timezone': current_timezone,
             'update_available': update_available,
@@ -1260,7 +1290,8 @@ def confeditmobile():
     global ipadd
     global settings
 
-    loc_timestr = utils.current_time()
+    loc_timestr = utils.current_time(conf)
+    loc_timestr_utc = utils.current_time_utc(conf)
 
     debugging.dprint(ipadd)  # debug
 
@@ -1312,6 +1343,7 @@ def confeditmobile():
             'ipadd': ipadd,
             'num': num,
             'timestr': loc_timestr,
+            'timestrutc': loc_timestr_utc,
             'current_timezone': current_timezone,
             'update_available': update_available,
             'update_vers': update_vers,
@@ -1892,7 +1924,8 @@ if __name__ == '__main__':
     tztemp = currtzinfo.split('\n')
     current_timezone = tztemp[3]
 
-    loc_timestr = utils.current_time()
+    loc_timestr = utils.current_time(conf)
+    loc_timestr_utc = utils.current_time_utc(conf)
 
     # Check to see if an newer version of the software is available,
     # and update if user so chooses

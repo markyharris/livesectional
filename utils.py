@@ -17,7 +17,7 @@ def is_connected():
     try:
         # connect to the host -- tells us if the host is actually
         # reachable
-        sock = socket.create_connection(("www.google.com", 80))
+        sock = socket.create_connection(("ipv4.google.com", 80))
         if sock is not None:
             print('Closing socket')
             sock.close()
@@ -114,10 +114,18 @@ def download_file(url, filename):
     wget.download(url, filename)
     debugging.info('Downloaded ' + filename + ' from neoupdate')
 
-
-def current_time():
+  
+def current_time_utc(conf):
     """ Generate standard string format for current itme """
-    curr_time = datetime.now()
+    UTC = pytz.utc
+    curr_time = datetime.now(UTC)
+    return curr_time.strftime("%H:%M:%S - %b %d, %Y")
+
+
+def current_time(conf):
+    """ Generate standard string format for current itme """
+    TMZONE = pytz.timezone(conf.get_string("default", "timezone"))
+    curr_time = datetime.now(TMZONE)
     return curr_time.strftime("%H:%M:%S - %b %d, %Y")
 
 
