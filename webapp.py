@@ -155,7 +155,7 @@ black_color = Color(0, 0, 0)      # Color Black used to turn off the LED.
 num = 0
 delay_time = 5                  # Delay in seconds between checking for internet availablility.
 num = 0                         # initialize num for airports editor
-ipadd = ''
+# ipadd = ''
 
 # Initiate flash session
 app = Flask(__name__)
@@ -205,6 +205,7 @@ def map1():
 @app.route('/touchscr', methods=["GET", "POST"])
 def touchscr():
     """Flask Route: /touchscr - Touch Screen template"""
+    ipadd = sysdata.local_ip()
     return render_template('touchscr.html',
                            title='Touch Screen',
                            num=5,
@@ -242,6 +243,7 @@ def open_console():
         for line in file.readlines()[-1:]:
             line = line.rstrip()
             console_ips.append(line)
+    ipadd = sysdata.local_ip()
     debugging.info("Opening open_console in separate window")
     return render_template('open_console.html',
                            urls=console_ips,
@@ -257,9 +259,9 @@ def open_console():
 @app.route('/stream_log', methods=["GET", "POST"])
 def stream_log():
     """Flask Route: /stream_log - Watch logs live"""
-    global ipadd
     loc_timestr = utils.current_time(conf)
     loc_timestr_utc = utils.current_time_utc(conf)
+    ipadd = sysdata.local_ip()
     debugging.info("Opening stream_log in separate window")
     return render_template('stream_log.html',
                            title='Display Logfile-'+version,
@@ -289,6 +291,7 @@ def stream_log1():
 def test_for_update():
     """Flask Route: /test_for_update - Run new software update checks"""
     global update_available
+    ipadd = sysdata.local_ip()
     url = request.referrer
     if url is None:
         # Use index if called from URL and not page.
@@ -314,7 +317,7 @@ def test_for_update():
 @app.route('/update_info', methods=["GET", "POST"])
 def update_info():
     """Flask Route: /update_info - Display Software Updates"""
-    global ipadd
+    ipadd = sysdata.local_ip()
     loc_timestr = utils.current_time(conf)
     loc_timestr_utc = utils.current_time_utc(conf)
     with open(conf.get_string("filenames", "release_notes"), "r") as file:
@@ -334,6 +337,7 @@ def update_info():
 def update():
     """Flask Route: /update - Execute Update for files"""
     url = request.referrer
+    ipadd = sysdata.local_ip()
     if url is None:
         url = 'http://' + ipadd + ':5000/index'
         # Use index if called from URL and not page.
@@ -348,7 +352,7 @@ def update():
 @app.route('/update_page', methods=["GET", "POST"])
 def update_page():
     """Flask Route: /update_page"""
-    global ipadd
+    ipadd = sysdata.local_ip()
     loc_timestr = utils.current_time(conf)
     loc_timestr_utc = utils.current_time_utc(conf)
     return render_template("update_page.html",
@@ -370,12 +374,12 @@ def led_map():
     global settings
     global strip
     global num
-    global ipadd
     global version
     global current_timezone
 
     loc_timestr = utils.current_time(conf)
     loc_timestr_utc = utils.current_time_utc(conf)
+    ipadd = sysdata.local_ip()
 
     templateData = {
         'title': 'LiveSectional Map-'+version,
@@ -583,10 +587,10 @@ def tzset():
     global settings
     global strip
     global num
-    global ipadd
     global version
     global current_timezone
 
+    ipadd = sysdata.local_ip()
     loc_timestr = utils.current_time(conf)
     loc_timestr_utc = utils.current_time_utc(conf)
     loc_currtzinfolist = []
@@ -597,11 +601,6 @@ def tzset():
         debugging.info("Request to update timezone to: " + timezone)
         conf.set_string("default", "timezone", timezone)
         conf.save_config()
-
-        # flash('NOTE: Select "Reboot RPI" from "Map Functions" Menu for changes to take affect')
-        # FIXME - This takes user input ; and then passes it straight to sudo 
-        # Need to set application level timezone information rather than tinkering with OS level
-        # os.system('sudo timedatectl set-timezone ' + timezone)
         return redirect('tzset')
 
     tzlist = pytz.common_timezones
@@ -635,9 +634,30 @@ def tzset():
 @app.route('/yield')
 def yindex():
     """Flask Route: /yield - Display System Info"""
-    system_information = sysinfo.query_system_information()
-    debugging.info("Opening yield to display system info in separate window")
-    return Response(system_information, mimetype='text/html')
+    system_information = sysdata.query_system_information()
+
+    ipadd = sysdata.local_ip()
+
+    templateData = {
+            'title': 'SysInfo-'+version,
+            'hmdata': hmdata,
+            'airports': airports,
+            'settings': settings,
+            'ipadd': ipadd,
+            'strip': strip,
+            'timestr': loc_timestr,
+            'timestrutc': loc_timestr_utc,
+            'num': num,
+            'apinfo_dict': apinfo_dict,
+            'version': version,
+            'update_available': update_available,
+            'update_vers': update_vers,
+            'machines': machines,
+            'sysinfo' : system_information
+            }
+
+    debugging.info("Opening System Information page")
+    return render_template('sysinfo.html', **templateData)
     # text/html is required for most browsers to show this info.
 
 
@@ -646,7 +666,7 @@ def yindex():
 @app.route('/qrcode', methods=["GET", "POST"])
 def qrcode():
     """Flask Route: /qrcode - Generate QRcode for site URL"""
-    global ipadd
+    ipadd = sysdata.local_ip()
     qraddress = 'http://' + ipadd.strip() + ':5000/lsremote'
     debugging.info("Opening qrcode in separate window")
     return render_template('qrcode.html', qraddress=qraddress)
@@ -661,9 +681,9 @@ def index():
     global settings
     global strip
     global num
-    global ipadd
     global version
 
+    ipadd = sysdata.local_ip()
     loc_timestr = utils.current_time(conf)
     loc_timestr_utc = utils.current_time_utc(conf)
 
@@ -730,7 +750,8 @@ def hmedit():
     debugging.info("Opening hmedit.html")
     global strip
     global num
-    global ipadd
+
+    ipadd = sysdata.local_ip()
     loc_timestr = utils.current_time(conf)
     loc_timestr_utc = utils.current_time_utc(conf)
 
@@ -762,7 +783,8 @@ def handle_hmpost_request():
     global hmdata
     global strip
     global num
-    global ipadd
+
+    ipadd = sysdata.local_ip()
     loc_newlist = []
 
     if request.method == "POST":
@@ -796,6 +818,7 @@ def importhm():
     global hmdata
     hmdata = []
 
+    ipadd = sysdata.local_ip()
     loc_timestr = utils.current_time(conf)
     loc_timestr_utc = utils.current_time_utc(conf)
 
@@ -842,7 +865,8 @@ def apedit():
     global airports
     global strip
     global num
-    global ipadd
+
+    ipadd = sysdata.local_ip()
     loc_timestr = utils.current_time(conf)
     loc_timestr_utc = utils.current_time_utc(conf)
 
@@ -874,6 +898,7 @@ def numap():
     debugging.info("Updating Number of Airports in airport file")
     global airports
 
+    ipadd = sysdata.local_ip()
     loc_timestr = utils.current_time(conf)
     loc_timestr_utc = utils.current_time_utc(conf)
 
@@ -917,7 +942,8 @@ def handle_appost_request():
     global hmdata
     global strip
     global num
-    global ipadd
+
+    ipadd = sysdata.local_ip()
 
     if request.method == "POST":
         data = request.form.to_dict()
@@ -961,8 +987,8 @@ def ledonoff():
     global airports
     global strip
     global num
-    global ipadd
 
+    ipadd = sysdata.local_ip()
     loc_timestr = utils.current_time(conf)
     loc_timestr_utc = utils.current_time_utc(conf)
 
@@ -1059,6 +1085,7 @@ def importap():
     debugging.info("Importing Airports File")
     global airports
     
+    ipadd = sysdata.local_ip()
     loc_timestr = utils.current_time(conf)
     loc_timestr_utc = utils.current_time_utc(conf)
 
@@ -1102,9 +1129,9 @@ def importap():
 def confedit():
     """Flask Route: /confedit - Configuration Editor"""
     debugging.info("Opening confedit.html")
-    global ipadd
     global settings
 
+    ipadd = sysdata.local_ip()
     loc_timestr = utils.current_time(conf)
     loc_timestr_utc = utils.current_time_utc(conf)
 
@@ -1287,9 +1314,9 @@ def handle_post_request():
 def confeditmobile():
     """Flask Route: /lsremote - Mobile Device API"""
     debugging.info("Opening lsremote.html")
-    global ipadd
     global settings
 
+    ipadd = sysdata.local_ip()
     loc_timestr = utils.current_time(conf)
     loc_timestr_utc = utils.current_time_utc(conf)
 
@@ -1471,6 +1498,7 @@ def profiles():
 @app.route("/reboot1", methods=["GET", "POST"])
 def reboot1():
     """Flask Route: /reboot1 - Request host reboot"""
+    ipadd = sysdata.local_ip()
     url = request.referrer
     if url is None:
         url = 'http://' + ipadd + ':5000/index'
@@ -1489,6 +1517,7 @@ def reboot1():
 def startup1():
     """Flask Route: /startup1 - Trigger process startup"""
     url = request.referrer
+    ipadd = sysdata.local_ip()
     if url is None:
         url = 'http://' + ipadd + ':5000/index'
         # Use index if called from URL and not page.
@@ -1507,6 +1536,7 @@ def startup1():
 def shutdown1():
     """Flask Route: /shutdown1 - Trigger process shutdown"""
     url = request.referrer
+    ipadd = sysdata.local_ip()
     if url is None:
         url = 'http://' + ipadd + ':5000/index'
         # Use index if called from URL and not page.
@@ -1528,6 +1558,7 @@ def shutdown1():
 def shutoffnow1():
     """Flask Route: /shutoffnow1 - Turn Off RPI"""
     url = request.referrer
+    ipadd = sysdata.local_ip()
     if url is None:
         url = 'http://' + ipadd + ':5000/index'
         # Use index if called from URL and not page.
@@ -1545,6 +1576,7 @@ def shutoffnow1():
 def testled():
     """Flask Route: /testled - Run LED Test scripts"""
     url = request.referrer
+    ipadd = sysdata.local_ip()
     if url is None:
         url = 'http://' + ipadd + ':5000/index'
         # Use index if called from URL and not page.
@@ -1563,6 +1595,7 @@ def testled():
 def testoled():
     """Flask Route: /testoled - Run OLED Test sequence"""
     url = request.referrer
+    ipadd = sysdata.local_ip()
     if url is None:
         url = 'http://' + ipadd + ':5000/index'
         # Use index if called from URL and not page.
@@ -1902,6 +1935,8 @@ if __name__ == '__main__':
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
     conf = conf.Conf()
+    sysdata = sysinfo.SystemData()
+    sysdata.refresh()
 
     if utils.wait_for_internet():
         # check internet availability and retry if necessary.
@@ -1910,7 +1945,7 @@ if __name__ == '__main__':
     else:
         debugging.warn("Internet NOT Available")
 
-    ipaddr = utils.get_local_ip()
+    ipaddr = sysdata.local_ip()
     debugging.info('Startup - Current RPI IP Address = ' + ipaddr)
 
     debugging.info('Base Directory :' +
@@ -1938,10 +1973,10 @@ if __name__ == '__main__':
     debugging.dprint(python_ver)
     debugging.dprint('LiveSectional Version - ' + version)
     debugging.dprint("\033[1;32;40m***********************************************")
-    debugging.dprint("       My IP Address is = "+ utils.get_local_ip())
+    debugging.dprint("       My IP Address is = "+ sysdata.local_ip())
     debugging.dprint("***********************************************")
     debugging.dprint("  Configure your LiveSectional by opening a   ")
-    debugging.dprint("    browser to http://"+ utils.get_local_ip() +":5000")
+    debugging.dprint("    browser to http://"+ sysdata.local_ip() +":5000")
     debugging.dprint("***********************************************")
     debugging.dprint("\033[0;0m\n")
     debugging.dprint("Raspberry Pi System Time - " + loc_timestr)
@@ -1966,7 +2001,7 @@ if __name__ == '__main__':
         machines = scan_network.scan_network()
         debugging.dprint(machines)  # Debug
 
-    debugging.info("IP Address = " + utils.get_local_ip())
+    debugging.info("IP Address = " + sysdata.local_ip())
     debugging.info("Starting Flask Session")
     app.run(debug=conf.get_bool("default",
                                         "flask_debug"), host='0.0.0.0')
