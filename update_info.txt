@@ -1,3 +1,20 @@
+Version 4.375
+6-25-2022
+Added changes from Daniel that allows for more than 300 airports on a map. Thank you Daniel.
+Also, changed the internet availability check so that after 10 attempts, it exits to the command line.
+Files Updated: webapp.py, metar-v4.py, wipes-v4.py, index.html
+
+Version 4.374
+11-25-2021
+Removed 'Update' menu item to eliminate server error. Updates currently require download
+of image from www.livesectional.com. Hopefully this will be temporary.
+Files Updated: webapp.py, base.html
+
+Version 4.373a
+7-6-2021
+Switched nightly reboot routine to crontab. Will disable similar routine in metar-v4.py
+Files Updated: crontab, metar-v4.py
+
 Version 4.373
 4-21-2021
 Fixed a bug that caused web interface to crash if XML airport data didn't include Lat/Lon data.

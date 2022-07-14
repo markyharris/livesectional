@@ -19,13 +19,11 @@
 #     Added menu items to display logfile.log, and console output (requires modified version of seashells
 #     Added LiveSectional Web Map, which recreates the builders map online.
 #     Fixed bug where get_led_map_info() would not get lat/Lon from XML file.
-#     Thank you Daniel from pilotmap.co for the change the routine that handles maps with more than 300 airports.
-#     Added counter to quit the script if FAA data (internet) is not available. Will try 10 times before quitting.
 
 # print test #force bug to cause webapp.py to error out
 
 # import needed libraries
-#   To install, sudo pip3 install flask
+#   sudo pip3 install flask
 from flask import Flask, render_template, request, flash, redirect, url_for, send_file, Response
 from werkzeug.utils import secure_filename
 #    if URLError: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] try;
@@ -58,10 +56,6 @@ from logzero import logger
 import config
 import admin
 import scan_network
-
-###################
-from itertools import islice
-###################
 
 # Setup rotating logfile with 3 rotations, each with a maximum filesize of 1MB:
 version = admin.version          # Software version
@@ -96,11 +90,6 @@ min_lat = ''
 max_lon = ''
 min_lon = ''
 
-###############
-# misc variables
-max_api_airports = 300          # The max amount of airports from api with one request - Thanks Daniel pilotmap.co
-#########
-
 # Settings for web based file updating
 src = '/NeoSectional'                           # Main directory, /NeoSectional
 dest = '../previousversion'                     # Directory to store currently run version of software
@@ -118,7 +107,7 @@ logger.debug(orig_apurl)
 
 #Used to display weather and airport locations on a map
 led_map_dict = {}
-led_map_url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=json&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString="
+led_map_url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString="
 logger.debug(led_map_url)
 
 # LED strip configuration:
@@ -861,10 +850,6 @@ def ledonoff():
     global ipaddresses
     global timestr
 
-    for i in range(strip.numPixels()):
-        strip.setPixelColor(i, Color(0,0,0))
-    strip.show()
-
     if request.method == "POST":
 
         readairports(airports_file)
@@ -1541,195 +1526,9 @@ def writehmdata(hmdata,heatmap_file):
         f.write('\n')
     f.close()
 
-#####################################################
+
 # routine to capture airport information and pass along to web pages.
 def get_led_map_info():
-    logger.debug('In get_led_map_info Routine')
-
-    global led_map_url
-    global led_map_dict
-    global lat_list
-    global lon_list
-    global max_lat
-    global min_lat
-    global max_lon
-    global min_lon
-
-    readairports(airports_file)  # Read airports file.
-
-    airports_count = len(airports)
-    lmu_tmp = led_map_url
-    
-    print ("Number of airports in the list: ", airports_count)
-    
-    tmp_ap = airports_count
-    tmp_start = 0
-    tmp_end = max_api_airports
-
-    while (tmp_ap >= 0):
-    
-        print ("tmp_start: ", tmp_start)
-        print ("tmp_ap: ", tmp_ap)
-        print ("tmp_end: ", tmp_end)
-        
-#        print(airports[tmp_start], airports[tmp_end])
-        print(airports[tmp_start])
-        for airportcode in islice(airports, tmp_start, tmp_end):
-            lmu_tmp = lmu_tmp + airportcode + ","
-        #led_map_url = led_map_url[:-1]
-        logger.debug(lmu_tmp) # debug url if neccessary
-
-        while True:  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
-            try:
-                content = urllib.request.urlopen(lmu_tmp).read()
-                logger.info('Internet Available')
-                logger.info(lmu_tmp)
-                break
-            except:
-                logger.warning('xxxxxxxxxxxFAA Data Not Available')
-                logger.warning(lmu_tmp)
-                time.sleep(delay_time)
-                content = ''
-                pass
-
-        if content  == b'':  # if FAA data not available bypass getting apinfo
-            return
-
-        root = ET.fromstring(content)  # Process XML data returned from FAA
-
-        for led_map_info in root.iter('METAR'):
-            stationId = led_map_info.find('station_id').text
-
-            try:
-                lat = led_map_info.find('latitude').text
-                lon = led_map_info.find('longitude').text
-            except:
-                lat = '0'
-                lon = '0'
-
-            lat_list.append(lat)
-            lon_list.append(lon)
-
-            if led_map_info.find('flight_category') is None:
-                fl_cat = 'Not Reported'
-            else:
-                fl_cat = led_map_info.find('flight_category').text
-            led_map_dict[stationId] = [lat,lon,fl_cat]
-        
-        tmp_ap = tmp_ap - max_api_airports
-        tmp_start = tmp_start + max_api_airports + 1
-        tmp_end = tmp_end + max_api_airports
-        lmu_tmp = led_map_url
-
-    print(led_map_dict['KSPS'])
-    print(led_map_dict['KAUO'])
-    print(led_map_dict['KLZU'])
-
-
-    max_lat = max(lat_list)
-    min_lat = min(lat_list)
-    max_lon = max(lon_list)
-    min_lon = min(lon_list)
-
-
-# routine to capture airport information and pass along to web pages.
-def get_apinfo():
-    logger.debug('In Get_Apinfo Routine')
-
-    global orig_apurl
-    global apinfo_dict
-    
-
-    #print (max_api_airports)
-    airports_count = len(airports)
-    
-    print ("Number of airports in the list: ", airports_count)
-    apurl = orig_apurl  # Assign base FAA url to temp variable
-    tmp_ap = airports_count
-    tmp_start = 0
-    tmp_end = max_api_airports
-    
-    while (tmp_ap >= 0):
-        print ("tmp_start: ", tmp_start)
-        print ("tmp_ap: ", tmp_ap)
-        print ("tmp_end: ", tmp_end)
-        
-        for airportcode in islice(airports, tmp_start, tmp_end):
-            apurl = apurl + airportcode + ","
-    
-        #apurl = apurl[:-1]
-#        print ("URL string: ", apurl)
-        internet_tries = 10 # number of times to try to access the internet before quitting the script.
-        internet_test = True
-
-        while internet_test:  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
-            try:
-#                s.connect(("8.8.8.8", 80))
-                content = urllib.request.urlopen(apurl).read()
-                logger.info('Internet Available')
-                logger.info(apurl)
-                break
-            except:
-                logger.warning("\033[1;32;40m>>>>>>>> FAA Data Not Available <<<<<<<< - Attempts Left: " + str(internet_tries) + "\033[0;0m\n")
-                logger.warning(apurl)
-                time.sleep(delay_time)
-                content = ''
-                internet_tries -= 1
-                if internet_tries <= 0:
-                    internet_test = False
-                    print("\n\033[1;32;40mNo Internet - Type 'ctrl-c' then 'sudo raspi-config' to setup WiFi\033[0;0m\n")
-                    sys.exit()
-                    break
-                pass
-
-        if content == '':  # if FAA data not available bypass getting apinfo
-            return
-            
-        root = ET.fromstring(content)  # Process XML data returned from FAA
- 
-        for apinfo in root.iter('Station'):
-            stationId = apinfo.find('station_id').text
-
-            if stationId[0] != 'K':
-                site = apinfo.find('site').text
-                country = apinfo.find('country').text
-                apinfo_dict[stationId] = [site,country]
-
-            else:
-                site = apinfo.find('site').text
-                state = apinfo.find('state').text
-                apinfo_dict[stationId] = [site,state]
-    
-        tmp_ap = tmp_ap - max_api_airports
-        tmp_start = tmp_start + max_api_airports + 1
-        tmp_end = tmp_end + max_api_airports
-        apurl = orig_apurl
-        
-    #print (content)
-    content2 = content.decode()
-    file = open("temp123.xml", "w")
-    file.write(content2)
-    file.close()
-    
-    """
-    root = ET.fromstring(content)  # Process XML data returned from FAA
-
-    for apinfo in root.iter('Station'):
-        stationId = apinfo.find('station_id').text
-
-        if stationId[0] != 'K':
-            site = apinfo.find('site').text
-            country = apinfo.find('country').text
-            apinfo_dict[stationId] = [site,country]
-
-        else:
-            site = apinfo.find('site').text
-            state = apinfo.find('state').text
-            apinfo_dict[stationId] = [site,state]
-    """
-###########################################
-# routine to capture airport information and pass along to web pages.
-def get_led_map_infox():
     logger.debug('In get_led_map_info Routine')
 
     global led_map_url
@@ -1790,7 +1589,7 @@ def get_led_map_infox():
 
 
 # routine to capture airport information and pass along to web pages.
-def get_apinfox():
+def get_apinfo():
     logger.debug('In Get_Apinfo Routine')
 
     global orig_apurl
@@ -1956,7 +1755,7 @@ if __name__ == '__main__':
     current_timezone = tztemp[3]
 
     # Check to see if an newer version of the software is available, and update if user so chooses
-    # testupdate() # temp fix for server error. More to come
+#    testupdate()
 
     # Get system info and display
     python_ver = ("Python Version = " + sys.version)

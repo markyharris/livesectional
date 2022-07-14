@@ -125,10 +125,7 @@ logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 #*  User defined Setting Here - Make changes in config.py instead of here.  *
 #****************************************************************************
 
-# Testing Socket Time-out, thanks Eric Blevins. From https://python.readthedocs.io/en/stable/howto/urllib2.html#sockets-and-layers
-# timeout in seconds
-timeout = 30
-socket.setdefaulttimeout(timeout)
+https://python.readthedocs.io/en/stable/howto/urllib2.html#sockets-and-layers
 
 #rotate and oled wiring order
 rotyesno = config.rotyesno                      #Rotate 180 degrees, 0 = No, 1 = Yes

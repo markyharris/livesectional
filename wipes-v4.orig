@@ -18,7 +18,6 @@
 #    Fixed wipes that turned on NULL and LGND Leds
 #    Fixed dimming feature when a wipe is executed
 #    Fixed bug whereby lat/lon was miscalculated for certain wipes.
-#    Thank you Daniel from pilotmap.co for the change the routine that handles maps with more than 300 airports.
 
 #Import needed libraries
 import urllib.request, urllib.error, urllib.parse
@@ -670,75 +669,26 @@ if __name__ == '__main__':
 #    logger.debug(url)
 
     #Build URL to submit to FAA with the proper airports from the airports file and populate the pindict dictionary
-    # Thank you Daniel from pilotmap.co for the change to this routine that handles maps with more than 300 airports.
     i = 0
     nullpins = []
-
-    contentStart = ['<response xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:noNamespaceSchemaLocation="http://www.aviationweather.gov/static/adds/schema/metar1_2.xsd">']
-    content = []
-    chunk = 0;
-    stationList = ''
     for airportcode in airports:
-      if airportcode == "NULL" or airportcode == "LGND":
-         continue
-      pindict[airportcode] = str(i)           #build a dictionary of the LED pins for each airport used
-      i += 1
-      stationList += airportcode + ','
-      chunk += 1
-      if(chunk >= 300):
-         stationList = stationList[:-1] #strip trailing comma from string
+        if airportcode == "NULL" or airportcode == "LGND":
+            nullpins.append(str(i))
+            i += 1
+            continue
+        url = url + airportcode + ","
+        pindict[airportcode] = str(i)           #build a dictionary of the LED pins for each airport used
+        i += 1
+    logger.debug('Airports = ' + str(airports))
+    logger.debug('URL = ' + str(url))
+    logger.debug('nullpins = ' + str(nullpins))
 
-         while True: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
-           result = ''
-           try:
-              result = urllib.request.urlopen(url + stationList).read()
-              r = result.decode('UTF-8').splitlines()
-              xmlStr = r[8:len(r)-2]
-              print('\n', xmlStr[0:2], xmlStr[-1])
-              content.extend(xmlStr)
-              c = ['<x>']
-              c.extend(content)
-              root = ET.fromstringlist(c + ['</x>'])
-              logger.info('Internet Available')
-              break
-           except Exception as e:
-              print(str(e))
-              logger.warning('FAA Data is Not Available')
-              logger.warning(url + stationList)
-              logger.warning(result)
-              time.sleep(delay_time)
-              pass
+    try:                                        #Simple Error trap, in case FAA web site is not responding
+        content = urllib.request.urlopen(url).read()
+    except:                                     #End of Error trap
+        pass
 
-         stationList = ''
-         chunk = 0
-
-
-    stationList = stationList[:-1] #strip trailing comma from string
-
-    url = url + stationList
-    logger.debug(url) #debug
-
-    while True: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
-        try:
-            result = urllib.request.urlopen(url).read()
-            logger.info('Internet Available')
-            logger.info(url)
-            r = result.decode('UTF-8').splitlines()
-            xmlStr = r[8:len(r)-2]
-            content.extend(xmlStr)
-            c = ['<x>']
-            c.extend(content)
-            root = ET.fromstringlist(c + ['</x>'])
-            break
-        except:
-            logger.warning('FAA Data is Not Available')
-            logger.warning(url)
-            time.sleep(delay_time)
-            pass
-
-    c = ['<x>']
-    c.extend(content)
-    root = ET.fromstringlist(c + ['</x>'])
+    root = ET.fromstring(content)               #Process XML data returned from FAA
 
     #grab the airport category, wind speed and various weather from the results given from FAA.
     for metar in root.iter('METAR'):

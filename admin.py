@@ -7,9 +7,9 @@
 #    minor update 1
 #    error fix 0
 
-version='v4.373'
+version='v4.375'
 min_update_ver='4.350'
 use_mos=1
 use_scan_network=0
-use_reboot=1
+use_reboot=0
 time_reboot='01:00'

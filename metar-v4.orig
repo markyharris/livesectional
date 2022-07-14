@@ -24,7 +24,6 @@
 #    Fixed METAR Decode routine to handle FAA results that don't include flight_category and forecast fields.
 #    Added routine to check time and reboot each night if setting in admin.py are set accordingly.
 #    Fixed bug that missed lowest sky_condition altitude on METARs not reporting flight categories.
-#    Thank you Daniel from pilotmap.co for the change the routine that handles maps with more than 300 airports.
 
 #This version retains the features included in metar-v3.py, including hi-wind blinking and lightning when thunderstorms are reported.
 #However, this version adds representations for snow, rain, freezing rain, dust sand ash, and fog when reported in the metar.
@@ -97,7 +96,7 @@ import admin
 
 # Setup rotating logfile with 3 rotations, each with a maximum filesize of 1MB:
 version = admin.version                 #Software version
-loglevel = 1#config.loglevel
+loglevel = config.loglevel
 loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
 logzero.loglevel(loglevels[loglevel])   #Choices in order; DEBUG, INFO, WARNING, ERROR
 logzero.logfile("/NeoSectional/logfile.log", maxBytes=1e6, backupCount=3)
@@ -107,6 +106,11 @@ logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 #****************************************************************************
 #* User defined items to be set below - Make changes to config.py, not here *
 #****************************************************************************
+
+# Testing Socket Time-out, thanks Eric Blevins. From https://python.readthedocs.io/en/stable/howto/urllib2.html#sockets-and-layers
+# timeout in seconds
+timeout = 30
+socket.setdefaulttimeout(timeout)
 
 #list of pins that need to reverse the rgb_grb setting. To accommodate two different models of LED's are used.
 rev_rgb_grb = config.rev_rgb_grb        #[] #['1', '2', '3', '4', '5', '6', '7', '8']
@@ -588,52 +592,12 @@ while (outerloop):
         logger.info("Heat Map Data Loading")
 
     #Build URL to submit to FAA with the proper airports from the airports file for METARs and TAF's but not MOS data
-    # Thank you Daniel from pilotmap.co for the change to this routine that handles maps with more than 300 airports.
     if metar_taf_mos != 2 and metar_taf_mos != 3:
-        contentStart = ['<response xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:noNamespaceSchemaLocation="http://www.aviationweather.gov/static/adds/schema/metar1_2.xsd">']
-        content = []
-        chunk = 0;
-        stationList = ''
         for airportcode in airports:
-          if airportcode == "NULL" or airportcode == "LGND":
-             continue
-          stationList += airportcode + ','
-          chunk += 1
-          if(chunk >= 300):
-             stationList = stationList[:-1] #strip trailing comma from string
-
-             while True: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
-              s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-              s.connect(("8.8.8.8", 80))
-              ipadd = s.getsockname()[0] #get IP Address
-              logger.info('RPI IP Address = ' + ipadd) #log IP address when ever FAA weather update is retreived.
-
-              result = ''
-              try:
-                result = urllib.request.urlopen(url + stationList).read()
-                r = result.decode('UTF-8').splitlines()
-                xmlStr = r[8:len(r)-2]
-                content.extend(xmlStr)
-                c = ['<x>']
-                c.extend(content)
-                root = ET.fromstringlist(c + ['</x>'])
-                logger.info('Internet Available')
-                break
-              except Exception as e:
-                print(str(e))
-                logger.warning('FAA Data is Not Available')
-                logger.warning(url + stationList)
-                logger.warning(result)
-                time.sleep(delay_time)
-                pass
-
-             stationList = ''
-             chunk = 0
-
-
-        stationList = stationList[:-1] #strip trailing comma from string
-
-        url = url + stationList
+            if airportcode == "NULL" or airportcode == "LGND":
+                continue
+            url = url + airportcode + ","
+        url = url[:-1] #strip trailing comma from string
         logger.debug(url) #debug
 
         while True: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
@@ -643,15 +607,9 @@ while (outerloop):
             logger.info('RPI IP Address = ' + ipadd) #log IP address when ever FAA weather update is retreived.
 
             try:
-                result = urllib.request.urlopen(url).read()
+                content = urllib.request.urlopen(url).read()
                 logger.info('Internet Available')
                 logger.info(url)
-                r = result.decode('UTF-8').splitlines()
-                xmlStr = r[8:len(r)-2]
-                content.extend(xmlStr)
-                c = ['<x>']
-                c.extend(content)
-                root = ET.fromstringlist(c + ['</x>'])
                 break
             except:
                 logger.warning('FAA Data is Not Available')
@@ -659,10 +617,7 @@ while (outerloop):
                 time.sleep(delay_time)
                 pass
 
-        c = ['<x>']
-        c.extend(content)
-        root = ET.fromstringlist(c + ['</x>'])
-
+        root = ET.fromstring(content) #Process XML data returned from FAA
 
     if turnoffrefresh == 0:
         turnoff(strip) #turn off led before repainting them. If Rainbow stays on, it has hung up before this.
@@ -1618,12 +1573,9 @@ while (outerloop):
 
                 #Check winds and set the 2nd half of cycles to black to create blink effect
                 if hiwindblink: #bypass if "hiwindblink" is set to 0
-        #          if(airportwinds != ''):
-              #      print(airportcode, 'airportwinds',type(airportwinds),":".join("{:02x}".format(ord(c)) for c in airportwinds), 'max_wind_speed', max_wind_speed,'cycle_num',cycle_num)
                     if (int(airportwinds) >= max_wind_speed and (cycle_num == 3 or cycle_num == 4 or cycle_num == 5)):
                         color = color_black
                         print(("HIGH WINDS-> " + airportcode + " Winds = " + str(airportwinds) + " ")) #debug
-                        logger.info(("HIGH WINDS-> " + airportcode + " Winds = " + str(airportwinds) + " ")) #debug
 
                 #Check the wxstring from FAA for reported weather and create color changes in LED for weather effect.
                 if airportwx != "NONE":
