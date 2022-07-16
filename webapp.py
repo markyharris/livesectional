@@ -60,10 +60,11 @@ import admin
 import scan_network
 
 ###################
-from itertools import islice
+from itertools import islice # Thanks Daniel 
 ###################
 
 # Setup rotating logfile with 3 rotations, each with a maximum filesize of 1MB:
+map_name = admin.map_name
 version = admin.version          # Software version
 loglevel = config.loglevel
 loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
@@ -96,10 +97,10 @@ min_lat = ''
 max_lon = ''
 min_lon = ''
 
-###############
+################
 # misc variables
+################
 max_api_airports = 300          # The max amount of airports from api with one request - Thanks Daniel pilotmap.co
-#########
 
 # Settings for web based file updating
 src = '/NeoSectional'                           # Main directory, /NeoSectional
@@ -118,7 +119,8 @@ logger.debug(orig_apurl)
 
 #Used to display weather and airport locations on a map
 led_map_dict = {}
-led_map_url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=json&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString="
+#led_map_url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=json&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString="
+led_map_url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString="
 logger.debug(led_map_url)
 
 # LED strip configuration:
@@ -300,6 +302,7 @@ def led_map():
     global ipaddresses
     global timestr
     global version
+    global map_name
     global current_timezone
 
     templateData = {
@@ -320,6 +323,7 @@ def led_map():
         'update_vers': update_vers,
         'current_timezone': current_timezone,
         'machines': machines,
+        'map_name':map_name,
         'max_lat': max_lat,
         'min_lat': min_lat,
         'max_lon': max_lon,
@@ -362,9 +366,18 @@ def led_map():
         else:
             pin_num = None
 
-        pop_url = '<a href="https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId='+led_ap+'"target="_blank">'
-        popup = pop_url+"<b>"+led_ap+"</b><br>"+apinfo_dict[led_ap][0]+',&nbsp'+apinfo_dict[led_ap][1]\
-                +"</a><br>Pin&nbspNumber&nbsp=&nbsp"+str(pin_num)+"<br><b><font size=+2 color="+color+">"+led_map_dict[led_ap][2]+"</font></b>"
+        try:
+            pop_url = '<a href="https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId='+led_ap+'"target="_blank">'
+            popup = pop_url+"<b>"+led_ap+"</b><br>"+apinfo_dict[led_ap][0]+',&nbsp'+apinfo_dict[led_ap][1]\
+                    +"</a><br>Pin&nbspNumber&nbsp=&nbsp"+str(pin_num)+"<br><b><font size=+2 color="+color+">"+led_map_dict[led_ap][2]+"</font></b>"
+        except:
+            pop_url = ""
+            popup = ""
+            pass
+
+#        pop_url = '<a href="https://nfdc.faa.gov/nfdcApps/services/ajv5/airportDisplay.jsp?airportId='+led_ap+'"target="_blank">'
+#        popup = pop_url+"<b>"+led_ap+"</b><br>"+apinfo_dict[led_ap][0]+',&nbsp'+apinfo_dict[led_ap][1]\
+#                +"</a><br>Pin&nbspNumber&nbsp=&nbsp"+str(pin_num)+"<br><b><font size=+2 color="+color+">"+led_map_dict[led_ap][2]+"</font></b>"
 
         # Add airport markers with proper color to denote flight category
         folium.CircleMarker(
@@ -450,6 +463,7 @@ def expandfs():
     global ipaddresses
     global timestr
     global version
+    global map_name
     global current_timezone
 
     if request.method == "POST":
@@ -473,6 +487,7 @@ def expandfs():
             'apinfo_dict': apinfo_dict,
             'timestr': timestr,
             'version': version,
+            'map_name':map_name,
             'update_available': update_available,
             'update_vers': update_vers,
             'current_timezone': current_timezone,
@@ -494,6 +509,7 @@ def tzset():
     global ipaddresses
     global timestr
     global version
+    global map_name
     global current_timezone
 
     now = datetime.now()
@@ -530,6 +546,7 @@ def tzset():
             'apinfo_dict': apinfo_dict,
             'timestr': timestr,
             'version': version,
+            'map_name':map_name,
             'update_available': update_available,
             'update_vers': update_vers,
             'tzoptionlist': tzoptionlist,
@@ -581,6 +598,7 @@ def index ():
     global ipaddresses
     global timestr
     global version
+    global map_name
 
     now = datetime.now()
     timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
@@ -601,7 +619,8 @@ def index ():
             'update_available': update_available,
             'update_vers': update_vers,
             'version': version,
-            'machines': machines
+            'machines': machines,
+            'map_name':map_name
             }
 
 #    flash(machines) # Debug
@@ -643,6 +662,7 @@ def hmedit():
     global strip
     global ipaddresses
     global timestr
+    global map_name
     now = datetime.now()
     timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
 
@@ -662,7 +682,8 @@ def hmedit():
             'update_available': update_available,
             'update_vers': update_vers,
             'apinfo_dict': apinfo_dict,
-            'machines': machines
+            'machines': machines,
+            'map_name':map_name
             }
     return render_template('hmedit.html', **templateData)
 
@@ -752,6 +773,8 @@ def apedit():
     global strip
     global ipaddresses
     global timestr
+    global map_name
+    
     now = datetime.now()
     timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
 
@@ -771,7 +794,8 @@ def apedit():
             'update_available': update_available,
             'update_vers': update_vers,
             'apinfo_dict': apinfo_dict,
-            'machines': machines
+            'machines': machines,
+            'map_name':map_name
             }
     return render_template('apedit.html', **templateData)
 
@@ -1000,6 +1024,7 @@ def confedit():
     global ipadd
     global timestr
     global settings
+    global map_name
 
     now = datetime.now()
     timestr = (now.strftime("%H:%M:%S - %b %d, %Y"))
@@ -1060,6 +1085,7 @@ def confedit():
             'update_available': update_available,
             'update_vers': update_vers,
             'machines': machines,
+            'map_name':map_name,
 
             # Color Picker Variables to pass
             'color_vfr_hex': color_vfr_hex,
@@ -1543,6 +1569,7 @@ def writehmdata(hmdata,heatmap_file):
 
 #####################################################
 # routine to capture airport information and pass along to web pages.
+#####################################################
 def get_led_map_info():
     logger.debug('In get_led_map_info Routine')
 
@@ -1556,7 +1583,6 @@ def get_led_map_info():
     global min_lon
 
     readairports(airports_file)  # Read airports file.
-
     airports_count = len(airports)
     lmu_tmp = led_map_url
     
@@ -1568,15 +1594,14 @@ def get_led_map_info():
 
     while (tmp_ap >= 0):
     
-        print ("tmp_start: ", tmp_start)
-        print ("tmp_ap: ", tmp_ap)
-        print ("tmp_end: ", tmp_end)
-        
-#        print(airports[tmp_start], airports[tmp_end])
-        print(airports[tmp_start])
+        print ("tmp_start: ", tmp_start) # debug
+        print ("tmp_ap: ", tmp_ap) # debug
+        print ("tmp_end: ", tmp_end) # debug        
+        print(airports[tmp_start]) # debug
+                
         for airportcode in islice(airports, tmp_start, tmp_end):
             lmu_tmp = lmu_tmp + airportcode + ","
-        #led_map_url = led_map_url[:-1]
+        lmu_tmp = lmu_tmp[:-1]
         logger.debug(lmu_tmp) # debug url if neccessary
 
         while True:  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
@@ -1621,18 +1646,12 @@ def get_led_map_info():
         tmp_end = tmp_end + max_api_airports
         lmu_tmp = led_map_url
 
-    print(led_map_dict['KSPS'])
-    print(led_map_dict['KAUO'])
-    print(led_map_dict['KLZU'])
-
-
     max_lat = max(lat_list)
     min_lat = min(lat_list)
     max_lon = max(lon_list)
     min_lon = min(lon_list)
 
-
-# routine to capture airport information and pass along to web pages.
+# routine to capture airport information and pass along to web pages. 
 def get_apinfo():
     logger.debug('In Get_Apinfo Routine')
 
@@ -1711,128 +1730,6 @@ def get_apinfo():
     file.write(content2)
     file.close()
     
-    """
-    root = ET.fromstring(content)  # Process XML data returned from FAA
-
-    for apinfo in root.iter('Station'):
-        stationId = apinfo.find('station_id').text
-
-        if stationId[0] != 'K':
-            site = apinfo.find('site').text
-            country = apinfo.find('country').text
-            apinfo_dict[stationId] = [site,country]
-
-        else:
-            site = apinfo.find('site').text
-            state = apinfo.find('state').text
-            apinfo_dict[stationId] = [site,state]
-    """
-###########################################
-# routine to capture airport information and pass along to web pages.
-def get_led_map_infox():
-    logger.debug('In get_led_map_info Routine')
-
-    global led_map_url
-    global led_map_dict
-    global lat_list
-    global lon_list
-    global max_lat
-    global min_lat
-    global max_lon
-    global min_lon
-
-    for airportcode in airports:
-        led_map_url = led_map_url + airportcode + ","
-    led_map_url = led_map_url[:-1]
-    logger.debug(led_map_url) # debug url if neccessary
-
-    while True:  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
-        try:
-            content = urllib.request.urlopen(led_map_url).read()
-            logger.info('Internet Available')
-            logger.info(led_map_url)
-            break
-        except:
-            logger.warning('FAA Data Not Available')
-            logger.warning(led_map_url)
-            time.sleep(delay_time)
-            content = ''
-            pass
-
-    if content  == '':  # if FAA data not available bypass getting apinfo
-        return
-
-    root = ET.fromstring(content)  # Process XML data returned from FAA
-
-    for led_map_info in root.iter('METAR'):
-        stationId = led_map_info.find('station_id').text
-
-        try:
-            lat = led_map_info.find('latitude').text
-            lon = led_map_info.find('longitude').text
-        except:
-            lat = '0'
-            lon = '0'
-
-        lat_list.append(lat)
-        lon_list.append(lon)
-
-        if led_map_info.find('flight_category') is None:
-            fl_cat = 'Not Reported'
-        else:
-            fl_cat = led_map_info.find('flight_category').text
-        led_map_dict[stationId] = [lat,lon,fl_cat]
-
-    max_lat = max(lat_list)
-    min_lat = min(lat_list)
-    max_lon = max(lon_list)
-    min_lon = min(lon_list)
-
-
-# routine to capture airport information and pass along to web pages.
-def get_apinfox():
-    logger.debug('In Get_Apinfo Routine')
-
-    global orig_apurl
-    global apinfo_dict
-
-    apurl = orig_apurl  # Assign base FAA url to temp variable
-    for airportcode in airports:
-        apurl = apurl + airportcode + ","
-    apurl = apurl[:-1]
-
-    while True:  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
-        try:
-#            s.connect(("8.8.8.8", 80))
-            content = urllib.request.urlopen(apurl).read()
-            logger.info('Internet Available')
-            logger.info(apurl)
-            break
-        except:
-            logger.warning('FAA Data Not Available')
-            logger.warning(apurl)
-            time.sleep(delay_time)
-            content = ''
-            pass
-
-    if content  == '':  # if FAA data not available bypass getting apinfo
-        return
-
-    root = ET.fromstring(content)  # Process XML data returned from FAA
-
-    for apinfo in root.iter('Station'):
-        stationId = apinfo.find('station_id').text
-
-        if stationId[0] != 'K':
-            site = apinfo.find('site').text
-            country = apinfo.find('country').text
-            apinfo_dict[stationId] = [site,country]
-
-        else:
-            site = apinfo.find('site').text
-            state = apinfo.find('state').text
-            apinfo_dict[stationId] = [site,state]
-
 # rgb and hex routines
 def rgb2hex(rgb):
     logger.debug(rgb)
@@ -1975,7 +1872,7 @@ if __name__ == '__main__':
 
     # Load files and back up the airports file, then run flask templates
 
-## This code is obsolete, but left here for posperity's sake.
+## This code is obsolete, but left here for prosperity's sake. 
 ##    if useip2ftp ==  1:
 ##        exec(compile(open("/NeoSectional/ftp-v4.py", "rb").read(), "/NeoSectional/ftp-v4.py", 'exec'))  #Get latest ip's to display in editors
 ##        logger.info("Storing " + str(ipaddresses) + " on ftp server")
