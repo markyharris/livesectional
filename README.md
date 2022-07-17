@@ -12,14 +12,14 @@
           <li>Added the ability to display <a class="text-danger" href="https://www.weather.gov/mdl/mos_home" target="_blank">MOS (Model Output Statistics)</a>. Only available for the United States and its Territories.
           <li>Added the ability to decode METARs from weather stations not located on airports, such as KMYP - 	Monarch Pass, CO. (Thank you Nick C.)
           <li>Heat Map was added to display what airports have been landed at, and how often. Home airport can be designated.
-	  <li>Added the ability to install a rotary switch so viewer can select what data to display, METAR's, TAF's, MOS or Heat Map.
+	     <li>Added the ability to install a rotary switch so viewer can select what data to display, METAR's, TAF's, MOS or Heat Map.
           <li>If rotary switch is not installed, the software can set a default data to display. i.e. METAR's.
           <li>Sleep Timer - The Map can be put to sleep at night (or anytime) if desired. Pressing a pushbutton will turn on temporarily.
           <li>Reload the config settings automatically. The map will restart and reload the settings when new settings are saved.
           <li>Map builder has the ability to use both types of LED's, either RGB and/or GRB color encoding on same map.
           <li>Decodes the airport ID to show City and State. If international airports are used, it will show Site and Country. 
           <li>Will display IP address if an LCD/OLED display is used.
-	  <li>Logging capabilities were added to help with diagnosing issues.
+	     <li>Logging capabilities were added to help with diagnosing issues.
           <li>The builder can now download and backup the config file, airports file, Heat Map file and logfile.
           <li>The builder can import a config file and airports file to make maintenance and upgrading easier.
           <li>Wind direction can now be displayed using an arrow or numbers in degrees and includes Gusts as well.
@@ -33,7 +33,10 @@
           <li>Added the ability to set the RPI's Time Zone without needing to enter the command line.
           <li>Added the ability to expand RPI's file system without needing to enter the command line.
           <li>Added the ability to rotate OLED display 180 degrees, and to reverse the position order of OLED's due to build constraints.
-          <li>Automatically update software online, rather than re-burn an image. *Major updates may require an image re-burn.
+          <li>Added a Map Layout page that will provide a graphical representation of the map design and LED routing.
+          <li>Added ability for more than 300 airports on a single map. Thank you Daniel.
+          <li>Increased the max number of airports from 500 to 3000 in 'Basic Settings'
+
         </ul>
     </p>
   <hr>
@@ -86,6 +89,7 @@
 	     <li>Turn Off Map - Turn's off the map and displays.
 	     <li>Reboot RPI - Will force the Raspberry Pi to reboot.
 	     <li>Shutdown RPI - Will power down the Raspberry Pi.
+	     <li>Map Layout - Displays the airports layed out on a map.
              </ul>
           <li>Map Utilities
           <ul>
@@ -144,7 +148,7 @@
   <blockquote class="blockquote">
   <p><b>Modified MIT License</b></p>
 
-  <p>Copyright (c) 2021, 2022 Bill Bryson III and Mark Harris</p>
+  <p>Copyright (c) 2022, 2023 Bill Bryson III and Mark Harris</p>
 
   <p>Permission is hereby granted, free of charge, to any person obtaining a copy
      of this software and associated documentation files (the Software), to deal
