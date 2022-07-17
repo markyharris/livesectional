@@ -1,8 +1,11 @@
-Version 4.375
+Version 4.380
 6-25-2022
 Added changes from Daniel that allows for more than 300 airports on a map. Thank you Daniel.
+Changed the max number of airports in 'Basic Settings' to 3000 airports.
 Also, changed the internet availability check so that after 10 attempts, it exits to the command line.
-Files Updated: webapp.py, metar-v4.py, wipes-v4.py, index.html
+Fixed 'Map Layout' function on maps with greater than 300 airports
+Added Map Name in admin.py. This is displayed in footer. Works well if multiple maps are on same network.
+Files Updated: webapp.py, metar-v4.py, wipes-v4.py, index.html, confedit.html
 
 Version 4.374
 11-25-2021
