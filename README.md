@@ -36,7 +36,6 @@
           <li>Added a Map Layout page that will provide a graphical representation of the map design and LED routing.
           <li>Added ability for more than 300 airports on a single map. Thank you Daniel.
           <li>Increased the max number of airports from 500 to 3000 in 'Basic Settings'
-
         </ul>
     </p>
   <hr>
