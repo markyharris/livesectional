@@ -13,4 +13,4 @@ use_mos=1
 use_scan_network=0
 use_reboot=0
 time_reboot='01:00'
-map_name='Livesectional'
+map_name='Bench Test Map'

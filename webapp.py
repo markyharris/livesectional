@@ -1830,6 +1830,9 @@ def get_loc():
 
 # executed code
 if __name__ == '__main__':
+    internet_tries = 10 # number of times to try to access the internet before quitting the script.
+    internet_test = True
+
     # Display active IP address for builder to open up web browser to configure.
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
@@ -1842,6 +1845,12 @@ if __name__ == '__main__':
         except:
             logger.warning('Internet NOT Available')
             time.sleep(delay_time)
+            internet_tries -= 1
+            if internet_tries <= 0:
+                internet_test = False
+                print("\n\033[1;32;40mNo Internet - Type 'ctrl-c' then 'sudo raspi-config' to setup WiFi\033[0;0m\n")
+                sys.exit()
+                break
             pass
 
     ipadd = s.getsockname()[0]  # get IP Address
