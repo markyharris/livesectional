@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <response xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:noNamespaceSchemaLocation="http://www.aviationweather.gov/static/adds/schema/station1_0.xsd">
-  <request_index>339221759</request_index>
+  <request_index>33524364</request_index>
   <data_source name="stations" />
   <request type="retrieve" />
   <errors />
   <warnings />
-  <time_taken_ms>15</time_taken_ms>
+  <time_taken_ms>20</time_taken_ms>
   <data num_results="165">
     <Station>
       <station_id>K46U</station_id>

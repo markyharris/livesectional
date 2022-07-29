@@ -1,3 +1,8 @@
+Version 4.381
+7-29-2022
+Fixed internet check loop on startup to quit script after 10 attempts.
+Files Updated: webapp.py
+
 Version 4.380
 6-25-2022
 Added changes from Daniel that allows for more than 300 airports on a map. Thank you Daniel.
