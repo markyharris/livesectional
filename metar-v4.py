@@ -620,10 +620,8 @@ while (outerloop):
                 logger.info('Internet Available')
                 break
               except Exception as e:
-                print(str(e))
-                logger.warning('FAA Data is Not Available')
-                logger.warning(url + stationList)
-                logger.warning(result)
+                logger.exception('FAA Data is Not Available, url: ' + str(url + stationList))
+                logger.warning("result: " + str(result))
                 time.sleep(delay_time)
                 pass
 
@@ -653,9 +651,8 @@ while (outerloop):
                 c.extend(content)
                 root = ET.fromstringlist(c + ['</x>'])
                 break
-            except:
-                logger.warning('FAA Data is Not Available')
-                logger.warning(url)
+            except Exception as e:
+                logger.exception('FAA Data is Not Available, url: ' + str(url))
                 time.sleep(delay_time)
                 pass
 

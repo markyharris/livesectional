@@ -806,6 +806,7 @@ def numap():
     global airports
     global timestr
 
+    numap = 0
     if request.method == "POST":
         numap = int(request.form["numofap"])
         print (numap)
