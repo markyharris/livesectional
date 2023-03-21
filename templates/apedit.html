@@ -4,6 +4,9 @@
 <div class="sticky">    
 <table>
   <tr>
+    <td colspan="4"><center><font size="-1">Manually Control LED's - Be sure to turn off map first (<i>'Map Functions-->Turn Off Map'</i>)</font> 
+  </tr>
+  <tr>
     <td class="submitbuttons">
       <form action="ledonoff" name="ledonoff" id="ledonoff" method="POST">
       Enter LED to Control <input onchange="document.form[0].submit()" type="number" name="lednum" size="5" min="0" max="{{ airports|length }}" value="{{num}}">

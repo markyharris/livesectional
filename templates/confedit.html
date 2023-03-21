@@ -311,7 +311,8 @@
     <tr>
         <td><b>Home Airport Pin = </b>
         <td><input type="number" name="homeport_pin" onchange="checkBlankF(this)" min="0" max="500" value = {{ settings.homeport_pin }}>
-        <td>Pin number of the home airport if 'Turn On Home Airport Feature' is 'Yes'. Otherwise this is ignored.
+        <td>Pin number of the Home airport if 'Turn On Home Airport Feature' is 'Yes'. Otherwise this is ignored. <i><b>Note:</b> If more than one 
+        airport is desired as a Home Airport edit the file 'admin.py'. This feature is beneficial for FBO's or businesses with multiple locations.</i>
     </tr>
 
     <tr>
@@ -855,7 +856,11 @@
             <label for="scrolldissr">Scroll Right</label>
             <input type="radio" name="scrolldis" id="scrolldissl" value="0" {{'checked="checked"' if settings.scrolldis=="0" else "" }}/>   
             <label for="scrolldissl">Scroll Left</label>
-        <td>Used on multiple OLEDs display only. 
+            <input type="radio" name="scrolldis" id="scrolldiss0" value="2" {{'checked="checked"' if settings.scrolldis=="2" else "" }}/>   
+            <label for="scrolldiss0">No Scroll</label>
+        <td>Used on multiple OLEDs display only. <i><b>Note:</b> When 'No Scroll' is selected, only airports and winds will be displayed. 
+            The Title page and Last Update time will be omitted. The order of the airports displayed in 'No Scroll' will be the order listed 
+            in the 'Exclusive List' setting, if enabled.</i>
     </tr>
 
     <tr>

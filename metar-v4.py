@@ -25,6 +25,7 @@
 #    Added routine to check time and reboot each night if setting in admin.py are set accordingly.
 #    Fixed bug that missed lowest sky_condition altitude on METARs not reporting flight categories.
 #    Thank you Daniel from pilotmap.co for the change the routine that handles maps with more than 300 airports.
+#    Added ability to have multiple home airports displayed. See %%% for lines associated with this addition. List airports as a list in 'admin.py'
 
 #This version retains the features included in metar-v3.py, including hi-wind blinking and lightning when thunderstorms are reported.
 #However, this version adds representations for snow, rain, freezing rain, dust sand ash, and fog when reported in the metar.
@@ -100,7 +101,7 @@ version = admin.version                 #Software version
 loglevel = 1#config.loglevel
 loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
 logzero.loglevel(loglevels[loglevel])   #Choices in order; DEBUG, INFO, WARNING, ERROR
-logzero.logfile("/NeoSectional/logfile.log", maxBytes=1e6, backupCount=3)
+logzero.logfile("/NeoSectional/logfile.log", maxBytes=1e6, backupCount=1)
 logger.info("\n\nStartup of metar-v4.py Script, Version " + version)
 logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 
@@ -340,6 +341,7 @@ black = color_black                     #(0,0,0)
 
 # Misc Settings
 ambient_toggle = 0                      # Toggle used for logging when ambient sensor changes from bright to dim.
+home_pos = 0                            #  %%% Used to initiate counter for homeport_pin for multiple home airports
 
 logger.info("metar-v4.py Settings Loaded")
 
@@ -1020,9 +1022,9 @@ while (outerloop):
 
                 #Connect the information from MOS to the board
                 stationId = airport
-
+ 
                 #grab wind speeds from returned MOS data
-                if wsp == None: #if wind speed is blank, then bypass
+                if wsp is None: #if wind speed is blank, then bypass
                     windspeedkt = 0
                 elif wsp == '99': #Check to see if MOS data is not reporting windspeed for this airport
                     windspeedkt = 0
@@ -1493,7 +1495,7 @@ while (outerloop):
             print(" " + str(cycle_num), end = '')
             sys.stdout.flush()
 
-            i = 0 #Inner Loop. Increments through each LED in the strip setting the appropriate color to each individual LED.
+            i = 0 #Inner Loop. Increments through each LED in the strip, setting the appropriate color to each individual LED.
             for airportcode in airports:
 
                 flightcategory = stationiddict.get(airportcode,"NONE") #Pull the next flight category from dictionary.
@@ -1667,26 +1669,44 @@ while (outerloop):
                             color = color_fog2
 
                 #If homeport is set to 1 then turn on the appropriate LED using a specific color, This will toggle
-                #so that every other time through, the color will display the proper weather, then homeport color(s).
+                #so that every other time through, the color will display the proper weather, then homeport color(s).                           
                 if i == homeport_pin and homeport and toggle:
+                                        
+                    #  %%%  Multi Home facilities check. List airports as a list in 'admin.py'
+                    if len(admin.mult_homes) > 0: # check for multiple home airports in 'admin.py'
+                        homeport_pin = int(admin.mult_homes[home_pos])
+    #                    print("----> HOMEPORT PIN:",homeport_pin) # debug
+                        home_pos += 1
+                        if home_pos == len(admin.mult_homes):
+                            home_pos = 0
+
                     if homeport_display == 1:
                         color = homeport_colors[cycle_num]
                     elif homeport_display == 2:
                         pass
                     else:
                         color = color_homeport
-
-                xcolor = rgbtogrb(i, color, rgb_grb) #pass pin, color and format. Check and change color code for RGB or GRB format
-
-                if i == homeport_pin and homeport: #if this is the home airport, don't dim out the brightness
+                    
+                    # Change brightness for other than home airports
+                    xcolor = rgbtogrb(i, color, rgb_grb) #pass pin, color and format. Check and change color code for RGB or GRB format
                     norm_color = xcolor
                     xcolor = Color(norm_color[0], norm_color[1], norm_color[2])
-                elif homeport: #if this is not the home airport, dim out the brightness
-                    dim_color = dim(xcolor,dim_value)
-                    xcolor = Color(int(dim_color[0]), int(dim_color[1]), int(dim_color[2]))
-                else: #if home airport feature is disabled, then don't dim out any airports brightness
-                    norm_color = xcolor
-                    xcolor = Color(norm_color[0], norm_color[1], norm_color[2])
+
+                        
+                else:
+                    # Change brightness if only one home airport        
+                    xcolor = rgbtogrb(i, color, rgb_grb) #pass pin, color and format. Check and change color code for RGB or GRB format
+
+                    if i == homeport_pin and homeport: #if this is the home airport, don't dim out the brightness
+                        norm_color = xcolor
+                        xcolor = Color(norm_color[0], norm_color[1], norm_color[2])
+                    elif homeport: #if this is not the home airport, dim out the brightness
+                        dim_color = dim(xcolor,dim_value)
+                        xcolor = Color(int(dim_color[0]), int(dim_color[1]), int(dim_color[2]))
+                    else: #if home airport feature is disabled, then don't dim out any airports brightness
+                        norm_color = xcolor
+                        xcolor = Color(norm_color[0], norm_color[1], norm_color[2])
+
 
                 strip.setPixelColor(i, xcolor) #set color to display on a specific LED for the current cycle_num cycle.
                 i = i + 1 #set next LED pin in strip

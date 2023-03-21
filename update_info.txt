@@ -1,3 +1,12 @@
+Version 4.382 
+3-20-2023
+Fixed the Manual LED Control/All On-Off feature on the airport editor.
+Adjusted the number of backup logs from 3 to 1. All '.py' files were adjusted.
+Added the ability to have OLED's display wind info statically with no scrolling. 
+Added the ability to have multiple Home Airports. Used by businesses with multiple locations.
+  This feature is not accessible from within the web based admin page. See 'admin.py' for this.
+Files Updated: confedit.html, apedit.html, metar-display-v4.py, metar-v4.py, admin.py, shutoff.py
+
 Version 4.381
 7-29-2022
 Fixed internet check loop on startup to quit script after 10 attempts.

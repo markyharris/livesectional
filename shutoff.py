@@ -28,7 +28,7 @@ version = admin.version                         #Software version
 loglevel = config.loglevel
 loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
 logzero.loglevel(loglevels[loglevel])           #Choices in order; DEBUG, INFO, WARNING, ERROR
-logzero.logfile('/NeoSectional/logfile.log', maxBytes=1e6, backupCount=3)
+logzero.logfile('/NeoSectional/logfile.log', maxBytes=1e6, backupCount=1)
 logger.info('\n\nStartup of shutoff.py Script, Version ' + version)
 logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 
@@ -102,7 +102,7 @@ if __name__ == '__main__':
     strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL, LED_STRIP)
     # Intialize the library (must be called once before other functions).
     strip.begin()
-    turnoff(strip)
+#    turnoff(strip) 
     logger.info("LED's Have Been Turned Off")
 
     if oledused:                                #check to see if oleds are used
