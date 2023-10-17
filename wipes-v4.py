@@ -721,7 +721,7 @@ if __name__ == '__main__':
 
     while True: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
         try:
-            ret = requests.get(url+stationList, headers={'Accept': 'application/xml'})
+            ret = requests.get(url, headers={'Accept': 'application/xml'})
             logger.info('Internet Available')
             logger.info(url)
             r = ret.text.splitlines()
