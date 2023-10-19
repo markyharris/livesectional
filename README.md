@@ -5,7 +5,7 @@
 </head>
 <body>
      <p class="lead">
-	Visit https://www.livesectional.com/community/postid/1377/ for information on fixing the outage caused by FAA on 10/18/2023. Code here will be updated.
+	Visit https://www.livesectional.com/community/postid/1377/ for information on fixing the outage caused by FAA on 10/18/2023. Code here will be updated.<p>
         Version v4 of LiveSectional adds many new features for builders to take advantage of. Visit <a class="text-danger" href="http://livesectional.com" target="_blank">livesectional.com</a> for build and software installation instructions.
         <ul>
           <li>Updated to run under <a class="text-danger" href="https://docs.python.org/3/howto/pyporting.html" target="_blank">Python 3.7</a>
