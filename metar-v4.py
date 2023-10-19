@@ -573,8 +573,8 @@ while (outerloop):
     #depending on what data is to be displayed, either use an URL for METARs and TAFs or read file from drive (pass).
     if metar_taf_mos == 1: #Check to see if the script should display TAF data (0), METAR data (1) or MOS data (2)
         #Define URL to get weather METARS. If no METAR reported withing the last 2.5 hours, Airport LED will be white (nowx).
-        url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
-        logger.info("METAR Data Loading")
+        url = f"https://aviationweather.gov/api/data/metar?hours={metar_age}&ids="
+        logger.info(f"METAR Data Loading from: {url}")
 
     elif metar_taf_mos == 0:
         #Define URL to get weather URL for TAF. If no TAF reported for an airport, the Airport LED will be white (nowx).
@@ -655,9 +655,8 @@ while (outerloop):
                 c.extend(content)
                 root = ET.fromstringlist(c + ['</x>'])
                 break
-            except:
-                logger.warning('FAA Data is Not Available')
-                logger.warning(url)
+            except Exception as ex:
+                logging.error(f"FAA data not available for url: {url}", exc_info=ex)
                 time.sleep(delay_time)
                 pass
 

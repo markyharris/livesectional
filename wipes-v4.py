@@ -22,6 +22,7 @@
 
 #Import needed libraries
 import urllib.request, urllib.error, urllib.parse
+import requests
 import xml.etree.ElementTree as ET
 import time
 from rpi_ws281x import *                        #works with python 3.7. sudo pip3 install rpi_ws281x
@@ -666,7 +667,7 @@ if __name__ == '__main__':
     airports = [x.strip() for x in airports]
 
     #Define URL to get weather METARS. This will pull only the latest METAR from the last 2.5 hours. If no METAR reported withing the last 2.5 hours, Airport LED will be white.
-    url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
+    url = f"https://aviationweather.gov/api/data/metar?hours={metar_age}&ids="
 #    logger.debug(url)
 
     #Build URL to submit to FAA with the proper airports from the airports file and populate the pindict dictionary
@@ -691,8 +692,8 @@ if __name__ == '__main__':
          while True: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
            result = ''
            try:
-              result = urllib.request.urlopen(url + stationList).read()
-              r = result.decode('UTF-8').splitlines()
+              ret = requests.get(url+stationList, headers={'Accept': 'application/xml'})
+              r = ret.text.splitlines()
               xmlStr = r[8:len(r)-2]
               print('\n', xmlStr[0:2], xmlStr[-1])
               content.extend(xmlStr)
@@ -705,7 +706,7 @@ if __name__ == '__main__':
               print(str(e))
               logger.warning('FAA Data is Not Available')
               logger.warning(url + stationList)
-              logger.warning(result)
+              logger.warning(ret.text)
               time.sleep(delay_time)
               pass
 
@@ -720,17 +721,18 @@ if __name__ == '__main__':
 
     while True: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
         try:
-            result = urllib.request.urlopen(url).read()
+            ret = requests.get(url, headers={'Accept': 'application/xml'})
             logger.info('Internet Available')
             logger.info(url)
-            r = result.decode('UTF-8').splitlines()
+            r = ret.text.splitlines()
             xmlStr = r[8:len(r)-2]
             content.extend(xmlStr)
             c = ['<x>']
             c.extend(content)
             root = ET.fromstringlist(c + ['</x>'])
             break
-        except:
+        except BaseException as ex:
+            logger.exception(ex)
             logger.warning('FAA Data is Not Available')
             logger.warning(url)
             time.sleep(delay_time)
@@ -778,7 +780,7 @@ if __name__ == '__main__':
     for key, value in latdict.items():
         temp = float(value)
         latlist.append(temp)
-    logger.debug(latlist)
+    logger.info(f"latlist: {latlist}")
 
     for key, value in londict.items():
         temp = float(value)

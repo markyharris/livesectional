@@ -75,6 +75,7 @@
 #Import needed libraries
 #Misc libraries
 import urllib.request, urllib.error, urllib.parse
+import requests
 import xml.etree.ElementTree as ET
 import time
 import sys
@@ -610,8 +611,8 @@ while True:
     #depending on what data is to be displayed, either use an URL for METARs and TAFs or read file from drive (pass).
     if metar_taf_mos == 1: #Check to see if the script should display TAF data (0) or METAR data (1)
         #Define URL to get weather METARS. If no METAR reported withing the last 2.5 hours, Airport LED will be white (nowx).
-        url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
-        logger.info("METAR Data Loading")
+        url = f"https://aviationweather.gov/api/data/metar?hours={metar_age}&ids={apts}"
+        logger.info(f"METAR Data Loading from url: {url}")
 
     elif metar_taf_mos == 0: #TAF data
         #Define URL to get weather URL for TAF. If no TAF reported for an airport, the Airport LED will be white (nowx).
@@ -637,7 +638,7 @@ while True:
 
         while True:                             #check internet availability and retry if necessary. Power outage, map may boot quicker than router.
             try:
-                content = urllib.request.urlopen(url)
+                ret = requests.get(url, headers={'Accept': 'application/xml'})
                 logger.info('Internet Available')
                 logger.info(url)
                 break
@@ -647,7 +648,10 @@ while True:
                 time.sleep(delay_time)
                 pass
 
-        root = ET.fromstring(content.read())    #Process XML data returned from FAA
+        try:
+            root = ET.fromstring(ret.text)    #Process XML data returned from FAA
+        except  xml.etree.ElementTree.ParseError as ex:
+            logger.info(f"failed to parse XML, text: {ret.text}")
 
     #MOS decode routine
     #MOS data is downloaded daily from; https://www.weather.gov/mdl/mos_gfsmos_mav to the local drive by crontab scheduling.
@@ -1063,7 +1067,7 @@ while True:
                 windgustkt = int(metar.find('wind_gust_kt').text)
 
             #grab wind direction from returned FAA data
-            if metar.find('wind_dir_degrees') is None: #if wind speed is blank, then bypass
+            if metar.find('wind_dir_degrees') is None or metar.find('wind_dir_degrees').text == 'VRB': #if wind speed is blank, then bypass
                 winddirdegree = 0
             else:
                 winddirdegree = int(metar.find('wind_dir_degrees').text)
