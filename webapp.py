@@ -114,13 +114,15 @@ update_vers = "4.000"                           # initiate variable
 
 # Used to capture staton information for airport id decode for tooltip display in web pages.
 apinfo_dict = {}
-orig_apurl = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString="
+#!!! orig_apurl = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString="
+orig_apurl = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString="
 logger.debug(orig_apurl)
 
 #Used to display weather and airport locations on a map
 led_map_dict = {}
-#led_map_url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=json&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString="
-led_map_url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString="
+#!!! led_map_url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=json&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString="
+led_map_url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString="
+
 logger.debug(led_map_url)
 
 # LED strip configuration:

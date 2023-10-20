@@ -666,7 +666,8 @@ if __name__ == '__main__':
     airports = [x.strip() for x in airports]
 
     #Define URL to get weather METARS. This will pull only the latest METAR from the last 2.5 hours. If no METAR reported withing the last 2.5 hours, Airport LED will be white.
-    url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
+#!!!    url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
+    url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
 #    logger.debug(url)
 
     #Build URL to submit to FAA with the proper airports from the airports file and populate the pindict dictionary
