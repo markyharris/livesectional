@@ -14,7 +14,7 @@
 #      Create a list of airport LED pin numbers, i.e. mult_homes=['170','172','173','176'] to highlight more than 1 home airport
 #      Leave blank if only one airport is to be used as a home airport and fill this in the web interface. i.e. mult_homes=[]
 
-version='v4.400'
+version='v4.501'
 map_name='LiveSectional'
 min_update_ver='4.350'
 use_mos=1

@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 #metar-display-v4.py - by Mark Harris.
+#     Updated to work with New FAA API: 10-2023. Thank you to user Marty for all the hardwork.
 #     Updated to work with Python 3.7
 #     Adds TAF display when rotary switch is positioned accordingly. Default data user selectable if no rotary switch is used.
 #     Adds MOS data display when rotary switch is positioned accordingly.
@@ -18,7 +19,6 @@
 #     Added ability to specifiy an exclusive subset of airports to display.
 #     Added ability to display text rotated 180 degrees, and/or reverse order of display of multiple OLED's if wired backwards
 #     Added fix to Sleep Timer. Thank You to Matthew G for your code to make this work.
-#     Added feature for static (no scroll) of OLED displays. Look for %%% to denote changed code
 
 #Displays airport ID, wind speed in kts and wind direction on an LCD or OLED display.
 #Wind direction uses an arrow to display general wind direction from the 8 cardinal points on a compass.
@@ -118,7 +118,7 @@ version = admin.version                         #Software version
 loglevel = config.loglevel
 loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
 logzero.loglevel(loglevels[loglevel])           #Choices in order; DEBUG, INFO, WARNING, ERROR
-logzero.logfile("/NeoSectional/logfile.log", maxBytes=1e6, backupCount=1)
+logzero.logfile("/NeoSectional/logfile.log", maxBytes=1e6, backupCount=3)
 logger.info("\n\nStartup of metar-display-v4.py Script, Version " + version)
 logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 
@@ -217,11 +217,10 @@ dimmin = config.dimmin                          #Set value 0-255 for the minimum
 dimmax = config.dimmax                          #Set value 0-255 for the maximum brightness (bright display)
 invert = config.invert                          #0 = normal display, 1 = inverted display, supercedes toginv. Normal = white text on black background.
 toginv = config.toginv                          #0 = no toggle of inverted display. 1 = toggle inverted display between groups of airports
+scrolldis = config.scrolldis                    #0 = Scroll display to left, 1 = scroll display to right
 usewelcome = config.usewelcome                  #0 = No, 1 = Yes. Display a welcome message on the displays?
 welcome = config.welcome                        #will display each time the FAA weather is updated.
 displaytime = config.displaytime                #0 = No, 1 = Yes. Display the local and Zulu Time between hi-winds display
-scrolldis = config.scrolldis                    #0 = Scroll display to left, 1 = scroll display to right, 2 = no scroll
-
 
 #*********************************
 #* End of User Defined Settings  *
@@ -374,7 +373,7 @@ def oledcenter(txt, ch, font, dir=0, dim=dimswitch, onoff = 0, pause = 0): #Cent
         elif wnddir == '000' and wndsp >= '1' and gust == 0:
             txt = ap + "\n" + 'VRB@' + wndsp + 'kts'
 
-        elif gust == 0 or gust == '' or gust is None: #Lance Blank
+        elif gust == 0 or gust == '' or gust == None: #Lance Blank
             txt = ap + '\n' + wnddir + chr(176) + '@' + wndsp + 'kts' #'360@21kts' layout
 
         elif gust > 0:
@@ -610,15 +609,14 @@ while True:
     #depending on what data is to be displayed, either use an URL for METARs and TAFs or read file from drive (pass).
     if metar_taf_mos == 1: #Check to see if the script should display TAF data (0) or METAR data (1)
         #Define URL to get weather METARS. If no METAR reported withing the last 2.5 hours, Airport LED will be white (nowx).
-#!!!        url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
-        url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
-
+        #url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
+        url = "https://aviationweather.gov/api/data/metar?format=xml&hours=" +str(metar_age)+ "&ids="
         logger.info("METAR Data Loading")
 
     elif metar_taf_mos == 0: #TAF data
         #Define URL to get weather URL for TAF. If no TAF reported for an airport, the Airport LED will be white (nowx).
-#!!!        url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=tafs&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
-        url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=tafs&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
+        #url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=tafs&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
+        url = "https://aviationweather.gov/api/data/taf?format=xml&hours=" +str(metar_age)+ "&ids="
         logger.info("TAF Data Loading")
 
     elif metar_taf_mos == 2:                    #MOS data. This is not accessible in the same way as METARs and TAF's.
@@ -836,7 +834,7 @@ while True:
                 stationId = airport
 
                 #grab wind speeds from returned MOS data
-                if wsp is None:                 #if wind speed is blank, then bypass
+                if wsp == None:                 #if wind speed is blank, then bypass
                     windspeedkt = 0
                 elif wsp == '99':               #Check to see if the MOS data didn't report a windspeed for this airport
                     windspeedkt = 0
@@ -844,7 +842,7 @@ while True:
                     windspeedkt = int(wsp)
 
                 #grab wind direction from returned FAA data
-                if wdr is None:                 #if wind direction is blank, then bypass
+                if wdr == None:                 #if wind direction is blank, then bypass
                     winddirdegree = 0
                 else:
                     winddirdegree = int(wdr)
@@ -963,7 +961,7 @@ while True:
                     if flightcategory != "LIFR": #if it's LIFR due to cloud layer, no reason to check any other things that can set fl$
                         if forecast.find('visibility_statute_mi') is not None: #check XML if visibility value exists
                             visibility_statute_mi = forecast.find('visibility_statute_mi').text   #get visibility number
-                            visibility_statute_mi = float(visibility_statute_mi)
+                            visibility_statute_mi = float(visibility_statute_mi.strip('+'))
                             print (visibility_statute_mi)
 
                             if visibility_statute_mi < 1.0:
@@ -1119,17 +1117,14 @@ while True:
 
     if exclusive_flag == 1:                     #check if we should include an exclusive subset of airports to display
         logger.debug(sortwindslist)
-        
 
         tmp1 = sorted(i for i in sortwindslist if i[0] in exclusive_list)
-        if scrolldis != 2: # %%% disable sorting by winds if static display is used
+        tmp1.sort(key=lambda tup: tup[1])       #sort by wind value
+        tmp1.reverse()                          #Reverse so list is sorted highest to lowest
 
-            tmp1.sort(key=lambda tup: tup[1])       #sort by wind value
-            tmp1.reverse()                          #Reverse so list is sorted highest to lowest
-
-            if len(tmp1) < numofdisplays:           #Pad blanks if airports are less than numofdisplays
-                blank = [('', '')] * (numofdisplays - len(tmp1))
-                tmp1 = tmp1 + blank
+        if len(tmp1) < numofdisplays:           #Pad blanks if airports are less than numofdisplays
+            blank = [('', '')] * (numofdisplays - len(tmp1))
+            tmp1 = tmp1 + blank
 
         sortwindslist = tmp1                    #Reset sortwindslist to only those whose winds are higher than specified
 
@@ -1344,69 +1339,68 @@ while True:
         temp = 0                                #Used to toggle invert if set
         toggle = 0                              #Used to toggle invert between groups of airports. Leave set at 0
 
-        if scrolldis != 2:
-            #Add update message to beginning of list
-            sortwindslist.insert(0,("Updated", dt_string))
+        #Add update message to beginning of list
+        sortwindslist.insert(0,("Updated", dt_string))
 
-            #Add type of data being displayed, METAR, TAF, MOS etc
-            if metar_taf_mos == 1:                  #Displaying METAR data
-                sortwindslist.insert(0,("METARs", "Displayed"))
+        #Add type of data being displayed, METAR, TAF, MOS etc
+        if metar_taf_mos == 1:                  #Displaying METAR data
+            sortwindslist.insert(0,("METARs", "Displayed"))
 
-            elif metar_taf_mos == 0:                #TAF hour_to_display
-                if toggle_sw == 0:
-                    sortwindslist.insert(0,(str(time_sw0) + " hr TAF", "Displayed"))
-                if toggle_sw == 1:
-                    sortwindslist.insert(0,(str(time_sw1) + " hr TAF", "Displayed"))
-                if toggle_sw == 2:
-                    sortwindslist.insert(0,(str(time_sw2) + " hr TAF", "Displayed"))
-                if toggle_sw == 3:
-                    sortwindslist.insert(0,(str(time_sw3) + " hr TAF", "Displayed"))
-                if toggle_sw == 4:
-                    sortwindslist.insert(0,(str(time_sw4) + " hr TAF", "Displayed"))
-                if toggle_sw == 5:
-                    sortwindslist.insert(0,(str(time_sw5) + " hr TAF", "Displayed"))
-                if toggle_sw == 6:
-                    sortwindslist.insert(0,(str(time_sw6) + " hr TAF", "Displayed"))
-                if toggle_sw == 7:
-                    sortwindslist.insert(0,(str(time_sw7) + " hr TAF", "Displayed"))
-                if toggle_sw == 8:
-                    sortwindslist.insert(0,(str(time_sw8) + " hr TAF", "Displayed"))
-                if toggle_sw == 9:
-                    sortwindslist.insert(0,(str(time_sw9) + " hr TAF", "Displayed"))
-                if toggle_sw == 10:
-                    sortwindslist.insert(0,(str(time_sw10) + " hr TAF", "Displayed"))
-                if toggle_sw == 11:
-                    sortwindslist.insert(0,(str(time_sw11) + " hr TAF", "Displayed"))
-                if toggle_sw == 12:
-                    sortwindslist.insert(0,(str(time_sw0) + " hr TAF", "Displayed"))
+        elif metar_taf_mos == 0:                #TAF hour_to_display
+            if toggle_sw == 0:
+                sortwindslist.insert(0,(str(time_sw0) + " hr TAF", "Displayed"))
+            if toggle_sw == 1:
+                sortwindslist.insert(0,(str(time_sw1) + " hr TAF", "Displayed"))
+            if toggle_sw == 2:
+                sortwindslist.insert(0,(str(time_sw2) + " hr TAF", "Displayed"))
+            if toggle_sw == 3:
+                sortwindslist.insert(0,(str(time_sw3) + " hr TAF", "Displayed"))
+            if toggle_sw == 4:
+                sortwindslist.insert(0,(str(time_sw4) + " hr TAF", "Displayed"))
+            if toggle_sw == 5:
+                sortwindslist.insert(0,(str(time_sw5) + " hr TAF", "Displayed"))
+            if toggle_sw == 6:
+                sortwindslist.insert(0,(str(time_sw6) + " hr TAF", "Displayed"))
+            if toggle_sw == 7:
+                sortwindslist.insert(0,(str(time_sw7) + " hr TAF", "Displayed"))
+            if toggle_sw == 8:
+                sortwindslist.insert(0,(str(time_sw8) + " hr TAF", "Displayed"))
+            if toggle_sw == 9:
+                sortwindslist.insert(0,(str(time_sw9) + " hr TAF", "Displayed"))
+            if toggle_sw == 10:
+                sortwindslist.insert(0,(str(time_sw10) + " hr TAF", "Displayed"))
+            if toggle_sw == 11:
+                sortwindslist.insert(0,(str(time_sw11) + " hr TAF", "Displayed"))
+            if toggle_sw == 12:
+                sortwindslist.insert(0,(str(time_sw0) + " hr TAF", "Displayed"))
 
-            elif metar_taf_mos == 2:                #MOS hour_to_display
-                if toggle_sw == 0:
-                    sortwindslist.insert(0,(str(time_sw0) + " hr MOS", "Displayed"))
-                if toggle_sw == 1:
-                    sortwindslist.insert(0,(str(time_sw1) + " hr MOS", "Displayed"))
-                if toggle_sw == 2:
-                    sortwindslist.insert(0,(str(time_sw2) + " hr MOS", "Displayed"))
-                if toggle_sw == 3:
-                    sortwindslist.insert(0,(str(time_sw3) + " hr MOS", "Displayed"))
-                if toggle_sw == 4:
-                    sortwindslist.insert(0,(str(time_sw4) + " hr MOS", "Displayed"))
-                if toggle_sw == 5:
-                    sortwindslist.insert(0,(str(time_sw5) + " hr MOS", "Displayed"))
-                if toggle_sw == 6:
-                    sortwindslist.insert(0,(str(time_sw6) + " hr MOS", "Displayed"))
-                if toggle_sw == 7:
-                    sortwindslist.insert(0,(str(time_sw7) + " hr MOS", "Displayed"))
-                if toggle_sw == 8:
-                    sortwindslist.insert(0,(str(time_sw8) + " hr MOS", "Displayed"))
-                if toggle_sw == 9:
-                    sortwindslist.insert(0,(str(time_sw9) + " hr MOS", "Displayed"))
-                if toggle_sw == 10:
-                    sortwindslist.insert(0,(str(time_sw10) + " hr MOS", "Displayed"))
-                if toggle_sw == 11:
-                    sortwindslist.insert(0,(str(time_sw11) + " hr MOS", "Displayed"))
-                if toggle_sw == 12:
-                    sortwindslist.insert(0,(str(time_sw0) + " hr MOS", "Displayed"))
+        elif metar_taf_mos == 2:                #MOS hour_to_display
+            if toggle_sw == 0:
+                sortwindslist.insert(0,(str(time_sw0) + " hr MOS", "Displayed"))
+            if toggle_sw == 1:
+                sortwindslist.insert(0,(str(time_sw1) + " hr MOS", "Displayed"))
+            if toggle_sw == 2:
+                sortwindslist.insert(0,(str(time_sw2) + " hr MOS", "Displayed"))
+            if toggle_sw == 3:
+                sortwindslist.insert(0,(str(time_sw3) + " hr MOS", "Displayed"))
+            if toggle_sw == 4:
+                sortwindslist.insert(0,(str(time_sw4) + " hr MOS", "Displayed"))
+            if toggle_sw == 5:
+                sortwindslist.insert(0,(str(time_sw5) + " hr MOS", "Displayed"))
+            if toggle_sw == 6:
+                sortwindslist.insert(0,(str(time_sw6) + " hr MOS", "Displayed"))
+            if toggle_sw == 7:
+                sortwindslist.insert(0,(str(time_sw7) + " hr MOS", "Displayed"))
+            if toggle_sw == 8:
+                sortwindslist.insert(0,(str(time_sw8) + " hr MOS", "Displayed"))
+            if toggle_sw == 9:
+                sortwindslist.insert(0,(str(time_sw9) + " hr MOS", "Displayed"))
+            if toggle_sw == 10:
+                sortwindslist.insert(0,(str(time_sw10) + " hr MOS", "Displayed"))
+            if toggle_sw == 11:
+                sortwindslist.insert(0,(str(time_sw11) + " hr MOS", "Displayed"))
+            if toggle_sw == 12:
+                sortwindslist.insert(0,(str(time_sw0) + " hr MOS", "Displayed"))
 
         #Display welcome message via OLED displays if 'usewelcome = 1'
         if usewelcome and toggle_sw != -1:      #if toggle_sw == -1 then this script just started. Suppress welcome message for now
@@ -1702,7 +1696,7 @@ while True:
                 dir = wnddirdict.get(ap)        #get wind direction by airport
                 gust = wndgustdict.get(ap)      #get wind gust by airport - Mez
 
-                if dir is None:
+                if dir == None:
                     dir = 361
 
                 logger.debug(str(ch) + ' ' + str(ap) + ' ' + str(dir) + ' ' + str(wnd) + ' ' + str(gust) + ' ' + str(dir)) #debug
@@ -1716,13 +1710,11 @@ while True:
 
                 oledcenter(val, ch, font, dir, dimming, toggle, 0) #send airport and winds to proper oled display
 
-            # %%%  shift list 1 position then redisplay. Creates scrolling effect.
-            if scrolldis == 1:                  #Determine if display should scroll right=1 or left=0
+            #shift list 1 position then redisplay. Creates scrolling effect.
+            if scrolldis:                       #Determine if display should scroll right=1 or left=0
                 sortwindslist = (sortwindslist[-1:] + sortwindslist[:-1]) #From; https://www.geeksforgeeks.org/python-program-right-rotate-list-n/
-            if scrolldis == 0:
-                sortwindslist = (sortwindslist[1:] + sortwindslist[:1])
             else:
-                pass                            # If any other value other than 1 or 0 then don't scroll.
+                sortwindslist = (sortwindslist[1:] + sortwindslist[:1])
 
             time.sleep(oledpause)               #pause between scroll effect
 

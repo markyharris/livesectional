@@ -1,5 +1,6 @@
 # webapp.py - v4, by Mark Harris. Web Based Configurator for LiveSectional - Using Flask and Python
-#     Updated to work with Python 3
+#     Updated to work with New FAA API: 10-2023. Thank you to user Marty for all the hardwork.
+#     Updated to work with Python 3 
 #     3 editors for Config.py, Airports, and Heat Map.
 #     This version includes color picker
 #     This version adds ability to TAB between airport textboxes.
@@ -69,7 +70,7 @@ version = admin.version          # Software version
 loglevel = config.loglevel
 loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
 logzero.loglevel(loglevels[loglevel])  # Choices in order; DEBUG, INFO, WARNING, ERROR
-logzero.logfile("/NeoSectional/logfile.log", maxBytes=1e6, backupCount=1)
+logzero.logfile("/NeoSectional/logfile.log", maxBytes=1e6, backupCount=3)
 logger.info("\n\nStartup of metar-v4.py Script, Version " + version)
 logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 
@@ -114,19 +115,19 @@ update_vers = "4.000"                           # initiate variable
 
 # Used to capture staton information for airport id decode for tooltip display in web pages.
 apinfo_dict = {}
-#!!! orig_apurl = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString="
-orig_apurl = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString="
+#orig_apurl = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString="
+orig_apurl = "https://aviationweather.gov/api/data/stationinfo?format=xml&ids="
 logger.debug(orig_apurl)
 
 #Used to display weather and airport locations on a map
 led_map_dict = {}
-#!!! led_map_url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=json&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString="
-led_map_url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString="
-
+#led_map_url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=json&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString="
+#led_map_url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString="
+led_map_url = "https://aviationweather.gov/api/data/metar?format=xml&hours=2.5&ids="
 logger.debug(led_map_url)
 
 # LED strip configuration:
-LED_COUNT      = config.LED_COUNT #500            # Max Number of LED pixels.
+LED_COUNT      = 500            # Max Number of LED pixels.
 LED_PIN        = 18             # GPIO pin connected to the pixels (18 uses PWM!).
 LED_FREQ_HZ    = 800000         # LED signal frequency in hertz (usually 800khz)
 LED_DMA        = 5              # DMA channel to use for generating signal (try 5)
@@ -887,21 +888,14 @@ def ledonoff():
     global ipaddresses
     global timestr
 
-    try: # if necessary, re-establish an instance for 'strip'
-        strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL, LED_STRIP)
-        # Intialize the library (must be called once before other functions).
-        strip.begin()
-    except:
-        pass
-
-
-    for i in range(len(airports)): #range(strip.numPixels()):
+    for i in range(strip.numPixels()):
         strip.setPixelColor(i, Color(0,0,0))
     strip.show()
 
     if request.method == "POST":
+
         readairports(airports_file)
-        
+
         if "buton" in request.form:
             num = int(request.form['lednum'])
             logger.info("LED " + str(num) + " On")
@@ -966,21 +960,15 @@ def ledonoff():
             logger.info("LED Edited")
             num = int(request.form['lednum'])
             flash('LED ' + str(num) + ' Edited')
-            
-#        print("<><><><><><><><><><><><><><><><><><><><>") # debug
-#        print(strip.numPixels()) # debug
 
-    time.sleep(.1) # short delay to give LED's a chance. 
-    
     templateData = {
-            'title': 'Airports Editor-'+version,
+            'title': 'Airports File Editor-'+version,
             'airports': airports,
             'ipadd': ipadd,
             'strip': strip,
             'ipaddresses': ipaddresses,
             'timestr': timestr,
             'num': num,
-            'current_timezone': current_timezone,
             'update_available': update_available,
             'update_vers': update_vers,
             'apinfo_dict': apinfo_dict,

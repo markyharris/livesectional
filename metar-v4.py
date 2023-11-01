@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 #metar-v4.py - by Mark Harris. Capable of displaying METAR data, TAF or MOS data. Using a rotary switch to select 1 of 12 positions
+#    Updated to work with New FAA API: 10-2023. Thank you to user Marty for all the hardwork.
 #    Updated to run under Python 3.7
 #    Added Sleep Timer routine to turn-off map at night if desired.
 #    Added the ability to display TAF or MOS data along with METAR's
@@ -25,7 +26,6 @@
 #    Added routine to check time and reboot each night if setting in admin.py are set accordingly.
 #    Fixed bug that missed lowest sky_condition altitude on METARs not reporting flight categories.
 #    Thank you Daniel from pilotmap.co for the change the routine that handles maps with more than 300 airports.
-#    Added ability to have multiple home airports displayed. See %%% for lines associated with this addition. List airports as a list in 'admin.py'
 
 #This version retains the features included in metar-v3.py, including hi-wind blinking and lightning when thunderstorms are reported.
 #However, this version adds representations for snow, rain, freezing rain, dust sand ash, and fog when reported in the metar.
@@ -40,7 +40,7 @@
 #Hardware features are further explained on this site as well. However, this software allows for a power-on/update weather switch,
 #and Power-off/Reboot switch. The use of a display is handled by metar-display.py and not this script.
 
-#Flight Category Definitions. (https://www.aviationweather.gov/taf/help?page=plot)
+#Flight Category Definitions. (https://aviationweather-cprk.ncep.noaa.gov/taf/help?page=plot)
 #+--------------------------------------+---------------+-------------------------------+-------+----------------------------+
 #|Category                              |Color          |Ceiling                        |       |Visibility                  |
 #|--------------------------------------+---------------+-------------------------------+-------+----------------------------+
@@ -101,7 +101,7 @@ version = admin.version                 #Software version
 loglevel = 1#config.loglevel
 loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
 logzero.loglevel(loglevels[loglevel])   #Choices in order; DEBUG, INFO, WARNING, ERROR
-logzero.logfile("/NeoSectional/logfile.log", maxBytes=1e6, backupCount=1)
+logzero.logfile("/NeoSectional/logfile.log", maxBytes=1e6, backupCount=3)
 logger.info("\n\nStartup of metar-v4.py Script, Version " + version)
 logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 
@@ -257,7 +257,7 @@ cycle5_wait = .5
 
 #List of METAR weather categories to designate weather in area. Many Metars will report multiple conditions, i.e. '-RA BR'.
 #The code pulls the first/main weather reported to compare against the lists below. In this example it uses the '-RA' and ignores the 'BR'.
-#See https://www.aviationweather.gov/metar/symbol for descriptions. Add or subtract codes as desired.
+#See https://aviationweather-cprk.ncep.noaa.gov/metar/symbol for descriptions. Add or subtract codes as desired.
 #Thunderstorm and lightning
 wx_lghtn_ck = ["TS", "TSRA", "TSGR", "+TSRA", "TSRG", "FC", "SQ", "VCTS", "VCTSRA", "VCTSDZ", "LTG"]
 #Snow in various forms
@@ -341,7 +341,6 @@ black = color_black                     #(0,0,0)
 
 # Misc Settings
 ambient_toggle = 0                      # Toggle used for logging when ambient sensor changes from bright to dim.
-home_pos = 0                            #  %%% Used to initiate counter for homeport_pin for multiple home airports
 
 logger.info("metar-v4.py Settings Loaded")
 
@@ -573,14 +572,14 @@ while (outerloop):
     #depending on what data is to be displayed, either use an URL for METARs and TAFs or read file from drive (pass).
     if metar_taf_mos == 1: #Check to see if the script should display TAF data (0), METAR data (1) or MOS data (2)
         #Define URL to get weather METARS. If no METAR reported withing the last 2.5 hours, Airport LED will be white (nowx).
-#!!!        url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
-        url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
+        #url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
+        url = "https://aviationweather.gov/api/data/metar?format=xml&hours=" +str(metar_age)+ "&ids="
         logger.info("METAR Data Loading")
- 
+
     elif metar_taf_mos == 0:
         #Define URL to get weather URL for TAF. If no TAF reported for an airport, the Airport LED will be white (nowx).
-#!!!        url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=tafs&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
-        url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=tafs&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
+        #url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=tafs&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
+        url = "https://aviationweather.gov/api/data/taf?format=xml&hours=" +str(metar_age)+ "&ids="
         logger.info("TAF Data Loading")
 
     elif metar_taf_mos == 2: #MOS data is not accessible in the same way as METARs and TAF's. A large file is downloaded by crontab everyday that gets read.
@@ -594,7 +593,7 @@ while (outerloop):
     #Build URL to submit to FAA with the proper airports from the airports file for METARs and TAF's but not MOS data
     # Thank you Daniel from pilotmap.co for the change to this routine that handles maps with more than 300 airports.
     if metar_taf_mos != 2 and metar_taf_mos != 3:
-        contentStart = ['<response xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:noNamespaceSchemaLocation="http://www.aviationweather.gov/static/adds/schema/metar1_2.xsd">']
+        contentStart = ['<response xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:noNamespaceSchemaLocation="https://aviationweather.gov/data/schema/metar1_3.xsd">']
         content = []
         chunk = 0;
         stationList = ''
@@ -603,6 +602,7 @@ while (outerloop):
              continue
           stationList += airportcode + ','
           chunk += 1
+          #logger.info('Chunk size: ' + str(chunk))
           if(chunk >= 300):
              stationList = stationList[:-1] #strip trailing comma from string
 
@@ -611,7 +611,7 @@ while (outerloop):
               s.connect(("8.8.8.8", 80))
               ipadd = s.getsockname()[0] #get IP Address
               logger.info('RPI IP Address = ' + ipadd) #log IP address when ever FAA weather update is retreived.
-
+              logger.info('API URL Chunk: ' + url + stationList)
               result = ''
               try:
                 result = urllib.request.urlopen(url + stationList).read()
@@ -645,7 +645,7 @@ while (outerloop):
             s.connect(("8.8.8.8", 80))
             ipadd = s.getsockname()[0] #get IP Address
             logger.info('RPI IP Address = ' + ipadd) #log IP address when ever FAA weather update is retreived.
-
+            logger.info('API URL No chunk: ' + url)
             try:
                 result = urllib.request.urlopen(url).read()
                 logger.info('Internet Available')
@@ -1024,9 +1024,9 @@ while (outerloop):
 
                 #Connect the information from MOS to the board
                 stationId = airport
- 
+
                 #grab wind speeds from returned MOS data
-                if wsp is None: #if wind speed is blank, then bypass
+                if wsp == None: #if wind speed is blank, then bypass
                     windspeedkt = 0
                 elif wsp == '99': #Check to see if MOS data is not reporting windspeed for this airport
                     windspeedkt = 0
@@ -1145,7 +1145,7 @@ while (outerloop):
                     if flightcategory != "LIFR": #if it's LIFR due to cloud layer, no reason to check any other things that can set flight category.
                         if forecast.find('visibility_statute_mi') is not None: #check XML if visibility value exists
                             visibility_statute_mi = forecast.find('visibility_statute_mi').text   #get visibility number
-                            visibility_statute_mi = float(visibility_statute_mi)
+                            visibility_statute_mi = float(visibility_statute_mi.strip('+'))
                             logger.debug(visibility_statute_mi)
 
                             if visibility_statute_mi < 1.0:
@@ -1264,7 +1264,7 @@ while (outerloop):
                 if flightcategory != "LIFR": #if it's LIFR due to cloud layer, no reason to check any other things that can set flight category.
                     if metar.find('./forecast/visibility_statute_mi') is not None: #check XML if visibility value exists
                         visibility_statute_mi = metar.find('./forecast/visibility_statute_mi').text   #get visibility number
-                        visibility_statute_mi = float(visibility_statute_mi)
+                        visibility_statute_mi = float(visibility_statute_mi.strip('+'))
 
                         if visibility_statute_mi < 1.0:
                             flightcategory = "LIFR"
@@ -1497,7 +1497,7 @@ while (outerloop):
             print(" " + str(cycle_num), end = '')
             sys.stdout.flush()
 
-            i = 0 #Inner Loop. Increments through each LED in the strip, setting the appropriate color to each individual LED.
+            i = 0 #Inner Loop. Increments through each LED in the strip setting the appropriate color to each individual LED.
             for airportcode in airports:
 
                 flightcategory = stationiddict.get(airportcode,"NONE") #Pull the next flight category from dictionary.
@@ -1671,44 +1671,26 @@ while (outerloop):
                             color = color_fog2
 
                 #If homeport is set to 1 then turn on the appropriate LED using a specific color, This will toggle
-                #so that every other time through, the color will display the proper weather, then homeport color(s).                           
+                #so that every other time through, the color will display the proper weather, then homeport color(s).
                 if i == homeport_pin and homeport and toggle:
-                                        
-                    #  %%%  Multi Home facilities check. List airports as a list in 'admin.py'
-                    if len(admin.mult_homes) > 0: # check for multiple home airports in 'admin.py'
-                        homeport_pin = int(admin.mult_homes[home_pos])
-    #                    print("----> HOMEPORT PIN:",homeport_pin) # debug
-                        home_pos += 1
-                        if home_pos == len(admin.mult_homes):
-                            home_pos = 0
-
                     if homeport_display == 1:
                         color = homeport_colors[cycle_num]
                     elif homeport_display == 2:
                         pass
                     else:
                         color = color_homeport
-                    
-                    # Change brightness for other than home airports
-                    xcolor = rgbtogrb(i, color, rgb_grb) #pass pin, color and format. Check and change color code for RGB or GRB format
+
+                xcolor = rgbtogrb(i, color, rgb_grb) #pass pin, color and format. Check and change color code for RGB or GRB format
+
+                if i == homeport_pin and homeport: #if this is the home airport, don't dim out the brightness
                     norm_color = xcolor
                     xcolor = Color(norm_color[0], norm_color[1], norm_color[2])
-
-                        
-                else:
-                    # Change brightness if only one home airport        
-                    xcolor = rgbtogrb(i, color, rgb_grb) #pass pin, color and format. Check and change color code for RGB or GRB format
-
-                    if i == homeport_pin and homeport: #if this is the home airport, don't dim out the brightness
-                        norm_color = xcolor
-                        xcolor = Color(norm_color[0], norm_color[1], norm_color[2])
-                    elif homeport: #if this is not the home airport, dim out the brightness
-                        dim_color = dim(xcolor,dim_value)
-                        xcolor = Color(int(dim_color[0]), int(dim_color[1]), int(dim_color[2]))
-                    else: #if home airport feature is disabled, then don't dim out any airports brightness
-                        norm_color = xcolor
-                        xcolor = Color(norm_color[0], norm_color[1], norm_color[2])
-
+                elif homeport: #if this is not the home airport, dim out the brightness
+                    dim_color = dim(xcolor,dim_value)
+                    xcolor = Color(int(dim_color[0]), int(dim_color[1]), int(dim_color[2]))
+                else: #if home airport feature is disabled, then don't dim out any airports brightness
+                    norm_color = xcolor
+                    xcolor = Color(norm_color[0], norm_color[1], norm_color[2])
 
                 strip.setPixelColor(i, xcolor) #set color to display on a specific LED for the current cycle_num cycle.
                 i = i + 1 #set next LED pin in strip

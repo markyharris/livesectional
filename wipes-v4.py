@@ -1,4 +1,5 @@
 #wipes-v4.py - by Mark Harris.
+#    Updated to work with New FAA API: 10-2023. Thank you to user Marty for all the hardwork.
 #    Updated to work with Python 3.7
 #    Custom wipes using airport's lat/lon so any map should be able to utilize these custom wipes.
 #    This is run from metar-v4.py if builder would like to use a wipe when weather is updated
@@ -38,7 +39,7 @@ version = admin.version                         #Software version
 loglevel = config.loglevel
 loglevels = [logging.DEBUG, logging.INFO, logging.WARNING, logging.ERROR]
 logzero.loglevel(loglevels[loglevel])           #Choices in order; DEBUG, INFO, WARNING, ERROR
-logzero.logfile("/NeoSectional/logfile.log", maxBytes=1e6, backupCount=1)
+logzero.logfile("/NeoSectional/logfile.log", maxBytes=1e6, backupCount=3)
 logger.info("\n\nStartup of wipes-v4.py Script, Version " + version)
 logger.info("Log Level Set To: " + str(loglevels[loglevel]))
 
@@ -666,8 +667,8 @@ if __name__ == '__main__':
     airports = [x.strip() for x in airports]
 
     #Define URL to get weather METARS. This will pull only the latest METAR from the last 2.5 hours. If no METAR reported withing the last 2.5 hours, Airport LED will be white.
-#!!!    url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
-    url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
+    #url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
+    url = "https://aviationweather.gov/api/data/metar?format=xml&hours=" +str(metar_age)+ "&ids="
 #    logger.debug(url)
 
     #Build URL to submit to FAA with the proper airports from the airports file and populate the pindict dictionary
@@ -675,7 +676,7 @@ if __name__ == '__main__':
     i = 0
     nullpins = []
 
-    contentStart = ['<response xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:noNamespaceSchemaLocation="http://www.aviationweather.gov/static/adds/schema/metar1_2.xsd">']
+    contentStart = ['<response xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:noNamespaceSchemaLocation="http://aviationweather-cprk.ncep.noaa.gov/static/adds/schema/metar1_2.xsd">']
     content = []
     chunk = 0;
     stationList = ''
