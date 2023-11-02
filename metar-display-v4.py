@@ -1066,6 +1066,8 @@ while True:
             #grab wind direction from returned FAA data
             if metar.find('wind_dir_degrees') is None: #if wind speed is blank, then bypass
                 winddirdegree = 0
+            elif metar.find('wind_dir_degrees').text == 'VRB':
+                winddirdegree = 0
             else:
                 winddirdegree = int(metar.find('wind_dir_degrees').text)
 
