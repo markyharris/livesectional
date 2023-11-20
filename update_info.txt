@@ -1,4 +1,14 @@
-VERSION 4.400
+Version 4.501
+11-20-2023
+This version starts the use of the new FAA API, https://aviationweather.gov/data/api/#/Dataserver/dataserverMetars
+This API provides more than the last reported, and therefore takes a tiny bit more time filtering out the older
+METAR's. So depending on the number of airports, this may or may not be noticable. 
+The following files have been modified to reflect the backup legacy API URL;
+  wipes-v4.py
+  metar-v4.py
+Much thanks to Livesectional user Marty for his time and expertise.
+
+Version 4.400
 10-19-2023
 FAA API was decommissioned causing all maps to stop displaying data. This image
 encorporates a temporary fix using another legacy API until the new API can be coded for.

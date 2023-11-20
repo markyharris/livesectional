@@ -569,10 +569,12 @@ while (outerloop):
     airports = [x.strip() for x in airports]
     logger.info('Airports File Loaded')
 
-    #depending on what data is to be displayed, either use an URL for METARs and TAFs or read file from drive (pass).
+    # depending on what data is to be displayed, either use an URL for METARs and TAFs or read file from drive (pass).
     if metar_taf_mos == 1: #Check to see if the script should display TAF data (0), METAR data (1) or MOS data (2)
-        #Define URL to get weather METARS. If no METAR reported withing the last 2.5 hours, Airport LED will be white (nowx).
-        #url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
+        # Define URL to get weather METARS. If no METAR reported withing the last 2.5 hours, Airport LED will be white (nowx).
+        # first 'url' is commented out but can be used as a backup to the new FAA API if an issue 
+        # url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
+        # NEW FAA API URL
         url = "https://aviationweather.gov/api/data/metar?format=xml&hours=" +str(metar_age)+ "&ids="
         logger.info("METAR Data Loading")
 
@@ -616,7 +618,7 @@ while (outerloop):
               try:
                 result = urllib.request.urlopen(url + stationList).read()
                 r = result.decode('UTF-8').splitlines()
-                xmlStr = r[8:len(r)-2]
+                xmlStr = r[8:len(r)-1] ##! 2] FAA API UPDATE
                 content.extend(xmlStr)
                 c = ['<x>']
                 c.extend(content)
@@ -651,7 +653,7 @@ while (outerloop):
                 logger.info('Internet Available')
                 logger.info(url)
                 r = result.decode('UTF-8').splitlines()
-                xmlStr = r[8:len(r)-2]
+                xmlStr = r[8:len(r)-1] ##! 2] FAA API UPDATE
                 content.extend(xmlStr)
                 c = ['<x>']
                 c.extend(content)

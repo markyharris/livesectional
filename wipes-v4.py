@@ -666,8 +666,10 @@ if __name__ == '__main__':
         airports = f.readlines()
     airports = [x.strip() for x in airports]
 
-    #Define URL to get weather METARS. This will pull only the latest METAR from the last 2.5 hours. If no METAR reported withing the last 2.5 hours, Airport LED will be white.
-    #url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
+    # Define URL to get weather METARS. This will pull only the latest METAR from the last 2.5 hours. If no METAR reported withing the last 2.5 hours, Airport LED will be white.
+    # first 'url' is commented out but can be used as a backup to the new FAA API if an issue 
+    # url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
+    # NEW FAA API URL
     url = "https://aviationweather.gov/api/data/metar?format=xml&hours=" +str(metar_age)+ "&ids="
 #    logger.debug(url)
 
@@ -695,7 +697,7 @@ if __name__ == '__main__':
            try:
               result = urllib.request.urlopen(url + stationList).read()
               r = result.decode('UTF-8').splitlines()
-              xmlStr = r[8:len(r)-2]
+              xmlStr = r[8:len(r)-1] ##! 2] FAA API UPDATE
               print('\n', xmlStr[0:2], xmlStr[-1])
               content.extend(xmlStr)
               c = ['<x>']
@@ -726,7 +728,7 @@ if __name__ == '__main__':
             logger.info('Internet Available')
             logger.info(url)
             r = result.decode('UTF-8').splitlines()
-            xmlStr = r[8:len(r)-2]
+            xmlStr = r[8:len(r)-1] ##! 2] FAA API UPDATE 
             content.extend(xmlStr)
             c = ['<x>']
             c.extend(content)
@@ -737,7 +739,7 @@ if __name__ == '__main__':
             logger.warning(url)
             time.sleep(delay_time)
             pass
-
+ 
     c = ['<x>']
     c.extend(content)
     root = ET.fromstringlist(c + ['</x>'])
