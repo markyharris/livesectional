@@ -1212,7 +1212,7 @@ while (outerloop):
 
         ### METAR Decode Routine to create flight category via cloud cover and/or visability when flight category is not reported.
         # Routine contributed to project by Nick Cirincione. Thank you for your contribution.
-            if metar.find('flight_category') is None or metar.find('flight_category') == 'NONE': #if category is blank, then see if there's a sky condition or vis that would dictate flight category
+            if metar.find('flight_category').text is None or metar.find('flight_category').text == 'NONE': #if category is blank, then see if there's a sky condition or vis that would dictate flight category
                 flightcategory = "VFR" #intialize flight category
                 sky_cvr = "SKC" # Initialize to Sky Clear
                 logger.info(stationId + " Not Reporting Flight Category through the API.")

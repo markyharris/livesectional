@@ -1,3 +1,13 @@
+Version 4.502
+4-12-2024
+A bug was found when the FAA data doesn't return a flight category. The script will stop running if this happens.
+The fix is included in this version.
+The following file was updated;
+  metar-v4.py
+  admin.py
+  update_version.text
+Thanks to Cookblock for pointing the error out.
+
 Version 4.501
 11-20-2023
 This version starts the use of the new FAA API, https://aviationweather.gov/data/api/#/Dataserver/dataserverMetars
@@ -6,6 +16,8 @@ METAR's. So depending on the number of airports, this may or may not be noticabl
 The following files have been modified to reflect the backup legacy API URL;
   wipes-v4.py
   metar-v4.py
+  admin.py
+  update_version.text
 Much thanks to Livesectional user Marty for his time and expertise.
 
 Version 4.400
@@ -17,7 +29,8 @@ The following files have been modified to reflect the backup legacy API URL;
   metar-v4.py
   metar-display-v4.py
   webapp.py
-admin.py has changed the version number to 4.400
+  admin.py
+  update_version.text
 
 Version 4.382 
 3-20-2023
@@ -31,7 +44,10 @@ Files Updated: confedit.html, apedit.html, metar-display-v4.py, metar-v4.py, adm
 Version 4.381
 7-29-2022
 Fixed internet check loop on startup to quit script after 10 attempts.
-Files Updated: webapp.py
+Files Updated: 
+  webapp.py
+  admin.py
+  update_version.text
 
 Version 4.380
 6-25-2022
