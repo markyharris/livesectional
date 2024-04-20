@@ -96,6 +96,9 @@ import admin
 import mos
 import colors
 
+# Set default socket timeout to prevent hang when Internet connection drops
+socket.setdefaulttimeout(30)
+
 # Setup rotating logfile with 3 rotations, each with a maximum filesize of 1MB:
 version = admin.version                 #Software version
 loglevel = config.loglevel
@@ -543,7 +546,7 @@ while (outerloop):
             logger.info('RPI IP Address = ' + ipadd) #log IP address when ever FAA weather update is retreived.
 
             try:
-                content = urllib.request.urlopen(url).read()
+                content = urllib.request.urlopen(url, timeout=30 ).read()
                 logger.info('Internet Available')
                 logger.info(url)
                 break
@@ -1077,8 +1080,9 @@ while (outerloop):
                 logger.debug(stationId + " flight category is Decode script-determined as " + flightcategory)
 
             else:
-                logger.debug(stationId + ': FAA is reporting '+metar.find('flight_category').text + ' through their API')
-                flightcategory = metar.find('flight_category').text  #pull flight category if it exists and save all the algoritm above
+                if metar.find('flight_category').text:
+                    logger.debug(stationId + ': FAA is reporting '+metar.find('flight_category').text + ' through their API')
+                    flightcategory = metar.find('flight_category').text  #pull flight category if it exists and save all the algoritm above
             ### End of METAR Decode added routine to create flight category via cloud cover and/or visability when flight category is not reported.
 
 
