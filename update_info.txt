@@ -1,3 +1,12 @@
+Version 4.503
+4-26-2024
+Added timeout feature for internet call using urlib. Should eliminate hangups when internet is unavailable.
+The following file was updated;
+  metar-v4.py
+  admin.py
+  update_version.text
+Thanks for Eric B
+
 Version 4.502
 4-12-2024
 A bug was found when the FAA data doesn't return a flight category. The script will stop running if this happens.
@@ -6,7 +15,7 @@ The following file was updated;
   metar-v4.py
   admin.py
   update_version.text
-Thanks to Cookblock for pointing the error out.
+Thanks to Cookblook for pointing the error out.
 
 Version 4.501
 11-20-2023

@@ -26,6 +26,7 @@
 #    Added routine to check time and reboot each night if setting in admin.py are set accordingly.
 #    Fixed bug that missed lowest sky_condition altitude on METARs not reporting flight categories.
 #    Thank you Daniel from pilotmap.co for the change the routine that handles maps with more than 300 airports.
+#    Added timeout feature to urlib call - Thanks Eric B
 
 #This version retains the features included in metar-v3.py, including hi-wind blinking and lightning when thunderstorms are reported.
 #However, this version adds representations for snow, rain, freezing rain, dust sand ash, and fog when reported in the metar.
@@ -616,7 +617,7 @@ while (outerloop):
               logger.info('API URL Chunk: ' + url + stationList)
               result = ''
               try:
-                result = urllib.request.urlopen(url + stationList).read()
+                result = urllib.request.urlopen(url + stationList, timeout=30).read() # Added timeout feature - Eric B
                 r = result.decode('UTF-8').splitlines()
                 xmlStr = r[8:len(r)-1] ##! 2] FAA API UPDATE
                 content.extend(xmlStr)
@@ -649,7 +650,7 @@ while (outerloop):
             logger.info('RPI IP Address = ' + ipadd) #log IP address when ever FAA weather update is retreived.
             logger.info('API URL No chunk: ' + url)
             try:
-                result = urllib.request.urlopen(url).read()
+                result = urllib.request.urlopen(url, timeout=30).read() # Added timeout feature - Eric B
                 logger.info('Internet Available')
                 logger.info(url)
                 r = result.decode('UTF-8').splitlines()
