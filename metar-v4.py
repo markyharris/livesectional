@@ -96,7 +96,7 @@ import logzero #had to manually install logzero. https://logzero.readthedocs.io/
 from logzero import logger
 import config #Config.py holds user settings used by the various scripts
 import admin
-
+import mos
 # Setup rotating logfile with 3 rotations, each with a maximum filesize of 1MB:
 version = admin.version                 #Software version
 loglevel = 1#config.loglevel
@@ -325,11 +325,8 @@ temp_lights_on = 0                      #Set flag for next round if sleep timer 
 
 #MOS Data Settings
 mos_filepath = '/NeoSectional/GFSMAV'      #location of the downloaded local MOS file.
-categories = ['HR', 'CLD', 'WDR', 'WSP', 'P06', 'T06', 'POZ', 'POS', 'TYP', 'CIG','VIS','OBV']
 obv_wx = {'N': 'None', 'HZ': 'HZ','BR': 'RA','FG': 'FG','BL': 'HZ'} #Decode from MOS to TAF/METAR
 typ_wx = {'S': 'SN','Z': 'FZRA','R': 'RA'}      #Decode from MOS to TAF/METAR
-mos_dict = collections.OrderedDict()    #Outer Dictionary, keyed by airport ID
-hour_dict = collections.OrderedDict()   #Middle Dictionary, keyed by hour of forcast. Will contain a list of data for categories.
 ap_flag = 0                             #Used to determine that an airport from our airports file is currently being read.
 
 #Used by Heat Map. Do not change - assumed by routines below.
@@ -413,87 +410,6 @@ def time_in_range(start, end, x):
     else:
         return start <= x or x <= end
 
-#Used by MOS decode routine. This routine builds mos_dict nested with hours_dict
-def set_data():
-    global hour_dict
-    global mos_dict
-    global dat0, dat1, dat2, dat3, dat4, dat5, dat6, dat7
-    global apid
-    global temp
-    global keys
-
-    #Clean up line of MOS data.
-    if len(temp) >= 0: #this check is unneeded. Put here to vary length of list to clean up.
-        temp1 = []
-        tmp_sw = 0
-
-        for val in temp: #Check each item in the list
-            val = val.lstrip() #remove leading white space
-            val = val.rstrip('/') #remove trailing /
-
-            if len(val) == 6: #this is for T06 to build appropriate length list
-                temp1.append('0') #add a '0' to the front of the list. T06 doesn't report data in first 3 hours.
-                temp1.append(val) #add back the original value taken from T06
-                tmp_sw = 1 #Turn on switch so we don't go through it again.
-
-            elif len(val) > 2 and tmp_sw == 0: # and tmp_sw == 0: #if item is 1 or 2 chars long, then bypass. Otherwise fix.
-                pos = val.find('100') #locate first 100
-                tmp = val[0:pos] #capture the first value which is not a 100
-                temp1.append(tmp) #and store it in temp list.
-
-                k = 0
-                for j in range(pos, len(val), 3): #now iterate through remainder
-                    temp1.append(val[j:j+3]) #and capture all the 100's
-                    k += 1
-            else:
-                temp1.append(val) #Store the normal values too.
-
-        temp = temp1
-
-    #load data into appropriate lists by hours designated by current MOS file
-    #clean up data by removing '/' and spaces
-    temp0 = ([x.strip() for x in temp[0].split('/')])
-    temp1 = ([x.strip() for x in temp[1].split('/')])
-    temp2 = ([x.strip() for x in temp[2].split('/')])
-    temp3 = ([x.strip() for x in temp[3].split('/')])
-    temp4 = ([x.strip() for x in temp[4].split('/')])
-    temp5 = ([x.strip() for x in temp[5].split('/')])
-    temp6 = ([x.strip() for x in temp[6].split('/')])
-    temp7 = ([x.strip() for x in temp[7].split('/')])
-
-    #build a list for each data group. grab 1st element [0] in list to store.
-    dat0.append(temp0[0])
-    dat1.append(temp1[0])
-    dat2.append(temp2[0])
-    dat3.append(temp3[0])
-    dat4.append(temp4[0])
-    dat5.append(temp5[0])
-    dat6.append(temp6[0])
-    dat7.append(temp7[0])
-
-    j = 0
-    for key in keys: #add cat data to the hour_dict by hour
-
-        if j == 0:
-            hour_dict[key] = dat0
-        elif j == 1:
-            hour_dict[key] = dat1
-        elif j == 2:
-            hour_dict[key] = dat2
-        elif j == 3:
-            hour_dict[key] = dat3
-        elif j == 4:
-            hour_dict[key] = dat4
-        elif j == 5:
-            hour_dict[key] = dat5
-        elif j == 6:
-            hour_dict[key] = dat6
-        elif j == 7:
-            hour_dict[key] = dat7
-        j += 1
-
-        mos_dict[apid] = hour_dict #marry the hour_dict to the proper key in mos_dict
-
 #For Heat Map. Based on visits, assign color. Using a 0 to 100 scale where 0 is never visted and 100 is home airport.
 #Can choose to display binary colors with homeap.
 def assign_color(visits):
@@ -546,7 +462,6 @@ while (outerloop):
     #This time is recalculated everytime the FAA data gets updated
     zulu = datetime.utcnow() + timedelta(hours=hour_to_display)     #Get current time plus Offset
     current_zulu = zulu.strftime('%Y-%m-%dT%H:%M:%SZ')              #Format time to match whats reported in TAF. ie. 2020-03-24T18:21:54Z
-    current_hr_zulu = zulu.strftime('%H')                           #Zulu time formated for just the hour, to compare to MOS data
 
     #Dictionary definitions. Need to reset whenever new weather is received
     stationiddict = {}
@@ -848,182 +763,88 @@ while (outerloop):
 
         #The Heat Map routine stays within this limit and won't proceed beyond this point.
 
-    #MOS decode routine
-    #MOS data is downloaded daily from; https://www.weather.gov/mdl/mos_gfsmos_mav to the local drive by crontab scheduling.
-    #Then this routine reads through the entire file looking for those airports that are in the airports file. If airport is
-    #found, the data needed to display the weather for the next 24 hours is captured into mos_dict, which is nested with
-    #hour_dict, which holds the airport's MOS data by 3 hour chunks. See; https://www.weather.gov/mdl/mos_gfsmos_mavcard for
-    #a breakdown of what the MOS data looks like and what each line represents.
     if metar_taf_mos == 2:
         logger.info("Starting MOS Data Display")
-        #Read current MOS text file
-        try:
-            file = open(mos_filepath, 'r')
-            lines = file.readlines()
-        except IOError as error:
-            logger.error('MOS data file could not be loaded.')
-            logger.error(error)
-            break
-
-        for line in lines:      #read the MOS data file line by line0
-            line = str(line)
-
-            #Ignore blank lines of MOS airport
-            if line.startswith('     '):
-                ap_flag = 0
-                continue
-
-            #Check for and grab date of MOS
-            if 'DT /' in line:
-                unused, dt_cat, month, unused, unused, day, unused = line.split(" ",6)
-                continue
-
-            #Check for and grab the Airport ID of the current MOS
-            if 'MOS' in line:
-                unused, apid, mos_date = line.split(" ",2)
-
-                #If this Airport ID is in the airports file then grab all the info needed from this MOS
-                if apid in airports:
-                    ap_flag = 1
-                    cat_counter = 0 #used to determine if a category is being reported in MOS or not. If not, need to inject it.
-                    dat0, dat1, dat2, dat3, dat4, dat5, dat6, dat7 = ([] for i in range(8)) #Clear lists
-                continue
-
-            #If we just found an airport that is in our airports file, then grab the appropriate weather data from it's MOS
-            if ap_flag:
-                xtra, cat, value = line.split(" ",2)    #capture the category the line read represents
-                #Check if the needed categories are being read and if so, grab its data
-                if cat in categories:
-                    cat_counter += 1 #used to check if a category is not in mos report for airport
-                    if cat == 'HR': #hour designation
-                        temp = (re.findall(r'\s?(\s*\S+)', value.rstrip()))     #grab all the hours from line read
-                        for j in range(8):
-                            tmp = temp[j].strip()
-                            hour_dict[tmp] = '' #create hour dictionary based on mos data
-                        keys = list(hour_dict.keys()) #Get the hours which are the keys in this dict, so they can be properly poplulated
-
-                    else:
-                        #Checking for missing lines of data and x out if necessary.
-                        if (cat_counter == 5 and cat != 'P06')\
-                                or (cat_counter == 6 and cat != 'T06')\
-                                or (cat_counter == 7 and cat != 'POZ')\
-                                or (cat_counter == 8 and cat != 'POS')\
-                                or (cat_counter == 9 and cat != 'TYP'):
-
-                            #calculate the number of consecutive missing cats and inject 9's into those positions
-                            a = categories.index(last_cat)+1
-                            b = categories.index(cat)+1
-                            c = b - a - 1
-                            logger.debug(apid,last_cat,cat,a,b,c)
-
-                            for j in range(c):
-                                temp = ['9', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9', '9']
-                                set_data()
-                                cat_counter += 1
-
-                            #Now write the orignal cat data read from the line in the mos file
-                            cat_counter += 1
-                            hour_dict = collections.OrderedDict() #clear out hour_dict for next airport
-                            last_cat = cat
-                            temp = (re.findall(r'\s?(\s*\S+)', value.rstrip())) #add the actual line of data read
-                            set_data()
-                            hour_dict = collections.OrderedDict() #clear out hour_dict for next airport
-
-                        else:
-                            #continue to decode the next category data that was read.
-                            last_cat = cat #store what the last read cat was.
-                            temp = (re.findall(r'\s?(\s*\S+)', value.rstrip()))
-                            set_data()
-                            hour_dict = collections.OrderedDict() #clear out hour_dict for next airport
-
-        #Now grab the data needed to display on map. Key: [airport][hr][j] - using nested dictionaries
-        #   airport = from airport file, 4 character ID. hr = 1 of 8 three-hour periods of time, 00 03 06 09 12 15 18 21
-        #   j = index to weather categories, in this order; 'CLD','WDR','WSP','P06', 'T06', 'POZ', 'POS', 'TYP','CIG','VIS','OBV'.
-        #   See; https://www.weather.gov/mdl/mos_gfsmos_mavcard for description of available data.
+        # Get the MOS data 
+        mos_data = mos.parse(mos_filepath,airports)
         for airport in airports:
-            if airport in mos_dict:
+            if airport in mos_data:
                 logger.debug('\n' + airport) #debug
-                logger.debug(categories) #debug
 
-                mos_time = int(current_hr_zulu) + hour_to_display
-                if mos_time >= 24: #check for reset at 00z
-                    mos_time = mos_time - 24
+                mos_time = zulu
+                mos_hour = mos_time.strftime('%H')
+                # MOS Data exists in three hour increments 
+                # Adjust mos_time up to closest matching HR in the data
+                while ( not ( mos_hour in [ '21','18','15','12','09','06','03','00'] )):
+                    mos_time = mos_time + timedelta(hours=1)
+                    mos_hour = mos_time.strftime('%H')
+                
+                # mos_time_str can be used to get data for a speific time
+                mos_time_str = mos_time.strftime('%Y%m%d%H')
 
-                for hr in keys:
-                    if int(hr) <= mos_time <= int(hr)+2.99:
+                cld = (mos_data[airport][mos_time_str]["CLD"])
+                wdr = (mos_data[airport][mos_time_str]["WDR"])
+                wsp = (mos_data[airport][mos_time_str]["WSP"])
+                p06 = (mos_data[airport][mos_time_str]["P06"])
+                t06 = (mos_data[airport][mos_time_str]["T06"])
+                poz = (mos_data[airport][mos_time_str]["POZ"])
+                pos = (mos_data[airport][mos_time_str]["POS"])
+                typ = (mos_data[airport][mos_time_str]["TYP"])
+                cig = (mos_data[airport][mos_time_str]["CIG"])
+                vis = (mos_data[airport][mos_time_str]["VIS"])
+                obv = (mos_data[airport][mos_time_str]["OBV"])
+                tmp = (mos_data[airport][mos_time_str]["TMP"])
+                
+                logger.debug(mos_time_str + str(cld) + str(wdr) + str(wsp) + str(p06) + str(t06) + str(poz) + str(pos) + str(typ) + str(cig) + str(vis) + obv) #debug
 
-                        cld = (mos_dict[airport][hr][0])
-                        wdr = (mos_dict[airport][hr][1]) +'0' #make wind direction end in zero
-                        wsp = (mos_dict[airport][hr][2])
-                        p06 = (mos_dict[airport][hr][3])
-                        t06 = (mos_dict[airport][hr][4])
-                        poz = (mos_dict[airport][hr][5])
-                        pos = (mos_dict[airport][hr][6])
-                        typ = (mos_dict[airport][hr][7])
-                        cig = (mos_dict[airport][hr][8])
-                        vis = (mos_dict[airport][hr][9])
-                        obv = (mos_dict[airport][hr][10])
+                #decode the weather for each airport to display on the livesectional map
+                flightcategory = "VFR" #start with VFR as the assumption
+                if cld in ("OV","BK"): #If the layer is OVC, BKN, set Flight category based on height of layer
 
-                        logger.debug(mos_date + hr + cld + wdr + wsp + p06 + t06 + poz + pos + typ + cig + vis + obv) #debug
+                    if cig <= 2: #AGL is less than 500:
+                        flightcategory = "LIFR"
+                    elif cig == 3: #AGL is between 500 and 1000
+                        flightcategory = "IFR"
+                    elif 4 <= cig <= 5: #AGL is between 1000 and 3000:
+                        flightcategory = "MVFR"
+                    elif cig >= 6: #AGL is above 3000
+                        flightcategory = "VFR"
 
-                        #decode the weather for each airport to display on the livesectional map
-                        flightcategory = "VFR" #start with VFR as the assumption
-                        if cld in ("OV","BK"): #If the layer is OVC, BKN, set Flight category based on height of layer
+                #Check visability too.
+                if flightcategory != "LIFR": #if it's LIFR due to cloud layer, no reason to check any other things that can set fl$
+                     if vis <= 2: #vis < 1.0 mile:
+                        flightcategory = "LIFR"
+                     elif 3 <= vis < 4: #1.0 <= vis < 3.0 miles:
+                        flightcategory = "IFR"
+                     elif vis == 5 and flightcategory != "IFR":  #3.0 <= vis <= 5.0 miles
+                        flightcategory = "MVFR"
+                logger.debug(flightcategory + " |"),
+                logger.debug('Windspeed = ' + str(wsp) + ' | Wind dir = ' + str(wdr) + ' |'),
 
-                            if cig <= '2': #AGL is less than 500:
-                                flightcategory = "LIFR"
+                #decode reported weather using probabilities provided.
+                if typ == '9': #check to see if rain, freezing rain or snow is reported. If not use obv weather
+                    wx = obv_wx[obv] #Get proper representation for obv designator
+                else:
+                    wx = typ_wx[typ] #Get proper representation for typ designator
 
-                            elif cig == '3': #AGL is between 500 and 1000
-                                flightcategory = "IFR"
-                            elif '4' <= cig <= '5': #AGL is between 1000 and 3000:
-                                flightcategory = "MVFR"
-
-                            elif cig >= '6': #AGL is above 3000
-                                flightcategory = "VFR"
-
-                        #Check visability too.
-                        if flightcategory != "LIFR": #if it's LIFR due to cloud layer, no reason to check any other things that can set fl$
-
-                            if vis <= '2': #vis < 1.0 mile:
-                                flightcategory = "LIFR"
-
-                            elif '3' <= vis < '4': #1.0 <= vis < 3.0 miles:
-                                flightcategory = "IFR"
-
-                            elif vis == '5' and flightcategory != "IFR":  #3.0 <= vis <= 5.0 miles
-                                flightcategory = "MVFR"
-
-                        logger.debug(flightcategory + " |"),
-                        logger.debug('Windspeed = ' + wsp + ' | Wind dir = ' + wdr + ' |'),
-
-                        #decode reported weather using probabilities provided.
-                        if typ == '9': #check to see if rain, freezing rain or snow is reported. If not use obv weather
-                            wx = obv_wx[obv] #Get proper representation for obv designator
+                    if wx == 'RA' and p06 < prob:
+                        if obv != 'N':
+                            wx = obv_wx[obv]
                         else:
-                            wx = typ_wx[typ] #Get proper representation for typ designator
+                            wx = 'NONE'
 
-                            if wx == 'RA' and int(p06) < prob:
-                                if obv != 'N':
-                                    wx = obv_wx[obv]
-                                else:
-                                    wx = 'NONE'
+                    if wx == 'SN' and pos < prob:
+                        wx = 'NONE'
 
-                            if wx == 'SN' and int(pos) < prob:
-                                wx = 'NONE'
+                    if wx == 'FZRA' and poz < prob:
+                        wx = 'NONE'
 
-                            if wx == 'FZRA' and int(poz) < prob:
-                                wx = 'NONE'
+                    if t06 > prob: #check for thunderstorms
+                        wx = 'TSRA'
+                    else:
+                        wx = 'NONE'
 
-#                            print (t06,apid) #debug
-                            if t06 == '' or t06 is None:
-                                t06 = '0'
-
-                            if int(t06) > prob: #check for thunderstorms
-                                wx = 'TSRA'
-                            else:
-                                wx = 'NONE'
-
-                        logger.debug('Reported Weather = ' + wx)
+                logger.debug('Reported Weather = ' + wx)
 
                 #Connect the information from MOS to the board
                 stationId = airport
@@ -1034,7 +855,7 @@ while (outerloop):
                 elif wsp == '99': #Check to see if MOS data is not reporting windspeed for this airport
                     windspeedkt = 0
                 else:
-                    windspeedkt = int(wsp)
+                    windspeedkt = wsp
 
                 #grab Weather info from returned FAA data
                 if wx is None: #if weather string is blank, then bypass
