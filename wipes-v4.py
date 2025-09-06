@@ -679,7 +679,7 @@ if __name__ == '__main__':
     nullpins = []
 
     contentStart = ['<response xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:noNamespaceSchemaLocation="http://aviationweather-cprk.ncep.noaa.gov/static/adds/schema/metar1_2.xsd">']
-    content = []
+    # content variable no longer needed - parsing XML directly
     chunk = 0;
     stationList = ''
     for airportcode in airports:
@@ -696,13 +696,8 @@ if __name__ == '__main__':
            result = ''
            try:
               result = urllib.request.urlopen(url + stationList).read()
-              r = result.decode('UTF-8').splitlines()
-              xmlStr = r[8:len(r)-1] ##! 2] FAA API UPDATE
-              print('\n', xmlStr[0:2], xmlStr[-1])
-              content.extend(xmlStr)
-              c = ['<x>']
-              c.extend(content)
-              root = ET.fromstringlist(c + ['</x>'])
+              # Parse the complete XML response directly - no line manipulation needed
+              root = ET.fromstring(result.decode('UTF-8'))
               logger.info('Internet Available')
               break
            except Exception as e:
@@ -727,12 +722,8 @@ if __name__ == '__main__':
             result = urllib.request.urlopen(url).read()
             logger.info('Internet Available')
             logger.info(url)
-            r = result.decode('UTF-8').splitlines()
-            xmlStr = r[8:len(r)-1] ##! 2] FAA API UPDATE 
-            content.extend(xmlStr)
-            c = ['<x>']
-            c.extend(content)
-            root = ET.fromstringlist(c + ['</x>'])
+            # Parse the complete XML response directly - no line manipulation needed
+            root = ET.fromstring(result.decode('UTF-8'))
             break
         except:
             logger.warning('FAA Data is Not Available')
@@ -740,12 +731,10 @@ if __name__ == '__main__':
             time.sleep(delay_time)
             pass
  
-    c = ['<x>']
-    c.extend(content)
-    root = ET.fromstringlist(c + ['</x>'])
+    # XML parsing handled in try blocks above
 
     #grab the airport category, wind speed and various weather from the results given from FAA.
-    for metar in root.iter('METAR'):
+    for metar in root.findall('.//METAR'):
         stationId = metar.find('station_id').text
 
         #grab latitude of airport
