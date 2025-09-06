@@ -596,17 +596,18 @@ while (outerloop):
     #Build URL to submit to FAA with the proper airports from the airports file for METARs and TAF's but not MOS data
     # Thank you Daniel from pilotmap.co for the change to this routine that handles maps with more than 300 airports.
     if metar_taf_mos != 2 and metar_taf_mos != 3:
-        contentStart = ['<response xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.2" xsi:noNamespaceSchemaLocation="https://aviationweather.gov/data/schema/metar1_3.xsd">']
-        content = []
-        chunk = 0;
+        # Collect all METAR elements from all API chunks
+        all_metar_elements = []
+        chunk = 0
         stationList = ''
+        
         for airportcode in airports:
           if airportcode == "NULL" or airportcode == "LGND":
              continue
           stationList += airportcode + ','
           chunk += 1
           #logger.info('Chunk size: ' + str(chunk))
-          if(chunk >= 300):
+          if(chunk >= 50):
              stationList = stationList[:-1] #strip trailing comma from string
 
              while True: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
@@ -618,12 +619,12 @@ while (outerloop):
               result = ''
               try:
                 result = urllib.request.urlopen(url + stationList, timeout=30).read() # Added timeout feature - Eric B
-                r = result.decode('UTF-8').splitlines()
-                xmlStr = r[8:len(r)-1] ##! 2] FAA API UPDATE
-                content.extend(xmlStr)
-                c = ['<x>']
-                c.extend(content)
-                root = ET.fromstringlist(c + ['</x>'])
+                # Parse the complete XML response directly - no line manipulation needed
+                chunk_root = ET.fromstring(result.decode('UTF-8'))
+                # Extract METAR elements from this chunk and add to our collection
+                chunk_metars = chunk_root.findall('.//METAR')
+                all_metar_elements.extend(chunk_metars)
+                logger.info(f'Chunk processed: {len(chunk_metars)} METARs found')
                 logger.info('Internet Available')
                 break
               except Exception as e:
@@ -637,38 +638,45 @@ while (outerloop):
              stationList = ''
              chunk = 0
 
+        # Process final chunk if there are remaining airports
+        if stationList:
+            stationList = stationList[:-1] #strip trailing comma from string
+            final_url = url + stationList
+            logger.debug(final_url) #debug
 
-        stationList = stationList[:-1] #strip trailing comma from string
+            while True: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
+                s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                s.connect(("8.8.8.8", 80))
+                ipadd = s.getsockname()[0] #get IP Address
+                logger.info('RPI IP Address = ' + ipadd) #log IP address when ever FAA weather update is retreived.
+                logger.info('API URL Final chunk: ' + final_url)
+                try:
+                    result = urllib.request.urlopen(final_url, timeout=30).read() # Added timeout feature - Eric B
+                    # Parse the complete XML response directly - no line manipulation needed
+                    final_root = ET.fromstring(result.decode('UTF-8'))
+                    # Extract METAR elements from final chunk and add to our collection
+                    final_metars = final_root.findall('.//METAR')
+                    all_metar_elements.extend(final_metars)
+                    logger.info(f'Final chunk processed: {len(final_metars)} METARs found')
+                    logger.info('Internet Available')
+                    logger.info(final_url)
+                    break
+                except:
+                    logger.warning('FAA Data is Not Available')
+                    logger.warning(final_url)
+                    time.sleep(delay_time)
+                    pass
 
-        url = url + stationList
-        logger.debug(url) #debug
-
-        while True: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
-            s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            s.connect(("8.8.8.8", 80))
-            ipadd = s.getsockname()[0] #get IP Address
-            logger.info('RPI IP Address = ' + ipadd) #log IP address when ever FAA weather update is retreived.
-            logger.info('API URL No chunk: ' + url)
-            try:
-                result = urllib.request.urlopen(url, timeout=30).read() # Added timeout feature - Eric B
-                logger.info('Internet Available')
-                logger.info(url)
-                r = result.decode('UTF-8').splitlines()
-                xmlStr = r[8:len(r)-1] ##! 2] FAA API UPDATE
-                content.extend(xmlStr)
-                c = ['<x>']
-                c.extend(content)
-                root = ET.fromstringlist(c + ['</x>'])
-                break
-            except:
-                logger.warning('FAA Data is Not Available')
-                logger.warning(url)
-                time.sleep(delay_time)
-                pass
-
-        c = ['<x>']
-        c.extend(content)
-        root = ET.fromstringlist(c + ['</x>'])
+        # Create a consolidated root element with all METARs
+        root = ET.Element('response')
+        data_elem = ET.SubElement(root, 'data')
+        data_elem.set('num_results', str(len(all_metar_elements)))
+        
+        # Add all collected METAR elements to the consolidated root
+        for metar_elem in all_metar_elements:
+            data_elem.append(metar_elem)
+            
+        logger.info(f'Total METARs collected from all chunks: {len(all_metar_elements)}')
 
 
     if turnoffrefresh == 0:
@@ -1060,17 +1068,39 @@ while (outerloop):
                 else:
                     wxstringdict[stationId] = wxstring #build weather dictionary
         logger.info("Decoded MOS Data for Display")
+        
+        # Debug: Show which airports from config have weather data vs which don't
+        airports_with_data = set(stationiddict.keys())
+        airports_from_file = set(airports)
+        airports_from_file.discard("NULL")  # Remove NULL entries
+        airports_from_file.discard("")      # Remove empty entries
+        
+        missing_data = airports_from_file - airports_with_data
+        extra_data = airports_with_data - airports_from_file
+        
+        logger.info(f"MOS - Airports in config file: {len(airports_from_file)}")
+        logger.info(f"MOS - Airports with weather data: {len(airports_with_data)}")
+        logger.info(f"MOS - Airports missing weather data ({len(missing_data)}): {sorted(list(missing_data))}")
+        if extra_data:
+            logger.info(f"MOS - Extra weather data not in config ({len(extra_data)}): {sorted(list(extra_data))}")
+            
+        # Show sample of airports that do have data
+        if airports_with_data:
+            sample_airports = list(airports_with_data)[:10]
+            logger.info(f"MOS - Sample airports with data: {sample_airports}")
 
 
     #TAF decode routine
     if metar_taf_mos == 0: #0 equals display TAF. This routine will decode the TAF, pick the appropriate time frame to display.
         logging.info("Starting TAF Data Display")
         #start of TAF decoding routine
-        for data in root.iter('data'):
-            num_results = data.attrib['num_results']        #get number of airports reporting TAFs to be used for diagnosis only
+        # Get number of results from data element (new API structure)
+        data_elem = root.find('data')
+        if data_elem is not None and 'num_results' in data_elem.attrib:
+            num_results = data_elem.attrib['num_results']
             logger.debug("\nNum of Airport TAFs = " + num_results) #debug
 
-        for taf in root.iter('TAF'):                            #iterate through each airport's TAF
+        for taf in root.findall('.//TAF'):                            #iterate through each airport's TAF
             stationId = taf.find('station_id').text #debug
             logger.debug(stationId) #debug
             logger.debug('Current+Offset Zulu - ' + current_zulu) #debug
@@ -1201,13 +1231,33 @@ while (outerloop):
             else:
                 wxstringdict[stationId] = wxstring #build weather dictionary
         logger.info("Decoded TAF Data for Display")
+        
+        # Debug: Show which airports from config have weather data vs which don't
+        airports_with_data = set(stationiddict.keys())
+        airports_from_file = set(airports)
+        airports_from_file.discard("NULL")  # Remove NULL entries
+        airports_from_file.discard("")      # Remove empty entries
+        
+        missing_data = airports_from_file - airports_with_data
+        extra_data = airports_with_data - airports_from_file
+        
+        logger.info(f"TAF - Airports in config file: {len(airports_from_file)}")
+        logger.info(f"TAF - Airports with weather data: {len(airports_with_data)}")
+        logger.info(f"TAF - Airports missing weather data ({len(missing_data)}): {sorted(list(missing_data))}")
+        if extra_data:
+            logger.info(f"TAF - Extra weather data not in config ({len(extra_data)}): {sorted(list(extra_data))}")
+            
+        # Show sample of airports that do have data
+        if airports_with_data:
+            sample_airports = list(airports_with_data)[:10]
+            logger.info(f"TAF - Sample airports with data: {sample_airports}")
 
 
     elif metar_taf_mos == 1:
         logger.info("Starting METAR Data Display")
         #start of METAR decode routine if 'metar_taf_mos' equals 1. Script will default to this routine without a rotary switch installed.
         #grab the airport category, wind speed and various weather from the results given from FAA.
-        for metar in root.iter('METAR'):
+        for metar in root.findall('.//METAR'):
             stationId = metar.find('station_id').text
 
 
@@ -1314,6 +1364,26 @@ while (outerloop):
             else:
                 wxstringdict[stationId] = wxstring #build weather dictionary
         logger.info("Decoded METAR Data for Display")
+        
+        # Debug: Show which airports from config have weather data vs which don't
+        airports_with_data = set(stationiddict.keys())
+        airports_from_file = set(airports)
+        airports_from_file.discard("NULL")  # Remove NULL entries
+        airports_from_file.discard("")      # Remove empty entries
+        
+        missing_data = airports_from_file - airports_with_data
+        extra_data = airports_with_data - airports_from_file
+        
+        logger.info(f"Airports in config file: {len(airports_from_file)}")
+        logger.info(f"Airports with weather data: {len(airports_with_data)}")
+        logger.info(f"Airports missing weather data ({len(missing_data)}): {sorted(list(missing_data))}")
+        if extra_data:
+            logger.info(f"Extra weather data not in config ({len(extra_data)}): {sorted(list(extra_data))}")
+            
+        # Show sample of airports that do have data
+        if airports_with_data:
+            sample_airports = list(airports_with_data)[:10]
+            logger.info(f"Sample airports with data: {sample_airports}")
 
     #Setup timed loop for updating FAA Weather that will run based on the value of 'update_interval' which is a user setting
     timeout_start = time.time() #Start the timer. When timer hits user-defined value, go back to outer loop to update FAA Weather.
@@ -1520,6 +1590,10 @@ while (outerloop):
 
 
                 logger.debug((airportcode + " " + flightcategory + " " + str(airportwinds) + " " + airportwx + " " + str(cycle_num) + " ")) #debug
+                
+                # Additional debug for airports with no data
+                if flightcategory == "NONE" and airportcode not in ["NULL", "LGND"]:
+                    logger.info(f"Airport {airportcode} has no flight category data - LED will show nowx color")
 
                 #Check to see if airport code is a NULL and set to black.
                 if airportcode == "NULL" or airportcode == "LGND":
