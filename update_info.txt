@@ -1,3 +1,17 @@
+Version 4.600
+9-6-2025
+Once again the FAA has changed their schema for the API. See https://aviationweather.gov/data/api/#changes 
+for information on the changes. These changes broke 2 programs, wipes-v4.py and metar-v4.py. A huge thanks 
+needs to go to Greg C for taking the bull by the horns and fixing these 2 files. Because of his quick efforts 
+this new image was posted in record time.
+The following file was updated;
+  metar-v4.py
+  wipes-v4.py
+  admin.py
+  update_version.text
+  templates/apedit.html
+Again, Thank you Greg C 
+
 Version 4.503
 4-26-2024
 Added timeout feature for internet call using urlib. Should eliminate hangups when internet is unavailable.

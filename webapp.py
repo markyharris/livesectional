@@ -1605,7 +1605,9 @@ def get_led_map_info():
         for airportcode in islice(airports, tmp_start, tmp_end):
             lmu_tmp = lmu_tmp + airportcode + ","
         lmu_tmp = lmu_tmp[:-1]
+        lmu_tmp = lmu_tmp.rstrip(',')
         logger.debug(lmu_tmp) # debug url if neccessary
+
 
         while True:  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
             try:
@@ -1678,7 +1680,7 @@ def get_apinfo():
         
         for airportcode in islice(airports, tmp_start, tmp_end):
             apurl = apurl + airportcode + ","
-    
+        apurl = apurl.rstrip(',') # strip trailing comma. API changed and won't accept a trailing comma 9-2025
         #apurl = apurl[:-1]
 #        print ("URL string: ", apurl)
         internet_tries = 10 # number of times to try to access the internet before quitting the script.

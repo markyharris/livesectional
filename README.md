@@ -5,8 +5,8 @@
 </head>
 <body>
      <p class="lead">
-	This code has been updated to 4.5xx which uses the new FAA API. A new image will be uploaded to www.livesectional.com that encorporates this change.
-	Visit https://www.livesectional.com/community/postid/1377/ for information on fixing the outage caused by FAA on 10/18/2023. Code here will be updated.<p>
+	This code has been updated to 4.6xx which uses the new FAA API as of Sept 2025. A new image will be uploaded to www.livesectional.com that encorporates this change.
+	See https://aviationweather.gov/data/api/#changes for information on the changes. 
         Version v4 of LiveSectional adds many new features for builders to take advantage of. Visit <a class="text-danger" href="http://livesectional.com" target="_blank">livesectional.com</a> for build and software installation instructions.
         <ul>
           <li>Updated to run under <a class="text-danger" href="https://docs.python.org/3/howto/pyporting.html" target="_blank">Python 3.7</a>

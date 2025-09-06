@@ -85,7 +85,8 @@
         <th style="text-align:center">Pin #
         <th style="text-align:center">Airport ID
         <th style="text-align:center">Description
-        <th style="text-align:center">Flight Category and Raw METAR
+        <th style="text-align:center">
+        <!--<th style="text-align:center">Flight Category and Raw METAR-->
     </tr>
 
 {% for ap in airports %}
@@ -118,11 +119,11 @@
              
         </td>
         <td width="60%" style="text-align:left">
-             <!--Grab Flight Category and raw METAR from api.weather.gov and display badge-->
+             <!--Grab Flight Category and raw METAR from api.weather.gov and display badge
              <span id="fcloc{{ loop.index-1 }}">
              </span> 
              <script>get_badge('{{ ap }}','fcloc{{ loop.index-1 }}');</script>
-        </td>
+        </td>-->
 
 
              <!--METAR Widget from https://widget.checkwx.com/. Thank you Henry-->

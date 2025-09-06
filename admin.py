@@ -12,9 +12,9 @@
 #      For regions outside of the US, set this to 0 so it won't try to download data that's not usable for the region.
 #    Multiple Home Airports (mult_homes)
 #      Create a list of airport LED pin numbers, i.e. mult_homes=['170','172','173','176'] to highlight more than 1 home airport
-#      Leave blank if only one airport is to be used as a home airport and fill this in the web interface. i.e. mult_homes=[]
+#      Leave blank if only one airport is to be used as a home airport and fill this in the web interface. i.e. mult_homes=[] 
 
-version='v4.503'
+version='v4.600'
 map_name='LiveSectional'
 min_update_ver='4.350'
 use_mos=1
