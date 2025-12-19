@@ -38,7 +38,7 @@
 #Hardware features are further explained on this site as well. However, this software allows for a power-on/update weather switch,
 #and Power-off/Reboot switch. The use of a display is handled by metar-display.py and not this script.
 
-#Flight Category Definitions. (https://www.aviationweather.gov/taf/help?page=plot)
+#Flight Category Definitions. (https://aviationweather-cprk.ncep.noaa.gov/taf/help?page=plot)
 #+--------------------------------------+---------------+-------------------------------+-------+----------------------------+
 #|Category                              |Color          |Ceiling                        |       |Visibility                  |
 #|--------------------------------------+---------------+-------------------------------+-------+----------------------------+
@@ -261,7 +261,7 @@ cycle6_wait = .22 #Used only for the wind blink feature
 
 #List of METAR weather categories to designate weather in area. Many Metars will report multiple conditions, i.e. '-RA BR'.
 #The code pulls the first/main weather reported to compare against the lists below. In this example it uses the '-RA' and ignores the 'BR'.
-#See https://www.aviationweather.gov/metar/symbol for descriptions. Add or subtract codes as desired.
+#See https://aviationweather-cprk.ncep.noaa.gov/metar/symbol for descriptions. Add or subtract codes as desired.
 #Thunderstorm and lightning
 wx_lghtn_ck = ["TS", "TSRA", "TSGR", "+TSRA", "TSRG", "FC", "SQ", "VCTS", "VCTSRA", "VCTSDZ", "LTG"]
 #Snow in various forms
@@ -514,12 +514,13 @@ while (outerloop):
     #depending on what data is to be displayed, either use an URL for METARs and TAFs or read file from drive (pass).
     if metar_taf_mos == 1: #Check to see if the script should display TAF data (0), METAR data (1) or MOS data (2)
         #Define URL to get weather METARS. If no METAR reported withing the last 2.5 hours, Airport LED will be white (nowx).
-        url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
+        url = "https://aviationweather.gov/api/data/metar?requestType=retrieve&dataSource=metars&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&ids="
+
         logger.info("METAR Data Loading")
 
     elif metar_taf_mos == 0:
         #Define URL to get weather URL for TAF. If no TAF reported for an airport, the Airport LED will be white (nowx).
-        url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=tafs&requestType=retrieve&format=xml&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&stationString="
+        url = "https://aviationweather.gov/api/data/metar?&format=xml&dataSource=tafs&requestType=retrieve&mostRecentForEachStation=constraint&hoursBeforeNow="+str(metar_age)+"&ids="
         logger.info("TAF Data Loading")
 
     elif metar_taf_mos == 2: #MOS data is not accessible in the same way as METARs and TAF's. A large file is downloaded by crontab everyday that gets read.
@@ -540,22 +541,26 @@ while (outerloop):
         logger.debug(url) #debug
 
         while True: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
+            logger.info('Checking for Internet connection')
             s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            s.settimeout(1)
             s.connect(("8.8.8.8", 80))
             ipadd = s.getsockname()[0] #get IP Address
+            s.close()
             logger.info('RPI IP Address = ' + ipadd) #log IP address when ever FAA weather update is retreived.
-
             try:
-                content = urllib.request.urlopen(url, timeout=30 ).read()
                 logger.info('Internet Available')
+                content = urllib.request.urlopen(url, timeout=30).read()
+                logger.info('Attempting connection to get weather')
                 logger.info(url)
                 break
             except:
-                logger.warning('FAA Data is Not Available')
+                logger.warning('FAA Data is Not Available or Internet is down')
                 logger.warning(url)
                 time.sleep(delay_time)
                 pass
 
+        logger.info('Process data')
         root = ET.fromstring(content) #Process XML data returned from FAA
 
     if turnoffrefresh == 0:
@@ -1083,6 +1088,8 @@ while (outerloop):
                 if metar.find('flight_category').text:
                     logger.debug(stationId + ': FAA is reporting '+metar.find('flight_category').text + ' through their API')
                     flightcategory = metar.find('flight_category').text  #pull flight category if it exists and save all the algoritm above
+                #else:
+                #    flightcategory = "None"
             ### End of METAR Decode added routine to create flight category via cloud cover and/or visability when flight category is not reported.
 
 

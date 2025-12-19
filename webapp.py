@@ -102,12 +102,14 @@ update_vers = "4.000"                           # initiate variable
 
 # Used to capture staton information for airport id decode for tooltip display in web pages.
 apinfo_dict = {}
-orig_apurl = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=stations&requestType=retrieve&format=xml&stationString="
+orig_apurl = "https://aviationweather.gov/api/data/metar?&format=xml&dataSource=stations&requestType=retrieve&ids="
+# https://aviationweather.gov/api/data/metar?&format=xml&
 logger.debug(orig_apurl)
 
 #Used to display weather and airport locations on a map
 led_map_dict = {}
-led_map_url = "https://www.aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString="
+led_map_url = "https://aviationweather.gov/api/data/metar?&format=xml&dataSource=metars&requestType=retrieve&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&ids="
+
 logger.debug(led_map_url)
 
 # LED strip configuration:
@@ -1547,7 +1549,7 @@ def get_led_map_info():
 
     while True:  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
         try:
-            content = urllib.request.urlopen(led_map_url).read()
+            content = urllib.request.urlopen(led_map_url, timeout=30).read()
             logger.info('Internet Available')
             logger.info(led_map_url)
             break
@@ -1679,6 +1681,8 @@ def checkforupdate():
 #    get_loc()
 #    print(loc)  # debug
 
+    #This check was failing preveing update so disabled it
+    return False
     dlftpfile(source_path + verfilename, target_path + verfilename)  # download version file from neoupdate
 
     with open(target_path + verfilename) as file:  # Read version number of latest version
@@ -1734,7 +1738,7 @@ def get_loc():
 if __name__ == '__main__':
     # Display active IP address for builder to open up web browser to configure.
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
+    s.settimeout(1)
     while True:  # check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
         try:
             s.connect(("8.8.8.8", 80))
