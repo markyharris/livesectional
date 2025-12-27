@@ -600,7 +600,8 @@ while (outerloop):
         all_metar_elements = []
         chunk = 0
         stationList = ''
-        
+        max_retries = 10  # Maximum number of retries for each chunk
+
         for airportcode in airports:
           if airportcode == "NULL" or airportcode == "LGND":
              continue
@@ -610,7 +611,11 @@ while (outerloop):
           if(chunk >= 50):
              stationList = stationList[:-1] #strip trailing comma from string
 
-             while True: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
+             retry_count = 0
+             empty_response_count = 0
+             max_empty_retries = 2  # Only retry empty responses twice
+
+             while retry_count < max_retries: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
               s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
               s.connect(("8.8.8.8", 80))
               ipadd = s.getsockname()[0] #get IP Address
@@ -627,13 +632,43 @@ while (outerloop):
                 logger.info(f'Chunk processed: {len(chunk_metars)} METARs found')
                 logger.info('Internet Available')
                 break
+              except urllib.error.HTTPError as e:
+                if e.code == 204:
+                    # 204 No Content is actually success - just means no weather data for these airports
+                    logger.info(f'Chunk returned 204 No Content (no weather data available for these airports)')
+                    break
+                else:
+                    retry_count += 1
+                    logger.warning(f'FAA Data HTTP Error {e.code} - Retry {retry_count}/{max_retries}')
+                    logger.warning(url + stationList)
+                    if retry_count < max_retries:
+                        time.sleep(delay_time)
+              except ET.ParseError as e:
+                # Empty or malformed XML response - likely means airports have no data
+                empty_response_count += 1
+                if 'no element found' in str(e):
+                    logger.info(f'FAA returned empty response for chunk (airports likely have no current data) - Attempt {empty_response_count}/{max_empty_retries}')
+                    if empty_response_count >= max_empty_retries:
+                        logger.info('No data available for these airports after retries, moving on...')
+                        break
+                    time.sleep(delay_time)
+                else:
+                    retry_count += 1
+                    logger.warning(f'FAA Data Parse Error: {str(e)} - Retry {retry_count}/{max_retries}')
+                    logger.warning(url + stationList)
+                    if retry_count < max_retries:
+                        time.sleep(delay_time)
               except Exception as e:
-                print(str(e))
-                logger.warning('FAA Data is Not Available')
+                retry_count += 1
+                logger.warning(f'FAA Data Not Available: {str(e)} - Retry {retry_count}/{max_retries}')
                 logger.warning(url + stationList)
-                logger.warning(result)
-                time.sleep(delay_time)
-                pass
+                if retry_count < max_retries:
+                    time.sleep(delay_time)
+
+             if retry_count >= max_retries:
+                 logger.error(f'Failed to retrieve chunk after {max_retries} attempts. Continuing with available data...')
+             elif empty_response_count >= max_empty_retries and empty_response_count > 0:
+                 logger.info(f'Chunk airports have no available data after {empty_response_count} attempts.')
 
              stationList = ''
              chunk = 0
@@ -644,7 +679,11 @@ while (outerloop):
             final_url = url + stationList
             logger.debug(final_url) #debug
 
-            while True: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
+            retry_count = 0
+            empty_response_count = 0
+            max_empty_retries = 2  # Only retry empty responses twice
+
+            while retry_count < max_retries: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
                 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
                 s.connect(("8.8.8.8", 80))
                 ipadd = s.getsockname()[0] #get IP Address
@@ -661,11 +700,43 @@ while (outerloop):
                     logger.info('Internet Available')
                     logger.info(final_url)
                     break
-                except:
-                    logger.warning('FAA Data is Not Available')
+                except urllib.error.HTTPError as e:
+                    if e.code == 204:
+                        # 204 No Content is actually success - just means no weather data for these airports
+                        logger.info(f'Final chunk returned 204 No Content (no weather data available for these airports)')
+                        break
+                    else:
+                        retry_count += 1
+                        logger.warning(f'FAA Data HTTP Error {e.code} - Retry {retry_count}/{max_retries}')
+                        logger.warning(final_url)
+                        if retry_count < max_retries:
+                            time.sleep(delay_time)
+                except ET.ParseError as e:
+                    # Empty or malformed XML response - likely means airport has no data
+                    empty_response_count += 1
+                    if 'no element found' in str(e):
+                        logger.info(f'FAA returned empty response for final chunk (airport likely has no current data) - Attempt {empty_response_count}/{max_empty_retries}')
+                        if empty_response_count >= max_empty_retries:
+                            logger.info('No data available for these airports after retries, moving on...')
+                            break
+                        time.sleep(delay_time)
+                    else:
+                        retry_count += 1
+                        logger.warning(f'FAA Data Parse Error: {str(e)} - Retry {retry_count}/{max_retries}')
+                        logger.warning(final_url)
+                        if retry_count < max_retries:
+                            time.sleep(delay_time)
+                except Exception as e:
+                    retry_count += 1
+                    logger.warning(f'FAA Data Not Available: {str(e)} - Retry {retry_count}/{max_retries}')
                     logger.warning(final_url)
-                    time.sleep(delay_time)
-                    pass
+                    if retry_count < max_retries:
+                        time.sleep(delay_time)
+
+            if retry_count >= max_retries:
+                logger.error(f'Failed to retrieve final chunk after {max_retries} attempts. Continuing with available data...')
+            elif empty_response_count >= max_empty_retries and empty_response_count > 0:
+                logger.info(f'Final chunk airports have no available data after {empty_response_count} attempts.')
 
         # Create a consolidated root element with all METARs
         root = ET.Element('response')
