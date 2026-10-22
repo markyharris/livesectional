@@ -638,7 +638,7 @@ while True:
 
         while True:                             #check internet availability and retry if necessary. Power outage, map may boot quicker than router.
             try:
-                content = urllib.request.urlopen(url)
+                content = urllib.request.urlopen(url, timeout=30) #timeout so a stalled connection raises and retries instead of hanging
                 logger.info('Internet Available')
                 logger.info(url)
                 break
