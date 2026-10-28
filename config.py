@@ -5,6 +5,7 @@ LED_COUNT = 183
 legend = 1
 max_wind_speed = 15
 update_interval = 15
+# metar_age must be an integer number of hours
 metar_age = 3
 data_sw0 = 1
 time_sw0 = 1
