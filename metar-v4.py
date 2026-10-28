@@ -260,17 +260,17 @@ cycle5_wait = .5
 #The code pulls the first/main weather reported to compare against the lists below. In this example it uses the '-RA' and ignores the 'BR'.
 #See https://aviationweather-cprk.ncep.noaa.gov/metar/symbol for descriptions. Add or subtract codes as desired.
 #Thunderstorm and lightning
-wx_lghtn_ck = ["TS", "TSRA", "TSGR", "+TSRA", "TSRG", "FC", "SQ", "VCTS", "VCTSRA", "VCTSDZ", "LTG"]
+wx_lghtn_ck = {"TS", "TSRA", "TSGR", "+TSRA", "TSRG", "FC", "SQ", "VCTS", "VCTSRA", "VCTSDZ", "LTG"}
 #Snow in various forms
-wx_snow_ck = ["BLSN", "DRSN", "-RASN", "RASN", "+RASN", "-SN", "SN", "+SN", "SG", "IC", "PE", "PL", "-SHRASN", "SHRASN", "+SHRASN", "-SHSN", "SHSN", "+SHSN"]
+wx_snow_ck = {"BLSN", "DRSN", "-RASN", "RASN", "+RASN", "-SN", "SN", "+SN", "SG", "IC", "PE", "PL", "-SHRASN", "SHRASN", "+SHRASN", "-SHSN", "SHSN", "+SHSN"}
 #Rain in various forms
-wx_rain_ck = ["-DZ", "DZ", "+DZ", "-DZRA", "DZRA", "-RA", "RA", "+RA", "-SHRA", "SHRA", "+SHRA", "VIRGA", "VCSH"]
+wx_rain_ck = {"-DZ", "DZ", "+DZ", "-DZRA", "DZRA", "-RA", "RA", "+RA", "-SHRA", "SHRA", "+SHRA", "VIRGA", "VCSH"}
 #Freezing Rain
-wx_frrain_ck = ["-FZDZ", "FZDZ", "+FZDZ", "-FZRA", "FZRA", "+FZRA"]
+wx_frrain_ck = {"-FZDZ", "FZDZ", "+FZDZ", "-FZRA", "FZRA", "+FZRA"}
 #Dust Sand and/or Ash
-wx_dustsandash_ck = ["DU", "SA", "HZ", "FU", "VA", "BLDU", "BLSA", "PO", "VCSS", "SS", "+SS",]
+wx_dustsandash_ck = {"DU", "SA", "HZ", "FU", "VA", "BLDU", "BLSA", "PO", "VCSS", "SS", "+SS",}
 #Fog
-wx_fog_ck = ["BR", "MIFG", "VCFG", "BCFG", "PRFG", "FG", "FZFG"]
+wx_fog_ck = {"BR", "MIFG", "VCFG", "BCFG", "PRFG", "FG", "FZFG"}
 
 #list definitions
 cycle_wait = [cycle0_wait, cycle1_wait, cycle2_wait, cycle3_wait, cycle4_wait, cycle5_wait] #Used to create weather designation effects.
@@ -629,13 +629,14 @@ while (outerloop):
              stationList = stationList[:-1] #strip trailing comma from string
 
              while True: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
-              s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-              s.connect(("8.8.8.8", 80))
-              ipadd = s.getsockname()[0] #get IP Address
-              logger.info('RPI IP Address = ' + ipadd) #log IP address when ever FAA weather update is retreived.
-              logger.info('API URL Chunk: ' + url + stationList)
               result = ''
               try:
+                s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                s.connect(("8.8.8.8", 80))
+                ipadd = s.getsockname()[0] #get IP Address
+                s.close()
+                logger.info('RPI IP Address = ' + ipadd) #log IP address when ever FAA weather update is retreived.
+                logger.info('API URL Chunk: ' + url + stationList)
                 result = urllib.request.urlopen(url + stationList, timeout=30).read() # Added timeout feature - Eric B
                 # Parse the complete XML response directly - no line manipulation needed
                 chunk_root = ET.fromstring(result.decode('UTF-8'))
@@ -663,12 +664,13 @@ while (outerloop):
             logger.debug(final_url) #debug
 
             while True: #check internet availability and retry if necessary. If house power outage, map may boot quicker than router.
-                s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-                s.connect(("8.8.8.8", 80))
-                ipadd = s.getsockname()[0] #get IP Address
-                logger.info('RPI IP Address = ' + ipadd) #log IP address when ever FAA weather update is retreived.
-                logger.info('API URL Final chunk: ' + final_url)
                 try:
+                    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                    s.connect(("8.8.8.8", 80))
+                    ipadd = s.getsockname()[0] #get IP Address
+                    s.close()
+                    logger.info('RPI IP Address = ' + ipadd) #log IP address when ever FAA weather update is retreived.
+                    logger.info('API URL Final chunk: ' + final_url)
                     result = urllib.request.urlopen(final_url, timeout=30).read() # Added timeout feature - Eric B
                     # Parse the complete XML response directly - no line manipulation needed
                     final_root = ET.fromstring(result.decode('UTF-8'))
@@ -871,6 +873,8 @@ while (outerloop):
                 metar_taf_mos = data_sw0                    #1 = Display METAR.
                 logger.info('Rotary Switch Not Installed. Using Switch Position 0 as Default')
 #                break
+
+            time.sleep(0.1) #throttle the heat map loop so it does not spin at 100% CPU when fading is off
 
         #The Heat Map routine stays within this limit and won't proceed beyond this point.
 
@@ -1596,18 +1600,18 @@ while (outerloop):
                 airportwx_long = wxstringdict.get(airportcode,"NONE") #Pull the weather reported for the airport from dictionary.
                 airportwx = airportwx_long.split(" ",1)[0] #Grab only the first parameter of the weather reported.
 
-                #debug print out
+                #debug print out (lazy %-style args so the strings are only built when DEBUG is enabled)
                 if metar_taf_mos == 0:
-                    logger.debug("TAF Time +" + str(hour_to_display) + " Hour")
+                    logger.debug("TAF Time +%s Hour", hour_to_display)
                 elif metar_taf_mos==1:
                     logger.debug("METAR")
                 elif metar_taf_mos == 2:
-                    logger.debug("MOS Time +" + str(hour_to_display) + " Hour")
+                    logger.debug("MOS Time +%s Hour", hour_to_display)
                 elif metar_taf_mos == 3:
                     logger.debug("Heat Map + ")
 
 
-                logger.debug((airportcode + " " + flightcategory + " " + str(airportwinds) + " " + airportwx + " " + str(cycle_num) + " ")) #debug
+                logger.debug("%s %s %s %s %s ", airportcode, flightcategory, airportwinds, airportwx, cycle_num) #debug
                 
                 # Additional debug for airports with no data
                 if flightcategory == "NONE" and airportcode not in ["NULL", "LGND"]:
