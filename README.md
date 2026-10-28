@@ -5,6 +5,8 @@
 </head>
 <body>
      <p class="lead">
+	Updated 10-27-2026 to fix the FAA API change made. metar_age = 2.5 was changed to metar_age = 3. The API changed
+	to error out if the value is a float, and must now be and integer. Thank you again FAA.
 	This code has been updated to 4.6xx which uses the new FAA API as of Sept 2025. A new image will be uploaded to www.livesectional.com that encorporates this change.
 	See https://aviationweather.gov/data/api/#changes for information on the changes. 
         Version v4 of LiveSectional adds many new features for builders to take advantage of. Visit <a class="text-danger" href="http://livesectional.com" target="_blank">livesectional.com</a> for build and software installation instructions.
