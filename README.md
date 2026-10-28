@@ -46,7 +46,7 @@
     <p class="lead">
         Browser Compatibility: The following browsers have been tested and found to work (4-2020).        
         <ul>
-          <li>Windows 10
+          <li>Windows 10 and 11
           <ul>
             <li>Chrome: Recommended, as most development was done using Chrome.
             <li>Microsoft Edge: All functions work.
