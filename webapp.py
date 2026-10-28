@@ -123,7 +123,7 @@ logger.debug(orig_apurl)
 led_map_dict = {}
 #led_map_url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=json&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString="
 #led_map_url = "https://aviationweather-cprk.ncep.noaa.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&hoursBeforeNow=2.5&mostRecentForEachStation=constraint&stationString="
-led_map_url = "https://aviationweather.gov/api/data/metar?format=xml&hours=2.5&ids="
+led_map_url = "https://aviationweather.gov/api/data/metar?format=xml&hours=3&ids="
 logger.debug(led_map_url)
 
 # LED strip configuration:
